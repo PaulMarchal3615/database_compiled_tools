@@ -1,0 +1,108 @@
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="../styles/mystyle.css" />
+    <link rel="stylesheet" href="../styles/tabs.css" />
+    <link rel="stylesheet" href="../styles/table.css" />
+    <link rel="stylesheet" href="../styles/gridHistorical.css" />
+    <link rel="stylesheet" href="../styles/buttons.css" />
+
+    <script type="text/javascript" language="javascript" src="../ressources/TableFilter-master/dist/tablefilter/tablefilter.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dexie/3.1.0-beta.13/dexie.min.js" integrity="sha512-9NsvuIByoAxs+5psOm+netmorSh5xE402tKdeneVAucyksBEy3cqpbVcsl7ldcObXZqhpulVaHhaDLHZFm9mVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/country-region-selector/0.5.1/crs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js"></script>
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <script>
+    function openTab(evt, cityName) {
+      var i, x, tablinks;
+      x = document.getElementsByClassName("city");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablink");
+      for (i = 0; i < x.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" w3-red", ""); 
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " w3-red";
+    }
+    </script>
+    
+
+</head>
+
+<body>
+  
+  <img src="http://lue.univ-lorraine.fr/sites/default/files/users/user2448/logo_Georessources.png" class="img-fluid">
+  
+  <div class="wrapper">
+
+    <div class="tabs">
+      <div class="tab">
+
+        <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+        <label for="tab-1" class="tab-label">HISTORICAL DATASETS INTEGRATION</label>
+
+        <div class="tab-content"> 
+
+          <div id="divTestArea1"></div>
+          <script type="text/javascript">
+          $(function()
+          {
+            $("#divTestArea1").load("Historical.html");
+          });
+          </script>
+
+        </div>
+
+      </div>
+      <div class="tab">
+        <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
+        <label for="tab-2" class="tab-label">New dataset creation</label>
+        <div class="tab-content"> 
+
+          <div id="divTestArea2"></div>
+          <script type="text/javascript">
+          $(function()
+          {
+            $("#divTestArea2").load("HardBase.html");
+          });
+          </script>
+      </div>
+      </div>
+          <div class="tab">
+        <input type="radio" name="css-tabs" id="tab-3" class="tab-switch">
+        <label for="tab-3" class="tab-label">JODEL</label>
+        <div class="tab-content"> 
+
+          <div id="divTestArea3"></div>
+          <script type="text/javascript">
+          $(function()
+          {
+            $("#divTestArea3").load("Jodel.html");
+          });
+          </script>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+
+  <script type ='module' src='./main.js'></script>    
+
+</body>
+
+</html>
+

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+
+<head>
+  <title>JODEL - Sampling Exploration</title>
+
+  <link rel="stylesheet" href="../styles/gridJODEL.css" />
+
+  <!-- Load d3.js and c3.js -->
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <!-- Load papaparse.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dexie/3.1.0-beta.13/dexie.min.js" integrity="sha512-9NsvuIByoAxs+5psOm+netmorSh5xE402tKdeneVAucyksBEy3cqpbVcsl7ldcObXZqhpulVaHhaDLHZFm9mVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!--function for opening tabs on click-->
+  <script type="text/javascript">
+      function openView(evt, viewName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(viewName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <!-- css display is based on a grid and principal components are numbered -->
+  <div class="wrapperJODEL">
+
+      <div class="two">
+
+        <input type="file" id="fileInput" multiple="multiple">
+        <input type="file" id="fileInput2" multiple="multiple">
+
+        <button type="button" class="btn" id="addPointset"> Add Pointset</button>
+        <button type="button" class="btn" id="addSurface"> Add Surface</button>
+
+        <br><br>   
+
+        <!-- table for displaying loaded files and characteristics-->
+        <table id="file_table">
+
+          <caption></caption>
+          <thead>
+            <tr>
+              <th scope="col">File</th>
+              <th scope="col">Color</th>
+              <th scope="col">Display</th>
+              <th scope="col">Lines</th>
+              <th scope="col">Delete</th>
+              <th scope="col">Type</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+          <tfoot>
+          </tfoot>
+
+        </table>
+
+        <br>
+
+        <!--filters to select only points following values on a selected property
+        subfilter1 is filled when filter1 is modified-->
+        <select name=filter1 id="filter1" multiple >
+          <option value="-1">-- display all data --</option>
+        </select>
+
+        <select name=subfilter1[] id="subfilter1" multiple >
+          <option value="-1">-- display all data --</option>
+        </select>
+
+        <br>
+
+        <p> Enter following fields in order to use Map Display : </p>
+
+        <!-- three selectors to get column data on well/samples to allow drillhole view on map-->
+        <div class="preference">
+          <label for="objects">Choose object column</label>
+          <select name="objects" id="objects">
+            <option value="-1">--choose object column--</option>
+          </select>
+        </div>
+
+        <br>
+
+        <div class="preference">
+          <label for="ddh">Choose drillhole column</label>
+          <select name="ddh" id="ddh">
+            <option value="-1">--choose drillhole column--</option>
+          </select>
+
+          <br>
+
+          <div class="preference">
+            <label for="depth">Choose altitude column</label>
+            <select name="depth" id="depth">
+              <option value="-1">--choose depth column--</option>
+            </select>
+
+        </div>
+
+
+      </div>
+
+      </div>
+
+      <!-- main display zone-->
+      <div class="three">
+
+      <!-- Tab links -->
+
+      <div class="tabs">
+        <button class="tablinks" onclick="openView(event, 'Jodel-tab-1')">3D Viexw</button>
+        <button class="tablinks" onclick="openView(event, 'Jodel-tab-2')">map & Drillhole view</button>
+        <button class="tablinks" onclick="openView(event, 'Jodel-tab-3')">Density</button>
+      </div>
+
+      <!-- Tab content -->
+      <div id="Jodel-tab-1" class="tabcontent">
+        <select name="X_value" id="X_select">
+          <option value="-1">--choose a X variable--</option>
+        </select>
+  
+        <select name="Y_value" id="Y_select">
+          <option value="-1">--choose a Y variable--</option>
+        </select>
+  
+        <select name="Z_value" id="Z_select">
+          <option value="-1">--choose a Z variable--</option>
+        </select>
+
+              <div id="chart1"></div>
+      </div>
+
+      <div id="Jodel-tab-2" class="tabcontent">
+        <select name="Lat_value" id="Lat_select">
+          <option value="-1">--choose a Lat variable--</option>
+        </select>
+        <select name="Lon_value" id="Lon_select">
+          <option value="-1">--choose a Lon variable--</option>
+        </select>
+        <select name="Name_value" id="Name_select">
+          <option value="-1">--choose a Name variable--</option>
+        </select>
+
+        <p id="sample_nb"> __ </p>
+
+        <div class=column>
+
+          <div id="subchart31"></div>
+          <div id="subchart32"></div>
+      </div>
+
+
+
+            <div class="tab">
+
+                
+          
+              </div>
+      </div>
+
+      <!-- Tab content -->
+      <div id="Jodel-tab-3" class="tabcontent">
+        <div id="chart2"></div>
+      </div>
+
+      </div>
+
+    <!-- main js script -->
+      <script type ='module' src='../scripts/JodelMain.js'></script>
+
+</div>
+
+</body>
+
+
+</html>
