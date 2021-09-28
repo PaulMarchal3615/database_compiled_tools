@@ -1,11 +1,11 @@
 <html>
 
 <head>
+  <title>Main Page</title>
 
-    <link rel="stylesheet" href="../styles/mystyle.css" />
+    <link rel="stylesheet" href="../styles/mainStyle.css" />
     <link rel="stylesheet" href="../styles/tabs.css" />
     <link rel="stylesheet" href="../styles/table.css" />
-    <link rel="stylesheet" href="../styles/gridHistorical.css" />
     <link rel="stylesheet" href="../styles/buttons.css" />
 
     <script type="text/javascript" language="javascript" src="../ressources/TableFilter-master/dist/tablefilter/tablefilter.js"></script> 
@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js"></script>
     <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <meta charset="UTF-8">
@@ -43,12 +44,16 @@
 
 <body>
   
-  <img src="http://lue.univ-lorraine.fr/sites/default/files/users/user2448/logo_Georessources.png" class="img-fluid">
-  
   <div class="wrapper">
 
     <div class="tabs">
-      <div class="tab">
+      <img style="float: left; margin: 0px 0px 0px 0px;"src="./logo_soft.svg"
+            height=70px width=auto alt="logo"/>
+
+      <img style="float: right; margin: 0px 0px 0px 0px;"src="http://lue.univ-lorraine.fr/sites/default/files/users/user2448/logo_Georessources.png"
+      height=70x width=auto alt="logo"/>
+
+      <div class="tab" style="background-color:rgb(194,244,173);">
 
         <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
         <label for="tab-1" class="tab-label">HISTORICAL DATASETS INTEGRATION</label>
@@ -66,9 +71,9 @@
         </div>
 
       </div>
-      <div class="tab">
+      <div class="tab" style="background-color:rgb(179,227,228);">
         <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
-        <label for="tab-2" class="tab-label">New dataset creation</label>
+        <label for="tab-2" class="tab-label">NEW DATASET FILE CREATION</label>
         <div class="tab-content"> 
 
           <div id="divTestArea2"></div>
@@ -80,8 +85,8 @@
           </script>
       </div>
       </div>
-          <div class="tab">
-        <input type="radio" name="css-tabs" id="tab-3" class="tab-switch">
+          <div class="tab" style="background-color:rgb(255,202,202);">
+        <input type="radio" name="css-tabs" id="tab-3" class="tab-switch" >
         <label for="tab-3" class="tab-label">JODEL</label>
         <div class="tab-content"> 
 

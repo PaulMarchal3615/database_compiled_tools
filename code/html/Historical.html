@@ -1,41 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <svg width="0" height="0"> 
-        <filter id="filter">
-            <feTurbulence type="fractalNoise" baseFrequency=".01" numOctaves="6" />
-            <feDisplacementMap in="SourceGraphic" scale="100" />
-        </filter>
-    </svg>
-    
-    
-    <div class="wrapper">
-        <div class="button _1">
-            <span>hover</span><div class="back"></div>
-        </div>
-        <div class="button _2">
-            <span>hover</span><div class="back"></div>
-        </div>
-        <div class="button _3">
-            <span>hover</span><div class="back"></div>
-        </div>
-        <div class="button _4">
-            <span>hover</span><div class="back"></div>
-        </div>
-    </div>
-    
-    
-    <div class="support">
-        <a href="https://twitter.com/DevLoop01" target="_blank"><i class="fab fa-twitter-square"></i></a>
-        <a href="https://codepen.io/dev_loop/" target="_blank"><i class="fab fa-codepen"></i></a>
-    </div>
+
+    <title>Historical Data INTEGRATION</title>
+
+    <head>
+        <link rel="stylesheet" href="../styles/gridHistorical.css" />
+    </head>
     
 
+<div class="wrapper2">
 
-
-    <div class="wrapper2">
-
-    <div class="button _1" id="chooseFolder"> Select Folder</button>
+    <button type="button" class="btn-2" id="chooseFolder">Select Folder</button>
 
     <input type="file" id="folderInput" webkitdirectory directory multiple/>
 
@@ -43,11 +19,9 @@
       <div id="myBar"></div>
     </div>
 
-    <button type="button" class="button _2" id="launchTest1"> Launch Test 1
-        <span>hover</span><div class="back"></div>
-    </button>
+    <button type="button" class="btn-1" id="launchTest1">Launch Test 1</button>
 
-    <button type="button" class="button _3" id="launchTest2"> Launch Test 2</button>
+    <button type="button" class="btn-1" id="launchTest2">Launch Test 2</button>
 
     <input type="text" id="SampleName" name="name" required minlength="4" maxlength="15" size="10">
 

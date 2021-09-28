@@ -1,14 +1,14 @@
 .wrapper {
     max-width: auto;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 0;
   }
 
   .tabs {
     position: relative;
-    margin: 3rem 0;
-    background: #F1F1F1;
-    height: fit-content;
+    margin: 0 0;
+    background: linear-gradient(to right, #F1F1F1,80%, rgb(179,227,228));
+    height: max-content;
     width:fit-content;
   }
   .tabs::before,
@@ -21,6 +21,8 @@
   }
   .tab {
     float: left;
+    height: max-content;
+    text-align: center;
   }
   .tab-switch {
     display: none;
@@ -28,8 +30,8 @@
   .tab-label {
     position: relative;
     display: block;
-    line-height: 2.75em;
-    height: 3em;
+    line-height: 5em;
+    height: 70px;
     padding: 0 1.618em;
     background: #F1F1F1;
     border-right: 0.125rem solid #ffffff;
@@ -37,6 +39,7 @@
     cursor: pointer;
     top: 0;
     transition: all 0.25s;
+    font-size: 1.0em;
   }
   .tab-label:hover {
     top: -0.25rem;
@@ -46,15 +49,16 @@
   .tab-content {
     height: max-content;
     position: absolute;
-    z-index: 1;
-    top: 2.75em;
-    left: 0;
+    z-index: 2;
+    top: 0.5em;
+    left: 0.5em;
     padding: 1.618rem;
-    background: #fff;
+    background: #F1F1F1;
     color: #000000;
     border-bottom: 0.25rem solid #bdc3c7;
     opacity: 0;
     transition: all 0.35s;
+    margin-top: 65px;
   }
   .tab-switch:checked + .tab-label {
     background: #616161;

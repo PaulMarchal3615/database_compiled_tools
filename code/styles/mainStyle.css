@@ -1,0 +1,38 @@
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+
+body{
+  width: auto;
+	height:auto;
+	background: rgb(179,227,228);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: sans-serif;
+}
+
+#folderInput {
+  display: none;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: #F1F1F1;
+}
+
+#myBar {
+  width: 1%;
+  height: 30px;
+  background-color:#85E7E6;
+}
+
+.img-fluid{
+  width: 15%;
+  justify-content: right;
+  justify-self: right;
+}
