@@ -2,35 +2,171 @@
 
   <title>New File Edition</title>
 
-    <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
-        <h5 class="w3-bar-item">Menu</h5>
-        <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
-        <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'SamplesMetadata')">Samples Metadata</button>
-        <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Tokyo')">Tokyo</button>
+  <head>
+
+    <script type="text/javascript">
+      function openTab(evt, viewName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(viewName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+  </script>
+
+  </head>
+
+  <body>
+
+      <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
+        <button class="tablinks" onclick="openTab(event, 'SamplesMetadata')">Samples Metadata</button>
+        <button class="tablinks" onclick="openTab(event, 'Tokyo')">Tokyo</button>
+
       </div>
       
-      <div style="margin-left:130px">
-        <div class="w3-padding">Create and Edit Sample Database files</div>
       
-        <div id="GeneralMetadata" class="w3-container city" style="display:none">
-          <h2>London</h2>
-          <p>London is the capital city of England.</p>
-          <p>It is the most populous city in the United Kingdom, with a metropolitan area of over 13 million inhabitants.</p>
-        </div>
-      
-        <div id="SamplesMetadata" class="w3-container city" style="display:none">
-          <h2>Paris</h2>
-          <p>Paris is the capital of France.</p> 
-          <p>The Paris area is one of the largest population centers in Europe, with more than 12 million inhabitants.</p>
-        </div>
-      
-        <div id="Tokyo" class="w3-container city" style="display:none">
-          <h2>Tokyo</h2>
-          <p>Tokyo is the capital of Japan.</p>
-          <p>It is the center of the Greater Tokyo Area, and the most populous metropolitan area in the world.</p>
-        </div>
-      
+        <div id="GeneralMetadata" class="tabcontent">
+          
+          <table id="MetadataTable">
+            <thead>
+                <tr>
+                    <th colspan="3">Project general Metadata</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
       </div>
 
+        </div>
+      
+        <div id="SamplesMetadata" class="tabcontent">
+
+          <button type="button" class="btn" id="saveChanges">Save Changes</button>
+          <button type="button" class="btn" id="createSample">Create Sample</button>
+          
+          <div class="wrapper">
+  
+          <table class ="one" id="HolesTable">
+            <thead>
+                <tr>
+                    <th colspan="2">Hole List</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+  
+          <table class ="two" id="HoleMetadataTable">
+            <thead>
+                <tr>
+                    <th colspan="3">Hole info</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+  
+          <table class ="three" id="SamplesTable">
+            <thead>
+                <tr>
+                    <th colspan="1">Samples List</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+  
+          <table class ="four" id="SampleMetadataTable">
+            <thead>
+                <tr>
+                    <th colspan="3">Sample info</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+  
+      </div>
+          
+
+        </div>
+      
+        <div id="Tokyo" class="tabcontent">
+
+          <div class="wrapper2">
+
+            <table class ="StorageZero" id="StorageBuildingsTable">
+              <thead>
+                  <tr>
+                      <th colspan="1">Buildings</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
+  
+  
+          <table class ="StorageOne" id="StorageRoomsTable">
+              <thead>
+                  <tr>
+                      <th colspan="1">Rooms</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
+  
+          <table class ="StorageTwo" id="StorageShelvesTable">
+            <thead>
+                <tr>
+                    <th colspan="1">Shelves</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+  
+        <table class ="StorageThree" id="StorageBoxesTable">
+          <thead>
+              <tr>
+                  <th colspan="1">Boxes</th>
+              </tr>
+          </thead>
+          <tbody>
+          </tbody>
+      </table>
+  
+      <table class ="StorageFour" id="StorageSamplesTable">
+        <thead>
+            <tr>
+                <th colspan="1">Samples</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+  
+      </div>
+         
+
+        </div>
+    
+      <!-- main js script -->
+      <script type ='module' src='../scripts/JodelMain.js'></script>
+
     </div>
+
+  </body>
+
+        
+
 </html>
+

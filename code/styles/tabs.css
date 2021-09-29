@@ -1,106 +1,33 @@
-.wrapper {
-    max-width: auto;
-    width: 100%;
-    margin: 0 0;
-  }
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
 
-  .tabs {
-    position: relative;
-    margin: 0 0;
-    background: linear-gradient(to right, #F1F1F1,80%, rgb(179,227,228));
-    height: max-content;
-    width:fit-content;
-  }
-  .tabs::before,
-  .tabs::after {
-    content: "";
-    display: table;
-  }
-  .tabs::after {
-    clear: both;
-  }
-  .tab {
-    float: left;
-    height: max-content;
-    text-align: center;
-  }
-  .tab-switch {
-    display: none;
-  }
-  .tab-label {
-    position: relative;
-    display: block;
-    line-height: 5em;
-    height: 70px;
-    padding: 0 1.618em;
-    background: #F1F1F1;
-    border-right: 0.125rem solid #ffffff;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-    top: 0;
-    transition: all 0.25s;
-    font-size: 1.0em;
-  }
-  .tab-label:hover {
-    top: -0.25rem;
-    transition: top 0.25s;
-    background-color: #CCCCCC;
-  }
-  .tab-content {
-    height: max-content;
-    position: absolute;
-    z-index: 2;
-    top: 0.5em;
-    left: 0.5em;
-    padding: 1.618rem;
-    background: #F1F1F1;
-    color: #000000;
-    border-bottom: 0.25rem solid #bdc3c7;
-    opacity: 0;
-    transition: all 0.35s;
-    margin-top: 65px;
-  }
-  .tab-switch:checked + .tab-label {
-    background: #616161;
-    color: white ;
-    border-bottom: 0;
-    border-right: 0.125rem solid #fff;
-    transition: all 0.35s;
-    z-index: 1;
-    top: -0.0625rem;
-  }
-  .tab-switch:checked + label + .tab-content {
-    z-index: 2;
-    opacity: 1;
-    transition: all 0.35s;
-  }
+.tablink:hover {
+  background-color: #777;
+}
 
-  .tablinks {
-    position: relative;
-    display: inline;
-    line-height: 2.75em;
-    height: 3em;
-    padding: 0 1.618em;
-    background: #F1F1F1;
-    border-right: 0.125rem solid #ffffff;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-    top: 0;
-    transition: all 0.25s;
-  }
-  .tablinks:hover {
-    top: -0.25rem;
-    transition: top 0.25s;
-    background-color: #CCCCCC;
-  }
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
 
-  .tablinks:checked{
-    background: #616161;
-    color: white ;
-    border-bottom: 0;
-    border-right: 0.125rem solid #fff;
-    transition: all 0.35s;
-    z-index: 1;
-    top: -0.0625rem;
-  }
+.tabcontent2 {
+  color: white;
+  padding: 100px 20px;
+}
 
+#Historical {background-color: rgb(255,202,202);}
+#New {background-color: rgb(194,244,173);}
+#Jodel {background-color: rgb(179,227,228);}

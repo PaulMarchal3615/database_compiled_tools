@@ -23,89 +23,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <script>
-    function openTab(evt, cityName) {
-      var i, x, tablinks;
-      x = document.getElementsByClassName("city");
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablink");
-      for (i = 0; i < x.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" w3-red", ""); 
-      }
-      document.getElementById(cityName).style.display = "block";
-      evt.currentTarget.className += " w3-red";
-    }
-    </script>
-    
-
 </head>
 
 <body>
+
+  <img style="float: left; margin: 0px 0px 0px 0px;"src="./logo_soft.svg"
+  height=80px width=auto alt="logo"/>
+
+  <img style="float: right; margin: 0px 0px 0px 0px;"src="http://lue.univ-lorraine.fr/sites/default/files/users/user2448/logo_Georessources.png"
+height=70x width=auto alt="logo"/>
+
+  <button class="tablink" onclick="openPage('Historical', this, 'red')">HISTORICAL DATASETS INTEGRATION</button>
+  <button class="tablink" onclick="openPage('New', this, 'green')" id="defaultOpen">NEW DATASET FILE CREATION</button>
+  <button class="tablink" onclick="openPage('Jodel', this, 'blue')">JODEL</button>
+
+  <div id="Historical" class="tabcontent">
+
+    <div id="divTestArea1"></div>
+
+    <script type="text/javascript">
+      $(function()
+      {
+        $("#divTestArea1").load("Historical.html");
+      });
+      </script>
+
+  </div>
   
-  <div class="wrapper">
+  <div id="New" class="tabcontent">
 
-    <div class="tabs">
-      <img style="float: left; margin: 0px 0px 0px 0px;"src="./logo_soft.svg"
-            height=70px width=auto alt="logo"/>
+    <div id="divTestArea2"></div>
+    <script type="text/javascript">
+      $(function()
+      {
+        $("#divTestArea2").load("HardBase.html");
+      });
+      </script>
 
-      <img style="float: right; margin: 0px 0px 0px 0px;"src="http://lue.univ-lorraine.fr/sites/default/files/users/user2448/logo_Georessources.png"
-      height=70x width=auto alt="logo"/>
+  </div>
+  
+  <div id="Jodel" class="tabcontent">
 
-      <div class="tab" style="background-color:rgb(194,244,173);">
+    <div id="divTestArea3"></div>
 
-        <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
-        <label for="tab-1" class="tab-label">HISTORICAL DATASETS INTEGRATION</label>
+    <h3>Contact</h3>
 
-        <div class="tab-content"> 
+    <script type="text/javascript">
+      $(function()
+      {
+        $("#divTestArea3").load("Jodel.html");
+      });
+      </script>
 
-          <div id="divTestArea1"></div>
-          <script type="text/javascript">
-          $(function()
-          {
-            $("#divTestArea1").load("Historical.html");
-          });
-          </script>
-
-        </div>
-
-      </div>
-      <div class="tab" style="background-color:rgb(179,227,228);">
-        <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
-        <label for="tab-2" class="tab-label">NEW DATASET FILE CREATION</label>
-        <div class="tab-content"> 
-
-          <div id="divTestArea2"></div>
-          <script type="text/javascript">
-          $(function()
-          {
-            $("#divTestArea2").load("HardBase.html");
-          });
-          </script>
-      </div>
-      </div>
-          <div class="tab" style="background-color:rgb(255,202,202);">
-        <input type="radio" name="css-tabs" id="tab-3" class="tab-switch" >
-        <label for="tab-3" class="tab-label">JODEL</label>
-        <div class="tab-content"> 
-
-          <div id="divTestArea3"></div>
-          <script type="text/javascript">
-          $(function()
-          {
-            $("#divTestArea3").load("Jodel.html");
-          });
-          </script>
-
-        </div>
-
-      </div>
-    </div>
   </div>
   
 
+
   <script type ='module' src='./main.js'></script>    
+
+  <script>
+    function openPage(pageName, elmnt, color) {
+      // Hide all elements with class="tabcontent" by default */
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+
+      // Remove the background color of all tablinks/buttons
+      tablinks = document.getElementsByClassName("tablink");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+      }
+
+      // Show the specific tab content
+      document.getElementById(pageName).style.display = "block";
+
+      // Add the specific color to the button used to open the tab content
+      elmnt.style.backgroundColor = color;
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click(); 
+    </script>
 
 </body>
 
