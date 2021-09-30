@@ -24,10 +24,17 @@
 
   <body>
 
+    <button type="button" class="btn" id="createNewFile">Create New</button>
+    <button type="button" class="btn" id="OpenModifyFile">Open & Modify</button>
+    <button type="button" class="btn" id="SaveProject">Save Project</button>
+    <button type="button" class="btn" id="ExportFile">Export to CSV</button>
+    <button type="button" class="btn" id="test">test</button>
+
       <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
         <button class="tablinks" onclick="openTab(event, 'SamplesMetadata')">Samples Metadata</button>
-        <button class="tablinks" onclick="openTab(event, 'Tokyo')">Tokyo</button>
+        <button class="tablinks" onclick="openTab(event, 'StorageMetadata')">Storage Metadata</button>
+        <button class="tablinks" onclick="openTab(event, 'Identities')">identities data</button>
 
       </div>
       
@@ -44,8 +51,6 @@
             </tbody>
         </table>
       </div>
-
-        </div>
       
         <div id="SamplesMetadata" class="tabcontent">
 
@@ -97,9 +102,9 @@
       </div>
           
 
-        </div>
+    </div>
       
-        <div id="Tokyo" class="tabcontent">
+        <div id="StorageMetadata" class="tabcontent">
 
           <div class="wrapper2">
 
@@ -157,10 +162,29 @@
       </div>
          
 
-        </div>
+    </div>
+
+        <div id="Identities" class="tabcontent">
+
+          <button type="button" class="btn" id="OpenIDFile">Open ID file</button>
+          <button type="button" class="btn" id="SaveIDFile">Save ID file</button>
+  
+          <button type="button" class="btn" id="AddID">Add</button>
+  
+  
+          <table id="IDTable">
+              <thead>
+                  <tr>
+                      <th colspan="4">Identities</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
+    </div>
     
       <!-- main js script -->
-      <script type ='module' src='../scripts/JodelMain.js'></script>
+      <script type ='module' src='../scripts/HardBaseMain.js'></script>
 
     </div>
 

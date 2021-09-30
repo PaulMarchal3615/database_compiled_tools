@@ -5,6 +5,7 @@
 
     <link rel="stylesheet" href="../styles/mainStyle.css" />
     <link rel="stylesheet" href="../styles/tabs.css" />
+    <link rel="stylesheet" href="../styles/mainTabs.css" />
     <link rel="stylesheet" href="../styles/table.css" />
     <link rel="stylesheet" href="../styles/buttons.css" />
 
@@ -33,11 +34,11 @@
   <img style="float: right; margin: 0px 0px 0px 0px;"src="http://lue.univ-lorraine.fr/sites/default/files/users/user2448/logo_Georessources.png"
 height=70x width=auto alt="logo"/>
 
-  <button class="tablink" onclick="openPage('Historical', this, 'red')">HISTORICAL DATASETS INTEGRATION</button>
-  <button class="tablink" onclick="openPage('New', this, 'green')" id="defaultOpen">NEW DATASET FILE CREATION</button>
-  <button class="tablink" onclick="openPage('Jodel', this, 'blue')">JODEL</button>
+  <button class="mainTablink" onclick="openPage('Historical', this, '#FF9B9B')">HISTORICAL DATASETS INTEGRATION</button>
+  <button class="mainTablink" onclick="openPage('New', this, '#A4D392')" id="defaultOpen">NEW DATASET FILE CREATION</button>
+  <button class="mainTablink" onclick="openPage('Jodel', this, '#53CAFF')">JODEL</button>
 
-  <div id="Historical" class="tabcontent">
+  <div id="Historical" class="mainTabcontent">
 
     <div id="divTestArea1"></div>
 
@@ -50,7 +51,7 @@ height=70x width=auto alt="logo"/>
 
   </div>
   
-  <div id="New" class="tabcontent">
+  <div id="New" class="mainTabcontent">
 
     <div id="divTestArea2"></div>
     <script type="text/javascript">
@@ -62,11 +63,9 @@ height=70x width=auto alt="logo"/>
 
   </div>
   
-  <div id="Jodel" class="tabcontent">
+  <div id="Jodel" class="mainTabcontent">
 
     <div id="divTestArea3"></div>
-
-    <h3>Contact</h3>
 
     <script type="text/javascript">
       $(function()
@@ -85,13 +84,13 @@ height=70x width=auto alt="logo"/>
     function openPage(pageName, elmnt, color) {
       // Hide all elements with class="tabcontent" by default */
       var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
+      tabcontent = document.getElementsByClassName("mainTabcontent");
       for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
       }
 
       // Remove the background color of all tablinks/buttons
-      tablinks = document.getElementsByClassName("tablink");
+      tablinks = document.getElementsByClassName("mainTablink");
       for (i = 0; i < tablinks.length; i++) {
         tablinks[i].style.backgroundColor = "";
       }

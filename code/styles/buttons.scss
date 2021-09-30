@@ -2,12 +2,12 @@
 	color: black !important;
 	text-transform: uppercase;
 	text-decoration: none;
-	background: rgb(255,202,202);
+	background: #53CAFF;
 	padding: 5px;
 	display: inline-block;
 	border: none;
 	transition: all 0.4s ease 0s;
-	border-radius: 15px;
+	border-radius: 5px;
 	margin: 5px;
 }
 
@@ -25,18 +25,18 @@
 	color: black !important;
 	text-transform: uppercase;
 	text-decoration: none;
-	background: rgb(194,244,173);
-	padding: 20px;
+	background: #53CAFF;
+	padding: 8px;
 	display: inline-block;
 	border: none;
 	transition: all 0.4s ease 0s;
-	border-radius: 15px;
-	margin: 5px;
+	border-radius: 5px;
+	margin: 2px;
 }
 
 .btn-2:hover {
 	background: #434343;
-	letter-spacing: 1px;
+	letter-spacing: 100px;
 	color: white;
 	-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
 	-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);

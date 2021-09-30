@@ -21,14 +21,26 @@
   <!--function for opening tabs on click-->
   <script type="text/javascript">
 
-    function openView(tabName) {
-      var i;
-      var x = document.getElementsByClassName("city");
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-      }
-      document.getElementById(tabName).style.display = "block";
+  function openView(evt, view) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
     }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(view).style.display = "block";
+    evt.currentTarget.className += " active";
+  } 
 
   </script>
 
@@ -46,8 +58,31 @@
 
         <button type="button" class="btn-2" id="addPointset"> Add Pointset</button>
         <button type="button" class="btn-2" id="addSurface"> Add Surface</button>
+        <button type="button" class="btn-2" id="addLines"> Add Traces</button>
 
         <br><br>   
+
+        <select name="X_value" id="X_select">
+          <option value="-1">--choose a X variable--</option>
+        </select>
+  
+        <select name="Y_value" id="Y_select">
+          <option value="-1">--choose a Y variable--</option>
+        </select>
+  
+        <select name="Z_value" id="Z_select">
+          <option value="-1">--choose a Z variable--</option>
+        </select>
+  
+        <select name="Lat_value" id="Lat_select">
+          <option value="-1">--choose a Lat variable--</option>
+        </select>
+        <select name="Lon_value" id="Lon_select">
+          <option value="-1">--choose a Lon variable--</option>
+        </select>
+        <select name="Name_value" id="Name_select">
+          <option value="-1">--choose a Name variable--</option>
+        </select>
 
         <!-- table for displaying loaded files and characteristics-->
         <table id="file_table">
@@ -122,40 +157,20 @@
 
       <!-- Tab links -->
 
-      <div class="tabs">
-        <button class="tablink" onclick="openView(event, 'Jodel-tab-1')">3D View</button>
-        <button class="tablink" onclick="openView(event, 'Jodel-tab-2')">map & Drillhole view</button>
-        <button class="tablink" onclick="openView(event, 'Jodel-tab-3')">Density</button>
+      <div class="tab">
+        <button class="tablinks" onclick="openView(event, 'Jodel-tab-1')">3D View</button>
+        <button class="tablinks" onclick="openView(event, 'Jodel-tab-2')">map & Drillhole view</button>
+        <button class="tablinks" onclick="openView(event, 'Jodel-tab-3')">Density</button>
       </div>
 
-      <select name="X_value" id="X_select">
-        <option value="-1">--choose a X variable--</option>
-      </select>
-
-      <select name="Y_value" id="Y_select">
-        <option value="-1">--choose a Y variable--</option>
-      </select>
-
-      <select name="Z_value" id="Z_select">
-        <option value="-1">--choose a Z variable--</option>
-      </select>
-
-      <select name="Lat_value" id="Lat_select">
-        <option value="-1">--choose a Lat variable--</option>
-      </select>
-      <select name="Lon_value" id="Lon_select">
-        <option value="-1">--choose a Lon variable--</option>
-      </select>
-      <select name="Name_value" id="Name_select">
-        <option value="-1">--choose a Name variable--</option>
-      </select>
-
       <!-- Tab content -->
-      <div id="Jodel-tab-1" class="tabcontent2">
+      <div id="Jodel-tab-1" class="tabcontent">
+
+        <p> __ </p>
         <div id="chart1"></div>
       </div>
 
-      <div id="Jodel-tab-2" class="tabcontent2"style="display:none"> 
+      <div id="Jodel-tab-2" class="tabcontent"style="display:none"> 
 
         <p id="sample_nb"> __ </p>
 
@@ -167,7 +182,8 @@
       </div>
 
       <!-- Tab content -->
-      <div id="Jodel-tab-3" class="tabcontent2" style="display:none">
+      <div id="Jodel-tab-3" class="tabcontent" style="display:none">
+        <p> __ </p>
         <div id="chart2"></div>
       </div>
 
