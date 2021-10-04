@@ -24,11 +24,11 @@
 
   <body>
 
-    <button type="button" class="btn" id="createNewFile">Create New</button>
-    <button type="button" class="btn" id="OpenModifyFile">Open & Modify</button>
-    <button type="button" class="btn" id="SaveProject">Save Project</button>
-    <button type="button" class="btn" id="ExportFile">Export to CSV</button>
-    <button type="button" class="btn" id="test">test</button>
+    <button type="button" class="btn-1" id="createNewFile">Create New</button>
+    <button type="button" class="btn-1" id="OpenModifyFile">Open & Modify</button>
+    <button type="button" class="btn-1" id="SaveProject">Save Project</button>
+    <button type="button" class="btn-1" id="ExportFile">Export to CSV</button>
+    <button type="button" class="btn-1" id="test">test</button>
 
       <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
@@ -41,7 +41,7 @@
       
         <div id="GeneralMetadata" class="tabcontent">
           
-          <table id="MetadataTable">
+          <table id="MetadataTable" class="fl-table">
             <thead>
                 <tr>
                     <th colspan="3">Project general Metadata</th>
@@ -108,7 +108,7 @@
 
           <div class="wrapper2">
 
-            <table class ="StorageZero" id="StorageBuildingsTable">
+            <table class ="StorageZero" id="StorageBuildingsTable" class="fl-table">
               <thead>
                   <tr>
                       <th colspan="1">Buildings</th>
@@ -119,7 +119,7 @@
           </table>
   
   
-          <table class ="StorageOne" id="StorageRoomsTable">
+          <table class ="StorageOne" id="StorageRoomsTable" class="fl-table">
               <thead>
                   <tr>
                       <th colspan="1">Rooms</th>
@@ -129,7 +129,7 @@
               </tbody>
           </table>
   
-          <table class ="StorageTwo" id="StorageShelvesTable">
+          <table class ="StorageTwo" id="StorageShelvesTable" class="fl-table">
             <thead>
                 <tr>
                     <th colspan="1">Shelves</th>
@@ -139,7 +139,7 @@
             </tbody>
         </table>
   
-        <table class ="StorageThree" id="StorageBoxesTable">
+        <table class ="StorageThree" id="StorageBoxesTable" class="fl-table">
           <thead>
               <tr>
                   <th colspan="1">Boxes</th>
@@ -149,7 +149,7 @@
           </tbody>
       </table>
   
-      <table class ="StorageFour" id="StorageSamplesTable">
+      <table class ="StorageFour" id="StorageSamplesTable" class="fl-table">
         <thead>
             <tr>
                 <th colspan="1">Samples</th>

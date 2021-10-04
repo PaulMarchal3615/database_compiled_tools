@@ -340,7 +340,7 @@ export var countries = {
 
 
 export var projectMetadata = {
-    PROJECT_NAME:{description:"Name of the project/study from which data are extracted",value:"", placeholder:"Thesis_Firstname_LastName",htmlContent:0},
+PROJECT_NAME:{description:"Name of the project/study from which data are extracted",value:"", placeholder:"Thesis_Firstname_LastName",htmlContent:0},
 DATA_DESCRIPTION:{description:"Describe what kind of analysis are done on what with what fund etc",value:"", placeholder:"analysis_on_what_data_where_with_whom",htmlContent:0},
 KEYWORD:{description:"single keyword describing project",value:"", placeholder:"URANIUM",htmlContent:0},
 KEYWORD2:{description:"",value:"", placeholder:"UNCONFORMITY",htmlContent:0},

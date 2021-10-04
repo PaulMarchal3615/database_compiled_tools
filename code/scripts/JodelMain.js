@@ -2,9 +2,8 @@
 import {Study, addDataset,fillStudyVariablesList} from './Study.js';
 import {changeTrace,display,displayMap, displayStats} from './JodelDisplay.js';
 import {Dataset} from './Dataset.js';
-import {Sample} from './Drillhole.js'
+import {Sample} from './Drillhole.js';
 //------------------------------------
-
 
 //
 // Define your database
@@ -14,7 +13,7 @@ var db = new Dexie("database");
 db.version(1).stores({
 	studys: `
 	  id,
-	  object`,
+	  object`
   });
 
 var study = new Study();
@@ -37,15 +36,6 @@ Z_select.addEventListener('change',changeTrace);
 
 var sub = document.getElementById('subfilter1');
 sub.addEventListener('change',() => {changeTrace(); displayStats(); displayMap(); });
-
-var lat_select = document.getElementById('Lat_select');
-lat_select.addEventListener('change',displayMap);
-
-var lon_select = document.getElementById('Lon_select');
-lon_select.addEventListener('change',displayMap);
-
-var name_select = document.getElementById('Name_select');
-name_select.addEventListener('change',displayMap);
 
 
 var input = document.querySelector('#fileInput');
@@ -77,14 +67,6 @@ document.addEventListener('change',function(e){
  });
 
 
-var ddhSelect = document.getElementById("ddh");
-var objSelect = document.getElementById("objects");
-var depthSelect= document.getElementById("depth");
-ddhSelect.addEventListener("change", makeDrillholeDict);
-objSelect.addEventListener("change", makeDrillholeDict);
-depthSelect.addEventListener("change", makeDrillholeDict);
-
-
 //---------------------------------------------
 
 //add event listener on filter change --> update subfilter
@@ -99,6 +81,10 @@ filter.addEventListener('change', function() {
 		}
 	}
 })
+
+//--------------------------------------------
+
+
 
 
 //--------------------------------------------
@@ -162,6 +148,9 @@ function CreateDataset(type, FileInput) {
 				display();	
 			}
 		});
+
+		makeDrillholeDict();
+		displayMap();
 	}
 	// xlsx file opening is not implemented yet
 	else if ((extension=='xlsx') ||(extension=='xls') (extension=='xlsm')) {
@@ -225,19 +214,6 @@ function updateComboBoxes(variables) {
     updateBox('Y_select', variables);
     updateBox('Z_select', variables);
     updateBox('filter1', variables);
-
-    var lat_list = extractList(variables, 'LAT').concat(extractList(variables, 'lat'));
-    var lon_list = extractList(variables, 'LON').concat(extractList(variables, 'lon'));
-	var hole_list = extractList(variables, 'hole').concat(extractList(variables, 'HOLE').concat(extractList(variables, 'ID')));
-	var sample_list = extractList(variables, 'samp').concat(extractList(variables, 'SAMP'));
-	var depth_list = extractList(variables, 'depth').concat(extractList(variables, 'DEPTH').concat(extractList(variables, 'Z')));
-
-
-    updateBox('Lat_select', lat_list);
-    updateBox('Lon_select', lon_list);
-	updateBox('ddh', hole_list);
-	updateBox('objects', sample_list);
-	updateBox('depth', depth_list);
     
 }
 
@@ -270,42 +246,38 @@ async function makeDrillholeDict() {
 	study = container.object;
 	
 	// get objects/drillholes/depth columns string content
-	var ddhColumn = document.getElementById("ddh").options[document.getElementById("ddh").selectedIndex].label;
-	var depthColumn = document.getElementById("depth").options[document.getElementById("depth").selectedIndex].label;
-	var objColumn = document.getElementById("objects").options[document.getElementById("objects").selectedIndex].label;
+	var ddhColumn = "HOLEID";
+	var depthColumn = "Z_NAD";
+	var objColumn = "SAMPLING_POINT-NAME";
 
-	if ((ddhColumn != "--choose drillhole column--") & (depthColumn != "--choose depth column--") & (objColumn != "--choose object column--")) {
+	if (Object.values(study.datasets).length > 0) {
+		var tempDict = {};
 
-		if (Object.values(study.datasets).length > 0) {
-			var tempDict = {};
+		for (var dataset of Object.values(study.datasets)) {
 
-			for (var dataset of Object.values(study.datasets)) {
-
-				if (dataset.type == "Pointset") {
-		
-				for (var j =1; j < dataset.dict[objColumn].length; j++) {
-		
-					var ddh = dataset.dict[ddhColumn][j];
-					var depth = parseFloat(dataset.dict[depthColumn][j]);
-					var obj = dataset.dict[objColumn][j];
-					var keys = Object.keys(tempDict);
+			if (dataset.type == "Pointset") {
 	
-					var sample = new Sample(obj, depth, ddh, dataset);
+			for (var j =1; j < dataset.dict[objColumn].length; j++) {
 	
-					if (keys.includes(ddh)) {
-						tempDict[ddh].push(sample);
-					}
-					else {
-						tempDict[ddh] = [sample];
-					}
+				var ddh = dataset.dict[ddhColumn][j];
+				var depth = parseFloat(dataset.dict[depthColumn][j]);
+				var obj = dataset.dict[objColumn][j];
+				var keys = Object.keys(tempDict);
+
+				var sample = new Sample(obj, depth, ddh, dataset);
+
+				if (keys.includes(ddh)) {
+					tempDict[ddh].push(sample);
 				}
-				updateBox('Name_select', [ddhColumn]);
+				else {
+					tempDict[ddh] = [sample];
+				}
 			}
-			}
+		}
+		}
 			study.drillholes = tempDict;
 	}
-		db.studys.put({id:1, object:study});
-	}
+	db.studys.put({id:1, object:study});
 }
 
 //--------------------------------------------------

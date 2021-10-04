@@ -1,20 +1,21 @@
 .btn-1 {
-  color: black !important;
+  color: white !important;
   text-transform: uppercase;
+  font-weight: bold;
   text-decoration: none;
-  background: #53CAFF;
-  padding: 5px;
+  background: -webkit-gradient(linear, left top, right top, from(#e66465), to(#9198e5));
+  background: linear-gradient(0.25turn, #e66465, #9198e5);
+  padding: 10px;
   display: inline-block;
   border: none;
   -webkit-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
   border-radius: 5px;
-  margin: 5px;
+  margin: 1px;
 }
 
 .btn-1:hover {
   background: #434343;
-  letter-spacing: 1px;
   color: white;
   -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
@@ -23,22 +24,22 @@
 }
 
 .btn-2 {
-  color: black !important;
+  color: white !important;
   text-transform: uppercase;
+  font-weight: bold;
   text-decoration: none;
-  background: #53CAFF;
-  padding: 8px;
+  background: linear-gradient(30deg, #202E38, #285A8E);
+  padding: 10px;
   display: inline-block;
   border: none;
   -webkit-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
   border-radius: 5px;
-  margin: 2px;
+  margin: 1px;
 }
 
 .btn-2:hover {
   background: #434343;
-  letter-spacing: 100px;
   color: white;
   -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);

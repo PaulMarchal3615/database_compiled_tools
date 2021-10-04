@@ -1,18 +1,15 @@
-*{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+html,
+body {
+  min-height: 100%;
+  margin: 0;
 }
 
-body, html {
-  width: 100%;
-	height:100%;
-	background: rgb(179,227,228);
-	display: block;
-	justify-content: center;
-	align-items: center;
-	font-family: sans-serif;
+body {
+  padding: 15px;
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  box-sizing: border-box;
 }
+
 
 
 #folderInput {

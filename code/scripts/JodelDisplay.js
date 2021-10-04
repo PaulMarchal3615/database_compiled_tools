@@ -22,13 +22,9 @@ export async function displayMap() {
 	var names = [];
 	var colors = [];
 
-	var Lat_select = document.getElementById("Lat_select");
-	var Lon_select = document.getElementById("Lon_select");
-	var Name_select = document.getElementById("Name_select");
-
-	var Lat_name = Lat_select.options[Lat_select.selectedIndex].label;
-	var Lon_name = Lon_select.options[Lon_select.selectedIndex].label;
-	var name = Name_select.options[Name_select.selectedIndex].label;
+	var Lat_name = "HOLEID_LATITUDE";
+	var Lon_name = "HOLEID_LONGITUDE";
+	var name = "HOLEID";
 
 	var table = document.getElementById('file_table');
 
@@ -53,49 +49,42 @@ export async function displayMap() {
 		if (check) {
 
 			var color = document.getElementsByName("color_"+dataset.name)[0].value;
-	
-				if ((Lat_name != '--choose a Lat variable--') & (Lon_name != '--choose a Lon variable--')& (name != '--choose a Name variable--'))
-				{
-					if ((Lat_name in dataset.dict) & (Lon_name in dataset.dict) &(name in dataset.dict))
-					{
 
-					if ((!$('#filter1 option:selected').length) || (filter_name == '-- display all data --') ||(values[0] == '-- display all data --')){
-						
-							m_lat = dataset.dict[Lat_name];
-							m_lon = dataset.dict[Lon_name];
-							m_name = dataset.dict[name];
-							m_lat.splice(0,1);
-							m_lon.splice(0,1);
-							m_name.splice(0,1);
-							classe = m_lat.map(function () { return dataset.name });
-							m_color = m_lat.map(function () { return color });
-							lat = lat.concat(m_lat);
-							lon = lon.concat(m_lon);
-							names = names.concat(m_name);
-							classes = classes.concat(classe);
-							colors = colors.concat(m_color);
-					}
-					else {
-						for (var key in dataset.dict) {
-							if (key == filter_name) {
-								for (var j = 1; j <dataset.dict[key].length; j++) {
-									for (var value of values) {
-										if (dataset.dict[key][j] == value) {
-											m_lat.push(dataset.dict[Lat_name][j]);
-											m_lon.push(dataset.dict[Lon_name][j]);
-											m_name.push(dataset.dict[name][j]);
-										}
-									}
+			if ((!$('#filter1 option:selected').length) || (filter_name == '-- display all data --') ||(values[0] == '-- display all data --')){
+				
+					m_lat = dataset.dict[Lat_name];
+					m_lon = dataset.dict[Lon_name];
+					m_name = dataset.dict[name];
+					m_lat.splice(0,1);
+					m_lon.splice(0,1);
+					m_name.splice(0,1);
+					classe = m_lat.map(function () { return dataset.name });
+					m_color = m_lat.map(function () { return color });
+					lat = lat.concat(m_lat);
+					lon = lon.concat(m_lon);
+					names = names.concat(m_name);
+					classes = classes.concat(classe);
+					colors = colors.concat(m_color);
+			}
+			else {
+				for (var key in dataset.dict) {
+					if (key == filter_name) {
+						for (var j = 1; j <dataset.dict[key].length; j++) {
+							for (var value of values) {
+								if (dataset.dict[key][j] == value) {
+									m_lat.push(dataset.dict[Lat_name][j]);
+									m_lon.push(dataset.dict[Lon_name][j]);
+									m_name.push(dataset.dict[name][j]);
 								}
-								classe = m_lat.map(function () { return dataset.name });
-								m_color = m_lat.map(function () { return color });
-								lat = lat.concat(m_lat);
-								lon = lon.concat(m_lon);
-								names = names.concat(m_name);
-								classes = classes.concat(classe);
-								colors = colors.concat(m_color);
 							}
 						}
+						classe = m_lat.map(function () { return dataset.name });
+						m_color = m_lat.map(function () { return color });
+						lat = lat.concat(m_lat);
+						lon = lon.concat(m_lon);
+						names = names.concat(m_name);
+						classes = classes.concat(classe);
+						colors = colors.concat(m_color);
 					}
 				}
 			}

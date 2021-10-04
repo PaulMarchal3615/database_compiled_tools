@@ -21,14 +21,13 @@
   #chart1{
     height:100%;
     width:100%;
-    background-color: white;
   }
   
   
   #subchart31 {
     display:inline-block;
     width:76%;
-    height:100%;
+    height:auto;
     margin:0px;
     background:white;
     overflow:hidden;
@@ -38,13 +37,12 @@
   #subchart32  {
     display:inline-block;
     width:21%;
-    height:100%;
+    height:auto;
     margin:0px;
     background:white;
     overflow:hidden;
     text-align:left;
   }
-  
 
   
   #filter1 {
@@ -67,7 +65,6 @@
   }
   
   .FileColumn {
-    background-color: #F4F4F4;
     grid-column: 1;
     grid-row: 1;
     height:100%;
@@ -77,5 +74,10 @@
     grid-column: 2;
     grid-row: 1;
     height: 100%;
+    width: fit-content;
+    background-color: white;
+    border: 1px;
+    border-color: black;
+    margin-right: 5px;
   }
  
