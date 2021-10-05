@@ -1,351 +1,118 @@
-// function and classes import fron other files
-import {Study, addDataset,fillStudyVariablesList} from './Study.js';
-import {changeTrace,display,displayMap, displayStats} from './JodelDisplay.js';
-import {Dataset} from './Dataset.js';
-import {Sample} from './Drillhole.js';
-//------------------------------------
+import {findValue, findColumnIndice, buildMultipleSelect} from './display.js';
+import {metadataNamesList} from './ressources.js';
+import { Dataset } from './Dataset.js';
 
-//
-// Define your database
-//
-var db = new Dexie("database");
+var db_jodel = new Dexie("jodelDB");
 
-db.version(1).stores({
-	studys: `
-	  id,
-	  object`
-  });
+db_jodel.version(1).stores({
+	samples: `NAME,FILE_NAME,HOLEID`,
+	datasets: `FILE_NAME,ARRAY,TYPE,COLOR`
+});
 
-var study = new Study();
-
-// Now add some values.
-db.studys.bulkPut([{ id: 1, object: study}]);
-
-//---------------------------------------------
-
-// following are defined all the events signals needed 
-
-var X_select = document.getElementById('X_select');
-X_select.addEventListener('change',changeTrace);
-
-var Y_select = document.getElementById('Y_select');
-Y_select.addEventListener('change',changeTrace);
-
-var Z_select = document.getElementById('Z_select');
-Z_select.addEventListener('change',changeTrace);
-
-var sub = document.getElementById('subfilter1');
-sub.addEventListener('change',() => {changeTrace(); displayStats(); displayMap(); });
-
-
-var input = document.querySelector('#fileInput');
-var input2 = document.querySelector('#fileInput2');
-
-// pointset input is hidden behind a pushbutton
-document.getElementById('addPointset').addEventListener('click', function() {input.click();});
-
-// surface input is hidden behind a pushbutton
-document.getElementById('addSurface').addEventListener('click', function() {input2.click();});
-
-// files input 
-input.addEventListener('input',parseData);
-input2.addEventListener('input',parseData);
-
-
-document.addEventListener('change',function(e){
-    if(e.target.type== 'color'){
-          changeTrace();
-		  displayMap();
-     }
- });
-
- document.addEventListener('change',function(e){
-    if(e.target.type== 'checkbox'){
-         display();
-		 displayMap();
-     }
- });
-
-
-//---------------------------------------------
-
-//add event listener on filter change --> update subfilter
-var filter = document.getElementById("filter1");
-var subfilter = document.getElementById("subfilter1");
-
-filter.addEventListener('change', function() {
-
-	for (var option of filter.options) {
-		if (option.selected) {
-			fillSubFilterBox(option.label);
-		}
-	}
+db_jodel.open().catch(function (e) {
+    console.error("Open failed: " + e.stack);
 })
 
-//--------------------------------------------
+// add event listener on file input
+var input = document.querySelector('#fileInput');
+document.getElementById('addPointset').addEventListener('click', function() {input.click();});
+input.addEventListener('input',parseFiles);
 
+function parseFiles(event) {
+	var id = event.target.id;
 
+	if (id == "fileInput") {
 
+		for (var file of input.files) {
+			if (file.name.split('.').pop() =="csv") {
 
-//--------------------------------------------
+				Papa.parse(file, {
+					download: true,
+					complete: function(results) {
 
-// 
- /**
-  * Main function called when adding a file : create a new Dataset object from file input and add it to current Study
-  */
-async function parseData() {
-	input = document.querySelector('#fileInput');
-	input2 = document.querySelector('#fileInput2');
+						db_jodel.transaction('rw', db_jodel.datasets,db_jodel.samples, function () {
 
-	var container = await db.studys.get(1);
-	study = container.object;
+							db_jodel.datasets.add({
+								FILE_NAME: file.name,
+								ARRAY: results.data,
+								TYPE: 'Pointset',
+								COLOR: rndHex()
+								});
 
-	// need to see if surface or pointset added
-	if (input.files.length > 0)  {
-			CreateDataset("Pointset", input);
-			input.value ='';
-		}
-	
-	if (input2.files.length > 0)  {
-			CreateDataset("Surface", input2);
-			input2.value ='';
-		}
-	}
-	
-/**
- * returns void : create a Dataset object of selected type based on file input; only works with csv input for the moment
- * @param {*} type String : Pointset or Surface to distinguish differents input whith different display behaviour
- * @param {*} input HTML File input object
- */
-
-function CreateDataset(type, FileInput) {
-
-	for (let file of FileInput.files) {
-
-		var extension = file.name.split('.').pop();
-
-		if (extension =='csv'){
-		// parse csv file to get an array containing csv data and create a Dataset object with array in it.
-		Papa.parse(file, {
-			download: true,
-			complete: function(results) {
-				//create new Dataset object 
-				let dataset = new Dataset(file.name,results.data, type);
-				// call BuildDict to build a dict based on array to make data manipulation easier 				
-				dataset.BuildDict();
-				// load study and add Dataset to study
-				addDataset(study,dataset);
-				// store all column headers in Study as Study.variables
-				fillStudyVariablesList(study);
-				// fill combobox with new headers --> for the moment old values are not deleted when deleting a dataset.
-				updateComboBoxes(study.variables);
-				updateFileTable(dataset);
-
-				// saving study
-
-				db.studys.put({id:1, object:study});
-
-				display();	
+							db_jodel.datasets.where("FILE_NAME").equals(file.name)
+							.each(function (dataset) {
+								updateFileTable(dataset)
+								buildSamplesBase(dataset);
+							});
+											
+						}).catch (function (e) {
+							console.error(e.stack);
+						});
+					}
+				});
 			}
-		});
-
-		makeDrillholeDict();
-		displayMap();
-	}
-	// xlsx file opening is not implemented yet
-	else if ((extension=='xlsx') ||(extension=='xls') (extension=='xlsm')) {
-		//Upload(); not implemented yet
-		alert("Not Implemented yet ! use a csv file instead.");
-	}
-	// if not excel file, display a alert popup
-	else {
-		alert("Not a table !");
-	}
-	}
-}
-
-
-/**
- * bool : returns false if tested value is in the options of a select
- * @param {*} value tested string value
- * @returns 
- */
-HTMLSelectElement.prototype.contains = function( value ) {
-
-    for ( var i = 0, l = this.options.length; i < l; i++ ) {
-
-        if ( this.options[i].label == value ) {
-            return true;
-        }
-    }
-    return false;
-}
-
-// -------------------------------------------------
-/**
- * 
- * @param {*} list : Array 
- * @param {*} value : tested value 
- * @returns Array of values containing value 
- * (exemple if tested value is 'LAT', it will only keep values containing 'LAT' ie 'LATITUDE', 'HOLEID_LATITUDE' etc)
- * It is used to make smaller lists in comboBoxes
- */
- function extractList(list, value) {
-	// extract a sub list from list with only elements containing value
-	var extList = [];
-	for (var element of list) {
-		var index = element.indexOf(value);
-		if (index != -1) {
-			extList.push(element);	
+			
 		}
-	}
-	return extList;
-}
-
-//--------------------------------------------------
-/**
- * void : update all combobox when a new file with new variables in header is added to study
- * @param {*} study main Study object
- */
-function updateComboBoxes(variables) {
-    // update combo boxes with string stored in variables_
-
-    updateBox('X_select',variables);
-    updateBox('Y_select', variables);
-    updateBox('Z_select', variables);
-    updateBox('filter1', variables);
-    
-}
-
-/**
- * void : update a combobox with an Array
- * @param {*} box_name String containing combobox name to update
- * @param {*} list Array of string value to put in the combobox
- */
-function updateBox(box_name, list) {
-	var select = document.getElementById(box_name);
-
-	for (var i=0 ; i<list.length ; i++) {
-
-		if (!select.contains(list[i])) {
-			var option = new Option(list[i],i);
-			select.options[select.options.length] = option;
-		}
+					
 	}
 }
 
-//--------------------------------------------------
+function displayMain() {
 
-/**
- * build a dict based on three columns (objects/drillholes/depth or Z value) : this dict is used for 1D drillhole view 
- */
-async function makeDrillholeDict() {
+	db_jodel.transaction('rw', db_jodel.samples, function () {
+
+		db.samples.where('FILE_NAME').equals('QUESSANDIER_001.csv')
+			.each(function (sample) {
+				console.log("Found user: " + sample.NAME);
+			});
 	
-	// load study 
-	var container = await db.studys.get(1);
-	study = container.object;
+	}).catch (function (e) {
+		console.error(e.stack);
+	});
+					
+}
+
+
+function buildSamplesBase(dataset) {
+	var samplesList = [];
+	const array = dataset.ARRAY;
 	
-	// get objects/drillholes/depth columns string content
-	var ddhColumn = "HOLEID";
-	var depthColumn = "Z_NAD";
-	var objColumn = "SAMPLING_POINT-NAME";
 
-	if (Object.values(study.datasets).length > 0) {
-		var tempDict = {};
+	for (var line of array) {
+		var sample = {};
+		var nameIndice = findColumnIndice("SAMPLING_POINT-NAME", array);
+		var sampleName = line[nameIndice];
 
-		for (var dataset of Object.values(study.datasets)) {
 
-			if (dataset.type == "Pointset") {
-	
-			for (var j =1; j < dataset.dict[objColumn].length; j++) {
-	
-				var ddh = dataset.dict[ddhColumn][j];
-				var depth = parseFloat(dataset.dict[depthColumn][j]);
-				var obj = dataset.dict[objColumn][j];
-				var keys = Object.keys(tempDict);
+		if ((!samplesList.includes(sampleName)) & (sampleName != "SAMPLING_POINT-NAME") & (sampleName != "text")) {
+			samplesList.push(sampleName);
+			sample.NAME = sampleName;
+			sample.FILE_NAME = dataset['FILE_NAME'];
 
-				var sample = new Sample(obj, depth, ddh, dataset);
-
-				if (keys.includes(ddh)) {
-					tempDict[ddh].push(sample);
-				}
-				else {
-					tempDict[ddh] = [sample];
-				}
+			for (var colName of metadataNamesList) {
+				var j = findColumnIndice(colName, dataset.ARRAY);
+				sample[colName] = line[j];
 			}
+			db_jodel.samples.add(sample);
+			console.log(sample);
 		}
-		}
-			study.drillholes = tempDict;
 	}
-	db.studys.put({id:1, object:study});
 }
 
-//--------------------------------------------------
-
-/**
- * void : delete line of filetable on event --> also delete file in Study
- * @param {*} oEvent 
- */
-async function deleteLine(oEvent){
-	let oEleBt = oEvent.currentTarget, oTr = oEleBt.parentNode.parentNode ;
-		let name = oTr.cells[0].innerHTML;
-
-		var container = await db.studys.get(1);
-		study = container.object;
-	
-		delete study.datasets[name];
-		db.studys.put({id:1, object:study});
-
-	oTr.remove(); 
-
-	display();
-}
-
-//--------------------------------------------------
 
 /**
  * 
  * @returns random color value in hexadecimal
  */
-function rndHex(){return'#'+('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);}
+ function rndHex(){return'#'+('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);}
 
-//--------------------------------------------------
-
-/**
- * void : fill subfilter when filter value is changed 
- * @param {*} filter_name 
- */
-async function fillSubFilterBox(filter_name) {
-
-	// load study 
-	var container = await db.studys.get(1);
-	study = container.object;
-	subfilter = document.getElementById("subfilter1");
-	removeOptions(subfilter);
-
-	var all_var = [];
-
-	for (var key in study.datasets) {
-		var dataset = study.datasets[key];
-		if (filter_name in dataset.dict) {
-			var column = dataset.dict[filter_name];
-			all_var = all_var.concat(column);
-		}
-		if (filter_name == "-- display all data --") {
-			all_var = ["-- display all data --"];
-		}	
-	}
-	if (all_var.length >0) {
-		updateBox("subfilter1", all_var);
-	}	
-}
 
 //--------------------------------------------------
 /**
  * void update file table adding newly input file in it.
  * @param {*} dataset : Dataset object to add in file table
  */
-function updateFileTable(dataset){
+ function updateFileTable(dataset){
 
 	var tablebody = document.getElementById("file_table").getElementsByTagName('tbody')[0];
 		var row = tablebody.insertRow(0);
@@ -355,31 +122,33 @@ function updateFileTable(dataset){
 		var cell4 = row.insertCell(3);
 		var cell5 = row.insertCell(4);
 		var cell6 = row.insertCell(5);
-		cell1.innerHTML = dataset.name;
-		const rndCol = rndHex();
-		cell2.innerHTML =  '<input type="color" id="colorPicker" name="color_'+dataset.name+'" value="'+rndCol+'">'; 
-		cell3.innerHTML = '<input type="checkbox" id="check" name="'+dataset.name+'" checked>';
-		cell4.innerHTML = dataset.array.length; 
+		cell1.innerHTML = dataset.FILE_NAME;
+		cell2.innerHTML =  '<input type="color" id="colorPicker" name="color_'+dataset.FILE_NAME+'" value="'+dataset.COLOR+'">'; //ADD EVENT LISTENER ON COLOR CHNAGE
+		cell3.innerHTML = '<input type="checkbox" id="check" name="'+dataset.FILE_NAME+'" checked>';
+		cell4.innerHTML = dataset.ARRAY.length;
 		
 		cell5.innerHTML = '<button class="btn-del"><i class="fa fa-trash"></i></button>';
 		const oBtSup = document.getElementsByClassName('btn-del');
 		for(var Btn of oBtSup){
-			Btn.addEventListener('click',  deleteLine);
-			Btn.addEventListener('click',display);
+			//Btn.addEventListener('click',  deleteLine);
+			Btn.addEventListener('click',displayMain);
 		}
 		cell6.innerHTML = '<select name="type" id="type-select"><option value="Pointset">Pointset</option><option value="Surface">Surface</option></select>';
-		document.getElementById("type-select").value = dataset.type;
+		document.getElementById("type-select").value = dataset.TYPE;
 
 
 }
 
+
+//--------------------------------------------------
+
 /**
- * void : remove selectElement from select 
- * @param {*} selectElement 
+ * void : delete line of filetable on event --> also delete file in Study
+ * @param {*} oEvent 
  */
-function removeOptions(selectElement) {
-	var i, L = selectElement.options.length - 1;
-	for(i = L; i >= 0; i--) {
-	   selectElement.remove(i);
-	}
+
+function deleteLine(oEvent){
+	let oEleBt = oEvent.currentTarget, oTr = oEleBt.parentNode.parentNode ;
+		let name = oTr.cells[0].innerHTML;
+	oTr.remove(); 
 }
