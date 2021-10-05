@@ -10,6 +10,8 @@ export class Dataset{
         this.COLOR = color;
     }
 }
+
+
 /**
  * 
  * @param {*} variable String to test

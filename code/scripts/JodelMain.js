@@ -57,6 +57,8 @@ function parseFiles(event) {
 	}
 }
 
+function sdjkhfjk() {return false;}
+
 function displayMain() {
 
 	db_jodel.transaction('rw', db_jodel.samples, function () {
