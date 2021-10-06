@@ -1,4 +1,3 @@
-import { metadataNamesList } from "./ressources";
 
 var db_jodel = new Dexie("jodelDB");
 

@@ -1,6 +1,6 @@
 import {findValue, findColumnIndice, buildMultipleSelect} from './display.js';
 import {metadataNamesList} from './ressources.js';
-import { displayMain } from './JodelDisplay.js';
+import {displayMain} from './JodelDisplay.js';
 
 var db_jodel = new Dexie("jodelDB");
 
@@ -19,9 +19,11 @@ db_jodel.samples.clear();
 db_jodel.datasets.clear();
 
 // add event listener on file input
+var btn = document.getElementById('addPointset');
 var input = document.querySelector('#fileInput');
-document.getElementById('addPointset').addEventListener('click', function() {input.click();});
+btn.addEventListener('click', function() {input.click();});
 input.addEventListener('input',parseFiles);
+
 
 function parseFiles(event) {
 	console.log("vladimir");
