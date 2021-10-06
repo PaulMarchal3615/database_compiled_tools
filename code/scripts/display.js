@@ -135,7 +135,9 @@ export function fillSelect(id,array,cell,value) {
 
         select = document.createElement("select");
         select.id = id;
-    } 
+    }
+
+    
 
     //Create and append the options
     for (var i = 0; i < array.length; i++) {
@@ -150,7 +152,10 @@ export function fillSelect(id,array,cell,value) {
     if (option.value === value) select.selectedIndex = i;
     });
     
-    cell.appendChild(select);  
+    cell.appendChild(select);
+
+
+    
 }
 
 export function findColumnIndice(colName,  array) {
@@ -177,7 +182,6 @@ export function findValue(array,colName, i) {
         }
     }
 }
-
 
 
 

@@ -1,6 +1,6 @@
-import {findValue, findColumnIndice, buildMultipleSelect} from './display.js';
+import {findColumnIndice} from './display.js';
 import {metadataNamesList} from './ressources.js';
-import { Dataset } from './Dataset.js';
+import { displayMain } from './JodelDisplay.js';
 
 var db_jodel = new Dexie("jodelDB");
 
@@ -13,12 +13,18 @@ db_jodel.open().catch(function (e) {
     console.error("Open failed: " + e.stack);
 })
 
+// clear stores if reload page 
+
+db_jodel.samples.clear();
+db_jodel.datasets.clear();
+
 // add event listener on file input
 var input = document.querySelector('#fileInput');
 document.getElementById('addPointset').addEventListener('click', function() {input.click();});
 input.addEventListener('input',parseFiles);
 
 function parseFiles(event) {
+	console.log("vladimir");
 	var id = event.target.id;
 
 	if (id == "fileInput") {
@@ -29,6 +35,7 @@ function parseFiles(event) {
 				Papa.parse(file, {
 					download: true,
 					complete: function(results) {
+						console.log("ilitch");
 
 						db_jodel.transaction('rw', db_jodel.datasets,db_jodel.samples, function () {
 
@@ -43,10 +50,11 @@ function parseFiles(event) {
 							.each(function (dataset) {
 								updateFileTable(dataset)
 								buildSamplesBase(dataset);
+								console.log("oulianov");
 							});
 											
 						}).catch (function (e) {
-							console.error(e.stack);
+							console.error("PARSE FILE",e);
 						});
 					}
 				});
@@ -57,22 +65,6 @@ function parseFiles(event) {
 	}
 }
 
-function sdjkhfjk() {return false;}
-
-function displayMain() {
-
-	db_jodel.transaction('rw', db_jodel.samples, function () {
-
-		db.samples.where('FILE_NAME').equals('QUESSANDIER_001.csv')
-			.each(function (sample) {
-				console.log("Found user: " + sample.NAME);
-			});
-	
-	}).catch (function (e) {
-		console.error(e.stack);
-	});
-					
-}
 
 
 function buildSamplesBase(dataset) {
@@ -96,7 +88,6 @@ function buildSamplesBase(dataset) {
 				sample[colName] = line[j];
 			}
 			db_jodel.samples.add(sample);
-			console.log(sample);
 		}
 	}
 }

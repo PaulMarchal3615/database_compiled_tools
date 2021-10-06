@@ -1,3 +1,5 @@
+import { metadataNamesList } from "./ressources";
+
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
@@ -5,38 +7,57 @@ db_jodel.version(1).stores({
 	datasets: `FILE_NAME,ARRAY,TYPE,COLOR`
 });
 
+export function displayMain() {
+
+	db_jodel.transaction('rw', db_jodel.samples, function () {
+		console.log('in transaction');
+
+		return db_jodel.samples.where('FILE_NAME').equals('QUESSANDIER_001.csv').toArray();
+		
+	}).then (result =>{
+		var trace = buildDisplayedPointset(result);
+		console.log(trace);
+		scatter3DPlot([trace]);
+	})
+	.catch (function (e) {
+		console.error("DISPLAY MAIN",e);
+	});
+
+
+					
+}
 
 
 
-
-export async function buildDisplayedPointset(property, value) {
+export function buildDisplayedPointset(sampleList) {
 
 	var X = [];
 	var Y = [];
 	var Z = [];
-	var name= [];
+	var names= [];
 	var holeid =[];
-	var color = document.getElementsByName("color_"+value)[0].value;
+	var colors = [];
 
-	const samples = await db_jodel.samples.where(property).equals(value).toArray();
-	for (const sample of samples) {
+	for (const sample of sampleList) {
 		X.push(sample["X_NAD"]);
 		Y.push(sample["Y_NAD"]);
 		Z.push(sample["Z_NAD"]);
-		name.push(sample['SAMPLING_POINT-NAME']);
+		names.push(sample['NAME']);
+		colors.push(document.getElementsByName("color_"+sample.FILE_NAME)[0].value);
 	}
 
-	var colors = name.map(function () { return color });
 
 	var trace = {
 		 x: X,
 		 y: Y,
 		 z: Z,
+		 name:names,
 		mode: 'markers',
 		marker: {
 			size: 12,
+			color:colors,
 			line: {
-			color: color,
+			color:colors,
 			width: 0.5},
 			opacity: 0.8},
 		type: 'scatter3d'
@@ -114,5 +135,5 @@ export async function buildDisplayedPointset(property, value) {
  
 	 var config = {responsive: true};
  
-	   Plotly.newPlot('chart1', data, layout, config);
+	Plotly.newPlot('chart1', data, layout, config);
  }
