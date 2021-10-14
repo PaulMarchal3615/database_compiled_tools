@@ -2,7 +2,7 @@
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
-	samples: `NAME,FILE_NAME,HOLEID`,
+	samples: `NAME,FILE_NAME,HOLEID,DISPLAY_TYPE`,
 	datasets: `FILE_NAME,ARRAY,TYPE,COLOR`
 });
 
@@ -11,30 +11,27 @@ export function displayMain() {
 	db_jodel.transaction('rw', db_jodel.samples, function () {
 		console.log('in transaction');
 
-		return db_jodel.samples.where('FILE_NAME').equals('QUESSANDIER_001.csv').toArray();
+		return db_jodel.samples.where('DISPLAY_TYPE').equals('scatter3d').toArray();
 		
 	}).then (result =>{
-		var trace = buildDisplayedPointset(result);
+		var trace = buildDisplayedPointset(result, 'scatter3d');
 		console.log(trace);
 		scatter3DPlot([trace]);
 	})
 	.catch (function (e) {
 		console.error("DISPLAY MAIN",e);
 	});
-
-
 					
 }
 
 
 
-export function buildDisplayedPointset(sampleList) {
+export function buildDisplayedPointset(sampleList, displayType) {
 
 	var X = [];
 	var Y = [];
 	var Z = [];
 	var names= [];
-	var holeid =[];
 	var colors = [];
 
 	for (const sample of sampleList) {
@@ -59,7 +56,7 @@ export function buildDisplayedPointset(sampleList) {
 			color:colors,
 			width: 0.5},
 			opacity: 0.8},
-		type: 'scatter3d'
+		type: displayType
 	};
 
 	return trace;

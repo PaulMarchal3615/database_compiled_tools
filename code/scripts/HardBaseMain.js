@@ -25,8 +25,8 @@ db.version(1).stores({
     `
   });
 
-var input = document.querySelector('#fileInput');
-var input2 = document.querySelector('#fileInput2');
+var input = document.querySelector('#HardBaseFileInput');
+var input2 = document.querySelector('#HardBaseFileInput2');
 
 
 // pointset input is hidden behind a pushbutton
