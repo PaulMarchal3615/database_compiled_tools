@@ -6,7 +6,8 @@ var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
 	samples: `NAME,FILE_NAME,HOLEID,DISPLAY_TYPE`,
-	datasets: `FILE_NAME,ARRAY,TYPE,COLOR`
+	datasets: `FILE_NAME,ARRAY,TYPE,COLOR`,
+	holes: `HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE, COLOR`
 });
 
 db_jodel.open().catch(function (e) {
@@ -49,18 +50,15 @@ function parseFiles(event) {
 							.each(function (dataset) {
 								updateFileTable(dataset);
 								buildSamplesBase(dataset);
-							});
-							displayMain();
-											
-						}).catch (function (e) {
-							console.error("PARSE FILE",e);
-						});
+								
+							});	
+							buildHolesBase();
+							displayMain();		
+						})		
 					}
-				});
-			}
-			
-		}
-					
+				});		
+			}	
+		}					
 	}
 }
 
@@ -82,7 +80,6 @@ function buildSamplesBase(dataset) {
 			sample.NAME = sampleName;
 			sample.FILE_NAME = dataset['FILE_NAME'];
 			sample.DISPLAY_TYPE = dataset['TYPE'];
-			console.log(dataset['TYPE']);
 
 			for (var colName of metadataNamesList) {
 				var j = findColumnIndice(colName, dataset.ARRAY);
@@ -92,6 +89,29 @@ function buildSamplesBase(dataset) {
 		}
 	}
 }
+
+
+function buildHolesBase() {
+
+	var colorPoint = document.getElementsByName("color_"+sample.FILE_NAME)[0].value;	
+
+	db_jodel.transaction('rw', db_jodel.samples, function () {
+		console.log('in transaction');
+
+		return db_jodel.samples.toArray();		
+	}).then (samples =>{
+
+		for (var sample of samples) {
+
+			var hole = {};
+			hole.HOLEID = sample.HOLEID;
+			hole.HOLEID_LATITUDE = sample.HOLEID_LATITUDE;
+			hole.HOLEID_LONGITUDE = sample.HOLEID_LONGITUDE;
+			hole.COLOR = colorPoint;
+			db_jodel.holes.bulkPut(hole);
+		}	
+	})
+ }
 
 
 /**
@@ -117,26 +137,25 @@ function buildSamplesBase(dataset) {
 		var cell5 = row.insertCell(4);
 		var cell6 = row.insertCell(5);
 		cell1.innerHTML = dataset.FILE_NAME;
-		cell2.innerHTML =  '<input type="color" id="colorPicker_'+dataset.FILE_NAME+'" name="color_'+dataset.FILE_NAME+'" value="'+dataset.COLOR+'">'; //ADD EVENT LISTENER ON COLOR CHNAGE
-		cell3.innerHTML = '<input type="checkbox" id="check" name="'+dataset.FILE_NAME+'" checked>';
+		cell2.innerHTML = '<input type="color" id="colorPicker_'+dataset.FILE_NAME+'" name="color_'+dataset.FILE_NAME+'" value="'+dataset.COLOR+'">'; 
+		cell3.innerHTML = '<input type="checkbox" id="check_'+dataset.FILE_NAME+'" name="'+dataset.FILE_NAME+'" checked>';
 		cell4.innerHTML = dataset.ARRAY.length;
 		
 		cell5.innerHTML = '<button class="btn-del"><i class="fa fa-trash"></i></button>';
 		const oBtSup = document.getElementsByClassName('btn-del');
 		for(var Btn of oBtSup){
 			Btn.addEventListener('click',  deleteLine);
-			Btn.addEventListener('click',  displayMain);
+			//Btn.addEventListener('click',  displayMain);
 		}
+		
 
 		cell6.innerHTML = '<select name="type" id="type-select_'+dataset.FILE_NAME+'"><option value="scatter3d">Pointset</option><option value="mesh3d">Surface</option></select>';
-		document.getElementById("type-select").value = dataset.TYPE;
+		document.getElementById("type-select_"+dataset.FILE_NAME).value = dataset.TYPE;
 
 		document.getElementById('colorPicker_'+dataset.FILE_NAME).addEventListener('change',displayMain);
 		document.getElementById('type-select_'+dataset.FILE_NAME).addEventListener('change',displayMain);
-
-
+		document.getElementById('check_'+dataset.FILE_NAME).addEventListener('change',displayMain);
 }
-
 
 //--------------------------------------------------
 

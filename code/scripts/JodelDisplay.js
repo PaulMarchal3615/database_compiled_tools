@@ -3,27 +3,52 @@ var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
 	samples: `NAME,FILE_NAME,HOLEID,DISPLAY_TYPE`,
-	datasets: `FILE_NAME,ARRAY,TYPE,COLOR`
+	datasets: `FILE_NAME,ARRAY,TYPE,COLOR`,
+	holes: `HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE, COLOR`
 });
 
 export function displayMain() {
 
+	let table = document.getElementById("file_table");
+	let checkList = [];
+	var trace = {};
+
+	for (var row of table.rows) {
+		var fileName = row.cells[0].innerHTML;
+		if (fileName != 'File') {
+			if (document.getElementById('check_'+fileName).checked) {
+				checkList.push(fileName);
+			}
+		}
+	}
+
 	db_jodel.transaction('rw', db_jodel.samples, function () {
 		console.log('in transaction');
 
-		return db_jodel.samples.where('DISPLAY_TYPE').equals('scatter3d').toArray();
-		
+		return db_jodel.samples.where('FILE_NAME').anyOf(checkList).toArray();		
 	}).then (result =>{
-		var trace = buildDisplayedPointset(result, 'scatter3d');
-		console.log(trace);
+		trace = buildDisplayedPointset(result, 'scatter3d');
 		scatter3DPlot([trace]);
+	})
+	.catch (function (e) {
+		console.error("DISPLAY MAIN",e);
+	});
+
+// drillholes
+
+	db_jodel.transaction('rw', db_jodel.holes, function () {
+		console.log('in transaction');
+
+		return db_jodel.holes.toArray();		
+	}).then (result =>{
+
+		drawMap(result);
 	})
 	.catch (function (e) {
 		console.error("DISPLAY MAIN",e);
 	});
 					
 }
-
 
 
 export function buildDisplayedPointset(sampleList, displayType) {
@@ -133,3 +158,102 @@ export function buildDisplayedPointset(sampleList, displayType) {
  
 	Plotly.newPlot('chart1', data, layout, config);
  }
+
+
+
+
+
+
+function drawMap(holes) {
+
+	var holeids = [];
+	var holes_lat = [];
+	var holes_lon = [];
+
+	for (var hole of holes) {
+		holeids.push(hole.HOLEID);
+		holes_lat.push(hole.HOLEID_LATITUDE);
+		holes_lon.push(hole.HOLEID_LONGITUDE);
+		var col = hole.COLOR;	
+	}
+
+
+    var data = [{type: "scattermapbox",
+	text:holeids, 
+    textposition:'bottom center',
+	lon: holes_lon, 
+	lat: holes_lat, 
+	name:holeids, 
+	mode:'markers+text', 
+	marker:{size:10,color:col }}];
+
+
+    var layout = {
+
+        title: 'drillhoel Map',
+        font: {
+            family: 'Droid Serif, serif',
+            size: 6
+        },
+        titlefont: {
+            size: 16
+        },
+    
+        dragmode: "zoom",
+        mapbox: { style: "open-street-map", center: { lat: 57.99, lon: -104.5 }, zoom: 10 },
+
+        margin: { r: 0, t: 0, b: 0, l: 0 },
+        height:1200,
+        width:1200,
+        annotations:{
+            align:"left",
+            arrowcolor:"black",
+            text:"test",
+            x:58.07,
+            y:-104.48
+
+        }     
+	};
+    
+
+
+    Plotly.newPlot('subchart31', data, layout, {
+        modeBarButtonsToRemove: ['toImage', 'sendDataToCloud'],
+        modeBarButtonsToAdd: [{
+          name: 'toImageSVG',
+          icon: Plotly.Icons.camera,
+          click: function(gd) {
+            Plotly.downloadImage(gd, {format: 'svg'})
+          }
+        }]
+      });
+}
+
+export function isFloat(variable) {
+    return !Number.isNaN(Number.parseFloat(variable));
+}
+
+
+export function getColumn(colName,  array) {
+    for (var i=0;i<array[0].length;i++) {
+        if (array[0][i] == colName) {
+            var indice =  i;
+            break;
+        }
+    }
+    var colArray = [];
+
+    for (var j=2;j<array.length;j++) {
+
+        var value = array[j][indice];
+
+        if (isFloat(value)){
+            value = Number.parseFloat(value);
+        }
+			
+        colArray.push(value);
+
+    }
+
+    return colArray;
+}
