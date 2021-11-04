@@ -11,6 +11,22 @@
     display: none;
   }
 
+  #ratioControl{
+    display: inline;
+  }
+
+  #X_input {
+    width: 50px;
+  }
+
+  #Y_input {
+    width: 50px;
+  }
+
+  #Z_input {
+    width: 50px;
+  }
+
   
   #chart0{
     height:100%;
@@ -22,28 +38,32 @@
     height:100%;
     width:100%;
   }
-  
+
+  .wrapperMapDisplay {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 0px;
+    grid-auto-rows: minmax(100%, auto);
+    margin: auto;
+    width: 100%;
+  }
   
   #subchart31 {
-    display:inline-block;
-    width:76%;
-    height:auto;
-    margin:0px;
-    background:white;
-    overflow:hidden;
-    text-align:left;
-  }
-  
-  #subchart32  {
-    display:inline-block;
-    width:21%;
-    height:auto;
-    margin:0px;
-    background:white;
-    overflow:hidden;
-    text-align:left;
+    grid-column: 1;
+    grid-row: 1;
+    height:100%;
   }
 
+  #subchart32  {
+    grid-column: 2;
+    grid-row: 1;
+    height: 100%;
+    width: fit-content;
+    background-color: white;
+    border: 1px;
+    border-color: black;
+    margin-right: 5px;
+  }
   
   #filter1 {
     height:300px;
@@ -62,6 +82,7 @@
     grid-gap: 0px;
     grid-auto-rows: minmax(100%, auto);
     margin: auto;
+    height: 100%;
   }
   
   .FileColumn {

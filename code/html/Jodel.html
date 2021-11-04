@@ -29,6 +29,25 @@
     document.getElementById(view).style.display = "block";
     evt.currentTarget.className += " active";
   } 
+
+  function validate(evt) {
+  var theEvent = evt || window.event;
+
+  // Handle paste
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+  // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -79,6 +98,13 @@
           <option value="-1">-- display all data --</option>
         </select>
 
+        <p id="miniInfoDisp"> __ </p>
+      <div id='ratioControl'>
+        <input id='X_input' type='text' value="1" name="X" onkeypress='validate(event)' />
+        <input id='Y_input' type='text' value="1" name="Y" onkeypress='validate(event)' />
+        <input id='Z_input' type='text' value="1" name="Z" onkeypress='validate(event)' />
+      </div>
+        
 
       </div>
 
@@ -95,16 +121,12 @@
 
       <!-- Tab content -->
       <div id="Jodel-tab-1" class="tabcontent">
-
-        <p> __ </p>
         <div id="chart1"></div>
       </div>
 
       <div id="Jodel-tab-2" class="tabcontent"style="display:none"> 
 
-        <p id="sample_nb"> __ </p>
-
-        <div class=column>
+        <div class=wrapperMapDisplay>
           <div id="subchart31"></div>
           <div id="subchart32"></div>
         </div>
@@ -113,7 +135,6 @@
 
       <!-- Tab content -->
       <div id="Jodel-tab-3" class="tabcontent" style="display:none">
-        <p> __ </p>
         <div id="chart2"></div>
       </div>
       </div>

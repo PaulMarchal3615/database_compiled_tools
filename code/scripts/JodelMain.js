@@ -1,13 +1,14 @@
 import {findValue, findColumnIndice, buildMultipleSelect} from './display.js';
 import {metadataNamesList} from './ressources.js';
-import { displayMain } from './JodelDisplay.js';
+import {displayMain} from './JodelDisplay.js';
 
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
-	samples: `NAME,FILE_NAME,HOLEID,DISPLAY_TYPE`,
-	datasets: `FILE_NAME,ARRAY,TYPE,COLOR`,
-	holes: `HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE, COLOR`
+	samples:`NAME,FILE_NAME,HOLEID,DISPLAY_TYPE,COLOR`,
+	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
+	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
+	var:`VARLIST`
 });
 
 db_jodel.open().catch(function (e) {
@@ -17,6 +18,7 @@ db_jodel.open().catch(function (e) {
 // clear stores if reload page 
 
 db_jodel.samples.clear();
+db_jodel.holes.clear();
 db_jodel.datasets.clear();
 
 // add event listener on file input
@@ -24,6 +26,78 @@ var input = document.querySelector('#fileInput');
 document.getElementById('addPointset').addEventListener('click', function() {input.click();});
 input.addEventListener('input',parseFiles);
 
+document.getElementById("X_input").addEventListener("change",displayMain);
+document.getElementById("Y_input").addEventListener("change",displayMain);
+document.getElementById("Z_input").addEventListener("change",displayMain);
+
+
+//---------------------------------------------
+
+//add event listener on filter change --> update subfilter
+var filter = document.getElementById("filter1");
+var subfilter = document.getElementById("subfilter1");
+
+filter.addEventListener('change', function() {
+
+	for (var option of filter.options) {
+		if (option.selected) {
+			fillSubFilterBox(option.label);
+		}
+	}
+})
+
+
+//--------------------------------------------
+
+/**
+ * void : fill subfilter when filter value is changed 
+ * @param {*} filter_name 
+ */
+ async function fillSubFilterBox(filter_name) {
+
+	// load study 
+	var container = await db.studys.get(1);
+	study = container.object;
+	subfilter = document.getElementById("subfilter1");
+	removeOptions(subfilter);
+
+	var all_var = [];
+
+	for (var key in study.datasets) {
+		var dataset = study.datasets[key];
+		if (filter_name in dataset.dict) {
+			var column = dataset.dict[filter_name];
+			all_var = all_var.concat(column);
+		}
+		if (filter_name == "-- display all data --") {
+			all_var = ["-- display all data --"];
+		}	
+	}
+	if (all_var.length >0) {
+		updateBox("subfilter1", all_var);
+	}	
+}
+
+// --------------------------------------------
+
+/**
+ * void : update a combobox with an Array
+ * @param {*} box_name String containing combobox name to update
+ * @param {*} list Array of string value to put in the combobox
+ */
+ function updateBox(box_name, list) {
+	var select = document.getElementById(box_name);
+
+	for (var i=0 ; i<list.length ; i++) {
+
+		if (!select.contains(list[i])) {
+			var option = new Option(list[i],i);
+			select.options[select.options.length] = option;
+		}
+	}
+}
+
+//--------------------------------------------------
 
 function parseFiles(event) {
 	var id = event.target.id;
@@ -37,7 +111,7 @@ function parseFiles(event) {
 					download: true,
 					complete: function(results) {
 
-						db_jodel.transaction('rw', db_jodel.datasets,db_jodel.samples, function () {
+						db_jodel.transaction('rw', db_jodel.datasets,db_jodel.holes,db_jodel.samples,db_jodel.var, function () {
 
 							db_jodel.datasets.add({
 								FILE_NAME: file.name,
@@ -46,14 +120,21 @@ function parseFiles(event) {
 								COLOR: rndHex()
 								});
 
+							db_jodel.var.add({
+								VARLIST:results.data[0]
+							})
+
+							//makeDictValue(results.data);
+
 							db_jodel.datasets.where("FILE_NAME").equals(file.name)
 							.each(function (dataset) {
 								updateFileTable(dataset);
 								buildSamplesBase(dataset);
 								
+							}).then(function() {
+								updateBox('filter1',results.data[0]);
+								displayMain();
 							});	
-							buildHolesBase();
-							displayMain();		
 						})		
 					}
 				});		
@@ -62,12 +143,25 @@ function parseFiles(event) {
 	}
 }
 
+function makeDictValue(array) {
+	var dict ={};
+	var header = array[0];
+	for (var i = 2; i< array.length; i++) {
+		var line = array [i];
+		for (var j =0; j < header.length; j++) {
+			if (!dict[header[j]].includes(line[j])) {
+				dict[header[j]].push(line[j]);
+			}
+			
+		}
+	}
+	console.log(dict);
+}
 
 
 function buildSamplesBase(dataset) {
 	var samplesList = [];
 	const array = dataset.ARRAY;
-	
 
 	for (var line of array) {
 		var sample = {};
@@ -80,38 +174,38 @@ function buildSamplesBase(dataset) {
 			sample.NAME = sampleName;
 			sample.FILE_NAME = dataset['FILE_NAME'];
 			sample.DISPLAY_TYPE = dataset['TYPE'];
+			sample.COLOR = dataset['COLOR'];
 
 			for (var colName of metadataNamesList) {
 				var j = findColumnIndice(colName, dataset.ARRAY);
 				sample[colName] = line[j];
 			}
 			db_jodel.samples.add(sample);
+			createHole(sample);		
 		}
 	}
 }
 
 
-function buildHolesBase() {
+function createHole(sample) {
 
-	var colorPoint = document.getElementsByName("color_"+sample.FILE_NAME)[0].value;	
+	var colorPoint = document.getElementById("colorPicker_"+sample.FILE_NAME).value;
+	
+	var hole = {};
+	hole.HOLEID = sample.HOLEID;
+	hole.HOLEID_LATITUDE = parseFloat(sample.HOLEID_LATITUDE);
+	hole.HOLEID_LONGITUDE = parseFloat(sample.HOLEID_LONGITUDE);
+	hole.COLOR = colorPoint;
+	hole.FILE_NAME = sample.FILE_NAME;
+	console.log(hole);
 
-	db_jodel.transaction('rw', db_jodel.samples, function () {
-		console.log('in transaction');
 
-		return db_jodel.samples.toArray();		
-	}).then (samples =>{
+	db_jodel.holes.put(hole).catch((error => {
+		console.log("test_createHole",error);
+	}));
 
-		for (var sample of samples) {
+}	
 
-			var hole = {};
-			hole.HOLEID = sample.HOLEID;
-			hole.HOLEID_LATITUDE = sample.HOLEID_LATITUDE;
-			hole.HOLEID_LONGITUDE = sample.HOLEID_LONGITUDE;
-			hole.COLOR = colorPoint;
-			db_jodel.holes.bulkPut(hole);
-		}	
-	})
- }
 
 
 /**
@@ -152,9 +246,50 @@ function buildHolesBase() {
 		cell6.innerHTML = '<select name="type" id="type-select_'+dataset.FILE_NAME+'"><option value="scatter3d">Pointset</option><option value="mesh3d">Surface</option></select>';
 		document.getElementById("type-select_"+dataset.FILE_NAME).value = dataset.TYPE;
 
-		document.getElementById('colorPicker_'+dataset.FILE_NAME).addEventListener('change',displayMain);
+		document.getElementById('colorPicker_'+dataset.FILE_NAME).addEventListener('change',updateColor);
 		document.getElementById('type-select_'+dataset.FILE_NAME).addEventListener('change',displayMain);
 		document.getElementById('check_'+dataset.FILE_NAME).addEventListener('change',displayMain);
+}
+
+
+function updateColor(event) {
+
+	let oEleBt = event.currentTarget, oTr = oEleBt.parentNode.parentNode ;
+		let name = oTr.cells[0].innerHTML;
+		let color = document.getElementById("colorPicker_"+name).value;
+		console.log(name,color);
+
+		db_jodel.transaction('rw', db_jodel.holes, function () {
+			console.log('in transaction');
+	
+			return db_jodel.holes.where('FILE_NAME').equals(name).toArray();
+			
+		}).then (result => {
+
+			for (const hole of result) {
+				db_jodel.holes.update(hole.HOLEID,{COLOR:color});
+			}
+		})
+		.catch (function (e) {
+			console.error("CHANGE COLOR",e);
+		});
+
+		db_jodel.transaction('rw', db_jodel.samples, function () {
+			console.log('in transaction');
+	
+			return db_jodel.samples.where('FILE_NAME').equals(name).toArray();
+			
+		}).then (result => {
+
+			for (const sample of result) {
+				db_jodel.samples.update(sample.NAME,{COLOR:color});
+			}
+			displayMain();
+		})
+		.catch (function (e) {
+			console.error("CHANGE COLOR",e);
+		});
+
 }
 
 //--------------------------------------------------

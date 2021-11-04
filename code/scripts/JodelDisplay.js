@@ -2,9 +2,10 @@
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
-	samples: `NAME,FILE_NAME,HOLEID,DISPLAY_TYPE`,
-	datasets: `FILE_NAME,ARRAY,TYPE,COLOR`,
-	holes: `HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE, COLOR`
+	samples:`NAME,FILE_NAME,HOLEID,DISPLAY_TYPE,COLOR`,
+	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
+	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
+	var:`VARLIST`
 });
 
 export function displayMain() {
@@ -22,13 +23,19 @@ export function displayMain() {
 		}
 	}
 
+
+	var ratio = {
+		x:document.getElementById("X_input").value,
+		y:document.getElementById("Y_input").value,
+		z:document.getElementById("Z_input").value};
+
 	db_jodel.transaction('rw', db_jodel.samples, function () {
 		console.log('in transaction');
 
 		return db_jodel.samples.where('FILE_NAME').anyOf(checkList).toArray();		
 	}).then (result =>{
 		trace = buildDisplayedPointset(result, 'scatter3d');
-		scatter3DPlot([trace]);
+		scatter3DPlot([trace], ratio);
 	})
 	.catch (function (e) {
 		console.error("DISPLAY MAIN",e);
@@ -41,6 +48,8 @@ export function displayMain() {
 
 		return db_jodel.holes.toArray();		
 	}).then (result =>{
+
+		console.log("ddh",result);
 
 		drawMap(result);
 	})
@@ -64,7 +73,7 @@ export function buildDisplayedPointset(sampleList, displayType) {
 		Y.push(sample["Y_NAD"]);
 		Z.push(sample["Z_NAD"]);
 		names.push(sample['NAME']);
-		colors.push(document.getElementsByName("color_"+sample.FILE_NAME)[0].value);
+		colors.push(sample['COLOR']);
 	}
 
 
@@ -72,7 +81,7 @@ export function buildDisplayedPointset(sampleList, displayType) {
 		 x: X,
 		 y: Y,
 		 z: Z,
-		 name:names,
+		 text:names,
 		mode: 'markers',
 		marker: {
 			size: 12,
@@ -95,12 +104,12 @@ export function buildDisplayedPointset(sampleList, displayType) {
  * @param {*} y_name String 
  * @param {*} z_name String
  */
- function scatter3DPlot(data)
+ function scatter3DPlot(data, ratio)
  {
 	 var layout = {
 		 scene:{
 			 aspectmode:'manual',
-			 aspectratio: {x:1, y:1, z:1},
+			 aspectratio: ratio,
 			 domain:{row:0, column:0}
 		 },
 		 autosize:true,
@@ -161,9 +170,6 @@ export function buildDisplayedPointset(sampleList, displayType) {
 
 
 
-
-
-
 function drawMap(holes) {
 
 	var holeids = [];
@@ -203,8 +209,7 @@ function drawMap(holes) {
         mapbox: { style: "open-street-map", center: { lat: 57.99, lon: -104.5 }, zoom: 10 },
 
         margin: { r: 0, t: 0, b: 0, l: 0 },
-        height:1200,
-        width:1200,
+        autosize:true,
         annotations:{
             align:"left",
             arrowcolor:"black",
@@ -214,8 +219,8 @@ function drawMap(holes) {
 
         }     
 	};
-    
 
+	var myPlot = document.getElementById('subchart31');
 
     Plotly.newPlot('subchart31', data, layout, {
         modeBarButtonsToRemove: ['toImage', 'sendDataToCloud'],
@@ -227,7 +232,86 @@ function drawMap(holes) {
           }
         }]
       });
+
+	myPlot.on('plotly_click', function(data){
+
+		for(var point of data.points){
+				var ddh = point.text;
+		}
+
+		LinePlot(ddh);	
+});	
+
 }
+
+/**
+ * void : plot function to draw selected drillhole as a line with its samples as points
+ * @param {*} ddhID String value --> drillhole id to plot
+ */
+ async function LinePlot(ddhID) {
+
+	var names = [];
+	var depths = [];
+	var colors =[];
+	var etiquettes = [];
+
+
+	db_jodel.transaction('rw', db_jodel.samples, function () {
+		console.log('in transaction');
+
+		return db_jodel.samples.where('HOLEID').equals(ddhID).toArray();
+		
+	}).then (result => {
+
+		for (const sample of result) {
+			console.log(sample);
+
+			names.push(sample.NAME);
+			depths.push(parseFloat(sample.SAMPLE_DEPTH_FROM));
+			colors.push(sample.COLOR);
+			etiquettes.push(sample.HOLEID);
+
+		//Samples.map(x => {return ddhID;});
+		//textDisp.innerText = String(etiquette.length+" samples in well "+ddhID);
+
+		console.log("depths",depths);
+
+		var trace1 = {
+			x: etiquettes,
+			y: depths,
+			text:names,
+			mode:'lines',
+			type: 'scatter',
+			color: 'grey'
+		};
+
+		var trace2 = {
+			x: etiquettes,
+			y: depths,
+			text:names,
+			mode:'markers',
+			type: 'scatter',
+			marker:{size:12, color:colors}
+		};
+
+		var layout = {
+			autosize:true,
+			hovermode:'closest'
+		};
+		
+		var data = [trace1, trace2];
+		
+		Plotly.newPlot('subchart32', data, layout);
+			
+		}
+	})
+	.catch (function (e) {
+		console.error("DISPLAY SAMPLES",e);
+	});
+
+}
+
+
 
 export function isFloat(variable) {
     return !Number.isNaN(Number.parseFloat(variable));
