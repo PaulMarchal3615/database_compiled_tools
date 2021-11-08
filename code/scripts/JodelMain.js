@@ -8,7 +8,7 @@ db_jodel.version(1).stores({
 	samples:`NAME,FILE_NAME,HOLEID,DISPLAY_TYPE,COLOR`,
 	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
-	var:`VARLIST`
+	var:`FILE_NAME,VARLIST`
 });
 
 db_jodel.open().catch(function (e) {
@@ -20,6 +20,7 @@ db_jodel.open().catch(function (e) {
 db_jodel.samples.clear();
 db_jodel.holes.clear();
 db_jodel.datasets.clear();
+db_jodel.var.clear();
 
 // add event listener on file input
 var input = document.querySelector('#fileInput');
@@ -41,6 +42,7 @@ filter.addEventListener('change', function() {
 
 	for (var option of filter.options) {
 		if (option.selected) {
+			console.log(option.label);
 			fillSubFilterBox(option.label);
 		}
 	}
@@ -53,29 +55,24 @@ filter.addEventListener('change', function() {
  * void : fill subfilter when filter value is changed 
  * @param {*} filter_name 
  */
- async function fillSubFilterBox(filter_name) {
+ async function fillSubFilterBox(varName) {
 
-	// load study 
-	var container = await db.studys.get(1);
-	study = container.object;
-	subfilter = document.getElementById("subfilter1");
-	removeOptions(subfilter);
+	db_jodel.transaction('rw', db_jodel.var, function () {
+		console.log(db_jodel.var.toArray());
 
-	var all_var = [];
+		return db_jodel.var.toArray();		
+	}).then (result =>{
+		subfilter = document.getElementById("subfilter1");
+		removeOptions(subfilter);
+		let dict = result[0].VARLIST;
+		console.log("var",result[0],dict);
+		updateBox("subfilter1", dict[varName]);
+	})
+	.catch (function (e) {
+		console.error("DISPLAY MAIN",e);
+	});
 
-	for (var key in study.datasets) {
-		var dataset = study.datasets[key];
-		if (filter_name in dataset.dict) {
-			var column = dataset.dict[filter_name];
-			all_var = all_var.concat(column);
-		}
-		if (filter_name == "-- display all data --") {
-			all_var = ["-- display all data --"];
-		}	
-	}
-	if (all_var.length >0) {
-		updateBox("subfilter1", all_var);
-	}	
+
 }
 
 // --------------------------------------------
@@ -120,12 +117,6 @@ function parseFiles(event) {
 								COLOR: rndHex()
 								});
 
-							db_jodel.var.add({
-								VARLIST:results.data[0]
-							})
-
-							//makeDictValue(results.data);
-
 							db_jodel.datasets.where("FILE_NAME").equals(file.name)
 							.each(function (dataset) {
 								updateFileTable(dataset);
@@ -134,6 +125,12 @@ function parseFiles(event) {
 							}).then(function() {
 								updateBox('filter1',results.data[0]);
 								displayMain();
+								var dict = makeDictValue(results.data);
+								db_jodel.var.put({
+									FILE_NAME:file.name,
+									VARLIST:dict
+								}).catch(function(error)
+								{console.log(error);})
 							});	
 						})		
 					}
@@ -143,19 +140,19 @@ function parseFiles(event) {
 	}
 }
 
+/**
+ * 
+ * @param {*} array 
+ * @returns dict of value for each header of input csv file 
+ */
 function makeDictValue(array) {
+	
 	var dict ={};
-	var header = array[0];
-	for (var i = 2; i< array.length; i++) {
-		var line = array [i];
-		for (var j =0; j < header.length; j++) {
-			if (!dict[header[j]].includes(line[j])) {
-				dict[header[j]].push(line[j]);
-			}
-			
-		}
+	for (var i = 0; i< array[0].length; i++) {
+		dict[array[0][i]] = array.map(x => x[i]);
 	}
 	console.log(dict);
+	return dict;
 }
 
 
@@ -197,7 +194,7 @@ function createHole(sample) {
 	hole.HOLEID_LONGITUDE = parseFloat(sample.HOLEID_LONGITUDE);
 	hole.COLOR = colorPoint;
 	hole.FILE_NAME = sample.FILE_NAME;
-	console.log(hole);
+
 
 
 	db_jodel.holes.put(hole).catch((error => {
@@ -257,10 +254,8 @@ function updateColor(event) {
 	let oEleBt = event.currentTarget, oTr = oEleBt.parentNode.parentNode ;
 		let name = oTr.cells[0].innerHTML;
 		let color = document.getElementById("colorPicker_"+name).value;
-		console.log(name,color);
 
 		db_jodel.transaction('rw', db_jodel.holes, function () {
-			console.log('in transaction');
 	
 			return db_jodel.holes.where('FILE_NAME').equals(name).toArray();
 			
@@ -275,7 +270,6 @@ function updateColor(event) {
 		});
 
 		db_jodel.transaction('rw', db_jodel.samples, function () {
-			console.log('in transaction');
 	
 			return db_jodel.samples.where('FILE_NAME').equals(name).toArray();
 			
@@ -302,10 +296,8 @@ function updateColor(event) {
 function deleteLine(oEvent){
 	let oEleBt = oEvent.currentTarget, oTr = oEleBt.parentNode.parentNode ;
 		let name = oTr.cells[0].innerHTML;
-		console.log(name);
 
 		db_jodel.transaction('rw', db_jodel.samples, function () {
-			console.log('in transaction');
 	
 			return db_jodel.samples.where('FILE_NAME').equals(name).toArray();
 			
@@ -320,4 +312,15 @@ function deleteLine(oEvent){
 		});
 
 	oTr.remove(); 
+}
+
+/**
+ * void : remove selectElement from select 
+ * @param {*} selectElement 
+ */
+ function removeOptions(selectElement) {
+	var i, L = selectElement.options.length - 1;
+	for(i = L; i >= 0; i--) {
+	   selectElement.remove(i);
+	}
 }

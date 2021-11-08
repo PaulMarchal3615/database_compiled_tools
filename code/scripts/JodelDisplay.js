@@ -5,7 +5,7 @@ db_jodel.version(1).stores({
 	samples:`NAME,FILE_NAME,HOLEID,DISPLAY_TYPE,COLOR`,
 	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
-	var:`VARLIST`
+	var:`FILE_NAME,VARLIST`
 });
 
 export function displayMain() {
@@ -196,7 +196,7 @@ function drawMap(holes) {
 
     var layout = {
 
-        title: 'drillhoel Map',
+        title: 'drillhole Map',
         font: {
             family: 'Droid Serif, serif',
             size: 6
@@ -209,7 +209,9 @@ function drawMap(holes) {
         mapbox: { style: "open-street-map", center: { lat: 57.99, lon: -104.5 }, zoom: 10 },
 
         margin: { r: 0, t: 0, b: 0, l: 0 },
-        autosize:true,
+		autosize: false,
+		width: 500,
+		height: 500,
         annotations:{
             align:"left",
             arrowcolor:"black",
