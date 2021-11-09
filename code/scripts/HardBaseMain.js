@@ -25,6 +25,46 @@ db.version(1).stores({
     `
   });
 
+db.open().catch(function (e) {
+    console.error("Open failed: " + e.stack);
+})
+
+// clear stores if reload page 
+
+db.identities.clear();
+db.projects.clear();
+db.samples.clear();
+db.holes.clear();
+
+$(document).ready(function () {
+  $('td input').bind('paste', null, function (e) {
+      $txt = $(this);
+      setTimeout(function () {
+          var values = $txt.val().split(/\s+/);
+          var currentRowIndex = $txt.parent().parent().index();
+          var currentColIndex = $txt.parent().index(); 
+          
+          var totalRows = $('#example tbody tr').length;
+          var totalCols = $('#example thead th').length;
+          var count =0;
+          for (var i = currentColIndex; i < totalCols; i++) {
+              if (i != currentColIndex)
+                  if (i != currentColIndex)
+                      currentRowIndex = 0;
+              for (var j = currentRowIndex; j < totalRows; j++) {                           
+                  var value = values[count];
+                  var inp = $('#example tbody tr').eq(j).find('td').eq(i).find('input');
+                  inp.val(value);
+                  count++;
+                 
+              }
+          }
+
+
+      }, 0);
+  });
+});
+
 var input = document.querySelector('#HardBaseFileInput');
 var input2 = document.querySelector('#HardBaseFileInput2');
 
@@ -92,6 +132,7 @@ function LoadFile() {
                 //load general metadata
                 for (var colName of Object.keys(project.metadata)) {
                     let value = findValue(results.data, colName, 2);
+                    console.log(colName,value);
                     project.metadata[colName].value = value;
                 }
                 // load holes and samples metadata 
@@ -379,13 +420,16 @@ function buildComplexTable(tableName, dict) {
       var cell3 = row.insertCell(2);
 
       cell1.innerHTML = key;
-      cell2.innerHTML = dict[key].description;
+      //cell2.innerHTML = dict[key].description;
 
       if (dict[key].htmlContent != 0) {
           cell3.innerHTML = dict[key].htmlContent;
       }
       else {
-      cell3.innerHTML = '<input type="text" value="'+dict[key].value+'"placeholder="'+dict[key].placeholder+'" classe="TextInput" id="name" name="name" required minlength="4" maxlength="8" size="10">';
+        const patternText1 = new String("[A-Za-z]+[-|_]+|[0-9]+");
+        console.log("init",patternText1);
+        console.log("pattern",dict[key].requiredPattern);
+      cell3.innerHTML = '<input type="text" value="'+dict[key].value+'"placeholder="'+dict[key].placeholder+'" title="'+dict[key].description+'" class="TextInput" id="name" name="name" required minlength="1" maxlength="15" size="10" style="width: 100%" required pattern="'+dict[key].requiredPattern+'">';
       }
       
   }
