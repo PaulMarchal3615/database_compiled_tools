@@ -39,8 +39,7 @@
   }
 
 
-
-  .wrapper2 {
+  .wrapper2{
     display: grid;
     grid-template-columns: fit-content(300px) fit-content(300px) fit-content(300px) fit-content(300px) fit-content(300px);
     grid-gap: 5px;

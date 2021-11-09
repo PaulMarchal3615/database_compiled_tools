@@ -6,10 +6,8 @@ export var ProjCoordSys = ["Select Projected coordinate system","NAD83_UTM_zone_
 
 export var Languages = ["Select Language","FRENCH","ENGLISH","GERMAN","ITALIAN","SPANISH"];
 
-
 export var lithology = 
-{
-    'Select Lithology':
+{    'Select Lithology':
     {'Select sub-lithology':[]},
     'MAGMATIC_INTRUSIVE':
         {'FELSIC':['GRANITE','TONALITE'],
@@ -85,7 +83,6 @@ export var texture  = {
     'OREBODY_STRUCTURE':['1D_PIPE','2D_VEIN','2D_STRATIFORM','3D_STOCKWORK','3D_DISSEMINATION','3D_MASSIVE'],
     'IMPACT_BRECCIA':[]
 }
-
 
 export var countries = {
 'Select a Country':['Select a region'],

@@ -6,5 +6,4 @@ export class Drillhole{
         this.meta = holeMetadata; //dict of metadata at drillhole scale
         this.samples = []; // string sample list 
     }
-
 }

@@ -13,6 +13,7 @@ export function displayMain() {
 	let table = document.getElementById("file_table");
 	let checkList = [];
 	var trace = {};
+	var traceDensity = {};
 
 	for (var row of table.rows) {
 		var fileName = row.cells[0].innerHTML;
@@ -23,7 +24,7 @@ export function displayMain() {
 		}
 	}
 
-
+	// ------------------------- 3D & density view
 	var ratio = {
 		x:document.getElementById("X_input").value,
 		y:document.getElementById("Y_input").value,
@@ -33,25 +34,29 @@ export function displayMain() {
 		console.log('in transaction');
 
 		return db_jodel.samples.where('FILE_NAME').anyOf(checkList).toArray();		
-	}).then (result =>{
-		trace = buildDisplayedPointset(result, 'scatter3d');
+	}).then (samples =>{
+
+		trace = buildDisplayedPointset(samples, 'scatter3d');
 		scatter3DPlot([trace], ratio);
+		traceDensity = makeTracesForDensity(samples);
+		DensityGraph(traceDensity);
+
 	})
 	.catch (function (e) {
 		console.error("DISPLAY MAIN",e);
 	});
 
-// drillholes
+	//------------------------- drillholes display
 
 	db_jodel.transaction('rw', db_jodel.holes, function () {
 		console.log('in transaction');
 
 		return db_jodel.holes.toArray();		
-	}).then (result =>{
+	}).then (drillholes =>{
 
-		console.log("ddh",result);
+		console.log("ddh",drillholes);
 
-		drawMap(result);
+		drawMap(drillholes);
 	})
 	.catch (function (e) {
 		console.error("DISPLAY MAIN",e);
@@ -62,19 +67,11 @@ export function displayMain() {
 
 export function buildDisplayedPointset(sampleList, displayType) {
 
-	var X = [];
-	var Y = [];
-	var Z = [];
-	var names= [];
-	var colors = [];
-
-	for (const sample of sampleList) {
-		X.push(sample["X_NAD"]);
-		Y.push(sample["Y_NAD"]);
-		Z.push(sample["Z_NAD"]);
-		names.push(sample['NAME']);
-		colors.push(sample['COLOR']);
-	}
+	let X = sampleList.map(({X_NAD})=>X_NAD);
+	let Y = sampleList.map(({Y_NAD})=>Y_NAD);
+	let Z = sampleList.map(({Z_NAD})=>Z_NAD);
+	let colors = sampleList.map(({COLOR})=>COLOR);
+	let names = sampleList.map(({NAME})=>NAME);
 
 
 	var trace = {
@@ -172,17 +169,10 @@ export function buildDisplayedPointset(sampleList, displayType) {
 
 function drawMap(holes) {
 
-	var holeids = [];
-	var holes_lat = [];
-	var holes_lon = [];
-
-	for (var hole of holes) {
-		holeids.push(hole.HOLEID);
-		holes_lat.push(hole.HOLEID_LATITUDE);
-		holes_lon.push(hole.HOLEID_LONGITUDE);
-		var col = hole.COLOR;	
-	}
-
+	let holeids = holes.map(({HOLEID})=>HOLEID);
+	let holes_lat = holes.map(({HOLEID_LATITUDE})=>HOLEID_LATITUDE);
+	let holes_lon = holes.map(({HOLEID_LONGITUDE})=>HOLEID_LONGITUDE);
+	let colors = holes.map(({COLOR})=>COLOR);
 
     var data = [{type: "scattermapbox",
 	text:holeids, 
@@ -191,7 +181,7 @@ function drawMap(holes) {
 	lat: holes_lat, 
 	name:holeids, 
 	mode:'markers+text', 
-	marker:{size:10,color:col }}];
+	marker:{size:10,color:colors }}];
 
 
     var layout = {
@@ -315,6 +305,116 @@ function drawMap(holes) {
 
 
 
+ function makeTracesForDensity(sampleList) {
+
+	let X = sampleList.map(({X_NAD})=>X_NAD);
+	let Y = sampleList.map(({Y_NAD})=>Y_NAD);
+	let Z = sampleList.map(({Z_NAD})=>Z_NAD);
+	let colors = sampleList.map(({COLOR})=>COLOR);
+	let names = sampleList.map(({NAME})=>NAME);
+
+
+	var colorscale = ['Hot','Jet','Blackbody','Bluered','Blues','Earth','Electric','Greys','Greens','Picnic','Portland','Rainbow','RdBu',
+	'Reds','Viridis','YlGnBu','YlOrRd'];
+
+	var trace1 = {
+		x: X,
+		y: Y,
+		mode: 'markers',
+		name: 'points',
+		marker: {
+		  color: colors,
+		  size: 10,
+		  opacity: 0.9
+		},
+		type: 'scatter'
+	  };
+
+
+	  var trace2 = {
+		x: X,
+		y: Y,
+		name: 'density',
+		ncontours: 5,
+		colorscale: colorscale[random(1)],
+		reversescale: true,
+		showscale: true,
+		type: 'histogram2dcontour',
+		opacity: 0.5
+	  };
+
+	  var trace3 = {
+		x: X,
+		name: 'x density',
+		marker: {color: colors},
+		yaxis: 'y2',
+		type: 'histogram'
+	  };
+
+	  var trace4 = {
+		y: Y,
+		name: 'y density',
+		marker: {color: colors},
+		xaxis: 'x2',
+		type: 'histogram'
+	  };
+	
+	return [trace1,trace2,trace3,trace4];
+}
+
+/**
+ * void : plot function for density graph
+ * @param {*} data : Array of traces dictionnary objects 
+ */
+function DensityGraph(data)
+{
+	  var layout = {
+		autosize:true,
+		showlegend: false,
+		margin: {t: 50},
+		hovermode: 'closest',
+		bargap: 0,
+		barmode:"stack",
+		xaxis: {
+		  domain: [0, 0.85],
+		  showgrid: false,
+		  zeroline: false,
+		  title: {
+			text: "X",
+			font: {
+			  family: 'Courier New, monospace',
+			  size: 18,
+			}
+		  }
+		},
+		yaxis: {
+		  domain: [0, 0.85],
+		  showgrid: false,
+		  zeroline: false,
+		  title: {
+			text: "Y",
+			font: {
+			  family: 'Courier New, monospace',
+			  size: 18,
+			}
+		  }
+		},
+		xaxis2: {
+		  domain: [0.85, 1],
+		  showgrid: false,
+		  zeroline: false
+		},
+		yaxis2: {
+		  domain: [0.85, 1],
+		  showgrid: false,
+		  zeroline: false
+		}
+	  };
+	  var config = {responsive: true};
+	  Plotly.newPlot('chart2', data, layout, config);
+
+}
+
 export function isFloat(variable) {
     return !Number.isNaN(Number.parseFloat(variable));
 }
@@ -342,4 +442,15 @@ export function getColumn(colName,  array) {
     }
 
     return colArray;
+}
+
+// --------------------------------------------- 
+
+ /**
+  * 
+  * @param {*} number float number
+  * @returns random value
+  */
+  function random(number) {
+	return Math.floor(Math.random() * (number+1));
 }
