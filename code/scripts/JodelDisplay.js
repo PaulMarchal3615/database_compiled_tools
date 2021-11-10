@@ -2,11 +2,24 @@
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
-	samples:`NAME,FILE_NAME,HOLEID,DISPLAY_TYPE,COLOR`,
+	samples:`NAME,FILE_NAME,HOLEID,
+	DISPLAY_TYPE,COLOR,MEASUREMENT,
+	PROJECT_AREA,PROJECT_CODE,
+	PROJECT_COUNTRY,PROJECT_NAME,
+	PROJECT_PROVINCE,
+	SAMPLE_NAME,SAMPLE_NAME_GEORESSOURCES,SAMPLE_NAME_ORANO,
+	SAMPLE_DEPTH_FROM,SAMPLE_DEPTH_TO,
+	SAMPLING_DATE,SAMPLE_TYPE,REFERENT_NAME,
+	REFERENT_NAME2,REFERENT_NAME3,KEYWORD,
+	KEYWORD2,ALTERATION_DEGREE,LITHOLOGY,
+	LITHOLOGY_2,LITHOLOGY_3,ORE_TYPE,ORE_TYPE_2,
+	ORE_TYPE_3,TEXTURE_STRUCTURE,TEXTURE_STRUCTURE_1,
+	TEXTURE_STRUCTURE_2,HOST_AGE,MAIN_EVENT_AGE`,
 	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	var:`FILE_NAME,VARLIST`
 });
+
 
 export function displayMain() {
 
@@ -60,6 +73,61 @@ export function displayMain() {
 	})
 	.catch (function (e) {
 		console.error("DISPLAY MAIN",e);
+	});
+					
+}
+
+export function displayMainFiltered(propertyName,varList) {
+
+	let table = document.getElementById("file_table");
+	let checkList = [];
+	var trace = {};
+	var traceDensity = {};
+
+	for (var row of table.rows) {
+		var fileName = row.cells[0].innerHTML;
+		if (fileName != 'File') {
+			if (document.getElementById('check_'+fileName).checked) {
+				checkList.push(fileName);
+			}
+		}
+	}
+
+	// ------------------------- 3D & density view
+	var ratio = {
+		x:document.getElementById("X_input").value,
+		y:document.getElementById("Y_input").value,
+		z:document.getElementById("Z_input").value};
+
+	db_jodel.transaction('rw', db_jodel.samples, function () {
+		console.log('in transaction');
+		console.log(propertyName, varList);
+		return db_jodel.samples.where(propertyName).anyOf(varList).toArray();		
+	}).then (samples =>{
+		console.log(samples);
+		trace = buildDisplayedPointset(samples, 'scatter3d');
+		scatter3DPlot([trace], ratio);
+		traceDensity = makeTracesForDensity(samples);
+		DensityGraph(traceDensity);
+	})
+	.catch (function (e) {
+		console.error("DISPLAY MAIN",e);
+	});
+
+	//------------------------- drillholes display
+
+	db_jodel.transaction('rw', db_jodel.holes, function () {
+		console.log('in transaction');
+
+		return db_jodel.holes.toArray();		
+	}).then (drillholes =>{
+
+		console.log("ddh",drillholes);
+
+		drawMap(drillholes);
+	})
+	.catch (function (e) {
+		alert("DISPLAY MAIN FILTERED",e);
 	});
 					
 }

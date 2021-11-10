@@ -1,18 +1,30 @@
 import {findValue, findColumnIndice, buildMultipleSelect} from './display.js';
-import {metadataNamesList} from './ressources.js';
-import {displayMain} from './JodelDisplay.js';
+import {metadataNamesList, metadataMiniFilterList} from './ressources.js';
+import {displayMain, displayMainFiltered} from './JodelDisplay.js';
 
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
-	samples:`NAME,FILE_NAME,HOLEID,DISPLAY_TYPE,COLOR`,
+	samples:`NAME,FILE_NAME,HOLEID,
+	DISPLAY_TYPE,COLOR,MEASUREMENT,
+	PROJECT_AREA,PROJECT_CODE,
+	PROJECT_COUNTRY,PROJECT_NAME,
+	PROJECT_PROVINCE,
+	SAMPLE_NAME,SAMPLE_NAME_GEORESSOURCES,SAMPLE_NAME_ORANO,
+	SAMPLE_DEPTH_FROM,SAMPLE_DEPTH_TO,
+	SAMPLING_DATE,SAMPLE_TYPE,REFERENT_NAME,
+	REFERENT_NAME2,REFERENT_NAME3,KEYWORD,
+	KEYWORD2,ALTERATION_DEGREE,LITHOLOGY,
+	LITHOLOGY_2,LITHOLOGY_3,ORE_TYPE,ORE_TYPE_2,
+	ORE_TYPE_3,TEXTURE_STRUCTURE,TEXTURE_STRUCTURE_1,
+	TEXTURE_STRUCTURE_2,HOST_AGE,MAIN_EVENT_AGE`,
 	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	var:`FILE_NAME,VARLIST`
 });
 
 db_jodel.open().catch(function (e) {
-    console.error("Open failed: " + e.stack);
+    console.error("Open failed: " + e);
 })
 
 // clear stores if reload page 
@@ -42,9 +54,24 @@ filter.addEventListener('change', function() {
 
 	for (var option of filter.options) {
 		if (option.selected) {
-			console.log(option.label);
 			fillSubFilterBox(option.label);
 		}
+	}
+})
+
+subfilter.addEventListener('change', function() {
+
+	const selected = document.querySelectorAll('#subfilter1 option:checked');
+	const valueList = Array.from(selected).map(el => el.label);
+
+	const selected2 = document.querySelectorAll('#filter1 option:checked');
+	const propertyName = Array.from(selected2).map(el => el.label);
+
+	if (valueList[0] == "-- display all data --") {
+		displayMain();
+	}
+	else {
+		displayMainFiltered(propertyName[0], valueList);
 	}
 })
 
@@ -57,22 +84,26 @@ filter.addEventListener('change', function() {
  */
  async function fillSubFilterBox(varName) {
 
-	db_jodel.transaction('rw', db_jodel.var, function () {
-		console.log(db_jodel.var.toArray());
+	if (varName != "-- display all data --") {
 
-		return db_jodel.var.toArray();		
-	}).then (result =>{
-		subfilter = document.getElementById("subfilter1");
+		db_jodel.transaction('rw', db_jodel.var, function () {
+
+			return db_jodel.var.toArray();		
+		}).then (result =>{
+			subfilter = document.getElementById("subfilter1");
+			removeOptions(subfilter);
+			let dict = result[0].VARLIST;
+			updateBox("subfilter1", dict[varName]);
+		})
+		.catch (function (e) {
+			alert("subfilter error",e);
+		});
+
+	}
+	else {
 		removeOptions(subfilter);
-		let dict = result[0].VARLIST;
-		console.log("var",result[0],dict);
-		updateBox("subfilter1", dict[varName]);
-	})
-	.catch (function (e) {
-		console.error("DISPLAY MAIN",e);
-	});
-
-
+		updateBox("subfilter1",["-- display all data --"]);
+	}
 }
 
 // --------------------------------------------
@@ -123,14 +154,14 @@ function parseFiles(event) {
 								buildSamplesBase(dataset);
 								
 							}).then(function() {
-								updateBox('filter1',results.data[0]);
+								updateBox('filter1',metadataMiniFilterList);
 								displayMain();
 								var dict = makeDictValue(results.data);
 								db_jodel.var.put({
 									FILE_NAME:file.name,
 									VARLIST:dict
 								}).catch(function(error)
-								{console.log(error);})
+								{alert(error);})
 							});	
 						})		
 					}
@@ -149,9 +180,16 @@ function makeDictValue(array) {
 	
 	var dict ={};
 	for (var i = 0; i< array[0].length; i++) {
-		dict[array[0][i]] = array.map(x => x[i]);
+		let varList = array.map(x => x[i]);
+		let firstElement = varList.splice(0, 2);
+		if (array[0][i]=="MEASUREMENT-ABBREV") {
+			dict["MEASUREMENT"] = varList;
+		}
+		else {
+			dict[array[0][i]] = varList;
+		}
+		
 	}
-	console.log(dict);
 	return dict;
 }
 
@@ -172,6 +210,9 @@ function buildSamplesBase(dataset) {
 			sample.FILE_NAME = dataset['FILE_NAME'];
 			sample.DISPLAY_TYPE = dataset['TYPE'];
 			sample.COLOR = dataset['COLOR'];
+			
+			var measurementIndice = findColumnIndice("MEASUREMENT-ABBREV", array);
+			sample.MEASUREMENT = line[measurementIndice];
 
 			for (var colName of metadataNamesList) {
 				var j = findColumnIndice(colName, dataset.ARRAY);
@@ -198,7 +239,7 @@ function createHole(sample) {
 
 
 	db_jodel.holes.put(hole).catch((error => {
-		console.log("test_createHole",error);
+		alert("ERROR : createHole",error);
 	}));
 
 }	
@@ -324,3 +365,67 @@ function deleteLine(oEvent){
 	   selectElement.remove(i);
 	}
 }
+
+
+document.getElementById('exportSamples').addEventListener("click",exportSamples);
+
+function exportSamples() {
+
+	console.log("in");
+
+	const selected = document.querySelectorAll('#subfilter1 option:checked');
+	const valueList = Array.from(selected).map(el => el.label);
+
+	const selected2 = document.querySelectorAll('#filter1 option:checked');
+	const propertyName = Array.from(selected2).map(el => el.label);
+
+	if (valueList[0] != "-- display all data --") {
+
+		db_jodel.transaction('rw', db_jodel.samples, function () {
+			console.log('in transaction');
+			return db_jodel.samples.where(propertyName[0]).anyOf(valueList).toArray();		
+		}).then (samples =>{
+
+			const data = [samples.map(({NAME}) => NAME)];
+			console.log(data);
+			let csvContent = "data:text/csv;charset=utf-8,"
+			+ data.map(e => e.join(",")).join("\n");
+			
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", "my_data.csv");
+			document.body.appendChild(link); 
+			link.click();
+		})
+		.catch (function (error) {
+			console.error("EXPORT ERROR",error);
+		});
+
+	}
+
+	else {
+		const data = [
+			["Bonjour", "c'est", "Nicolas","Sarkozy"],
+			["et", "j'ai", "le","plaisir"],
+			["de", "lire", "le","Temps des Tempetes"],
+			["_", "pour", "Audible","_"],
+		];
+
+		let csvContent = "data:text/csv;charset=utf-8," 
+		+ data.map(e => e.join(",")).join("\n");
+	
+	var encodedUri = encodeURI(csvContent);
+	var link = document.createElement("a");
+	link.setAttribute("href", encodedUri);
+	link.setAttribute("download", "my_data.csv");
+	document.body.appendChild(link); 
+	link.click();
+
+	}
+
+		
+
+			
+
+	}
