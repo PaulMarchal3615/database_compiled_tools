@@ -17,7 +17,11 @@ db_jodel.version(1).stores({
 	KEYWORD2,ALTERATION_DEGREE,LITHOLOGY,
 	LITHOLOGY_2,LITHOLOGY_3,ORE_TYPE,ORE_TYPE_2,
 	ORE_TYPE_3,TEXTURE_STRUCTURE,TEXTURE_STRUCTURE_1,
-	TEXTURE_STRUCTURE_2,HOST_AGE,MAIN_EVENT_AGE`,
+	TEXTURE_STRUCTURE_2,HOST_AGE,MAIN_EVENT_AGE,
+	Vp_short_axis,Vp_long_axis,Vs_short_axis,Vs_long_axis,
+	Vp_short_axis_sature,Vp_long_axis_sature,Vs_short_axis_sature,Vs_long_axis_sature,
+	Absolute_solid_density,Bulk_density,Porosity,Permeability,
+	Magnetic_susceptibility,Resistivity_1hz`,
 	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	var:`FILE_NAME,VARLIST`
@@ -62,16 +66,18 @@ filter.addEventListener('change', function() {
 subfilter.addEventListener('change', function() {
 
 	const selected = document.querySelectorAll('#subfilter1 option:checked');
-	const valueList = Array.from(selected).map(el => el.label);
+	var valueListRaw = Array.from(selected).map(el => el.label);
+	//var valueList = valueListRaw.map(num => parseFloat(num));
+	valueListRaw.sort();
 
 	const selected2 = document.querySelectorAll('#filter1 option:checked');
 	const propertyName = Array.from(selected2).map(el => el.label);
 
-	if (valueList[0] == "-- display all data --") {
+	if (valueListRaw[0] == "-- display all data --") {
 		displayMain();
 	}
 	else {
-		displayMainFiltered(propertyName[0], valueList);
+		displayMainFiltered(propertyName[0], valueListRaw);	
 	}
 })
 
@@ -93,7 +99,7 @@ subfilter.addEventListener('change', function() {
 			subfilter = document.getElementById("subfilter1");
 			removeOptions(subfilter);
 			let dict = result[0].VARLIST;
-			updateBox("subfilter1", dict[varName]);
+			updateBox("subfilter1", dict[varName].sort());
 		})
 		.catch (function (e) {
 			alert("subfilter error",e);
@@ -239,6 +245,7 @@ function createHole(sample) {
 
 
 	db_jodel.holes.put(hole).catch((error => {
+		console.log(error);
 		alert("ERROR : createHole",error);
 	}));
 
@@ -371,7 +378,7 @@ document.getElementById('exportSamples').addEventListener("click",exportSamples)
 
 function exportSamples() {
 
-	console.log("in");
+	console.log("in export");
 
 	const selected = document.querySelectorAll('#subfilter1 option:checked');
 	const valueList = Array.from(selected).map(el => el.label);
@@ -386,7 +393,7 @@ function exportSamples() {
 			return db_jodel.samples.where(propertyName[0]).anyOf(valueList).toArray();		
 		}).then (samples =>{
 
-			const data = [samples.map(({NAME}) => NAME)];
+			const data = [samples.map(({NAME}) => NAME),samples.map(({HOLEID}) => HOLEID),samples.map(({Resistivity_1hz}) => Resistivity_1hz)];
 			console.log(data);
 			let csvContent = "data:text/csv;charset=utf-8,"
 			+ data.map(e => e.join(",")).join("\n");

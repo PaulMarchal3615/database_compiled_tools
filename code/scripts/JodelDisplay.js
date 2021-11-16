@@ -14,12 +14,15 @@ db_jodel.version(1).stores({
 	KEYWORD2,ALTERATION_DEGREE,LITHOLOGY,
 	LITHOLOGY_2,LITHOLOGY_3,ORE_TYPE,ORE_TYPE_2,
 	ORE_TYPE_3,TEXTURE_STRUCTURE,TEXTURE_STRUCTURE_1,
-	TEXTURE_STRUCTURE_2,HOST_AGE,MAIN_EVENT_AGE`,
+	TEXTURE_STRUCTURE_2,HOST_AGE,MAIN_EVENT_AGE,
+	Vp_short_axis,Vp_long_axis,Vs_short_axis,Vs_long_axis,
+	Vp_short_axis_sature,Vp_long_axis_sature,Vs_short_axis_sature,Vs_long_axis_sature,
+	Absolute_solid_density,Bulk_density,Porosity,Permeability,
+	Magnetic_susceptibility,Resistivity_1hz`,
 	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	var:`FILE_NAME,VARLIST`
 });
-
 
 export function displayMain() {
 
