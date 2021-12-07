@@ -52,6 +52,8 @@ export function displayMain() {
 		return db_jodel.samples.where('FILE_NAME').anyOf(checkList).toArray();		
 	}).then (samples =>{
 
+		initColorScale(samples, 'FILE_NAME', checkList);
+
 		trace = buildDisplayedPointset(samples, 'scatter3d');
 		scatter3DPlot([trace], ratio);
 		traceDensity = makeTracesForDensity(samples);
@@ -104,10 +106,12 @@ export function displayMainFiltered(propertyName,varList) {
 
 	db_jodel.transaction('rw', db_jodel.samples, function () {
 		console.log('in transaction');
-		console.log(propertyName, varList);
+
 		return db_jodel.samples.where(propertyName).anyOf(varList).toArray();		
 	}).then (samples =>{
-		console.log(samples);
+
+		initColorScale(samples, propertyName, varList);
+
 		trace = buildDisplayedPointset(samples, 'scatter3d');
 		scatter3DPlot([trace], ratio);
 		traceDensity = makeTracesForDensity(samples);
@@ -133,6 +137,58 @@ export function displayMainFiltered(propertyName,varList) {
 		alert("DISPLAY MAIN FILTERED",e);
 	});
 					
+}
+
+
+function initColorScale(sampleList, propertyName, varList) {
+
+	if (propertyName != "FILE_NAME") {
+
+		console.log(varList[0], isFloat(varList[0]));
+
+		if (isFloat(varList[0])) {
+
+			var size = 10;
+
+			varList = varList.map(value=>parseFloat(value));
+
+			var limits = chroma.limits(varList, 'q', size);
+			console.log("limits",limits);
+
+			var scale = chroma.scale(['#fafa6e','#2A4858'])
+			.mode('lch').colors(size);
+		
+			for (var sample of sampleList) {
+
+					var closest = limits.reduce(function(prev, curr) {
+						return (Math.abs(curr - sample[propertyName]) < Math.abs(prev - sample[propertyName]) ? curr : prev);
+					  });
+					sample.COLOR = scale[limits.indexOf(closest)];
+			}
+
+		}
+		// categorical
+		else {
+
+			var size = varList.length;
+
+			var scale = chroma.scale(['#fafa6e','#2A4858'])
+			.mode('lch').colors(size);
+		
+			for (var sample of sampleList) {
+				for (var value of varList) {
+					if (sample[propertyName] == value) {
+						sample.COLOR = scale[varList.indexOf(value)];
+						break;
+					}
+				}
+			}
+
+		}
+
+
+	}
+
 }
 
 
