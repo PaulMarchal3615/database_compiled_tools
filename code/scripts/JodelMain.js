@@ -46,6 +46,7 @@ input.addEventListener('input',parseFiles);
 document.getElementById("X_input").addEventListener("change",displayMain);
 document.getElementById("Y_input").addEventListener("change",displayMain);
 document.getElementById("Z_input").addEventListener("change",displayMain);
+document.getElementById("Z_input").addEventListener("change",displayMain);
 
 
 //---------------------------------------------

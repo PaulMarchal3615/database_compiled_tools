@@ -8,6 +8,8 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
   <link rel="stylesheet" href="../styles/gridJODEL.css" />
+  <link rel="stylesheet" href="../styles/radiobutton.css" />
+  <link rel="stylesheet" href="../styles/gridColorScale.css" />
    <!--function for opening tabs on click-->
   <script type="text/javascript">
   function openView(evt, view) {
@@ -65,6 +67,7 @@
         <button type="button" class="btn-2" id="addPointset"> Add Pointset</button>
         <button type="button" class="btn-2" id="addSurface"> Add Surface</button>
         <button type="button" class="btn-2" id="addLines"> Add Traces</button>
+        <button type="button" class="btn-2" id="exportSamples"> Export samples</button>
 
         <br>
 
@@ -100,17 +103,88 @@
         </select>
 
         <p id="miniInfoDisp"> __ </p>
+      
 
-        <br>
+      <div class="cosmeticParameters">
 
-      <div id='ratioControl'>
-        <input id='X_input' type='text' value="1" name="X" onkeypress='validate(event)' />
-        <input id='Y_input' type='text' value="1" name="Y" onkeypress='validate(event)' />
-        <input id='Z_input' type='text' value="1" name="Z" onkeypress='validate(event)' />
+        <div class="cosmeticColumn1">
+
+          <p>Ratio Control</p>
+
+          <div id='ratioControl'>
+            <input id='X_input' type='text' value="1" name="X" onkeypress='validate(event)' />
+            <input id='Y_input' type='text' value="1" name="Y" onkeypress='validate(event)' />
+            <input id='Z_input' type='text' value="1" name="Z" onkeypress='validate(event)' />
+          </div>
+
+          <p>Number of data classes:</p>
+
+        <select id="num-classes">
+          <option name="3">3</option>
+          <option name="4">4</option>
+          <option name="5">5</option>
+          <option name="6">6</option>
+          <option name="7">7</option>
+          <option name="8">8</option>
+          <option name="9">9</option>
+          <option name="10">10</option>
+          <option name="11">11</option>
+          <option name="12">12</option>
+        </select>
+
+        <div id="scheme" class="section">
+          <p>Pick a color scheme:</p>
+
+          <label>
+            <input id="colorBtn" type="radio" name="colorPicker" value="blue" checked>
+            <img src="./blue.png">
+          </label>
+          
+          <label>
+            <input id="colorBtn" type="radio" name="colorPicker" value="green">
+            <img src="./green.png">
+          </label>
+
+          <label>
+            <input id="colorBtn" type="radio" name="colorPicker" value="purple">
+            <img src="./purple.png">
+          </label>
+
+          <label>
+            <input id="colorBtn" type="radio" name="colorPicker" value="orange">
+            <img src="./orange.png">
+          </label>
+
+          <label>
+            <input id="colorBtn" type="radio" name="colorPicker" value="black">
+            <img src="./black.png">
+          </label>
+
+          <label>
+            <input id="colorBtn" type="radio" name="colorPicker" value="rainbow">
+            <img src="./rainbow.png">
+          </label>
+
+        </div>
+
+        </div>
+
+        <div class="cosmeticColumn2">
+
+          <table id="color_table" class="color-table">
+            <thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+            </tfoot>
+    
+          </table>
+
+
+          
+        </div>    
+
       </div>
-
-      <br> <br>
-      <button type="button" class="btn-2" id="exportSamples"> export samples</button>
 
       </div>
 

@@ -1,4 +1,4 @@
-
+import {colorbrewer} from './colorBrewer.js';
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
@@ -139,8 +139,29 @@ export function displayMainFiltered(propertyName,varList) {
 					
 }
 
+function fillCaptionTable(colorList, valueList) {
+
+	$("#color_table tr").remove(); 
+
+	var tablebody = document.getElementById("color_table").getElementsByTagName('tbody')[0];
+
+	for (var i=0;i<colorList.length; i++) {
+		console.log(i,colorList[i], valueList[i] );
+
+		var row = tablebody.insertRow(0);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		cell1.innerHTML = colorList[i];
+		cell1.bgColor = colorList[i];
+		cell2.innerHTML = valueList[i]; 
+	}		
+}
+
 
 function initColorScale(sampleList, propertyName, varList) {
+
+	var colorNumber = document.querySelector('input[name="colorPicker"]:checked').value;
+	console.log(colorNumber);
 
 	if (propertyName != "FILE_NAME") {
 
@@ -148,14 +169,15 @@ function initColorScale(sampleList, propertyName, varList) {
 
 		if (isFloat(varList[0])) {
 
-			var size = 10;
+			var size = $('#num-classes').find(":selected").text();
+			console.log(size);
 
 			varList = varList.map(value=>parseFloat(value));
 
 			var limits = chroma.limits(varList, 'q', size);
 			console.log("limits",limits);
 
-			var scale = chroma.scale(['#fafa6e','#2A4858'])
+			var scale = chroma.scale([colorbrewer[colorNumber][3][0],'#DCDCDC'])
 			.mode('lch').colors(size);
 		
 			for (var sample of sampleList) {
@@ -165,6 +187,8 @@ function initColorScale(sampleList, propertyName, varList) {
 					  });
 					sample.COLOR = scale[limits.indexOf(closest)];
 			}
+		
+		fillCaptionTable(scale, limits);
 
 		}
 		// categorical
@@ -183,12 +207,9 @@ function initColorScale(sampleList, propertyName, varList) {
 					}
 				}
 			}
-
+			fillCaptionTable(scale, varList);
 		}
-
-
 	}
-
 }
 
 
