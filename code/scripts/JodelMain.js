@@ -54,6 +54,7 @@ document.getElementById("Z_input").addEventListener("change",displayMain);
 //add event listener on filter change --> update subfilter
 var filter = document.getElementById("filter1");
 var subfilter = document.getElementById("subfilter1");
+var selectBtn = document.getElementById("selectAll");
 
 filter.addEventListener('change', function() {
 
@@ -64,12 +65,17 @@ filter.addEventListener('change', function() {
 	}
 })
 
-subfilter.addEventListener('change', function() {
+subfilter.addEventListener('change', filteredDisplay);
+selectBtn.addEventListener('click', filteredDisplay);
+
+function filteredDisplay(){
 
 	const selected = document.querySelectorAll('#subfilter1 option:checked');
 	var valueListRaw = Array.from(selected).map(el => el.label);
 	//var valueList = valueListRaw.map(num => parseFloat(num));
 	valueListRaw.sort();
+	console.log(valueListRaw, valueListRaw[0], typeof valueListRaw[0]);
+	console.log(typeof parseFloat(""), parseFloat(""));
 
 	const selected2 = document.querySelectorAll('#filter1 option:checked');
 	const propertyName = Array.from(selected2).map(el => el.label);
@@ -80,7 +86,7 @@ subfilter.addEventListener('change', function() {
 	else {
 		displayMainFiltered(propertyName[0], valueListRaw);	
 	}
-})
+}
 
 
 //--------------------------------------------
@@ -395,7 +401,6 @@ function exportSamples() {
 		}).then (samples =>{
 
 			const data = [samples.map(({NAME}) => NAME),samples.map(({HOLEID}) => HOLEID),samples.map(({Resistivity_1hz}) => Resistivity_1hz)];
-			console.log(data);
 			let csvContent = "data:text/csv;charset=utf-8,"
 			+ data.map(e => e.join(",")).join("\n");
 			

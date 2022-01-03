@@ -1,14 +1,16 @@
 
 .cosmeticParameters {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 0px;
     grid-auto-rows: minmax(100%, auto);
     margin: auto;
     width: 100%;
     background-color: white;
-    border: 0.1cm;
+    border: 10px;
     border-color: black;
+    padding: 5px;
+    border-radius: 10px;
   }
 
   .cosmeticColumn1 {

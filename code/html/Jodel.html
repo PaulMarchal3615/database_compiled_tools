@@ -51,6 +51,15 @@
   }
 }
 
+function selectAll()
+    {
+    	var myOpts = document.getElementById('subfilter1').options;
+    	for ( i=0; i<myOpts.length; i++)
+    	{
+    		myOpts[i].selected = "true";
+    	}
+    }
+
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -94,13 +103,20 @@
 
         <!--filters to select only points following values on a selected property
         subfilter1 is filled when filter1 is modified-->
+
+        <div id=colSubFilter>
+
         <select name=filter1 id="filter1" multiple >
           <option value="-1">-- display all data --</option>
         </select>
 
+        <button id="selectAll" onClick="selectAll();">Select All</button>
+
         <select name=subfilter1[] id="subfilter1" multiple >
           <option value="-1">-- display all data --</option>
         </select>
+
+        </div>
 
         <p id="miniInfoDisp"> __ </p>
       
@@ -109,7 +125,7 @@
 
         <div class="cosmeticColumn1">
 
-          <p>Ratio Control</p>
+          <p>Ratio Control :</p>
 
           <div id='ratioControl'>
             <input id='X_input' type='text' value="1" name="X" onkeypress='validate(event)' />
@@ -117,7 +133,7 @@
             <input id='Z_input' type='text' value="1" name="Z" onkeypress='validate(event)' />
           </div>
 
-          <p>Number of data classes:</p>
+          <p>Number of data classes :</p>
 
         <select id="num-classes">
           <option name="3">3</option>
@@ -133,7 +149,7 @@
         </select>
 
         <div id="scheme" class="section">
-          <p>Pick a color scheme:</p>
+          <p>Pick a color scheme :</p>
 
           <label>
             <input id="colorBtn" type="radio" name="colorPicker" value="blue" checked>

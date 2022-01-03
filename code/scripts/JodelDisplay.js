@@ -111,7 +111,6 @@ export function displayMainFiltered(propertyName,varList) {
 	}).then (samples =>{
 
 		initColorScale(samples, propertyName, varList);
-
 		trace = buildDisplayedPointset(samples, 'scatter3d');
 		scatter3DPlot([trace], ratio);
 		traceDensity = makeTracesForDensity(samples);
@@ -129,8 +128,6 @@ export function displayMainFiltered(propertyName,varList) {
 		return db_jodel.holes.toArray();		
 	}).then (drillholes =>{
 
-		console.log("ddh",drillholes);
-
 		drawMap(drillholes);
 	})
 	.catch (function (e) {
@@ -144,9 +141,14 @@ function fillCaptionTable(colorList, valueList) {
 	$("#color_table tr").remove(); 
 
 	var tablebody = document.getElementById("color_table").getElementsByTagName('tbody')[0];
+	var row = tablebody.insertRow(0);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	cell1.innerHTML = "#000000";
+	cell1.bgColor = "#000000";
+	cell2.innerHTML = "No Data Value"; 
 
 	for (var i=0;i<colorList.length; i++) {
-		console.log(i,colorList[i], valueList[i] );
 
 		var row = tablebody.insertRow(0);
 		var cell1 = row.insertCell(0);
@@ -161,31 +163,40 @@ function fillCaptionTable(colorList, valueList) {
 function initColorScale(sampleList, propertyName, varList) {
 
 	var colorNumber = document.querySelector('input[name="colorPicker"]:checked').value;
-	console.log(colorNumber);
+	console.log(parseFloat(""),parseFloat("1"),parseFloat("chaussette"));
 
 	if (propertyName != "FILE_NAME") {
 
-		console.log(varList[0], isFloat(varList[0]));
+		var testValue = 0;
 
-		if (isFloat(varList[0])) {
+		if (varList[0] == "") {
+			testValue = 1;
+		}
+
+		if (isFloat(varList[testValue])) {
 
 			var size = $('#num-classes').find(":selected").text();
-			console.log(size);
 
 			varList = varList.map(value=>parseFloat(value));
+			console.log("varList",varList);
 
 			var limits = chroma.limits(varList, 'q', size);
-			console.log("limits",limits);
 
-			var scale = chroma.scale([colorbrewer[colorNumber][3][0],'#DCDCDC'])
-			.mode('lch').colors(size);
+			var scale = chroma.scale([colorbrewer[colorNumber],'#DCDCDC'])
+			.mode('hsl').colors(size);
 		
 			for (var sample of sampleList) {
-
+				if (sample[propertyName] == NaN || sample[propertyName] =="") {
+					sample.COLOR = "#000000";
+				}
+				else {
 					var closest = limits.reduce(function(prev, curr) {
 						return (Math.abs(curr - sample[propertyName]) < Math.abs(prev - sample[propertyName]) ? curr : prev);
 					  });
 					sample.COLOR = scale[limits.indexOf(closest)];
+				}
+
+					
 			}
 		
 		fillCaptionTable(scale, limits);
