@@ -4,11 +4,10 @@
 	font-weight: bold;
 	text-decoration: none;
 	background: linear-gradient(0.25turn,#e66465, #9198e5);
-	padding: 10px;
+	padding: 8px;
 	display: inline-block;
 	border: none;
-	transition: all 0.4s ease 0s;
-	border-radius: 5px;
+	transition: all 0.3s ease 0s;
 	margin: 1px;
 }
 
@@ -27,11 +26,10 @@
 	font-weight: bold;
 	text-decoration: none;
 	background: linear-gradient(30deg,#202E38, #285A8E);
-	padding: 10px;
+	padding: 8px;
 	display: inline-block;
 	border: none;
-	transition: all 0.4s ease 0s;
-	border-radius: 5px;
+	transition: all 0.3s ease 0s;
 	margin: 1px;
 }
 
@@ -41,5 +39,5 @@
 	-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
 	-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
 	box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
-	transition: all 0.4s ease 0s;
+	transition: all 0.3s ease 0s;
 }

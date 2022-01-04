@@ -70,6 +70,9 @@ function selectAll()
 
       <div class="FileColumn">
 
+
+        <div id=colSubFilter>
+
         <input type="file" id="fileInput" multiple="multiple">
         <input type="file" id="fileInput2" multiple="multiple">
 
@@ -77,8 +80,6 @@ function selectAll()
         <button type="button" class="btn-2" id="addSurface"> Add Surface</button>
         <button type="button" class="btn-2" id="addLines"> Add Traces</button>
         <button type="button" class="btn-2" id="exportSamples"> Export samples</button>
-
-        <br>
 
         <!-- table for displaying loaded files and characteristics-->
         <table id="file_table" class="fl-table">
@@ -99,12 +100,8 @@ function selectAll()
 
         </table>
 
-        <br>
-
         <!--filters to select only points following values on a selected property
         subfilter1 is filled when filter1 is modified-->
-
-        <div id=colSubFilter>
 
         <select name=filter1 id="filter1" multiple >
           <option value="-1">-- display all data --</option>
@@ -116,9 +113,9 @@ function selectAll()
           <option value="-1">-- display all data --</option>
         </select>
 
-        </div>
-
         <p id="miniInfoDisp"> __ </p>
+
+      </div>
       
 
       <div class="cosmeticParameters">

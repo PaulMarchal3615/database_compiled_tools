@@ -415,7 +415,6 @@ function drawMap(holes) {
 	}).then (result => {
 
 		for (const sample of result) {
-			console.log(sample);
 
 			names.push(sample.NAME);
 			depths.push(parseFloat(sample.SAMPLE_DEPTH_FROM));
@@ -424,8 +423,6 @@ function drawMap(holes) {
 
 		//Samples.map(x => {return ddhID;});
 		//textDisp.innerText = String(etiquette.length+" samples in well "+ddhID);
-
-		console.log("depths",depths);
 
 		var trace1 = {
 			x: etiquettes,
