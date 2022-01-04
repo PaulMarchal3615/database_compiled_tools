@@ -323,8 +323,32 @@ export function buildDisplayedPointset(sampleList, displayType) {
  
 	Plotly.newPlot('chart1', data, layout, config);
  }
+/**
+ * 
+ * @param {*} lat : latitude array
+ * @param {*} lon Longitude array
+ * return zoom, latCenter, lonCenter
+ */ 
+function getBoundingBox(lat,lon) {
+	console.log(lat, lon);
+	var MaxLat = Math.max(...lat);
+	var MaxLon = Math.max(...lon);
+	var MinLat = Math.min(...lat);
+	var MinLon = Math.min(...lon);
+	console.log(MaxLat,MaxLon,MinLat,MinLon);
 
+	var center = {
+		'lon':(MaxLon+MinLon)/2,
+		'lat':(MaxLat+MinLat)/2
+	}
 
+	var max_bound = Math.max(Math.abs(MinLon-MaxLon), Math.abs(MinLat-MaxLat)) * 111;
+	var zoom = 11.5 - Math.log(max_bound);
+	console.log(zoom, center);
+	return [center,zoom];
+}
+
+	
 
 function drawMap(holes) {
 
@@ -332,6 +356,7 @@ function drawMap(holes) {
 	let holes_lat = holes.map(({HOLEID_LATITUDE})=>HOLEID_LATITUDE);
 	let holes_lon = holes.map(({HOLEID_LONGITUDE})=>HOLEID_LONGITUDE);
 	let colors = holes.map(({COLOR})=>COLOR);
+
 
     var data = [{type: "scattermapbox",
 	text:holeids, 
@@ -342,6 +367,7 @@ function drawMap(holes) {
 	mode:'markers+text', 
 	marker:{size:10,color:colors }}];
 
+	var [center, AutoZoom] = getBoundingBox(holes_lat,holes_lon);
 
     var layout = {
 
@@ -355,12 +381,11 @@ function drawMap(holes) {
         },
     
         dragmode: "zoom",
-        mapbox: { style: "open-street-map", center: { lat: 57.99, lon: -104.5 }, zoom: 10 },
+
+        mapbox: { style: "open-street-map", center: { lat: center.lat, lon: center.lon }, zoom: AutoZoom },
 
         margin: { r: 0, t: 0, b: 0, l: 0 },
-		autosize: false,
-		width: 500,
-		height: 500,
+		autosize: true,
         annotations:{
             align:"left",
             arrowcolor:"black",
