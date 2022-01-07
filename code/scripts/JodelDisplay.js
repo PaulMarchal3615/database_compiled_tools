@@ -54,7 +54,7 @@ export function displayMain() {
 
 		initColorScale(samples, 'FILE_NAME', checkList);
 
-		trace = buildDisplayedPointset(samples, 'scatter3d');
+		trace = buildDisplayedPointset(samples, 'scatter3d', 0);
 		scatter3DPlot([trace], ratio);
 		traceDensity = makeTracesForDensity(samples);
 		DensityGraph(traceDensity);
@@ -111,9 +111,9 @@ export function displayMainFiltered(propertyName,varList) {
 	}).then (samples =>{
 
 		initColorScale(samples, propertyName, varList);
-		trace = buildDisplayedPointset(samples, 'scatter3d');
+		trace = buildDisplayedPointset(samples, 'scatter3d', propertyName);
 		scatter3DPlot([trace], ratio);
-		traceDensity = makeTracesForDensity(samples);
+		traceDensity = makeTracesForDensity(samples, propertyName);
 		DensityGraph(traceDensity);
 	})
 	.catch (function (e) {
@@ -224,13 +224,26 @@ function initColorScale(sampleList, propertyName, varList) {
 }
 
 
-export function buildDisplayedPointset(sampleList, displayType) {
+export function buildDisplayedPointset(sampleList, displayType, propertyName) {
 
 	let X = sampleList.map(({X_NAD})=>X_NAD);
 	let Y = sampleList.map(({Y_NAD})=>Y_NAD);
 	let Z = sampleList.map(({Z_NAD})=>Z_NAD);
 	let colors = sampleList.map(({COLOR})=>COLOR);
-	let names = sampleList.map(({NAME})=>NAME);
+
+	let names =[];
+
+	if (propertyName != 0) {
+		names = [];
+
+		for (var sample of sampleList) {
+			var name = sample['NAME']+'_'+propertyName+'_'+sample[propertyName];
+			names.push(name);
+		}
+	}
+	else {
+		names = sampleList.map(({NAME})=>NAME);
+	}
 
 
 	var trace = {
@@ -486,13 +499,25 @@ function drawMap(holes) {
 
 
 
- function makeTracesForDensity(sampleList) {
+ function makeTracesForDensity(sampleList, propertyName) {
 
 	let X = sampleList.map(({X_NAD})=>X_NAD);
 	let Y = sampleList.map(({Y_NAD})=>Y_NAD);
 	let Z = sampleList.map(({Z_NAD})=>Z_NAD);
 	let colors = sampleList.map(({COLOR})=>COLOR);
-	let names = sampleList.map(({NAME})=>NAME);
+	let names =[];
+
+	if (propertyName != 0) {
+		names = [];
+
+		for (var sample of sampleList) {
+			var name = sample['NAME']+'_'+propertyName+'_'+sample[propertyName];
+			names.push(name);
+		}
+	}
+	else {
+		names = sampleList.map(({NAME})=>NAME);
+	}
 
 
 	var colorscale = ['Hot','Jet','Blackbody','Bluered','Blues','Earth','Electric','Greys','Greens','Picnic','Portland','Rainbow','RdBu',

@@ -1,0 +1,28 @@
+.sideParameters{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 33% 66%;
+  grid-gap: 10px;
+  grid-template-rows: 1fr 30px 1fr;
+}
+
+#ratioControl {
+  grid-column: 1;
+  grid-row: 1;
+  }
+
+#num-classes {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#scheme {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+#color-table-zone {
+  grid-column: 2;
+  grid-row: 1 / 3;
+}

@@ -1,0 +1,36 @@
+#chart0{
+    height:100%;
+    width:100%;
+    background-color: white;
+  }
+  
+  #chart1{
+    height:100%;
+    width:100%;
+  }
+
+  .wrapperMapDisplay {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 0px;
+    grid-auto-rows: minmax(100%, auto);
+    margin: auto;
+    width: 100%;
+  }
+  
+  #subchart31 {
+    grid-column: 1;
+    grid-row: 1;
+    height:100%;
+  }
+
+  #subchart32  {
+    grid-column: 2;
+    grid-row: 1;
+    height: 100%;
+    width: auto;
+    background-color: white;
+    border: 1px;
+    border-color: black;
+    margin-right: 5px;
+  }

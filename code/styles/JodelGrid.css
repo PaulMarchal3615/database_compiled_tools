@@ -1,0 +1,15 @@
+.JodelGrid{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-gap: 10px;
+}
+.sidebar {
+  grid-column: 1;
+  grid-row: 1;
+}
+.DisplayZone {
+  grid-column: 2;
+  grid-row: 1;
+}

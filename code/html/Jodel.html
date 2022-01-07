@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-
-<head>
-  <title>JODEL - Sampling Exploration</title>
-
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
-  <link rel="stylesheet" href="../styles/gridJODEL.css" />
-  <link rel="stylesheet" href="../styles/radiobutton.css" />
-  <link rel="stylesheet" href="../styles/gridColorScale.css" />
-   <!--function for opening tabs on click-->
-  <script type="text/javascript">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>JODEL - Sampling Exploration</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
+    <link rel="stylesheet" href="../styles/JodelGrid.css">
+    <link rel="stylesheet" href="../styles/radiobutton.css">
+    <link rel="stylesheet" href="../styles/gridColorScale.css">
+    <link rel="stylesheet" href="../styles/sidebar.css">
+    <link rel="stylesheet" href="../styles/sideParameters.css">
+    <link rel="stylesheet" href="../styles/charts.css">
+    <link rel="stylesheet" href="../styles/ratioControl.css">
+    <link rel="stylesheet" href="../styles/color-table.css">
+    <!--function for opening tabs on click-->
+    <script type="text/javascript">
   function openView(evt, view) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -61,182 +64,138 @@ function selectAll()
     }
 
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <input id="fileInput" multiple="multiple" type="file">
+    <input id="fileInput2" multiple="multiple" type="file"> 
+    <!-- css display is based on a grid and principal components are numbered -->
+    <div class="JodelGrid">
+      <div class="sidebar">
+          <button type="button"
 
-<body>
-  <!-- css display is based on a grid and principal components are numbered -->
-  <div class="wrapperJODEL">
+            class="btn2-hover bn22" id="addPointset"> Add Pointset</button> <button
 
-      <div class="FileColumn">
-
-
-        <div id=colSubFilter>
-
-        <input type="file" id="fileInput" multiple="multiple">
-        <input type="file" id="fileInput2" multiple="multiple">
-
-        <button type="button" class="btn2-hover bn22" id="addPointset"> Add Pointset</button>
-        <button type="button" class="btn2-hover bn22" id="addSurface"> Add Surface</button>
-        <button type="button" class="btn2-hover bn22" id="addLines"> Add Traces</button>
-        <button type="button" class="btn2-hover bn22" id="exportSamples"> Export samples</button>
-
-        <!-- table for displaying loaded files and characteristics-->
-        <table id="file_table" class="fl-table">
-          <thead>
-            <tr>
-              <th scope="col">File</th>
-              <th scope="col">Color</th>
-              <th scope="col">Display</th>
-              <th scope="col">Lines</th>
-              <th scope="col">Delete</th>
-              <th scope="col">Type</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-          <tfoot>
-          </tfoot>
-
-        </table>
-
-        <!--filters to select only points following values on a selected property
-        subfilter1 is filled when filter1 is modified-->
-
-        <select name=filter1 id="filter1" multiple >
-          <option value="-1">-- display all data --</option>
-        </select>
-
-        <button id="selectAll" onClick="selectAll();">Select All</button>
-
-        <select name=subfilter1[] id="subfilter1" multiple >
-          <option value="-1">-- display all data --</option>
-        </select>
-
-        <p id="miniInfoDisp"> __ </p>
-
-      </div>
-      
-
-      <div class="cosmeticParameters">
-
-        <div class="cosmeticColumn1">
-
-          <p>Ratio Control :</p>
-
-          <div id='ratioControl'>
-            <input id='X_input' type='text' value="1" name="X" onkeypress='validate(event)' />
-            <input id='Y_input' type='text' value="1" name="Y" onkeypress='validate(event)' />
-            <input id='Z_input' type='text' value="1" name="Z" onkeypress='validate(event)' />
+            type="button" class="btn2-hover bn22" id="addSurface"> Add Surface</button>
+          <button type="button" class="btn2-hover bn22" id="addLines"> Add
+            Traces</button> 
+          <button type="button" class="btn2-hover bn22" id="exportSamples">
+            Export samples</button>
+          <!-- table for displaying loaded files and characteristics-->
+          <div id="table-zone" style="height:150px; overflow-y: auto;">
+            <table id="file_table" class="fl-table">
+              <thead>
+                <tr>
+                  <th scope="col">File</th>
+                  <th scope="col">Color</th>
+                  <th scope="col">Display</th>
+                  <th scope="col">Lines</th>
+                  <th scope="col">Delete</th>
+                  <th scope="col">Type</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+              <tfoot>
+              </tfoot>
+            </table>
           </div>
 
-          <p>Number of data classes :</p>
+          <!--filters to select only points following values on a selected property
+        subfilter1 is filled when filter1 is modified-->
+          <select name="filter1" id="filter1" multiple="multiple">
+            <option value="-1">-- display all data --</option>
+          </select>
+          <button id="selectAll" onclick="selectAll();">Select All</button>
+          <select name="subfilter1[]" id="subfilter1" multiple="multiple">
+            <option value="-1">-- display all data --</option>
+          </select>
+          <p id="miniInfoDisp"> __ </p>
 
-        <select id="num-classes">
-          <option name="3">3</option>
-          <option name="4">4</option>
-          <option name="5">5</option>
-          <option name="6">6</option>
-          <option name="7">7</option>
-          <option name="8">8</option>
-          <option name="9">9</option>
-          <option name="10">10</option>
-          <option name="11">11</option>
-          <option name="12">12</option>
-        </select>
+          <div class="sideParameters">
 
-        <div id="scheme" class="section">
-          <p>Pick a color scheme :</p>
+            <div id="ratioControl"> 
+              <p>3D Zone Axes Ratio</p>
+              <input id="X_input" value="1" name="X" onkeypress="validate(event)"
 
-          <label>
-            <input id="colorBtn" type="radio" name="colorPicker" value="blue" checked>
-            <img src="./blue.png">
-          </label>
-          
-          <label>
-            <input id="colorBtn" type="radio" name="colorPicker" value="green">
-            <img src="./green.png">
-          </label>
+                type="text"> <input id="Y_input" value="1" name="Y" onkeypress="validate(event)"
 
-          <label>
-            <input id="colorBtn" type="radio" name="colorPicker" value="purple">
-            <img src="./purple.png">
-          </label>
+                type="text"> <input id="Z_input" value="1" name="Z" onkeypress="validate(event)"
 
-          <label>
-            <input id="colorBtn" type="radio" name="colorPicker" value="orange">
-            <img src="./orange.png">
-          </label>
+                type="text"> 
+            </div>
 
-          <label>
-            <input id="colorBtn" type="radio" name="colorPicker" value="black">
-            <img src="./black.png">
-          </label>
+            <select id="num-classes">
+              <option name="3">3</option>
+              <option name="4">4</option>
+              <option name="5">5</option>
+              <option name="6">6</option>
+              <option name="7">7</option>
+              <option name="8">8</option>
+              <option name="9">9</option>
+              <option name="10">10</option>
+              <option name="11">11</option>
+              <option name="12">12</option>
+            </select>
+            <div id="scheme" class="section">
+              <p>Pick a color scheme :</p>
+              <label> <input id="colorBtn" name="colorPicker" value="blue" checked="checked"
 
-          <label>
-            <input id="colorBtn" type="radio" name="colorPicker" value="rainbow">
-            <img src="./rainbow.png">
-          </label>
+                  type="radio"> <img src="./blue.png"> </label> <label> <input
+
+                  id="colorBtn" name="colorPicker" value="green" type="radio"> <img
+
+                  src="./green.png"> </label> <label> <input id="colorBtn" name="colorPicker"
+
+                  value="purple" type="radio"> <img src="./purple.png"> </label>
+              <label> <input id="colorBtn" name="colorPicker" value="orange" type="radio">
+                <img src="./orange.png"> </label> <label> <input id="colorBtn"
+
+                  name="colorPicker" value="black" type="radio"> <img src="./black.png">
+              </label> <label> <input id="colorBtn" name="colorPicker" value="rainbow"
+
+                  type="radio"> <img src="./rainbow.png"> </label> </div>
+
+            <div id="color-table-zone" style="height:150px; overflow-y: auto;">
+              <table id="color_table" class="color-table">
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                </tfoot>
+              </table>
+            </div>
+
+
+
+          </div>
 
         </div>
-
-        </div>
-
-        <div class="cosmeticColumn2">
-
-          <table id="color_table" class="color-table">
-            <thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-            </tfoot>
-    
-          </table>
-
-
-          
-        </div>    
-
-      </div>
-
-      </div>
 
       <!-- main display zone-->
       <div class="DisplayZone">
-
-      <!-- Tab links -->
-
-      <div class="tab">
-        <button class="tablinks" onclick="openView(event, 'Jodel-tab-1')">3D View</button>
-        <button class="tablinks" onclick="openView(event, 'Jodel-tab-2')">map & Drillhole view</button>
-        <button class="tablinks" onclick="openView(event, 'Jodel-tab-3')">Density</button>
-      </div>
-
-      <!-- Tab content -->
-      <div id="Jodel-tab-1" class="tabcontent">
-        <div id="chart1"></div>
-      </div>
-
-      <div id="Jodel-tab-2" class="tabcontent"style="display:none"> 
-
-        <div class=wrapperMapDisplay>
-          <div id="subchart31"></div>
-          <div id="subchart32"></div>
+        <!-- Tab links -->
+        <div class="tab"> <button class="tablinks" onclick="openView(event, 'Jodel-tab-1')">3D
+            View</button> <button class="tablinks" onclick="openView(event, 'Jodel-tab-2')">map
+            &amp; Drillhole view</button> <button class="tablinks" onclick="openView(event, 'Jodel-tab-3')">Density</button>
         </div>
-
+        <!-- Tab content -->
+        <div id="Jodel-tab-1" class="tabcontent">
+          <div id="chart1"></div>
+        </div>
+        <div id="Jodel-tab-2" class="tabcontent" style="display:none">
+          <div class="wrapperMapDisplay">
+            <div id="subchart31"></div>
+            <div id="subchart32"></div>
+          </div>
+        </div>
+        <!-- Tab content -->
+        <div id="Jodel-tab-3" class="tabcontent" style="display:none">
+          <div id="chart2"></div>
+        </div>
       </div>
-
-      <!-- Tab content -->
-      <div id="Jodel-tab-3" class="tabcontent" style="display:none">
-        <div id="chart2"></div>
-      </div>
-      </div>
-
-
-</div>
-
-<script type='module' src='../scripts/JodelMain.js'></script>
-
-</body>
-
+    </div>
+    <script type="module" src="../scripts/JodelMain.js"></script>
+  </body>
 </html>

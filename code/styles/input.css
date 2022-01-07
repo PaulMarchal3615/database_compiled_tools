@@ -7,3 +7,15 @@ input:valid {
     border: 1px solid green;
     background-color: lightgreen;
 }
+
+#fileInput {
+  display: none;
+}
+
+#fileInput2 {
+  display: none;
+}
+
+.FileContainer {
+  display: none;
+}

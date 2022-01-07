@@ -1,15 +1,15 @@
 .btn2-hover {
-  width: 160px;
-  font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
+  width: 7vw;
+  height: 3vw;
+  font-size: 0.85vw;
   color: #fff;
   cursor: pointer;
-  margin: 2px;
-  height: 40px;
+  margin: 0px;
   text-align:center;
   border: none;
   background-size: 300% 100%;
-  border-radius: 50px;
+  border-radius: 0.5vw;
   -moz-transition: all .4s ease-in-out;
   -o-transition: all .4s ease-in-out;
   -webkit-transition: all .4s ease-in-out;
@@ -36,5 +36,5 @@
       #30dd8a,
       #2bb673
     );
-    box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
+    box-shadow: 0 0.2vw 0.5vw 0 rgba(23, 168, 108, 0.75);
 }
