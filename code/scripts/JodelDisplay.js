@@ -17,7 +17,7 @@ db_jodel.version(1).stores({
 	TEXTURE_STRUCTURE_2,HOST_AGE,MAIN_EVENT_AGE,
 	Vp_short_axis,Vp_long_axis,Vs_short_axis,Vs_long_axis,
 	Vp_short_axis_sature,Vp_long_axis_sature,Vs_short_axis_sature,Vs_long_axis_sature,
-	Absolute_solid_density,Bulk_density,Porosity,Permeability,
+	Absolute_solid_density,Bulk_density,Porosity_H2O,Porosity_He,Porosity_Hg,Permeability,
 	Magnetic_susceptibility,Resistivity_1hz`,
 	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
@@ -41,10 +41,6 @@ export function displayMain() {
 	}
 
 	// ------------------------- 3D & density view
-	var ratio = {
-		x:document.getElementById("X_input").value,
-		y:document.getElementById("Y_input").value,
-		z:document.getElementById("Z_input").value};
 
 	db_jodel.transaction('rw', db_jodel.samples, function () {
 		console.log('in transaction');
@@ -55,7 +51,7 @@ export function displayMain() {
 		initColorScale(samples, 'FILE_NAME', checkList);
 
 		trace = buildDisplayedPointset(samples, 'scatter3d', 0);
-		scatter3DPlot([trace], ratio);
+		scatter3DPlot([trace]);
 		traceDensity = makeTracesForDensity(samples);
 		DensityGraph(traceDensity);
 
@@ -99,10 +95,6 @@ export function displayMainFiltered(propertyName,varList) {
 	}
 
 	// ------------------------- 3D & density view
-	var ratio = {
-		x:document.getElementById("X_input").value,
-		y:document.getElementById("Y_input").value,
-		z:document.getElementById("Z_input").value};
 
 	db_jodel.transaction('rw', db_jodel.samples, function () {
 		console.log('in transaction');
@@ -112,7 +104,7 @@ export function displayMainFiltered(propertyName,varList) {
 
 		initColorScale(samples, propertyName, varList);
 		trace = buildDisplayedPointset(samples, 'scatter3d', propertyName);
-		scatter3DPlot([trace], ratio);
+		scatter3DPlot([trace]);
 		traceDensity = makeTracesForDensity(samples, propertyName);
 		DensityGraph(traceDensity);
 	})
@@ -158,7 +150,6 @@ function fillCaptionTable(colorList, valueList) {
 		cell2.innerHTML = valueList[i]; 
 	}		
 }
-
 
 function initColorScale(sampleList, propertyName, varList) {
 
@@ -223,7 +214,6 @@ function initColorScale(sampleList, propertyName, varList) {
 	}
 }
 
-
 export function buildDisplayedPointset(sampleList, displayType, propertyName) {
 
 	let X = sampleList.map(({X_NAD})=>X_NAD);
@@ -265,7 +255,6 @@ export function buildDisplayedPointset(sampleList, displayType, propertyName) {
 	return trace;
 }
 
-
 /**
  * void 3d plot function 
  * @param {*} data : Array[dict] containing traces as dict
@@ -273,8 +262,12 @@ export function buildDisplayedPointset(sampleList, displayType, propertyName) {
  * @param {*} y_name String 
  * @param {*} z_name String
  */
- function scatter3DPlot(data, ratio)
- {
+ function scatter3DPlot(data){
+	var ratio = {
+		x:document.getElementById("X_input").value,
+		y:document.getElementById("Y_input").value,
+		z:document.getElementById("Z_input").value};
+
 	 var layout = {
 		 scene:{
 			 aspectmode:'manual',
@@ -359,9 +352,7 @@ function getBoundingBox(lat,lon) {
 	var zoom = 11.5 - Math.log(max_bound);
 	console.log(zoom, center);
 	return [center,zoom];
-}
-
-	
+}	
 
 function drawMap(holes) {
 
@@ -497,9 +488,7 @@ function drawMap(holes) {
 
 }
 
-
-
- function makeTracesForDensity(sampleList, propertyName) {
+function makeTracesForDensity(sampleList, propertyName) {
 
 	let X = sampleList.map(({X_NAD})=>X_NAD);
 	let Y = sampleList.map(({Y_NAD})=>Y_NAD);

@@ -1,6 +1,10 @@
 import {findValue, findColumnIndice, buildMultipleSelect} from './display.js';
 import {metadataNamesList, metadataMiniFilterList} from './ressources.js';
 import {displayMain, displayMainFiltered} from './JodelDisplay.js';
+import {exportSamples} from './JodelExport.js';
+import {fillSubFilterBox, filteredDisplay, updateBox} from './JodelFilters.js'
+
+document.getElementById('exportSamples').addEventListener("click",exportSamples);
 
 var db_jodel = new Dexie("jodelDB");
 
@@ -20,7 +24,7 @@ db_jodel.version(1).stores({
 	TEXTURE_STRUCTURE_2,HOST_AGE,MAIN_EVENT_AGE,
 	Vp_short_axis,Vp_long_axis,Vs_short_axis,Vs_long_axis,
 	Vp_short_axis_sature,Vp_long_axis_sature,Vs_short_axis_sature,Vs_long_axis_sature,
-	Absolute_solid_density,Bulk_density,Porosity,Permeability,
+	Absolute_solid_density,Bulk_density,Porosity_H2O,Porosity_He,Porosity_Hg,Permeability,
 	Magnetic_susceptibility,Resistivity_1hz`,
 	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
@@ -48,7 +52,6 @@ document.getElementById("Y_input").addEventListener("change",displayMain);
 document.getElementById("Z_input").addEventListener("change",displayMain);
 document.getElementById("Z_input").addEventListener("change",displayMain);
 
-
 //---------------------------------------------
 
 //add event listener on filter change --> update subfilter
@@ -68,79 +71,17 @@ filter.addEventListener('change', function() {
 subfilter.addEventListener('change', filteredDisplay);
 selectBtn.addEventListener('click', filteredDisplay);
 
-function filteredDisplay(){
-
-	const selected = document.querySelectorAll('#subfilter1 option:checked');
-	var valueListRaw = Array.from(selected).map(el => el.label);
-	//var valueList = valueListRaw.map(num => parseFloat(num));
-	valueListRaw.sort();
-	console.log(valueListRaw, valueListRaw[0], typeof valueListRaw[0]);
-	console.log(typeof parseFloat(""), parseFloat(""));
-
-	const selected2 = document.querySelectorAll('#filter1 option:checked');
-	const propertyName = Array.from(selected2).map(el => el.label);
-
-	if (valueListRaw[0] == "-- display all data --") {
-		displayMain();
-	}
-	else {
-		displayMainFiltered(propertyName[0], valueListRaw);	
-	}
+function CSVarrayToJSON(arrays) {
+	  const [keys, ...values] = arrays;
+	  const objects = values.map(array => array.reduce((a, v, i) => ({...a, [keys[i]]: v}), {}));
+	  return objects;
 }
 
-
-//--------------------------------------------
-
-/**
- * void : fill subfilter when filter value is changed 
- * @param {*} filter_name 
- */
- async function fillSubFilterBox(varName) {
-
-	if (varName != "-- display all data --") {
-
-		db_jodel.transaction('rw', db_jodel.var, function () {
-
-			return db_jodel.var.toArray();		
-		}).then (result =>{
-			subfilter = document.getElementById("subfilter1");
-			removeOptions(subfilter);
-			let dict = result[0].VARLIST;
-			updateBox("subfilter1", dict[varName].sort());
-		})
-		.catch (function (e) {
-			alert("subfilter error",e);
-		});
-
-	}
-	else {
-		removeOptions(subfilter);
-		updateBox("subfilter1",["-- display all data --"]);
-	}
-}
-
-// --------------------------------------------
-
-/**
- * void : update a combobox with an Array
- * @param {*} box_name String containing combobox name to update
- * @param {*} list Array of string value to put in the combobox
- */
- function updateBox(box_name, list) {
-	var select = document.getElementById(box_name);
-
-	for (var i=0 ; i<list.length ; i++) {
-
-		if (!select.contains(list[i])) {
-			var option = new Option(list[i],i);
-			select.options[select.options.length] = option;
-		}
-	}
-}
 
 //--------------------------------------------------
 
 function parseFiles(event) {
+	
 	var id = event.target.id;
 
 	if (id == "fileInput") {
@@ -153,6 +94,8 @@ function parseFiles(event) {
 					complete: function(results) {
 
 						db_jodel.transaction('rw', db_jodel.datasets,db_jodel.holes,db_jodel.samples,db_jodel.var, function () {
+
+							//CSVarrayToJSON(results.data);
 
 							db_jodel.datasets.add({
 								FILE_NAME: file.name,
@@ -201,43 +144,52 @@ function makeDictValue(array) {
 		else {
 			dict[array[0][i]] = varList;
 		}
-		
 	}
 	return dict;
 }
 
-
+/**
+ * 
+ * @param {*} dataset 
+ */
 function buildSamplesBase(dataset) {
 	var samplesList = [];
 	const array = dataset.ARRAY;
 
-	for (var line of array) {
-		var sample = {};
-		var nameIndice = findColumnIndice("SAMPLING_POINT-NAME", array);
-		var sampleName = line[nameIndice];
+	array.map(function(line) {
+
+		if (line.length >1) {
+
+			var sample = {};
+			var nameIndice = findColumnIndice("SAMPLING_POINT-NAME", array);
+			var sampleName = line[nameIndice];
 
 
-		if ((!samplesList.includes(sampleName)) & (sampleName != "SAMPLING_POINT-NAME") & (sampleName != "text")) {
-			samplesList.push(sampleName);
-			sample.NAME = sampleName;
-			sample.FILE_NAME = dataset['FILE_NAME'];
-			sample.DISPLAY_TYPE = dataset['TYPE'];
-			sample.COLOR = dataset['COLOR'];
-			
-			var measurementIndice = findColumnIndice("MEASUREMENT-ABBREV", array);
-			sample.MEASUREMENT = line[measurementIndice];
+			if ((!samplesList.includes(sampleName)) & (sampleName != "SAMPLING_POINT-NAME") & (sampleName != "text")) {
+				samplesList.push(sampleName);
+				sample.NAME = sampleName;
+				sample.FILE_NAME = dataset['FILE_NAME'];
+				sample.DISPLAY_TYPE = dataset['TYPE'];
+				sample.COLOR = dataset['COLOR'];
+				
+				var measurementIndice = findColumnIndice("MEASUREMENT-ABBREV", array);
+				sample.MEASUREMENT = line[measurementIndice];
 
-			for (var colName of metadataNamesList) {
-				var j = findColumnIndice(colName, dataset.ARRAY);
-				sample[colName] = line[j];
+				for (var colName of metadataNamesList) {
+					var j = findColumnIndice(colName, dataset.ARRAY);
+					sample[colName] = line[j];
+				}
+				db_jodel.samples.add(sample);
+				createHole(sample);		
 			}
-			db_jodel.samples.add(sample);
-			createHole(sample);		
 		}
-	}
+	})		
 }
 
-
+/**
+ * create an Hole object containing HoleID, latitude, lontitude, color, file and store it in db_jodel.holes
+ * @param {*} sample Sample Object from Sample.js
+ */
 function createHole(sample) {
 
 	var colorPoint = document.getElementById("colorPicker_"+sample.FILE_NAME).value;
@@ -249,15 +201,12 @@ function createHole(sample) {
 	hole.COLOR = colorPoint;
 	hole.FILE_NAME = sample.FILE_NAME;
 
-
-
 	db_jodel.holes.put(hole).catch((error => {
 		console.log(error);
 		alert("ERROR : createHole",error);
 	}));
 
 }	
-
 
 
 /**
@@ -291,7 +240,7 @@ function createHole(sample) {
 		const oBtSup = document.getElementsByClassName('btn-del');
 		for(var Btn of oBtSup){
 			Btn.addEventListener('click',  deleteLine);
-			//Btn.addEventListener('click',  displayMain);
+			Btn.addEventListener('click',  displayMain);
 		}
 		
 
@@ -369,76 +318,5 @@ function deleteLine(oEvent){
 	oTr.remove(); 
 }
 
-/**
- * void : remove selectElement from select 
- * @param {*} selectElement 
- */
- function removeOptions(selectElement) {
-	var i, L = selectElement.options.length - 1;
-	for(i = L; i >= 0; i--) {
-	   selectElement.remove(i);
-	}
-}
 
 
-document.getElementById('exportSamples').addEventListener("click",exportSamples);
-
-function exportSamples() {
-
-	console.log("in export");
-
-	const selected = document.querySelectorAll('#subfilter1 option:checked');
-	const valueList = Array.from(selected).map(el => el.label);
-
-	const selected2 = document.querySelectorAll('#filter1 option:checked');
-	const propertyName = Array.from(selected2).map(el => el.label);
-
-	if (valueList[0] != "-- display all data --") {
-
-		db_jodel.transaction('rw', db_jodel.samples, function () {
-			console.log('in transaction');
-			return db_jodel.samples.where(propertyName[0]).anyOf(valueList).toArray();		
-		}).then (samples =>{
-
-			const data = [samples.map(({NAME}) => NAME),samples.map(({HOLEID}) => HOLEID),samples.map(({Resistivity_1hz}) => Resistivity_1hz)];
-			let csvContent = "data:text/csv;charset=utf-8,"
-			+ data.map(e => e.join(",")).join("\n");
-			
-			var encodedUri = encodeURI(csvContent);
-			var link = document.createElement("a");
-			link.setAttribute("href", encodedUri);
-			link.setAttribute("download", "my_data.csv");
-			document.body.appendChild(link); 
-			link.click();
-		})
-		.catch (function (error) {
-			console.error("EXPORT ERROR",error);
-		});
-
-	}
-
-	else {
-		const data = [
-			["Bonjour", "c'est", "Nicolas","Sarkozy"],
-			["et", "j'ai", "le","plaisir"],
-			["de", "lire", "le","Temps des Tempetes"],
-			["_", "pour", "Audible","_"],
-		];
-
-		let csvContent = "data:text/csv;charset=utf-8," 
-		+ data.map(e => e.join(",")).join("\n");
-	
-	var encodedUri = encodeURI(csvContent);
-	var link = document.createElement("a");
-	link.setAttribute("href", encodedUri);
-	link.setAttribute("download", "my_data.csv");
-	document.body.appendChild(link); 
-	link.click();
-
-	}
-
-		
-
-			
-
-	}
