@@ -111,70 +111,58 @@ function selectAll()
             <option value="-1">-- display all data --</option>
           </select>
           <p id="miniInfoDisp"> __ </p>
+          <div id="analysisCheckBox">
+            <input type="checkbox" id="BULK-GEOCHEMISTRY" name="BULK-GEOCHEMISTRY"
+            checked>
+            <label for="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</label>
 
-          <div class="sideParameters">
+            <input type="checkbox" id="PETROPHYSICS" name="PETROPHYSICS"
+            checked>
+            <label for="PETROPHYSICS">PETROPHYSICS</label>
 
-            <div id="ratioControl"> 
-              <p>3D Zone Axes Ratio</p>
-              <input id="X_input" value="1" name="X" onkeypress="validate(event)"
+            <input type="checkbox" id="GRAPHITE" name="GRAPHITE"
+            checked>
+            <label for="GRAPHITE">GRAPHITE</label>
 
-                type="text"> <input id="Y_input" value="1" name="Y" onkeypress="validate(event)"
+            <input type="checkbox" id="UO2-GEOCHEMISTRY" name="UO2-GEOCHEMISTRY"
+            checked>
+            <label for="UO2-GEOCHEMISTRY">UO2-GEOCHEMISTRY</label>
 
-                type="text"> <input id="Z_input" value="1" name="Z" onkeypress="validate(event)"
+            <input type="checkbox" id="FI-RAMAN" name="FI-RAMAN"
+            checked>
+            <label for="FI-RAMAN">FI-RAMAN</label>
 
-                type="text"> 
-            </div>
+            <input type="checkbox" id="FI-MICROTHERMOMETRY" name="FI-MICROTHERMOMETRY"
+            checked>
+            <label for="FI-MICROTHERMOMETRY">FI-MICROTHERMOMETRY</label>
 
-            <select id="num-classes">
-              <option name="3">3</option>
-              <option name="4">4</option>
-              <option name="5">5</option>
-              <option name="6">6</option>
-              <option name="7">7</option>
-              <option name="8">8</option>
-              <option name="9">9</option>
-              <option name="10">10</option>
-              <option name="11">11</option>
-              <option name="12">12</option>
-            </select>
-            <div id="scheme" class="section">
-              <p>Pick a color scheme :</p>
-              <label> <input id="colorBtn" name="colorPicker" value="blue" checked="checked"
+            <input type="checkbox" id="FI-LA-ICP-MS" name="FI-LA-ICP-MS"
+            checked>
+            <label for="FI-LA-ICP-MS">FI-LA-ICP-MS</label>
 
-                  type="radio"> <img src="./blue.png"> </label> <label> <input
+            <input type="checkbox" id="XRD-CLAY" name="XRD-CLAY"
+            checked>
+            <label for="XRD-CLAY">XRD-CLAY</label>
 
-                  id="colorBtn" name="colorPicker" value="green" type="radio"> <img
-
-                  src="./green.png"> </label> <label> <input id="colorBtn" name="colorPicker"
-
-                  value="purple" type="radio"> <img src="./purple.png"> </label>
-              <label> <input id="colorBtn" name="colorPicker" value="orange" type="radio">
-                <img src="./orange.png"> </label> <label> <input id="colorBtn"
-
-                  name="colorPicker" value="black" type="radio"> <img src="./black.png">
-              </label> <label> <input id="colorBtn" name="colorPicker" value="rainbow"
-
-                  type="radio"> <img src="./rainbow.png"> </label> </div>
-
-            <div id="color-table-zone" style="height:150px; overflow-y: auto;">
-              <table id="color_table" class="color-table">
-                <thead>
-                </thead>
-                <tbody>
-                </tbody>
-                <tfoot>
-                </tfoot>
-              </table>
-            </div>
-
-
+            <input type="checkbox" id="CLAY-CRISTALLOGRAPHY" name="CLAY-CRISTALLOGRAPHY"
+            checked>
+            <label for="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</label>  
 
           </div>
+
+          <select name="filter2" id="filter2" multiple="multiple">
+            <option value="-1">-- display all data --</option>
+          </select>
+          <button id="selectAll" onclick="selectAll();">Select All</button>
+          <select name="subfilter2[]" id="subfilter2" multiple="multiple">
+            <option value="-1">-- display all data --</option>
+          </select>
+
 
         </div>
 
       <!-- main display zone-->
-      <div class="DisplayZone">
+      <div class="displayZone">
         <!-- Tab links -->
         <div class="tab"> <button class="tablinks" onclick="openView(event, 'Jodel-tab-1')">3D
             View</button> <button class="tablinks" onclick="openView(event, 'Jodel-tab-2')">map
@@ -194,6 +182,69 @@ function selectAll()
         <div id="Jodel-tab-3" class="tabcontent" style="display:none">
           <div id="chart2"></div>
         </div>
+      </div>
+
+      <div class="ParameterBar">
+
+        <div class="sideParameters">
+
+          <div id="ratioControl"> 
+            <p>3D Zone Axes Ratio</p>
+            <input id="X_input" value="1" name="X" onkeypress="validate(event)"
+
+              type="text"> <input id="Y_input" value="1" name="Y" onkeypress="validate(event)"
+
+              type="text"> <input id="Z_input" value="1" name="Z" onkeypress="validate(event)"
+
+              type="text"> 
+          </div>
+
+          <select id="num-classes">
+            <option name="3">3</option>
+            <option name="4">4</option>
+            <option name="5">5</option>
+            <option name="6">6</option>
+            <option name="7">7</option>
+            <option name="8">8</option>
+            <option name="9">9</option>
+            <option name="10">10</option>
+            <option name="11">11</option>
+            <option name="12">12</option>
+          </select>
+          <div id="scheme" class="section">
+            <p>Pick a color scheme :</p>
+            <label> <input id="colorBtn" name="colorPicker" value="blue" checked="checked"
+
+                type="radio"> <img src="./blue.png"> </label> <label> <input
+
+                id="colorBtn" name="colorPicker" value="green" type="radio"> <img
+
+                src="./green.png"> </label> <label> <input id="colorBtn" name="colorPicker"
+
+                value="purple" type="radio"> <img src="./purple.png"> </label>
+            <label> <input id="colorBtn" name="colorPicker" value="orange" type="radio">
+              <img src="./orange.png"> </label> <label> <input id="colorBtn"
+
+                name="colorPicker" value="black" type="radio"> <img src="./black.png">
+            </label> <label> <input id="colorBtn" name="colorPicker" value="rainbow"
+
+                type="radio"> <img src="./rainbow.png"> </label> </div>
+
+          <div id="color-table-zone" style="height:150px; overflow-y: auto;">
+            <table id="color_table" class="color-table">
+              <thead>
+              </thead>
+              <tbody>
+              </tbody>
+              <tfoot>
+              </tfoot>
+            </table>
+          </div>
+
+
+
+        </div>
+
       </div>
     </div>
     <script type="module" src="../scripts/JodelMain.js"></script>

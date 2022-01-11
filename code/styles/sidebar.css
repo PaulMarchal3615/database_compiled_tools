@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 10px;
-  grid-template-rows: max-content max-content 30px 20% 30%;
+  grid-template-rows: max-content max-content 30px 20% 10% 20%;
 }
 #addPointset {
   grid-column: 1;
@@ -43,10 +43,20 @@
   grid-row: 3;
 }
 
-.sideParameters{
+#analysisCheckBox{
   grid-column: 1 / 5;
   grid-row: 5;
 }
+
+#filter2 {
+  grid-column: 1 / 3;
+  grid-row: 6;
+}
+#subfilter2 {
+  grid-column: 3 / 5;
+  grid-row: 6;
+}
+
 #myGrid > div {
   background: gray;
 }

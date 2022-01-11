@@ -71,11 +71,26 @@ filter.addEventListener('change', function() {
 subfilter.addEventListener('change', filteredDisplay);
 selectBtn.addEventListener('click', filteredDisplay);
 
+
+
+
 function CSVarrayToJSON(arrays) {
 	  const [keys, ...values] = arrays;
-	  const objects = values.map(array => array.reduce((a, v, i) => ({...a, [keys[i]]: v}), {}));
-	  return objects;
+	  const lines = values.map(array => array.reduce((a, v, i) => ({...a, [keys[i]]: v}), {}));
+	  return lines;
 }
+
+function LinesToSamples(lines) {
+	var samples = [];
+	var samplesList = [];
+	lines.map(function(line) {
+		if (samplesList.includes(line["SAMPLING_POINT-NAME"])){
+
+		};
+	})
+} 
+
+
 
 
 //--------------------------------------------------
