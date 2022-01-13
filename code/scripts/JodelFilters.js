@@ -54,21 +54,22 @@ export function filteredDisplay(){
 
 			return db_jodel.var.toArray();		
 		}).then (result =>{
+			console.log("result",result, varName);
 			const subfilter = document.getElementById("subfilter1");
 			removeOptions(subfilter);
-			let dict = result[0].VARLIST;
+			const dict = result[0].VARLIST;
             console.log(dict);
-			updateBox("subfilter1", dict[varName].sort());
+			updateBox("subfilter1",dict[varName].sort(), dict[varName].sort());
 		})
 		.catch (function (e) {
             console.log(e);
-			alert("subfilter error",e);
+			alert("subfilter error : No Values",e);
 		});
 
 	}
 	else {
 		removeOptions(subfilter);
-		updateBox("subfilter1",["-- display all data --"]);
+		updateBox("subfilter1",["-- display all data --"],["-- display all data --"]);
 	}
 }
 
@@ -77,19 +78,19 @@ export function filteredDisplay(){
 /**
  * void : update a combobox with an Array
  * @param {*} box_name String containing combobox name to update
- * @param {*} list Array of string value to put in the combobox
+ * @param {*} listValues Array of code values
+ * @param {*} listText Array of string value to display in the combobox
  */
- export function updateBox(box_name, list) {
-	var select = document.getElementById(box_name);
-
-	for (var i=0 ; i<list.length ; i++) {
-
-		if (!select.contains(list[i])) {
-			var option = new Option(list[i],i);
-			select.options[select.options.length] = option;
+ export function updateBox(box_name, listValues,listText) {
+	 console.log(listText, listValues);
+	 var select = document.getElementById(box_name);
+	 for (var i=0 ; i<listText[i].length ; i++) {
+		 if (!select.contains(listText[i])) {
+			 var option = new Option(listText[i],listValues[i]);
+			 select.options[select.options.length] = option;
+			}
 		}
 	}
-}
 
 
 /**

@@ -1,6 +1,6 @@
 import {findValue, findColumnIndice, buildMultipleSelect} from './display.js';
 import {metadataMiniFilterList, fields} from './ressources.js';
-import {displayMain, displayMainFiltered} from './JodelDisplay.js';
+import {displayMain, displayMainFiltered, isFloat} from './JodelDisplay.js';
 import {exportSamples} from './JodelExport.js';
 import {fillSubFilterBox, filteredDisplay, updateBox} from './JodelFilters.js'
 
@@ -57,7 +57,7 @@ filter.addEventListener('change', function() {
 
 	for (var option of filter.options) {
 		if (option.selected) {
-			fillSubFilterBox(option.label);
+			fillSubFilterBox(option.value);
 		}
 	}
 })
@@ -97,19 +97,14 @@ function parseFiles(event) {
 							.each(function (dataset) {
 								
 								updateFileTable(dataset);
-								console.log("popo");
 								buildSamplesBase(dataset);
-								console.log("popo");
+								buildPropertyDict(dataset);
+
 								
 							}).then(function() {
-								updateBox('filter1',metadataMiniFilterList);
+								updateBox('filter1',Object.keys(fields.METADATA), Object.values(fields.METADATA));
+								updateBox('filter2',Object.keys(fields['BULK-GEOCHEMISTRY']), Object.values(fields['BULK-GEOCHEMISTRY']));
 								displayMain();
-								var dict = makeDictValue(results.data);
-								db_jodel.var.put({
-									FILE_NAME:file.name,
-									VARLIST:dict
-								}).catch(function(error)
-								{alert(error);})
 							});	
 						})		
 					}
@@ -119,110 +114,119 @@ function parseFiles(event) {
 	}
 }
 
-/**
- * 
- * @param {*} array 
- * @returns dict of value for each header of input csv file 
- */
-function makeDictValue(array) {
-	
-	var dict ={};
-	for (var i = 0; i< array[0].length; i++) {
-		let varList = array.map(x => x[i]);
-		let firstElement = varList.splice(0, 2);
-		if (array[0][i]=="MEASUREMENT-ABBREV") {
-			dict["MEASUREMENT"] = varList;
-		}
-		else {
-			dict[array[0][i]] = varList;
-		}
-	}
-	return dict;
-}
 
-/**
- * 
- * @param {*} object 
- * @param {*} value 
- * @returns 
- */
-function getKeyByValue(object, value) {
-	return Object.keys(object).find(key => object[key] === value);
-  }
-
-
-
-function compactLines(sample) {
-
-	const array = sample.LINES;
-
-	const fn = ([keys, ...values]) => values.map(vs => vs.reduce((acc, v, i) => (acc[keys[i]] = v, acc), {}));
-	const result = fn(array);
-	console.log("result",result);
-
-	return result;
-}
-
-/**
- * 
- * @param {*} dataset 
- */
 function buildSamplesBase(dataset) {
-
-	const array = dataset.ARRAY;
-
-	var samples = {};
 
 	var fortime = 0;
 	var newdate = new Date();
 	var fordiff = newdate.getTime();
+	var headers, units, lines;
+	[headers, units, ...lines] = dataset.ARRAY;
 
-	const headers = dataset.ARRAY[0];
-	const units = dataset.ARRAY[1];
+	const headersKeys = headers.map(getKeyByValue); // for simple keys A0,... to avoid use of variable name with dashes
+	const samplesColIndice = headers.findIndex(element =>element === "SAMPLING_POINT-NAME");
+	const allSamples = lines.map(function(value,index) { return value[samplesColIndice]; });
+	const uniqueSamples = allSamples.filter((v, i, a) => (a.indexOf(v) === i)).filter(n=>n); //keep unique values and only values != "" or undefined
+	
+	for (var sampleName of uniqueSamples) {
 
-	array.map(function(line) {
+		var miniSample = {};
+		miniSample.NAME = sampleName;
+		miniSample.FILE_NAME = dataset['FILE_NAME'];
+		miniSample.DISPLAY_TYPE = dataset['TYPE'];
+		miniSample.COLOR = dataset['COLOR'];
 
-		if (line.length >1) {
+		const lines = filter2DArray(dataset.ARRAY, samplesColIndice, sampleName);
+		const JSON = compactLines(lines, headersKeys);
+		const sample = Object.assign({},miniSample,JSON);
 
-			var sample = {};
-			var nameIndice = findColumnIndice("SAMPLING_POINT-NAME", array);
-			var sampleName = line[nameIndice];
+		createHole(sample);
+		db_jodel.samples.put(sample)
+		.catch((error => {
+			console.log(error);
+			alert("ERROR : createSample",error);
+		}));
 
+	}
 
-			if ((sampleName != "SAMPLING_POINT-NAME") & (sampleName != "text")) {
-
-				if (!Object.keys(samples).includes(sampleName)) {
-
-					sample.NAME = sampleName;
-					sample.FILE_NAME = dataset['FILE_NAME'];
-					sample.DISPLAY_TYPE = dataset['TYPE'];
-					sample.COLOR = dataset['COLOR'];
-					sample.LINES=[headers,units,line];
-					samples[sampleName]=sample;
-				}
-
-
-				else{
-					samples[sampleName].LINES.push(line);
-				}	
-			}
-		}
-	});
-		console.log("samples",samples);
-		for (var sample of Object.values(samples)) {
-			sample.JSON = compactLines(sample);
-			console.log(sample);
-			}
-
-
-		
-
-	//createHole(sample);	
-				
 	newdate = new Date();
 	fortime = fortime + (newdate.getTime() - fordiff);
-	console.log(fortime);		
+	console.log(fortime);
 }
+
+/**
+ * 
+ * @param {*} array 2D array to filter
+ * @param {*} colNumber column to 
+ * @param {*} VOI : value of interest
+ * @returns lines where array[col] === VOI
+ */
+function filter2DArray(array, colNumber, VOI) {
+
+	return array.filter(line=> line[colNumber]===VOI);
+
+}
+
+/**
+ * 
+ * @param {*} lines array of lines concerning a sample in initial array
+ * @param {*} headersKeys array of heads codes (cf ressources.js --> fields)
+ * @returns an Object JSON with for each property code, an associated list of all encountered values for this sample.
+ */
+function compactLines(lines, headersKeys) {
+	var JSON ={};
+
+	for (var i =0; i<headersKeys.length; i++) {
+		JSON[headersKeys[i]] =[];
+		for (var j=0; j<lines.length; j++) 
+		{
+			const val = parseFloat(lines[j][i]) || lines[j][i];
+			if (!JSON[headersKeys[i]].includes(val) || isFloat(val)) {
+				
+				JSON[headersKeys[i]].push(val);
+			}
+		}
+	}
+	return JSON;
+}
+
+/**
+ * 
+ * @param {*} value string name of a property 
+ * @returns key associated to value in fields (in ressources.js)
+ */
+function getKeyByValue(value) {
+
+	for (var analysis of Object.keys(fields)) {
+		if (Object.values(fields[analysis]).includes(value)) {
+			return Object.keys(fields[analysis]).find(key => fields[analysis][key] === value);
+		}
+	}
+  }
+
+
+function buildPropertyDict(dataset) {
+
+	var headers, units, lines;
+	[headers, units, ...lines] = dataset.ARRAY;
+	var allVar ={};
+
+	const headersKeys = headers.map(getKeyByValue); // for simple keys A0,... to avoid use of variable name with dashes
+	for (var i=0; i<headersKeys.length; i++){
+		const values = lines.map(function(value,index) { return value[i]; });
+		const uniquevalues = values.filter((v, i, a) => (a.indexOf(v) === i)).filter(n=>n); //keep unique values and only values != "" or undefined
+		allVar[headersKeys[i]]=uniquevalues;
+	}
+
+	db_jodel.var.add({FILE_NAME:dataset.FILE_NAME, VARLIST:allVar})
+		.catch((error => {
+			console.log(error);
+			alert("ERROR : createVARLIST",error);
+		}));
+
+}
+
+
 
 /**
  * create an Hole object containing HoleID, latitude, lontitude, color, file and store it in db_jodel.holes
@@ -233,9 +237,9 @@ function createHole(sample) {
 	var colorPoint = document.getElementById("colorPicker_"+sample.FILE_NAME).value;
 	
 	var hole = {};
-	hole.HOLEID = sample.HOLEID;
-	hole.HOLEID_LATITUDE = parseFloat(sample.HOLEID_LATITUDE);
-	hole.HOLEID_LONGITUDE = parseFloat(sample.HOLEID_LONGITUDE);
+	hole.HOLEID = sample.A41;
+	hole.HOLEID_LATITUDE = sample.A42;
+	hole.HOLEID_LONGITUDE = sample.A43;
 	hole.COLOR = colorPoint;
 	hole.FILE_NAME = sample.FILE_NAME;
 

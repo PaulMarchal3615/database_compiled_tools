@@ -148,7 +148,6 @@ function fillCaptionTable(colorList, valueList) {
 function initColorScale(sampleList, propertyName, varList) {
 
 	var colorNumber = document.querySelector('input[name="colorPicker"]:checked').value;
-	console.log(parseFloat(""),parseFloat("1"),parseFloat("chaussette"));
 
 	if (propertyName != "FILE_NAME") {
 
@@ -210,9 +209,12 @@ function initColorScale(sampleList, propertyName, varList) {
 
 export function buildDisplayedPointset(sampleList, displayType, propertyName) {
 
-	let X = sampleList.map(({X_NAD})=>X_NAD);
-	let Y = sampleList.map(({Y_NAD})=>Y_NAD);
-	let Z = sampleList.map(({Z_NAD})=>Z_NAD);
+	console.log(sampleList);
+
+	let X = sampleList.map(({A31})=>A31[0]);
+	let Y = sampleList.map(({A32})=>A32[0]);
+	let Z = sampleList.map(({A33})=>A33[0]);
+	console.log(X,Y,Z);
 	let colors = sampleList.map(({COLOR})=>COLOR);
 
 	let names =[];
@@ -221,12 +223,12 @@ export function buildDisplayedPointset(sampleList, displayType, propertyName) {
 		names = [];
 
 		for (var sample of sampleList) {
-			var name = sample['NAME']+'_'+propertyName+'_'+sample[propertyName];
+			var name = sample.A23[0]+'_'+propertyName+'_'+sample[propertyName];
 			names.push(name);
 		}
 	}
 	else {
-		names = sampleList.map(({NAME})=>NAME);
+		names = sampleList.map(({A23})=>A23[0]);
 	}
 
 
@@ -433,19 +435,16 @@ function drawMap(holes) {
 	db_jodel.transaction('rw', db_jodel.samples, function () {
 		console.log('in transaction');
 
-		return db_jodel.samples.where('HOLEID').equals(ddhID).toArray();
+		return db_jodel.samples.where('A41').equals(ddhID).toArray();
 		
 	}).then (result => {
 
 		for (const sample of result) {
 
-			names.push(sample.NAME);
-			depths.push(parseFloat(sample.SAMPLE_DEPTH_FROM));
+			names.push(sample.A23);
+			depths.push(parseFloat(sample.A48));
 			colors.push(sample.COLOR);
-			etiquettes.push(sample.HOLEID);
-
-		//Samples.map(x => {return ddhID;});
-		//textDisp.innerText = String(etiquette.length+" samples in well "+ddhID);
+			etiquettes.push(sample.A41);
 
 		var trace1 = {
 			x: etiquettes,
@@ -484,9 +483,9 @@ function drawMap(holes) {
 
 function makeTracesForDensity(sampleList, propertyName) {
 
-	let X = sampleList.map(({X_NAD})=>X_NAD);
-	let Y = sampleList.map(({Y_NAD})=>Y_NAD);
-	let Z = sampleList.map(({Z_NAD})=>Z_NAD);
+	let X = sampleList.map(({A31})=>A31);
+	let Y = sampleList.map(({A32})=>A32);
+
 	let colors = sampleList.map(({COLOR})=>COLOR);
 	let names =[];
 
@@ -494,7 +493,7 @@ function makeTracesForDensity(sampleList, propertyName) {
 		names = [];
 
 		for (var sample of sampleList) {
-			var name = sample['NAME']+'_'+propertyName+'_'+sample[propertyName];
+			var name = sample.A23+'_'+propertyName+'_'+sample[propertyName];
 			names.push(name);
 		}
 	}
