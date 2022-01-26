@@ -11,9 +11,11 @@ db_jodel.version(1).stores({
 	*E0,*E1,*E2,*E3,*E4,*E5,*E6,*E7,*E8,*E9,*E10,*E11,*E12,*E13,*E14,*E15,*E16,*E17,*E18,*E19,*E20,*E21,*E22,*E23,*E24,*E25,*E26,*E27,*E28,*E29,*E30,*E31,*E32,*E33,*E34,*E35,*E36,*E37,*E38,*E39,*E40,*E41,*E42,*E43,*E44,
 	*F0,*F1,*F2,*F3,*F4,*F5,*F6,*F7,*F8,*F9,*F10,*F11,*F12,*F13,
 	*G0,*G1,*G2,*G3,*G4,*G5,*G6,*G7,*G8,*G9,*G10,*G11,*G12,*G13,*G14,*G15,*G16,*G17,
-	*H0,*H1,*H2,*H3,*H4,*H5,*H6,*H7,*H8,*H9,*H10,*H11,*H12,*H13,*H14,*H15,*H16,*H17,*H18,*H19,*H20,*H21,*H22,*H23,*H24,*H25,*H26,*H27,*H28,*H29,*H30,*H31,*H32,*H33,*H34,*H35,*H36,*H37,*H38,*H39,*H40,*H41,*H42,*H43,*H44,*H45,*H46,*H47,*H48,*H49,*H50,*H51,*H52,*H53,*H54,*H55,*H56,*H57,*H58,*H59,*H60,*H61,*H62,*H63,*H64,*H65,*H66,*H67,*H68,*H69,*H70,*H71,*H72,*H73,*H74,*H75,*H76,*H77,*H78,*H79,*H80,*H81,*H82,*H83,*H84,*H85,*H86,*H87,*H88,*H89,*H90,*H91,*H92,*H93,
 	*I0,*I1,*I2,*I3,*I4,*I5,*I6,*I7,*I8,*I9,*I10,*I11,*I12,*I13,*I14,*I15,*I16,
-	*J0,*J1,*J2,*J3,*J4,*J5,*J6,*J7,*J8,*J9,*J10,*J11,*J12,*J13,*J14,*J15,*J16,*J17,*J18,*J19,*J20`,
+	*J0,*J1,*J2,*J3,*J4,*J5,*J6,*J7,*J8,*J9,*J10,*J11,*J12,*J13,*J14,*J15,*J16,*J17,*J18,*J19,*J20,
+	*H0,*H1,*H2,*H3,*H4,*H5,*H6,*H7,*H8,*H9,*H10,*H11,*H12,*H13,*H14,*H15,
+	*K0,*K1,*K2,*K3,*K4,*K5,*K6,*K7,*K8,*K9,*K10,*K11,*K12,*K13,*K14,*K15,*K16,*K17,*K18,*K19,*K20,*K21,*K22,*K23,*K24,*K25,*K26,*K27,*K28,*K29,*K30,*K31,*K32,*K33,*K34,
+	*L0,*L1,*L2,*L3,*L4,*L5,*L6,*L7,*L8,*L9,*L10,*L11,*L12,*L13,*L14,*L15,*L16,*L17,*L18,*L19,*L20,*L21,*L22,*L23,*L24,*L25,*L26,*L27,*L28,*L29,*L30,*L31,*L32,*L33,*L34,*L35,*L36,*L37,*L38,*L39,*L40,*L41,*L42,*L43,*L44,*L45,*L46,*L47`, 
 	datasets:`FILE_NAME,ARRAY,TYPE,COLOR`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	var:`FILE_NAME,VARLIST`
@@ -25,6 +27,7 @@ db_jodel.version(1).stores({
 export function filteredDisplay(){
 
 	const selected = document.querySelectorAll('#subfilter1 option:checked');
+	console.log("in-filteredDispl",selected);
 	var valueListRaw = Array.from(selected).map(el => el.value);
 	valueListRaw.sort();
 
@@ -48,9 +51,9 @@ export function filteredDisplay(){
  * void : fill subfilter when filter value is changed 
  * @param {*} filter_name 
  */
- export async function fillSubFilterBox(varName) {
+ export async function fillSubFilterBox(subfilterName, varName) {
 
-	const subfilter = document.getElementById("subfilter1");
+	const subfilter = document.getElementById(subfilterName);
 
 	if (varName != -1) {
 
@@ -62,7 +65,7 @@ export function filteredDisplay(){
 			removeOptions(subfilter);
 			const dict = result[0].VARLIST;
             console.log("dict",dict, varName, dict[varName].sort());
-			updateBox("subfilter1",dict[varName].sort(), dict[varName].sort());
+			updateBox(subfilterName,dict[varName].sort(), dict[varName].sort());
 		})
 		.catch (function (e) {
             console.log(e);
@@ -72,7 +75,7 @@ export function filteredDisplay(){
 	}
 	else {
 		removeOptions(subfilter);
-		updateBox("subfilter1",[-1],["-- display all data --"]);
+		updateBox(subfilterName,[-1],["-- display all data --"]);
 		displayMain();
 	}
 }
@@ -100,7 +103,7 @@ export function filteredDisplay(){
  * void : remove selectElement from select 
  * @param {*} selectElement 
  */
- function removeOptions(selectElement) {
+ export function removeOptions(selectElement) {
 	var i, L = selectElement.options.length - 1;
 	for(i = L; i >= 0; i--) {
 	   selectElement.remove(i);

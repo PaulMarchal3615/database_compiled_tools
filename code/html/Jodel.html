@@ -55,15 +55,6 @@
   }
 }
 
-function selectAll()
-    {
-    	var myOpts = document.getElementById('subfilter1').options;
-    	for ( i=0; i<myOpts.length; i++)
-    	{
-    		myOpts[i].selected = "true";
-    	}
-    }
-
   </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
@@ -104,61 +95,31 @@ function selectAll()
 
           <!--filters to select only points following values on a selected property
         subfilter1 is filled when filter1 is modified-->
+
+        <select id="analysisSelect">
+          <option value=0>DEFAULT DISPLAY</option>
+          <option value="METADATA">METADATA</option>
+          <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
+          <option value="PETROPHYSICS">PETROPHYSICS</option>
+          <option value="GRAPHITE">GRAPHITE</option>>
+          <option value="UO2-GEOCHEMISTRY-EMPA">UO2-GEOCHEMISTRY-EMPA</option>
+          <option value="UO2-GEOCHEMISTRY-LA-ICP-MS">UO2-GEOCHEMISTRY-LA-ICP-MS</option>
+          <option value="UO2-GEOCHEMISTRY-SIMS">UO2-GEOCHEMISTRY-SIMS</option>
+          <option value="FI-RAMAN">FI-RAMAN</option>
+          <option value="FI-MICROTHERMOMETRY">FI-MICROTHERMOMETRY</option>
+          <option value="FI-LA-ICP-MS">FI-LA-ICP-MS</option>
+          <option value="XRD-CLAY">XRD-CLAY</option>
+          <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
+        </select>
+
           <select name="filter1" id="filter1" multiple="multiple">
             <option value="-1">-- display all data --</option>
           </select>
-          <button id="selectAll" onclick="selectAll();">Select All</button>
+          <button id="selectAll">Select All</button>
           <select name="subfilter1[]" id="subfilter1" multiple="multiple">
             <option value="-1">-- display all data --</option>
           </select>
           <p id="miniInfoDisp"> __ </p>
-          <div id="analysisCheckBox">
-            <input type="checkbox" id="BULK-GEOCHEMISTRY" name="BULK-GEOCHEMISTRY"
-            checked>
-            <label for="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</label>
-
-            <input type="checkbox" id="PETROPHYSICS" name="PETROPHYSICS"
-            checked>
-            <label for="PETROPHYSICS">PETROPHYSICS</label>
-
-            <input type="checkbox" id="GRAPHITE" name="GRAPHITE"
-            checked>
-            <label for="GRAPHITE">GRAPHITE</label>
-
-            <input type="checkbox" id="UO2-GEOCHEMISTRY" name="UO2-GEOCHEMISTRY"
-            checked>
-            <label for="UO2-GEOCHEMISTRY">UO2-GEOCHEMISTRY</label>
-
-            <input type="checkbox" id="FI-RAMAN" name="FI-RAMAN"
-            checked>
-            <label for="FI-RAMAN">FI-RAMAN</label>
-
-            <input type="checkbox" id="FI-MICROTHERMOMETRY" name="FI-MICROTHERMOMETRY"
-            checked>
-            <label for="FI-MICROTHERMOMETRY">FI-MICROTHERMOMETRY</label>
-
-            <input type="checkbox" id="FI-LA-ICP-MS" name="FI-LA-ICP-MS"
-            checked>
-            <label for="FI-LA-ICP-MS">FI-LA-ICP-MS</label>
-
-            <input type="checkbox" id="XRD-CLAY" name="XRD-CLAY"
-            checked>
-            <label for="XRD-CLAY">XRD-CLAY</label>
-
-            <input type="checkbox" id="CLAY-CRISTALLOGRAPHY" name="CLAY-CRISTALLOGRAPHY"
-            checked>
-            <label for="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</label>  
-
-          </div>
-
-          <select name="filter2" id="filter2" multiple="multiple">
-            <option value="-1">-- display all data --</option>
-          </select>
-          <button id="selectAll" onclick="selectAll();">Select All</button>
-          <select name="subfilter2[]" id="subfilter2" multiple="multiple">
-            <option value="-1">-- display all data --</option>
-          </select>
-
 
         </div>
 
@@ -231,7 +192,7 @@ function selectAll()
 
                 type="radio"> <img src="./rainbow.png"> </label> </div>
 
-          <div id="color-table-zone" style="height:150px; overflow-y: auto;">
+          <div id="color-table-zone" style="height:300px; overflow-y: auto;">
             <table id="color_table" class="color-table">
               <thead>
               </thead>

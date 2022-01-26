@@ -38,24 +38,18 @@
   grid-column: 3 / 5;
   grid-row: 4;
 }
-#miniInfoDisp {
-  grid-column: 1;
+
+#analysisSelect{
+  grid-column: 1 / 3;
   grid-row: 3;
 }
 
-#analysisCheckBox{
-  grid-column: 1 / 5;
+#miniInfoDisp {
+  grid-column: 1;
   grid-row: 5;
 }
 
-#filter2 {
-  grid-column: 1 / 3;
-  grid-row: 6;
-}
-#subfilter2 {
-  grid-column: 3 / 5;
-  grid-row: 6;
-}
+
 
 #myGrid > div {
   background: gray;
