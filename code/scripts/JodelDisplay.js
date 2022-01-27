@@ -59,6 +59,8 @@ export function displayMain() {
 
 	//------------------------- drillholes display
 
+	/*
+
 	db_jodel.transaction('rw', db_jodel.holes, function () {
 		console.log('in transaction');
 
@@ -67,9 +69,12 @@ export function displayMain() {
 
 		drawMap(drillholes);
 	})
+
 	.catch (function (e) {
 		console.error("DISPLAY MAIN",e);
 	});
+
+		*/
 					
 }
 
@@ -100,7 +105,6 @@ export function displayMainFiltered(propertyName,varList) {
 
 		return db_jodel.samples.where(propertyName).anyOf(varList).toArray();		
 	}).then (samples =>{
-		console.log("samples", samples);
 
 		initColorScale(samples, propertyName, varList);
 		trace = buildDisplayedPointset(samples, 'scatter3d', propertyName);
@@ -112,6 +116,8 @@ export function displayMainFiltered(propertyName,varList) {
 
 		//------------------------- drillholes display
 
+		/*
+
 
 		db_jodel.transaction('rw', db_jodel.holes.where('HOLEID').anyOf(ddhList), function () {
 			console.log('in transaction');
@@ -119,14 +125,18 @@ export function displayMainFiltered(propertyName,varList) {
 			return db_jodel.holes.toArray();		
 		}).then (drillholes =>{
 			drawMap(drillholes);
+			console.log(drillholes);
 		})
 		.catch (function (e) {
-			alert("DISPLAY MAIN FILTERED",e);
+			alert("DISPLAY MAIN FILTERED1",e);
 		});
+
+				*/
 		})
 		.catch (function (e) {
-			console.error("DISPLAY MAIN FILTERED",e);
+			console.error("DISPLAY MAIN FILTERED2",e);
 		});
+
 					
 }
 
@@ -443,7 +453,6 @@ function drawMap(holes) {
 	}).then (result => {
 
 		for (const sample of result) {
-			console.log(sample);
 
 			names.push(sample.A23);
 			depths.push(sample.A48[0]);

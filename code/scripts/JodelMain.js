@@ -1,4 +1,4 @@
-import {fields} from './ressources.js';
+import {fields, units} from './ressources.js';
 import {displayMain, displayMainFiltered, isFloat} from './JodelDisplay.js';
 import {exportSamples} from './JodelExport.js';
 import {removeOptions,fillSubFilterBox, filteredDisplay, updateBox} from './JodelFilters.js'
@@ -89,6 +89,8 @@ filter.addEventListener('change', function() {
 	for (var option of filter.options) {
 		if (option.selected) {
 			fillSubFilterBox("subfilter1",option.value);
+			var text = document.getElementById("miniInfoDisp");
+			text.innerHTML = option.text+'_'+units[option.text];
 		}
 	}
 })
@@ -98,7 +100,8 @@ subfilter.addEventListener('change', filteredDisplay);
 //--------------------------------------------------
 
 function parseFiles(event) {
-	
+
+	var a = performance.now();
 	var id = event.target.id;
 
 	if (id == "fileInput") {
@@ -112,7 +115,6 @@ function parseFiles(event) {
 
 						db_jodel.transaction('rw', db_jodel.datasets,db_jodel.holes,db_jodel.samples,db_jodel.var, function () {
 
-							//CSVarrayToJSON(results.data);
 
 							db_jodel.datasets.add({
 								FILE_NAME: file.name,
@@ -123,38 +125,58 @@ function parseFiles(event) {
 
 							db_jodel.datasets.where("FILE_NAME").equals(file.name)
 							.each(function (dataset) {
-								
 								updateFileTable(dataset);
 								buildSamplesBase(dataset);
-								buildPropertyDict(dataset);
-
-								
+						
 							}).then(function() {
 								displayMain();
+								var z = performance.now();
+								console.log('Total,' + (z - a));
 							});	
 						})		
 					}
 				});		
 			}	
 		}					
+	}	
+}
+
+
+function jsonConcat(o1, o2) {
+	for (var key in o2) {
+		var c = o1[key].concat(o2[key]);
+		var d = c.filter(function (item, pos) {return c.indexOf(item) == pos});
+		o1[key] = d;
 	}
+	return o1;
 }
 
 
 function buildSamplesBase(dataset) {
 
-	var fortime = 0;
-	var newdate = new Date();
-	var fordiff = newdate.getTime();
+	var b = performance.now();
+
 	var headers, units, lines;
 	[headers, units, ...lines] = dataset.ARRAY;
 
 	const headersKeys = headers.map(getKeyByValue); // for simple keys A0,... to avoid use of variable name with dashes
+
+	var allVar = {};
+	headersKeys.forEach((key, i) => allVar[key] = []);
+
+	var c = performance.now();
+	console.log('1,' + (c - b));
+	
+
 	const samplesColIndice = headers.findIndex(element =>element === "SAMPLING_POINT-NAME");
 	const allSamples = lines.map(function(value,index) { return value[samplesColIndice]; });
 	const uniqueSamples = allSamples.filter((v, i, a) => (a.indexOf(v) === i)).filter(n=>n); //keep unique values and only values != "" or undefined
+
+	var d = performance.now();
+	console.log('2,' + (d - c));
+
 	
-	for (var sampleName of uniqueSamples) {
+	for (let sampleName of uniqueSamples) {
 
 		var miniSample = {};
 		miniSample.NAME = sampleName;
@@ -165,8 +187,10 @@ function buildSamplesBase(dataset) {
 		const lines = filter2DArray(dataset.ARRAY, samplesColIndice, sampleName);
 		const JSON = compactLines(lines, headersKeys);
 		const sample = Object.assign({},miniSample,JSON);
+		allVar = jsonConcat(allVar,JSON);
 
 		createHole(sample);
+
 		db_jodel.samples.add(sample)
 		.catch((error => {
 			alert("ERROR : createSample",error);
@@ -174,9 +198,18 @@ function buildSamplesBase(dataset) {
 
 	}
 
-	newdate = new Date();
-	fortime = fortime + (newdate.getTime() - fordiff);
-	console.log(fortime);
+	var e = performance.now();
+	console.log('3,' + (e - d));
+
+	db_jodel.var.add({FILE_NAME:dataset.FILE_NAME,VARLIST:allVar})
+	.catch((error => {
+		alert("ERROR : createvarlist",error);
+	}));
+
+	var f = performance.now();
+	console.log('4,' + (f - e));
+
+
 }
 
 /**
@@ -187,9 +220,7 @@ function buildSamplesBase(dataset) {
  * @returns lines where array[col] === VOI
  */
 function filter2DArray(array, colNumber, VOI) {
-
 	return array.filter(line=> line[colNumber]===VOI);
-
 }
 
 /**
@@ -228,28 +259,6 @@ function getKeyByValue(value) {
 		}
 	}
   }
-
-
-function buildPropertyDict(dataset) {
-
-	var headers, units, lines;
-	[headers, units, ...lines] = dataset.ARRAY;
-	var allVar ={};
-
-	const headersKeys = headers.map(getKeyByValue); // for simple keys A0,... to avoid use of variable name with dashes
-	for (var i=0; i<headersKeys.length; i++){
-		const values = lines.map(function(value,index) { return value[i]; });
-		const uniquevalues = values.filter((v, i, a) => (a.indexOf(v) === i)).filter(n=>n); //keep unique values and only values != "" or undefined
-		allVar[headersKeys[i]]=uniquevalues;
-	}
-
-	db_jodel.var.add({FILE_NAME:dataset.FILE_NAME, VARLIST:allVar})
-		.catch((error => {
-			alert("ERROR : createVARLIST",error);
-		}));
-
-}
-
 
 
 /**

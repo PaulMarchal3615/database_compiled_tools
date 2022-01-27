@@ -4,6 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=windows-1252">
     <title>JODEL - Sampling Exploration</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
     <script src='https://unpkg.com/paralleljs@1.0/lib/parallel.js'></script>
     <link rel="stylesheet" href="../styles/JodelGrid.css">
@@ -14,6 +15,7 @@
     <link rel="stylesheet" href="../styles/charts.css">
     <link rel="stylesheet" href="../styles/ratioControl.css">
     <link rel="stylesheet" href="../styles/color-table.css">
+    <link rel="stylesheet" href="../styles/progressBar.css">
     <!--function for opening tabs on click-->
     <script type="text/javascript">
   function openView(evt, view) {
@@ -64,15 +66,13 @@
     <!-- css display is based on a grid and principal components are numbered -->
     <div class="JodelGrid">
       <div class="sidebar">
-          <button type="button"
+          <button type="button" class="btn2-hover bn22" id="addPointset"> Add Pointset</button> 
+          <button type="button" class="btn2-hover bn22" id="addSurface"> Add Surface</button>
+          <button type="button" class="btn2-hover bn22" id="addLines"> Add Traces</button> 
+          <button type="button" class="btn2-hover bn22" id="exportSamples">Export samples</button>
 
-            class="btn2-hover bn22" id="addPointset"> Add Pointset</button> <button
+          <progress id='progress_track' value="0" max="100"></progress>
 
-            type="button" class="btn2-hover bn22" id="addSurface"> Add Surface</button>
-          <button type="button" class="btn2-hover bn22" id="addLines"> Add
-            Traces</button> 
-          <button type="button" class="btn2-hover bn22" id="exportSamples">
-            Export samples</button>
           <!-- table for displaying loaded files and characteristics-->
           <div id="table-zone" style="height:150px; overflow-y: auto;">
             <table id="file_table" class="fl-table">
