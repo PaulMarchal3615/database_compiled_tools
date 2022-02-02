@@ -97,7 +97,7 @@
         subfilter1 is filled when filter1 is modified-->
 
         <select id="analysisSelect">
-          <option value=0>DEFAULT DISPLAY</option>
+          <option value="DEFAULT">DEFAULT DISPLAY</option>
           <option value="METADATA">METADATA</option>
           <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
           <option value="PETROPHYSICS">PETROPHYSICS</option>
@@ -113,11 +113,11 @@
         </select>
 
           <select name="filter1" id="filter1" multiple="multiple">
-            <option value="-1">-- display all data --</option>
+            <option value="DEFAULT">-- display all data --</option>
           </select>
           <button id="selectAll">Select All</button>
           <select name="subfilter1[]" id="subfilter1" multiple="multiple">
-            <option value="-1">-- display all data --</option>
+            <option value="DEFAULT">-- display all data --</option>
           </select>
           <p id="miniInfoDisp"> __ </p>
 
@@ -126,9 +126,10 @@
       <!-- main display zone-->
       <div class="displayZone">
         <!-- Tab links -->
-        <div class="tab"> <button class="tablinks" onclick="openView(event, 'Jodel-tab-1')">3D
-            View</button> <button class="tablinks" onclick="openView(event, 'Jodel-tab-2')">map
-            &amp; Drillhole view</button> <button class="tablinks" onclick="openView(event, 'Jodel-tab-3')">Density</button>
+        <div class="tab"> 
+          <button class="tablinks" onclick="openView(event, 'Jodel-tab-1')">3D View</button> 
+          <button class="tablinks" onclick="openView(event, 'Jodel-tab-2')">Map view</button> 
+            <button class="tablinks" onclick="openView(event, 'Jodel-tab-3')">Density</button>
         </div>
         <!-- Tab content -->
         <div id="Jodel-tab-1" class="tabcontent">

@@ -6,65 +6,37 @@ db_jodel.version(1).stores({
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
 
+
 export function exportSamples() {
 
-	console.log("in export");
+    var checkList = getFileListToDisplay();
+	var selected2 = document.querySelectorAll('#filter1 option:checked');
+	var propertyName = Array.from(selected2).map(el => el.value);
 
-	const selected = document.querySelectorAll('#subfilter1 option:checked');
-	const valueList = Array.from(selected).map(el => el.label);
+	var selected = document.querySelectorAll('#subfilter1 option:checked');
+	var valueListRaw = Array.from(selected).map(el => el.value);
+	valueListRaw.sort();
+	valueListRaw = valueListRaw.map(value => parseFloat(value)||value);
 
-	const selected2 = document.querySelectorAll('#filter1 option:checked');
-	const propertyName = Array.from(selected2).map(el => el.label);
+	// ------------------------- 3D & density view
 
-	if (valueList[0] != "-- display all data --") {
-
-        const data = [];
-
-		db_jodel.transaction('rw', db_jodel.samples, function () {
-			console.log('in transaction');
-			return db_jodel.samples.where(propertyName[0]).anyOf(valueList).toArray();		
-		}).then (samples =>{
-
-            const results = processSampleArray(samples);
-            console.log(results);
-
-            WriteData(results);     
-
-        }).catch (function (error) {
-			console.error("EXPORT ERROR",error);
-		});
-
-	}
-
-	else {
-		data = [
-			["Bonjour", "c'est", "Nicolas","Sarkozy"],
-			["et", "j'ai", "le","plaisir"],
-			["de", "lire", "le","Temps des Tempetes"],
-			["_", "pour", "Audible","_"],
-		];
-        WriteData(data);
-	}		
-    
+	db_jodel.transaction('rw', db_jodel.analysis, function () {
+			return db_jodel.analysis.where('FILE_NAME').anyOf(checkList).toArray();
+	}).then (analysis =>{
+        if (propertyName != "DEFAULT") {
+			const filteredAnalysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
+            //WriteData(filteredAnalysis);
+        }
+        else {
+            //WriteData(analysis);
+        }
+	})
+	.catch (function (e) {
+		console.error("DISPLAY MAIN",e);
+	});				
 }
 
-async function processSampleArray(samples) {
-    const properties = Object.keys(samples[0]);
-    const promises =[];
 
-    for (var sample of samples) {
-        console.log(sample);
-        var line =[];
-        for (var property of properties) {
-            line.push(sample[property]);
-        }
-        promises.push(line);
-    }
-
-    const result = await Promise.all(promises);
-    console.log('Done!');
-    return result;
-  }
 
 
 function WriteData(data) {

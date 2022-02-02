@@ -1,5 +1,5 @@
 import {colorbrewer} from './colorBrewer.js';
-import { fields } from './ressources.js';
+import {fields} from './ressources.js';
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
@@ -27,6 +27,33 @@ function getFileListToDisplay() {
     return checkList;
 }
 
+export function isFloat(variable) {
+    return !Number.isNaN(Number.parseFloat(variable));
+}
+
+function fillCaptionTable(colorList, valueList) {
+
+	$("#color_table tr").remove(); 
+
+	var tablebody = document.getElementById("color_table").getElementsByTagName('tbody')[0];
+	var row = tablebody.insertRow(0);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	cell1.innerHTML = "#000000";
+	cell1.bgColor = "#000000";
+	cell2.innerHTML = "No Data Value"; 
+
+	for (var i=0;i<colorList.length; i++) {
+
+		var row = tablebody.insertRow(0);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		cell1.innerHTML = colorList[i];
+		cell1.bgColor = colorList[i];
+		cell2.innerHTML = valueList[i]; 
+	}		
+}
+
 /**
  * 
  * @param {*} analysisLines 
@@ -37,38 +64,37 @@ function initColorScale(analysisLines, propertyName, varList) {
 
 	var colorNumber = document.querySelector('input[name="colorPicker"]:checked').value;
 
-	if (propertyName != "FILE_NAME") {
+	if ((propertyName != "FILE_NAME") & (varList.length >0)) {
 
-		var testValue = 0;
-
-		if (varList[0] == "") {
-			testValue = 1;
-		}
-
-		if (isFloat(varList[testValue])) {
+		if (isFloat(varList[0])) {
 
 			var size = $('#num-classes').find(":selected").text();
-
-			varList = varList.map(value=>parseFloat(value));
-
 			var limits = chroma.limits(varList, 'e', size);
 
 			var scale = chroma.scale([colorbrewer[colorNumber],'#DCDCDC'])
 			.mode('hsl').colors(size);
-		
-			for (var sample of analysisLines) {
-				if (sample[propertyName] == NaN || sample[propertyName] =="") {
-					sample.COLOR = "#000000";
+
+			const samples = analysisLines.map(({A23})=>A23).filter((v, i, a) => a.indexOf(v) === i);
+
+			var t0 = performance.now();
+
+			for (var sample of samples) {
+				const samplesAnalysis = analysisLines.filter(line => line.A23 == sample);
+				const values = samplesAnalysis.map(a => a[propertyName]);
+
+				var closest = limits.reduce(function(prev, curr) {
+					const sum = values.reduce((a, b) => a + b, 0);
+					const avg = (sum / values.length) || 0;
+					return (Math.abs(curr - avg) < Math.abs(prev - avg) ? curr : prev);
+				  });
+
+				  for (var obj of samplesAnalysis) {
+					obj.COLOR = scale[limits.indexOf(closest)];
 				}
-				else {
-					var closest = limits.reduce(function(prev, curr) {
-						const sum = sample[propertyName].reduce((a, b) => a + b, 0);
-						const avg = (sum / sample[propertyName].length) || 0;
-						return (Math.abs(curr - avg) < Math.abs(prev - avg) ? curr : prev);
-					  });
-					sample.COLOR = scale[limits.indexOf(closest)];
-				}	
 			}
+
+			var t1 = performance.now();
+			console.log(t1 - t0," millisecondes");
 		
 		fillCaptionTable(scale, limits);
 		}
@@ -81,10 +107,10 @@ function initColorScale(analysisLines, propertyName, varList) {
 			var scale = chroma.scale(['#fafa6e','#2A4858'])
 			.mode('lch').colors(size);
 		
-			for (var sample of analysisLines) {
+			for (var analysis of analysisLines) {
 				for (var value of varList) {
-					if (sample[propertyName] == value) {
-						sample.COLOR = scale[varList.indexOf(value)];
+					if (analysis[propertyName] == value) {
+						analysis.COLOR = scale[varList.indexOf(value)];
 						break;
 					}
 				}
@@ -124,9 +150,6 @@ export function buildDisplayedPointset(analysisLines, displayType, propertyName)
 		names = analysisLines.map(({A23})=>A23);
 	}
 
-    console.log(X,Y,Z,names);
-
-
 	var trace = {
 		 x: X,
 		 y: Y,
@@ -159,65 +182,41 @@ export function getColumn(colName,  array) {
     return array.map(x => x[indice]);
 }
 
-export function displayMain2(array, color) {
-
-    var colors = Array(array.length).fill(color);
-    var X = getColumn('X_NAD',array);
-    console.log(X);
-
-    var trace = {
-        x: getColumn('X_NAD',array),
-        y: getColumn('Y_NAD',array),
-        z: getColumn('Z_NAD',array),
-        text:getColumn('SAMPLING_POINT-NAME',array),
-       mode: 'markers',
-       marker: {
-           size: 12,
-           color:colors,
-           line: {
-           color:colors,
-           width: 0.5},
-           opacity: 0.8},
-       type: "scatter3d"
-   };
-
-   scatter3DPlot([trace]);
-
-}
-export function displayMain(propertyName = 0, varList=[]) {
+export function displayMain() {
 
 	var trace = {};
     var checkList = getFileListToDisplay();
-    console.log(checkList);
+
+	// --------get filter values------------------------------------
+
+	var filter1 = document.querySelectorAll('#filter1 option:checked');
+	var propertyName = Array.from(filter1).map(el => el.value)[0] || "DEFAULT";
+
+	var subfilter1 = document.querySelectorAll('#subfilter1 option:checked');
+	var valueListRaw = Array.from(subfilter1).map(el => el.value);
+	valueListRaw.sort();
+	valueListRaw = valueListRaw.map(value => parseFloat(value)||value);
+
+	console.log(propertyName, valueListRaw);
 
 	// ------------------------- 3D & density view
 
 	db_jodel.transaction('rw', db_jodel.analysis, function () {
-		console.log('in transaction');
-		
-		if (propertyName != 0) {
-			return db_jodel.analysis.where('FILE_NAME').anyOf(checkList)
-			.where(propertyName).anyOf(VarList).toArray();
-		}
-		else {
-            console.log('coucou');
 			return db_jodel.analysis.where('FILE_NAME').anyOf(checkList).toArray();
-		}	
 	}).then (analysis =>{
-        if (propertyName != 0) {
-            initColorScale(analysis, propertyName, varList);
+        if (propertyName != "DEFAULT") {
+			const filteredAnalysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
+            initColorScale(filteredAnalysis, propertyName, valueListRaw)
+			trace = buildDisplayedPointset(filteredAnalysis, 'scatter3d', 0);
+			scatter3DPlot([trace]);
         }
         else {
             initColorScale(analysis, 'FILE_NAME', checkList);
+			trace = buildDisplayedPointset(analysis, 'scatter3d', 0);
+			scatter3DPlot([trace]);
         }
-        console.log('analysis',analysis);
-		
-		trace = buildDisplayedPointset(analysis, 'scatter3d', 0);
-		scatter3DPlot([trace]);
-
 	})
 	.catch (function (e) {
-        console.log(error);
 		console.error("DISPLAY MAIN",e);
 	});				
 }
@@ -232,7 +231,6 @@ export function displayMain(propertyName = 0, varList=[]) {
  */
  function scatter3DPlot(data){
 
-    console.log(data);
 	var ratio = {
 		x:document.getElementById("X_input").value,
 		y:document.getElementById("Y_input").value,

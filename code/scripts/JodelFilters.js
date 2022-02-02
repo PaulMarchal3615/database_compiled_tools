@@ -8,26 +8,6 @@ db_jodel.version(1).stores({
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
 
-/**
- * void : create an array containing values user wants to display for a given property "propertyName"
- */
-export function filteredDisplay(){
-
-	const selected = document.querySelectorAll('#subfilter1 option:checked');
-	var valueListRaw = Array.from(selected).map(el => el.value);
-	valueListRaw.sort();
-
-	const selected2 = document.querySelectorAll('#filter1 option:checked');
-	const propertyName = Array.from(selected2).map(el => el.value);
-
-	if (propertyName[0] == -1) {
-		displayMain();
-	}
-	else {
-		displayMain(propertyName[0], valueListRaw);	
-	}
-}
-
 
 //--------------------------------------------
 
@@ -39,15 +19,18 @@ export function filteredDisplay(){
 
 	const subfilter = document.getElementById(subfilterName);
 
-	if (varName != -1) {
+	if (varName != "DEFAULT") {
 
-		db_jodel.transaction('rw', db_jodel.var, function () {
+		db_jodel.transaction('r', db_jodel.analysis, function () {
 
-			return db_jodel.var.toArray();		
-		}).then (result =>{
+			return db_jodel.analysis.toArray();		
+		}).then (analysis =>{
+			
+			let result = analysis.map(a => a[varName]);
+			var unique = result.filter((v, i, a) => a.indexOf(v) === i).filter(function (el) {return el != null & el!= "";});
+
 			removeOptions(subfilter);
-			const dict = result[0].VARLIST;
-			updateBox(subfilterName,dict[varName].sort(), dict[varName].sort());
+			updateBox(subfilterName,unique.sort(), unique.sort());
 		})
 		.catch (function (e) {
             console.log(e);
@@ -57,7 +40,7 @@ export function filteredDisplay(){
 	}
 	else {
 		removeOptions(subfilter);
-		updateBox(subfilterName,[-1],["-- display all data --"]);
+		updateBox(subfilterName,["DEFAULT"],["-- display all data --"]);
 		displayMain();
 	}
 }

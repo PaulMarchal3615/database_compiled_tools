@@ -1,7 +1,7 @@
 import {fields, units, keys} from './ressources.js';
-import {displayMain2, displayMain} from './JodelDisplay2.js';
+import {displayMain} from './JodelDisplay2.js';
 import {exportSamples} from './JodelExport.js';
-import {removeOptions,fillSubFilterBox, filteredDisplay, updateBox} from './JodelFilters.js'
+import {removeOptions,fillSubFilterBox, updateBox} from './JodelFilters.js'
 
 document.getElementById('exportSamples').addEventListener("click",exportSamples);
 
@@ -22,8 +22,6 @@ db_jodel.open().catch(function (e) {
 db_jodel.analysis.clear();
 db_jodel.holes.clear();
 db_jodel.datasets.clear();
-
-
 
 // add event listener on file input
 var input = document.querySelector('#fileInput');
@@ -51,7 +49,7 @@ function selectAll()
     	{
     		myOpts[i].selected = "true";
     	}
-		filteredDisplay();
+		displayMain();
 }
 
 var analysisSelect = document.getElementById("analysisSelect");
@@ -61,13 +59,19 @@ function updateAnalysisFilter() {
 
 	removeOptions(filter);
 	var analysisName = analysisSelect.options[analysisSelect.selectedIndex].value;
+	console.log(analysisName);
 
-	if (analysisName != 0) {
+	if (analysisName != "DEFAULT") {
 		updateBox("filter1",Object.keys(fields[analysisName]), Object.values(fields[analysisName]));
 	}
 	else {
-		updateBox("filter1", ["-- display all data --"], ["-- display all data --"]);
-		updateBox("subfilter1", ["-- display all data --"], ["-- display all data --"]);
+		removeOptions(subfilter);
+		updateBox("filter1", ["DEFAULT"], ["-- display all data --"]);
+		updateBox("subfilter1", ["DEFAULT"], ["-- display all data --"]);
+		var myOpts = document.getElementById('subfilter1').options;
+		myOpts[0].selected = "true";
+		displayMain();
+
 	}
 	
 }
@@ -75,15 +79,15 @@ function updateAnalysisFilter() {
 filter.addEventListener('change', function() {
 
 	for (var option of filter.options) {
-		if (option.selected) {
+		if (option.selected){
 			fillSubFilterBox("subfilter1",option.value);
 			var text = document.getElementById("miniInfoDisp");
-			text.innerHTML = option.text+'_'+units[option.text];
+			text.innerHTML = option.text+' in Unit : '+units[option.text];
 		}
 	}
 })
 
-subfilter.addEventListener('change', filteredDisplay);
+subfilter.addEventListener('change', displayMain);
 
 //--------------------------------------------------
 
@@ -92,9 +96,9 @@ function parseFiles(event) {
 	var id = event.target.id;
 
 	if (id == "fileInput") {
+		console.log(input.files);
 
-		for (var file of input.files) {
-			console.log(file);
+		for (let file of input.files) {
 			if (file.name.split('.').pop() =="csv") {
 
 				Papa.parse(file, {
@@ -102,18 +106,18 @@ function parseFiles(event) {
 					complete: function(results) {
 
 						db_jodel.transaction('rw', db_jodel.datasets,db_jodel.analysis, () => {
-							var dataset = {FILE_NAME: file.name,ARRAY: results.data,TYPE: 'scatter3d',COLOR: rndHex()};
+							let dataset = {FILE_NAME: file.name,ARRAY: results.data,TYPE: 'scatter3d',COLOR: rndHex()};
+							console.log("dataset", file.name, dataset);
 							updateFileTable(dataset);
-							var analysisLines = readDataset(dataset);
+							let analysisLines = readDataset(dataset);
 
-							//displayMain2(dataset.ARRAY,rndHex());
 							db_jodel.datasets.put(dataset);
 							db_jodel.analysis.bulkPut(analysisLines);
+
 							}).then(() => {
 								displayMain();
 							})
 							.catch (error => {
-								console.log(error);
 								console.error("transaction error",e);
 							});	
 					}
@@ -130,15 +134,30 @@ function rowsToObjects(headers, rows){
 	}, []);
   }
 
-
+/**
+ * 
+ * @param {*} dataset 
+ * @returns [AnalysisLines] with analysisLine = {A0:val, ...} to be stored in db
+ */
 function readDataset(dataset) {
 	
 	var headers, units, values;
 	[headers, units, ...values] = dataset.ARRAY;
 	const headersKeys = headers.map(getKeyByValue);
 
-	const result = rowsToObjects(headersKeys, values);
+	var result = rowsToObjects(headersKeys, values);
 	var i =2;
+
+	// convert string 'float' to float values
+
+	result = result.map(entry => 
+		Object.entries(entry).reduce(
+			(obj, [key, value]) => (obj[key] = parseFloat(value)||value, obj), 
+			{}
+		)
+	  );
+
+	// add dexie main properties
 
 	for (var obj of result) {
 		obj.LINE = i;
