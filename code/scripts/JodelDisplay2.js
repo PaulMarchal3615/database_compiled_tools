@@ -12,7 +12,7 @@ db_jodel.version(1).stores({
  * 
  * @returns list of files which are checked to display in file_table
  */
-function getFileListToDisplay() {
+export function getFileListToDisplay() {
     let table = document.getElementById("file_table");
 	let checkList = [];
 

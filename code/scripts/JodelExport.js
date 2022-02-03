@@ -1,3 +1,4 @@
+import { getFileListToDisplay } from "./JodelDisplay2.js ";
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
@@ -6,6 +7,38 @@ db_jodel.version(1).stores({
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
 
+function convertToArray(arr) {
+	const headers = Object.keys(arr[0]);
+	console.log(headers);
+
+	var data =[];
+	data.push(headers);
+
+	for (let obj of arr) {
+		console.log(obj);
+		let line =[];
+		for (let key of headers) {
+			console.log(key, obj[key]);
+			line.push(obj[key]);
+		}
+		data.push(line);
+	}
+	return data;
+  }
+
+function convertToCSV(array) {
+	let csvContent = "data:text/csv;charset=utf-8,"+ array.map(e => e.join(",")).join("\n");
+	return csvContent;
+}
+
+function WriteCSV(csvContent) {
+	var encodedUri = encodeURI(csvContent);
+	var link = document.createElement("a");
+	link.setAttribute("href", encodedUri);
+	link.setAttribute("download", "EXPORTED_ANALYSIS.csv");
+	document.body.appendChild(link); 
+	link.click();
+}
 
 export function exportSamples() {
 
@@ -25,30 +58,24 @@ export function exportSamples() {
 	}).then (analysis =>{
         if (propertyName != "DEFAULT") {
 			const filteredAnalysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
-            //WriteData(filteredAnalysis);
+
+			var data = convertToArray(filteredAnalysis);
+			var csv = convertToCSV(data);
+			console.log(csv);
+			WriteCSV(csv);
+
         }
         else {
-            //WriteData(analysis);
+			var data = convertToArray(analysis);
+			var csv = convertToCSV(data);
+			WriteCSV(csv);
         }
 	})
 	.catch (function (e) {
-		console.error("DISPLAY MAIN",e);
+		console.error("EXPORT MAIN",e);
 	});				
 }
 
 
 
 
-function WriteData(data) {
-
-    let csvContent = "data:text/csv;charset=utf-8,"
-            + data.map(e => e.join(",")).join("\n");
-            
-            var encodedUri = encodeURI(csvContent);
-            var link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "EXPORTED_data.csv");
-            document.body.appendChild(link); 
-            link.click();
-
-}
