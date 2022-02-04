@@ -257,32 +257,14 @@ function updateColor(event) {
 		let name = oTr.cells[0].innerHTML;
 		let color = document.getElementById("colorPicker_"+name).value;
 
-		/*
-
-		db_jodel.transaction('rw', db_jodel.holes, function () {
-	
-			return db_jodel.holes.where('FILE_NAME').equals(name).toArray();
+		db_jodel.transaction('rw', db_jodel.datasets, function () {
+			return db_jodel.datasets.where('FILE_NAME').equals(name).toArray();
 			
 		}).then (result => {
 
-			for (const hole of result) {
-				db_jodel.holes.update(hole.HOLEID,{COLOR:color});
-			}
-		})
-		.catch (function (e) {
-			console.error("CHANGE COLOR",e);
-		});
-
-		*/
-
-		db_jodel.transaction('rw', db_jodel.analysis, function () {
-	
-			return db_jodel.analysis.where('FILE_NAME').equals(name).toArray();
-			
-		}).then (result => {
-
-			for (const analysisLine of result) {
-				db_jodel.analysis.update(analysisLine.A23,{COLOR:color});
+			for (const dataset of result) {
+				console.log(dataset);
+				db_jodel.datasets.update(dataset.FILE_NAME,{COLOR:color});
 			}
 			displayMain();
 		})

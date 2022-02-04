@@ -118,6 +118,22 @@ function initColorScale(analysisLines, propertyName, varList) {
 			fillCaptionTable(scale, varList);
 		}
 	}
+	else if (propertyName == "FILE_NAME") {
+		console.log('helholele');
+
+		db_jodel.transaction('rw', db_jodel.datasets, function () {
+			return db_jodel.datasets.toArray();
+	}).then(result => {
+		var colorsDatasets ={};
+		for (var dataset of result) {
+			colorsDatasets[dataset.FILE_NAME] = dataset.COLOR;
+			}
+			console.log(colorsDatasets);
+		for (var analysis of analysisLines) {
+			analysis.COLOR = colorsDatasets[analysis.FILE_NAME];
+			}
+		})
+	}
 }
 
 /**

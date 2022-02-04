@@ -1,4 +1,5 @@
 import { getFileListToDisplay } from "./JodelDisplay2.js ";
+import { keyVal, units } from "./ressources.js";
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
@@ -7,18 +8,20 @@ db_jodel.version(1).stores({
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
 
-function convertToArray(arr) {
-	const headers = Object.keys(arr[0]);
-	console.log(headers);
 
+
+function convertToArray(arr) {
+	var headers = Object.keys(arr[0]);
+	
 	var data =[];
-	data.push(headers);
+	const trueHeaders = headers.map(val => keyVal[val]);
+	const unitsLine = trueHeaders.map(val => units[val]);
+
+	data.push(trueHeaders, unitsLine);
 
 	for (let obj of arr) {
-		console.log(obj);
 		let line =[];
 		for (let key of headers) {
-			console.log(key, obj[key]);
 			line.push(obj[key]);
 		}
 		data.push(line);
@@ -31,14 +34,25 @@ function convertToCSV(array) {
 	return csvContent;
 }
 
-function WriteCSV(csvContent) {
-	var encodedUri = encodeURI(csvContent);
-	var link = document.createElement("a");
-	link.setAttribute("href", encodedUri);
-	link.setAttribute("download", "EXPORTED_ANALYSIS.csv");
-	document.body.appendChild(link); 
-	link.click();
+
+const export_csv = (arrayHeader, arrayData, delimiter, fileName) => {
+	let header = arrayHeader.join(delimiter) + '\n';
+	let csv = header;
+	arrayData.forEach( array => {
+		csv += array.join(delimiter)+"\n";
+	});
+
+	let csvData = new Blob([csv], { type: 'text/csv' });  
+	let csvUrl = URL.createObjectURL(csvData);
+
+	let hiddenElement = document.createElement('a');
+	hiddenElement.href = csvUrl;
+	hiddenElement.target = '_blank';
+	hiddenElement.download = fileName + '.csv';
+	hiddenElement.click();
 }
+
+
 
 export function exportSamples() {
 
@@ -58,17 +72,17 @@ export function exportSamples() {
 	}).then (analysis =>{
         if (propertyName != "DEFAULT") {
 			const filteredAnalysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
-
-			var data = convertToArray(filteredAnalysis);
-			var csv = convertToCSV(data);
-			console.log(csv);
-			WriteCSV(csv);
+			const data = convertToArray(filteredAnalysis);
+			const [headers, ...lines] = data;
+			export_csv(headers, lines, ",", "sampleExportFiltered");
 
         }
         else {
-			var data = convertToArray(analysis);
-			var csv = convertToCSV(data);
-			WriteCSV(csv);
+
+			const data = convertToArray(analysis);
+			const [headers, ...lines] = data;
+			export_csv(headers, lines, ",", "sampleExport");
+
         }
 	})
 	.catch (function (e) {
@@ -78,4 +92,21 @@ export function exportSamples() {
 
 
 
+// JSON to CSV Converter
+function ConvertToCSV(objArray) {
+	var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+	var str = '';
 
+	for (var i = 0; i < array.length; i++) {
+		var line = '';
+		for (var index in array[i]) {
+			if (line != '') line += ','
+
+			line += array[i][index];
+		}
+
+		str += line + '\r\n';
+	}
+
+	return str;
+}
