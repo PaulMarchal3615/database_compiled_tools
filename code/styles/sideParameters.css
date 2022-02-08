@@ -2,9 +2,9 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 100%;
   grid-gap: 10px;
-  grid-template-rows: auto 30px 1fr;
+  grid-template-rows: max-content 30px auto auto;
 }
 
 #ratioControl {
@@ -15,14 +15,15 @@
 #num-classes {
   grid-column: 1;
   grid-row: 2;
+  width: 50px;
 }
 
 #scheme {
-  grid-column: 2;
-  grid-row: 1;
+  grid-column: 1;
+  grid-row: 3;
 }
 
 #color-table-zone {
-  grid-column: 1 / 3;
-  grid-row: 3;
+  grid-column: 1;
+  grid-row: 4;
 }

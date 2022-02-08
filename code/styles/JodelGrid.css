@@ -1,8 +1,8 @@
 .JodelGrid{
   width: 100%;
-  height: 100%;
+  height: 99%;
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 3fr max-content;
   grid-gap: 10px;
 }
 .sidebar {

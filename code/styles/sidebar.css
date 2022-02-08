@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 10px;
-  grid-template-rows: max-content max-content max-content 30px 20% 10% 20%;
+  grid-template-rows: max-content max-content 250px 30px 300px 10% 20%;
 }
 #addPointset {
   grid-column: 1;

@@ -92,6 +92,10 @@ subfilter.addEventListener('change', displayMain);
 //--------------------------------------------------
 
 function parseFiles(event) {
+	$.when(readFiles(event)).then(displayMain());
+}
+
+function readFiles(event) {
 
 	var id = event.target.id;
 
@@ -99,6 +103,7 @@ function parseFiles(event) {
 		console.log(input.files);
 
 		for (let file of input.files) {
+			console.log(file);
 			if (file.name.split('.').pop() =="csv") {
 
 				Papa.parse(file, {
@@ -113,17 +118,14 @@ function parseFiles(event) {
 
 							db_jodel.datasets.put(dataset);
 							db_jodel.analysis.bulkPut(analysisLines);
-
-							}).then(() => {
-								displayMain();
 							})
 							.catch (error => {
-								console.error("transaction error",e);
+								console.error("Read File Error",error);
 							});	
 					}
 				});		
 			}	
-		}					
+		}			
 	}	
 }
 
@@ -254,19 +256,24 @@ function createHole(sample) {
 function updateColor(event) {
 
 	let oEleBt = event.currentTarget, oTr = oEleBt.parentNode.parentNode ;
-		let name = oTr.cells[0].innerHTML;
-		let color = document.getElementById("colorPicker_"+name).value;
+	
+	let name = oTr.cells[0].innerHTML;
+	
+	let color = document.getElementById("colorPicker_"+name).value;
+	console.log(color);
 
-		db_jodel.transaction('rw', db_jodel.datasets, function () {
+	db_jodel.transaction('rw', db_jodel.datasets, function () {
 			return db_jodel.datasets.where('FILE_NAME').equals(name).toArray();
 			
 		}).then (result => {
 
 			for (const dataset of result) {
-				console.log(dataset);
 				db_jodel.datasets.update(dataset.FILE_NAME,{COLOR:color});
+
+				db_jodel.transaction('rw', db_jodel.analysis, function () {
+					return db_jodel.analysis.where('FILE_NAME').equals(name).modify({COLOR:color});
+				}).then(displayMain())
 			}
-			displayMain();
 		})
 		.catch (function (e) {
 			console.error("CHANGE COLOR",e);
@@ -285,16 +292,10 @@ function deleteLine(oEvent){
 	let oEleBt = oEvent.currentTarget, oTr = oEleBt.parentNode.parentNode ;
 		let name = oTr.cells[0].innerHTML;
 
-		db_jodel.transaction('rw', db_jodel.samples, function () {
-	
-			return db_jodel.samples.where('FILE_NAME').equals(name).toArray();
-			
-		}).then (result => {
-
-			for (const sample of result) {
-				db_jodel.samples.delete(sample['NAME']);
-			}
+		db_jodel.transaction('rw', db_jodel.analysis, function () {
+			return db_jodel.analysis.where('FILE_NAME').equals(name).each(analysis => db_jodel.analysis.delete())
 		})
+		.then (console.log("deleted"))
 		.catch (function (e) {
 			console.error("DELETE SAMPLES",e);
 		});

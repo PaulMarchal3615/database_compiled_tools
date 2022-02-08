@@ -118,10 +118,10 @@ function initColorScale(analysisLines, propertyName, varList) {
 			fillCaptionTable(scale, varList);
 		}
 	}
+	/*
 	else if (propertyName == "FILE_NAME") {
-		console.log('helholele');
 
-		db_jodel.transaction('rw', db_jodel.datasets, function () {
+		db_jodel.transaction('rw', db_jodel.datasets, db_jodel.analysis, function () {
 			return db_jodel.datasets.toArray();
 	}).then(result => {
 		var colorsDatasets ={};
@@ -129,11 +129,12 @@ function initColorScale(analysisLines, propertyName, varList) {
 			colorsDatasets[dataset.FILE_NAME] = dataset.COLOR;
 			}
 			console.log(colorsDatasets);
-		for (var analysis of analysisLines) {
-			analysis.COLOR = colorsDatasets[analysis.FILE_NAME];
+		for (var obj of analysisLines) {
+			db_jodel.analysis.update(obj.LINE,{COLOR:colorsDatasets[obj.FILE_NAME]});
 			}
 		})
 	}
+	*/
 }
 
 /**
@@ -213,13 +214,12 @@ export function displayMain() {
 	valueListRaw.sort();
 	valueListRaw = valueListRaw.map(value => parseFloat(value)||value);
 
-	console.log(propertyName, valueListRaw);
-
 	// ------------------------- 3D & density view
 
 	db_jodel.transaction('rw', db_jodel.analysis, function () {
 			return db_jodel.analysis.where('FILE_NAME').anyOf(checkList).toArray();
 	}).then (analysis =>{
+		console.log("analysis",analysis);
         if (propertyName != "DEFAULT") {
 			const filteredAnalysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
             initColorScale(filteredAnalysis, propertyName, valueListRaw)
