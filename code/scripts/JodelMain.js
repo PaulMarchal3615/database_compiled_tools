@@ -8,7 +8,7 @@ document.getElementById('exportSamples').addEventListener("click",exportSamples)
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
-	analysis:`LINE,FILE_NAME,COLOR,TYPE`,
+	analysis:`LINE,FILE_NAME,COLOR,TYPE,A41`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
@@ -16,6 +16,14 @@ db_jodel.version(1).stores({
 db_jodel.open().catch(function (e) {
 	console.error("Open failed: " + e);
 })
+
+
+/*
+$(document).on('change', 'input[type=color]', function() {
+	this.parentNode.style.backgroundColor = this.value;
+  });
+
+*/
 
 // clear stores if reload page 
 
@@ -31,7 +39,10 @@ input.addEventListener('input',parseFiles);
 document.getElementById("X_input").addEventListener("change",displayMain);
 document.getElementById("Y_input").addEventListener("change",displayMain);
 document.getElementById("Z_input").addEventListener("change",displayMain);
-document.getElementById("Z_input").addEventListener("change",displayMain);
+
+document.getElementById("lowCol").addEventListener("change",displayMain);
+document.getElementById("highCol").addEventListener("change",displayMain);
+document.getElementById("multiCol").addEventListener("change",displayMain);
 
 //---------------------------------------------
 
@@ -185,29 +196,7 @@ function getKeyByValue(value) {
 			return Object.keys(fields[analysis]).find(key => fields[analysis][key] === value);
 		}
 	}
-  }
-
-
-/**
- * create an Hole object containing HoleID, latitude, lontitude, color, file and store it in db_jodel.holes
- * @param {*} sample Sample Object from Sample.js
- */
-function createHole(sample) {
-
-	var colorPoint = document.getElementById("colorPicker_"+sample.FILE_NAME).value;
-	
-	var hole = {};
-	hole.HOLEID = sample.A41[0];
-	hole.HOLEID_LATITUDE = sample.A42[0];
-	hole.HOLEID_LONGITUDE = sample.A43[0];
-	hole.COLOR = colorPoint;
-	hole.FILE_NAME = sample.FILE_NAME;
-
-	db_jodel.holes.put(hole).catch((error => {
-		alert("ERROR : createHole",error);
-	}));
-
-}	
+  }	
 
 
 /**
@@ -260,7 +249,6 @@ function updateColor(event) {
 	let name = oTr.cells[0].innerHTML;
 	
 	let color = document.getElementById("colorPicker_"+name).value;
-	console.log(color);
 
 	db_jodel.transaction('rw', db_jodel.datasets, function () {
 			return db_jodel.datasets.where('FILE_NAME').equals(name).toArray();

@@ -56,7 +56,6 @@
     if(theEvent.preventDefault) theEvent.preventDefault();
   }
 }
-
   </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
@@ -74,7 +73,7 @@
           <progress id='progress_track' value="0" max="100"></progress>
 
           <!-- table for displaying loaded files and characteristics-->
-          <div id="table-zone" style="height:150px; overflow-y: auto;">
+          <div id="table-zone" style="height:250px; overflow-y: auto;">
             <table id="file_table" class="fl-table">
               <thead>
                 <tr>
@@ -173,27 +172,20 @@
             <option name="10">10</option>
             <option name="11">11</option>
             <option name="12">12</option>
-          </select>
-          <div id="scheme" class="section">
-            <p>Pick a color scheme :</p>
-            <label> <input id="colorBtn" name="colorPicker" value="blue" checked="checked"
+          </select>        
 
-                type="radio"> <img src="./blue.png"> </label> <label> <input
+            <div class="colorSelect">
 
-                id="colorBtn" name="colorPicker" value="green" type="radio"> <img
+              <p>Pick a color scheme :</p>
 
-                src="./green.png"> </label> <label> <input id="colorBtn" name="colorPicker"
+              <input id="lowCol" type="color" value="#000000">
+              <input id="highCol" type="color" value="#00cdff">
+              <p>Multiple Values </p>
+              <input id="multiCol" type="color" value="#ff00e4">
+            </div> 
 
-                value="purple" type="radio"> <img src="./purple.png"> </label>
-            <label> <input id="colorBtn" name="colorPicker" value="orange" type="radio">
-              <img src="./orange.png"> </label> <label> <input id="colorBtn"
 
-                name="colorPicker" value="black" type="radio"> <img src="./black.png">
-            </label> <label> <input id="colorBtn" name="colorPicker" value="rainbow"
-
-                type="radio"> <img src="./rainbow.png"> </label> </div>
-
-          <div id="color-table-zone" style="height:300px; overflow-y: auto;">
+          <div id="color-table-zone" style="width: 250px; height:500px; overflow-y: auto; overflow-x: auto;">
             <table id="color_table" class="color-table">
               <thead>
               </thead>
@@ -203,11 +195,6 @@
               </tfoot>
             </table>
           </div>
-
-        <pre id="json"></pre>
-        <pre id="csv"></pre>
-
-
 
         </div>
 

@@ -18,12 +18,13 @@
   width: 50px;
 }
 
-#scheme {
-  grid-column: 1;
-  grid-row: 3;
-}
-
 #color-table-zone {
   grid-column: 1;
-  grid-row: 4;
+  grid-row: 5;
+}
+
+.colorSelect{
+  display: inline-block;
+  grid-column: 1;
+  grid-row: 3;
 }

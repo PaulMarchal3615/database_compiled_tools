@@ -3,10 +3,50 @@ import {fields} from './ressources.js';
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
-	analysis:`LINE,FILE_NAME,COLOR,TYPE`,
+	analysis:`LINE,FILE_NAME,COLOR,TYPE,A41`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
+
+export function displayMain() {
+
+	var trace = {};
+    var checkList = getFileListToDisplay();
+
+	// --------get filter values------------------------------------
+
+	var filter1 = document.querySelectorAll('#filter1 option:checked');
+	var propertyName = Array.from(filter1).map(el => el.value)[0] || "DEFAULT";
+
+	var subfilter1 = document.querySelectorAll('#subfilter1 option:checked');
+	var valueListRaw = Array.from(subfilter1).map(el => el.value);
+	valueListRaw.sort();
+	valueListRaw = valueListRaw.map(value => parseFloat(value)||value);
+
+	// ------------------------- 3D & density view
+
+	db_jodel.transaction('rw', db_jodel.analysis, function () {
+			return db_jodel.analysis.where('FILE_NAME').anyOf(checkList).toArray();
+	}).then (analysis =>{
+		console.log("analysis",analysis);
+        if (propertyName != "DEFAULT") {
+			const filteredAnalysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
+            initColorScale(filteredAnalysis, propertyName, valueListRaw);
+			trace = buildTrace3D(filteredAnalysis, 'scatter3d', propertyName);
+			scatter3DPlot([trace]);
+			buildTraceMap(filteredAnalysis);
+        }
+        else {
+            initColorScale(analysis, 'FILE_NAME', checkList);
+			trace = buildTrace3D(analysis, 'scatter3d', 0);
+			scatter3DPlot([trace]);
+			buildTraceMap(analysis);
+        }
+	})
+	.catch (function (e) {
+		console.error("DISPLAY MAIN",e);
+	});				
+}
 
 /**
  * 
@@ -34,23 +74,23 @@ export function isFloat(variable) {
 function fillCaptionTable(colorList, valueList) {
 
 	$("#color_table tr").remove(); 
+	let multiCol = document.getElementById("multiCol").value;
 
 	var tablebody = document.getElementById("color_table").getElementsByTagName('tbody')[0];
 	var row = tablebody.insertRow(0);
 	var cell1 = row.insertCell(0);
 	var cell2 = row.insertCell(1);
-	cell1.innerHTML = "#000000";
-	cell1.bgColor = "#000000";
-	cell2.innerHTML = "No Data Value"; 
+	cell1.bgColor = multiCol;
+	cell1.style.width = '25px';
+	cell2.innerHTML = "Multiple Values"; 
 
 	for (var i=0;i<colorList.length; i++) {
-
 		var row = tablebody.insertRow(0);
 		var cell1 = row.insertCell(0);
 		var cell2 = row.insertCell(1);
-		cell1.innerHTML = colorList[i];
 		cell1.bgColor = colorList[i];
-		cell2.innerHTML = valueList[i]; 
+		cell1.style.width = '25px';
+		cell2.innerHTML = Math.round((valueList[i] + Number.EPSILON) * 100) / 100 || valueList[i];
 	}		
 }
 
@@ -62,7 +102,8 @@ function fillCaptionTable(colorList, valueList) {
  */
 function initColorScale(analysisLines, propertyName, varList) {
 
-	var colorNumber = document.querySelector('input[name="colorPicker"]:checked').value;
+	let colorLow = document.getElementById("lowCol").value;
+	var colorHigh = document.getElementById("highCol").value;
 
 	if ((propertyName != "FILE_NAME") & (varList.length >0)) {
 
@@ -71,30 +112,25 @@ function initColorScale(analysisLines, propertyName, varList) {
 			var size = $('#num-classes').find(":selected").text();
 			var limits = chroma.limits(varList, 'e', size);
 
-			var scale = chroma.scale([colorbrewer[colorNumber],'#DCDCDC'])
+			var scale = chroma.scale([colorLow,colorHigh])
 			.mode('hsl').colors(size);
 
 			const samples = analysisLines.map(({A23})=>A23).filter((v, i, a) => a.indexOf(v) === i);
-
-			var t0 = performance.now();
 
 			for (var sample of samples) {
 				const samplesAnalysis = analysisLines.filter(line => line.A23 == sample);
 				const values = samplesAnalysis.map(a => a[propertyName]);
 
-				var closest = limits.reduce(function(prev, curr) {
-					const sum = values.reduce((a, b) => a + b, 0);
-					const avg = (sum / values.length) || 0;
-					return (Math.abs(curr - avg) < Math.abs(prev - avg) ? curr : prev);
-				  });
-
-				  for (var obj of samplesAnalysis) {
-					obj.COLOR = scale[limits.indexOf(closest)];
-				}
+					var closest = limits.reduce(function(prev, curr) {
+						const sum = values.reduce((a, b) => a + b, 0);
+						const avg = (sum / values.length) || 0;
+						return (Math.abs(curr - avg) < Math.abs(prev - avg) ? curr : prev);
+					});
+	
+				for (var obj of samplesAnalysis) {
+						obj.COLOR = scale[limits.indexOf(closest)];
+				}	
 			}
-
-			var t1 = performance.now();
-			console.log(t1 - t0," millisecondes");
 		
 		fillCaptionTable(scale, limits);
 		}
@@ -104,10 +140,12 @@ function initColorScale(analysisLines, propertyName, varList) {
 
 			var size = varList.length;
 
-			var scale = chroma.scale(['#fafa6e','#2A4858'])
-			.mode('lch').colors(size);
+			var scale = chroma.scale([colorLow,colorHigh])
+			.mode('hsl').colors(size);
 		
 			for (var analysis of analysisLines) {
+
+				
 				for (var value of varList) {
 					if (analysis[propertyName] == value) {
 						analysis.COLOR = scale[varList.indexOf(value)];
@@ -118,23 +156,51 @@ function initColorScale(analysisLines, propertyName, varList) {
 			fillCaptionTable(scale, varList);
 		}
 	}
-	/*
-	else if (propertyName == "FILE_NAME") {
+}
 
-		db_jodel.transaction('rw', db_jodel.datasets, db_jodel.analysis, function () {
-			return db_jodel.datasets.toArray();
-	}).then(result => {
-		var colorsDatasets ={};
-		for (var dataset of result) {
-			colorsDatasets[dataset.FILE_NAME] = dataset.COLOR;
-			}
-			console.log(colorsDatasets);
-		for (var obj of analysisLines) {
-			db_jodel.analysis.update(obj.LINE,{COLOR:colorsDatasets[obj.FILE_NAME]});
-			}
-		})
+/*
+function multiDimensionalUnique(arr) {
+	var uniquesS =[];
+	var uniquesCol = [];
+    var itemsFound = {};
+	var sampleCols={};
+    for(var i = 0, l = arr[0].length; i < l; i++) {
+        var stringified = JSON.stringify(arr[0][i]+arr[1][i]);
+		console.log(stringified);
+        if(itemsFound[stringified]) { continue; }
+		uniquesS.push(arr[0][i]);
+		uniquesCol.push(arr[1][i]);
+        itemsFound[stringified] = true;
+    }
+    return [uniquesS,uniquesCol];
+}
+*/
+
+function multiDimArray(arrLines, propertyName, analysisName) {
+	var sampleCol={};
+	for (var line of arrLines) {
+		if (!Object.keys(sampleCol).includes(line.A23)){
+			let sample = {NAME:line.A23,ETIQUETTE: line.A23, X:line.A31, Y:line.A32, Z:line.A33, COLOR:[line.COLOR] };
+			sampleCol[line.A23] = sample ;
+		}
+		else if (!sampleCol[line.A23].COLOR.includes(line.COLOR)){
+			sampleCol[line.A23].COLOR.push(line.COLOR);
+			sampleCol[line.A23].ETIQUETTE+String('\n'+fields[analysisName][propertyName]+'\n'+line[propertyName]);
+		}
 	}
-	*/
+	return sampleCol;
+}
+
+function mapColors(obj) {
+
+	var colorMulti = document.getElementById("multiCol").value;
+
+	if (obj.COLOR.length >1) {
+		return colorMulti;
+	}
+	else {
+		return obj.COLOR[0];
+	}
 }
 
 /**
@@ -144,46 +210,37 @@ function initColorScale(analysisLines, propertyName, varList) {
  * @param {*} propertyName 
  * @returns trace,; object containing samples coordinates and tags for display function
  */
-export function buildDisplayedPointset(analysisLines, displayType, propertyName) {
+export function buildTrace3D(analysisLines, displayType, propertyName) {
 
 	var analysisName = analysisSelect.options[analysisSelect.selectedIndex].value;
 
-	let X = analysisLines.map(({A31})=>A31);
-	let Y = analysisLines.map(({A32})=>A32);
-	let Z = analysisLines.map(({A33})=>A33);
-	let colors = analysisLines.map(({COLOR})=>COLOR);
+	var arr2 = Object.values(multiDimArray(analysisLines,propertyName, analysisName));
+	console.log("arr2",arr2, propertyName,analysisName) ;
 
-	let names =[];
+	let X = arr2.map(({X})=>X);
+	let Y = arr2.map(({Y})=>Y);
+	let Z = arr2.map(({Z})=>Z);
+	let colors = arr2.map(mapColors);
+	let names = arr2.map(({NAME})=>NAME);
+	let text = arr2.map(({ETIQUETTE})=>ETIQUETTE);
 
-	if (propertyName != 0) {
-		names = [];
+		var trace = {
+			x: X,
+			y: Y,
+			z: Z,
+			text:text,
+			mode: 'markers',
+			marker: {
+				size: 12,
+				color:colors,
+				line: {
+				color:colors,
+				width: 0.5},
+				opacity: 0.8},
+			type: displayType
+		};
 
-		for (var analysis of analysisLines) {
-			var name = analysis.A23+'\n'+fields[analysisName][propertyName]+'\n'+analysis[propertyName];
-			names.push(name);
-		}
-	}
-	else {
-		names = analysisLines.map(({A23})=>A23);
-	}
-
-	var trace = {
-		 x: X,
-		 y: Y,
-		 z: Z,
-		 text:names,
-		mode: 'markers',
-		marker: {
-			size: 12,
-			color:colors,
-			line: {
-			color:colors,
-			width: 0.5},
-			opacity: 0.8},
-		type: displayType
-	};
-
-	return trace;
+		return trace;	
 }
 
 export function getColumn(colName,  array) {
@@ -198,45 +255,6 @@ export function getColumn(colName,  array) {
     }
     return array.map(x => x[indice]);
 }
-
-export function displayMain() {
-
-	var trace = {};
-    var checkList = getFileListToDisplay();
-
-	// --------get filter values------------------------------------
-
-	var filter1 = document.querySelectorAll('#filter1 option:checked');
-	var propertyName = Array.from(filter1).map(el => el.value)[0] || "DEFAULT";
-
-	var subfilter1 = document.querySelectorAll('#subfilter1 option:checked');
-	var valueListRaw = Array.from(subfilter1).map(el => el.value);
-	valueListRaw.sort();
-	valueListRaw = valueListRaw.map(value => parseFloat(value)||value);
-
-	// ------------------------- 3D & density view
-
-	db_jodel.transaction('rw', db_jodel.analysis, function () {
-			return db_jodel.analysis.where('FILE_NAME').anyOf(checkList).toArray();
-	}).then (analysis =>{
-		console.log("analysis",analysis);
-        if (propertyName != "DEFAULT") {
-			const filteredAnalysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
-            initColorScale(filteredAnalysis, propertyName, valueListRaw)
-			trace = buildDisplayedPointset(filteredAnalysis, 'scatter3d', 0);
-			scatter3DPlot([trace]);
-        }
-        else {
-            initColorScale(analysis, 'FILE_NAME', checkList);
-			trace = buildDisplayedPointset(analysis, 'scatter3d', 0);
-			scatter3DPlot([trace]);
-        }
-	})
-	.catch (function (e) {
-		console.error("DISPLAY MAIN",e);
-	});				
-}
-
 
 /**
  * void 3d plot function 
@@ -313,3 +331,163 @@ export function displayMain() {
  
 	Plotly.newPlot('chart1', data, layout, config);
  }
+
+ /**
+ * 
+ * @param {*} lat : latitude array
+ * @param {*} lon Longitude array
+ * return zoom, latCenter, lonCenter
+ */ 
+function getBoundingBox(lat,lon) {
+	var MaxLat = Math.max(...lat);
+	var MaxLon = Math.max(...lon);
+	var MinLat = Math.min(...lat);
+	var MinLon = Math.min(...lon);
+
+	var center = {
+		'lon':(MaxLon+MinLon)/2,
+		'lat':(MaxLat+MinLat)/2
+	}
+
+	var max_bound = Math.max(Math.abs(MinLon-MaxLon), Math.abs(MinLat-MaxLat)) * 111;
+	var zoom = 11.5 - Math.log(max_bound);
+	return [center,zoom];
+}	
+
+
+function buildTraceMap(analysisLines) {
+
+	let HOLES = analysisLines.map(({A41})=>A41);
+	let HOLES_LAT = analysisLines.map(({A42})=>A42);
+	let HOLES_LON = analysisLines.map(({A43})=>A43);
+	let colors = analysisLines.map(({COLOR})=>COLOR);
+
+	var data = [{type: "scattermapbox",
+	text:HOLES, 
+    textposition:'bottom center',
+	lon: HOLES_LON, 
+	lat: HOLES_LAT, 
+	name:HOLES, 
+	mode:'markers+text', 
+	marker:{size:10,color:colors }}];
+
+
+	var [center, AutoZoom] = getBoundingBox(HOLES_LAT,HOLES_LON);
+
+    var layout = {
+
+        title: 'drillhole Map',
+        font: {
+            family: 'Droid Serif, serif',
+            size: 6
+        },
+        titlefont: {
+            size: 16
+        },
+    
+        dragmode: "zoom",
+
+        mapbox: { style: "open-street-map", center: { lat: center.lat, lon: center.lon }, zoom: AutoZoom },
+
+        margin: { r: 0, t: 0, b: 0, l: 0 },
+		autosize:true,
+        annotations:{
+            align:"left",
+            arrowcolor:"black",
+            text:"test",
+            x:58.07,
+            y:-104.48
+
+        }     
+	};
+
+	var myPlot = document.getElementById('subchart31');
+
+    Plotly.newPlot('subchart31', data, layout, {
+        modeBarButtonsToRemove: ['toImage', 'sendDataToCloud'],
+        modeBarButtonsToAdd: [{
+          name: 'toImageSVG',
+          icon: Plotly.Icons.camera,
+          click: function(gd) {
+            Plotly.downloadImage(gd, {format: 'svg'})
+          }
+        }]
+      });
+
+	myPlot.on('plotly_click', function(data){
+
+		for(var point of data.points){
+				var ddh = point.text;
+		}
+
+		LinePlot(ddh);	
+});	
+
+}
+
+
+/**
+ * void : plot function to draw selected drillhole as a line with its samples as points
+ * @param {*} ddhID String value --> drillhole id to plot
+ */
+ async function LinePlot(ddhID) {
+
+	var filter1 = document.querySelectorAll('#filter1 option:checked');
+	var propertyName = Array.from(filter1).map(el => el.value)[0] || "DEFAULT";
+
+	var subfilter1 = document.querySelectorAll('#subfilter1 option:checked');
+	var valueListRaw = Array.from(subfilter1).map(el => el.value);
+	valueListRaw.sort();
+	valueListRaw = valueListRaw.map(value => parseFloat(value)||value);
+
+
+	db_jodel.transaction('rw', db_jodel.analysis, function () {
+		console.log('in transaction');
+
+		return db_jodel.analysis.where('A41').equals(ddhID).toArray();
+		
+	}).then (result => {
+
+		if (propertyName != "DEFAULT") {
+			initColorScale(result, propertyName, valueListRaw);
+		}
+
+		let samplesNames = result.map(({A23})=>A23);
+		let samplesDepths = result.map(({A48})=>A48);
+		let samplesColors = result.map(({COLOR})=>COLOR);
+		let samplesHoles = result.map(({A41})=>A41);
+
+		var trace1 = {
+			x: samplesHoles,
+			y: samplesDepths,
+			text:samplesNames,
+			mode:'lines',
+			type: 'scatter',
+			color: 'black'
+		};
+
+		var trace2 = {
+			x: samplesHoles,
+			y: samplesDepths,
+			text:samplesNames,
+			mode:'markers',
+			type: 'scatter',
+			marker:{size:12, color:samplesColors}
+		};
+
+		var layout = {
+			autosize:true,
+			hovermode:'closest',
+			yaxis:{autorange:'reversed'}
+		};
+		
+		var data = [trace1, trace2];
+		
+		Plotly.newPlot('subchart32', data, layout);
+			
+	})
+	.catch (function (e) {
+		console.error("DISPLAY SAMPLES",e);
+	});
+
+}

@@ -3,7 +3,7 @@ import { keyVal, units } from "./ressources.js";
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
-	analysis:`LINE,FILE_NAME,COLOR,TYPE`,
+	analysis:`LINE,FILE_NAME,COLOR,TYPE,A41`,
 	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
