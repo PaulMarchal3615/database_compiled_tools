@@ -19,7 +19,7 @@
   
   /* Style the tab content (and add height:100% for full page content) */
   .mainTabcontent {
-    color: black;
+    color: #000;
     display: none;
     padding: 30px 5px;
     height: 95vh;

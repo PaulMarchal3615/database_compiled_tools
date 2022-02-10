@@ -102,43 +102,61 @@ subfilter.addEventListener('change', displayMain);
 
 //--------------------------------------------------
 
-function parseFiles(event) {
-	$.when(readFiles(event)).then(displayMain());
+
+
+function failureCallback(error) {
+	console.error("Read File Error",error);
 }
 
-function readFiles(event) {
+Papa.parsePromise = function(file) {
+	return new Promise(function(complete, error) {
+		Papa.parse(file, {download: true, complete, error});
+	});
+};
+
+function parseFiles(event) {
 
 	var id = event.target.id;
 
 	if (id == "fileInput") {
-		console.log(input.files);
 
 		for (let file of input.files) {
-			console.log(file);
+
 			if (file.name.split('.').pop() =="csv") {
 
-				Papa.parse(file, {
-					download: true,
-					complete: function(results) {
+				console.log(file);
 
-						db_jodel.transaction('rw', db_jodel.datasets,db_jodel.analysis, () => {
-							let dataset = {FILE_NAME: file.name,ARRAY: results.data,TYPE: 'scatter3d',COLOR: rndHex()};
-							console.log("dataset", file.name, dataset);
-							updateFileTable(dataset);
-							let analysisLines = readDataset(dataset);
+				Papa.parsePromise(file).then(function(results) { 
+					console.log(results);
 
-							db_jodel.datasets.put(dataset);
-							db_jodel.analysis.bulkPut(analysisLines);
-							})
-							.catch (error => {
-								console.error("Read File Error",error);
-							});	
-					}
-				});		
-			}	
-		}			
-	}	
+					let dataset = {FILE_NAME: file.name,ARRAY: results.data,TYPE: 'scatter3d',COLOR: rndHex()};
+					const promise = readResults(dataset);
+					promise.then(displayMain, failureCallback);
+				});
+			}
+		}
+	}
 }
+
+function readResults(dataset) {
+
+	return new Promise((successCallback, failureCallback) => {
+
+		db_jodel.transaction('rw', db_jodel.datasets,db_jodel.analysis, () => {
+			updateFileTable(dataset);
+			let analysisLines = readDataset(dataset);
+
+			db_jodel.datasets.put(dataset);
+			db_jodel.analysis.bulkPut(analysisLines);
+
+			}).then(()=>{successCallback();})
+			.catch (error => {
+				failureCallback(error);
+			});	
+
+	});
+}
+
 
 function rowsToObjects(headers, rows){
 	return rows.reduce((acc, e, idx) =>  {
@@ -220,7 +238,6 @@ function getKeyByValue(value) {
 		var cell3 = row.insertCell(2);
 		var cell4 = row.insertCell(3);
 		var cell5 = row.insertCell(4);
-		var cell6 = row.insertCell(5);
 		cell1.innerHTML = dataset.FILE_NAME;
 		cell2.innerHTML = '<input type="color" id="colorPicker_'+dataset.FILE_NAME+'" name="color_'+dataset.FILE_NAME+'" value="'+dataset.COLOR+'">'; 
 		cell3.innerHTML = '<input type="checkbox" id="check_'+dataset.FILE_NAME+'" name="'+dataset.FILE_NAME+'" checked>';
@@ -233,11 +250,7 @@ function getKeyByValue(value) {
 			Btn.addEventListener('click',  displayMain);
 		}
 
-		cell6.innerHTML = '<select name="type" id="type-select_'+dataset.FILE_NAME+'"><option value="scatter3d">Pointset</option><option value="mesh3d">Surface</option></select>';
-		document.getElementById("type-select_"+dataset.FILE_NAME).value = dataset.TYPE;
-
 		document.getElementById('colorPicker_'+dataset.FILE_NAME).addEventListener('change',updateColor);
-		document.getElementById('type-select_'+dataset.FILE_NAME).addEventListener('change',displayMain);
 		document.getElementById('check_'+dataset.FILE_NAME).addEventListener('change',displayMain);
 }
 

@@ -12,11 +12,13 @@ export function displayMain() {
 
 	var trace = {};
     var checkList = getFileListToDisplay();
+	console.log("hello",checkList);
 
 	// --------get filter values------------------------------------
 
 	var filter1 = document.querySelectorAll('#filter1 option:checked');
 	var propertyName = Array.from(filter1).map(el => el.value)[0] || "DEFAULT";
+	console.log(propertyName);
 
 	var subfilter1 = document.querySelectorAll('#subfilter1 option:checked');
 	var valueListRaw = Array.from(subfilter1).map(el => el.value);
@@ -28,20 +30,17 @@ export function displayMain() {
 	db_jodel.transaction('rw', db_jodel.analysis, function () {
 			return db_jodel.analysis.where('FILE_NAME').anyOf(checkList).toArray();
 	}).then (analysis =>{
+
 		console.log("analysis",analysis);
+
         if (propertyName != "DEFAULT") {
-			const filteredAnalysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
-            initColorScale(filteredAnalysis, propertyName, valueListRaw);
-			trace = buildTrace3D(filteredAnalysis, 'scatter3d', propertyName);
-			scatter3DPlot([trace]);
-			buildTraceMap(filteredAnalysis);
-        }
-        else {
-            initColorScale(analysis, 'FILE_NAME', checkList);
-			trace = buildTrace3D(analysis, 'scatter3d', 0);
-			scatter3DPlot([trace]);
-			buildTraceMap(analysis);
-        }
+			analysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
+		}
+
+        initColorScale(analysis, propertyName, valueListRaw);
+		trace = buildTrace3D(analysis, 'scatter3d', propertyName);
+		scatter3DPlot([trace]);
+		buildTraceMap(analysis);
 	})
 	.catch (function (e) {
 		console.error("DISPLAY MAIN",e);
@@ -67,53 +66,75 @@ export function getFileListToDisplay() {
     return checkList;
 }
 
+/**
+ * 
+ * @param {*} variable string to test
+ * @returns boolean true if variable is number stored in string 
+ */
 export function isFloat(variable) {
     return !Number.isNaN(Number.parseFloat(variable));
 }
 
+/**
+ * 
+ * @param {*} colorList Array of string containing colors used in display
+ * @param {*} valueList Array of values (float or string) associated with colors of valueList
+ * returns void : called when dipslay data with filter on, change color_table element with new legend 
+ */
 function fillCaptionTable(colorList, valueList) {
 
-	$("#color_table tr").remove(); 
-	let multiCol = document.getElementById("multiCol").value;
+	$("#color_table tr").remove();
 
-	var tablebody = document.getElementById("color_table").getElementsByTagName('tbody')[0];
-	var row = tablebody.insertRow(0);
-	var cell1 = row.insertCell(0);
-	var cell2 = row.insertCell(1);
-	cell1.bgColor = multiCol;
-	cell1.style.width = '25px';
-	cell2.innerHTML = "Multiple Values"; 
+	if (colorList[0] != "DEFAULT") {
+		let multiCol = document.getElementById("multiCol").value;
 
-	for (var i=0;i<colorList.length; i++) {
+		var tablebody = document.getElementById("color_table").getElementsByTagName('tbody')[0];
 		var row = tablebody.insertRow(0);
 		var cell1 = row.insertCell(0);
 		var cell2 = row.insertCell(1);
-		cell1.bgColor = colorList[i];
+		cell1.bgColor = multiCol;
 		cell1.style.width = '25px';
-		cell2.innerHTML = Math.round((valueList[i] + Number.EPSILON) * 100) / 100 || valueList[i];
-	}		
+		cell2.innerHTML = "Multiple Values"; 
+	
+		for (var i=0;i<colorList.length; i++) {
+			var row = tablebody.insertRow(0);
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			cell1.bgColor = colorList[i];
+			cell1.style.width = '25px';
+			cell2.innerHTML = Math.round((valueList[i] + Number.EPSILON) * 100) / 100 || valueList[i];
+		}
+	}
+		
 }
 
 /**
  * 
- * @param {*} analysisLines 
- * @param {*} propertyName 
- * @param {*} varList 
+ * @param {*} analysisLines : array[analysisObj from db_jodel.analysis]
+ * @param {*} propertyName : string containing property to display in colors
+ * @param {*} varList : array[float/string] all values existing for propertyName on all analysis 
+ * returns void : build a color scale and change color param in analysisLines (temporary not changed in dexie DB) based on properties;
  */
 function initColorScale(analysisLines, propertyName, varList) {
 
+	// we get choosen values for color scales from input[type=color] lowCol and highCol
 	let colorLow = document.getElementById("lowCol").value;
 	var colorHigh = document.getElementById("highCol").value;
 
-	if ((propertyName != "FILE_NAME") & (varList.length >0)) {
+	// if we choose to display a certain property from filters
+	if ((propertyName != "DEFAULT") & (varList.length >0)) {
 
+		// if property is a continuous property (float values)
 		if (isFloat(varList[0])) {
 
 			var size = $('#num-classes').find(":selected").text();
-			var limits = chroma.limits(varList, 'e', size);
+			var limits = chroma.limits(varList, 'e', size-1);
+			console.log('limits',limits);
 
 			var scale = chroma.scale([colorLow,colorHigh])
 			.mode('hsl').colors(size);
+
+			console.log('scale', scale);
 
 			const samples = analysisLines.map(({A23})=>A23).filter((v, i, a) => a.indexOf(v) === i);
 
@@ -135,7 +156,7 @@ function initColorScale(analysisLines, propertyName, varList) {
 		fillCaptionTable(scale, limits);
 		}
 
-		// categorical
+		// categorical property
 		else {
 
 			var size = varList.length;
@@ -155,6 +176,10 @@ function initColorScale(analysisLines, propertyName, varList) {
 			}
 			fillCaptionTable(scale, varList);
 		}
+	}
+	// default case --> use default colors (no changes) and erase color_table
+	else {
+		fillCaptionTable(["DEFAULT"], varList);
 	}
 }
 
@@ -176,25 +201,39 @@ function multiDimensionalUnique(arr) {
 }
 */
 
-function multiDimArray(arrLines, propertyName, analysisName) {
+/**
+ * 
+ * @param {*} arrLines 
+ * @param {*} propertyName 
+ * @param {*} request
+ * @returns Obj containing samples to display with X, Y, Z, text and colors
+ */
+function multiDimArray(arrLines, propertyName, request) {
 	var sampleCol={};
 	for (var line of arrLines) {
 		if (!Object.keys(sampleCol).includes(line.A23)){
-			let sample = {NAME:line.A23,ETIQUETTE: line.A23, X:line.A31, Y:line.A32, Z:line.A33, COLOR:[line.COLOR] };
+			let sample = {NAME:line.A23,ETIQUETTE:[line.A23], X:line[request[0]], Y:line[request[1]], Z:line[request[2]], COLOR:[line.COLOR] };
 			sampleCol[line.A23] = sample ;
 		}
 		else if (!sampleCol[line.A23].COLOR.includes(line.COLOR)){
-			sampleCol[line.A23].COLOR.push(line.COLOR);
-			sampleCol[line.A23].ETIQUETTE+String('\n'+fields[analysisName][propertyName]+'\n'+line[propertyName]);
+			sampleCol[line.A23].COLOR.push(line.COLOR);	
+		}
+		if (propertyName != "DEFAULT")  {
+			sampleCol[line.A23].ETIQUETTE.push(line[propertyName]);
 		}
 	}
 	return sampleCol;
 }
 
+
+/**
+ * 
+ * @param {*} obj sample object with obj.COLOR = [strings]
+ * @returns a single color if one color; a default color (multiCol) if several colors ie several values on point
+ */
 function mapColors(obj) {
 
 	var colorMulti = document.getElementById("multiCol").value;
-
 	if (obj.COLOR.length >1) {
 		return colorMulti;
 	}
@@ -212,35 +251,32 @@ function mapColors(obj) {
  */
 export function buildTrace3D(analysisLines, displayType, propertyName) {
 
-	var analysisName = analysisSelect.options[analysisSelect.selectedIndex].value;
+	var request =['A31','A32','A33'] // 3 properties to request
 
-	var arr2 = Object.values(multiDimArray(analysisLines,propertyName, analysisName));
-	console.log("arr2",arr2, propertyName,analysisName) ;
+	var arr2 = Object.values(multiDimArray(analysisLines,propertyName, request));
 
 	let X = arr2.map(({X})=>X);
 	let Y = arr2.map(({Y})=>Y);
 	let Z = arr2.map(({Z})=>Z);
 	let colors = arr2.map(mapColors);
-	let names = arr2.map(({NAME})=>NAME);
-	let text = arr2.map(({ETIQUETTE})=>ETIQUETTE);
+	let text = arr2.map(({ETIQUETTE})=>JSON.stringify(ETIQUETTE.filter((v, i, a) => a.indexOf(v) === i)));
 
-		var trace = {
-			x: X,
-			y: Y,
-			z: Z,
-			text:text,
-			mode: 'markers',
-			marker: {
-				size: 12,
-				color:colors,
-				line: {
-				color:colors,
-				width: 0.5},
-				opacity: 0.8},
-			type: displayType
-		};
-
-		return trace;	
+	var trace = {
+		x: X,
+		y: Y,
+		z: Z,
+		text:text,
+		mode: 'markers',
+		marker: {
+			size: 12,
+			color:colors,
+			line: {
+			color:colors,
+			width: 0.5},
+			opacity: 0.8},
+		type: displayType
+	};
+	return trace;	
 }
 
 export function getColumn(colName,  array) {
@@ -259,9 +295,6 @@ export function getColumn(colName,  array) {
 /**
  * void 3d plot function 
  * @param {*} data : Array[dict] containing traces as dict
- * @param {*} x_name String
- * @param {*} y_name String 
- * @param {*} z_name String
  */
  function scatter3DPlot(data){
 
@@ -336,7 +369,7 @@ export function getColumn(colName,  array) {
  * 
  * @param {*} lat : latitude array
  * @param {*} lon Longitude array
- * return zoom, latCenter, lonCenter
+ * return zoom, latCenter, lonCenter : use to center mapview on data
  */ 
 function getBoundingBox(lat,lon) {
 	var MaxLat = Math.max(...lat);
@@ -355,6 +388,10 @@ function getBoundingBox(lat,lon) {
 }	
 
 
+/**
+ * void : build the map display 
+ * @param {*} analysisLines : array[analysis Obj]
+ */
 function buildTraceMap(analysisLines) {
 
 	let HOLES = analysisLines.map(({A41})=>A41);
@@ -384,9 +421,8 @@ function buildTraceMap(analysisLines) {
         titlefont: {
             size: 16
         },
-    
+		height: 700,
         dragmode: "zoom",
-
         mapbox: { style: "open-street-map", center: { lat: center.lat, lon: center.lon }, zoom: AutoZoom },
 
         margin: { r: 0, t: 0, b: 0, l: 0 },
@@ -447,20 +483,31 @@ function buildTraceMap(analysisLines) {
 		return db_jodel.analysis.where('A41').equals(ddhID).toArray();
 		
 	}).then (result => {
+		console.log(result);
+
+		var text2 = document.getElementById("miniInfoDisp2");
+		text2.innerHTML = ddhID+' has : '+result.length+' samples.';
 
 		if (propertyName != "DEFAULT") {
-			initColorScale(result, propertyName, valueListRaw);
+			result = result.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
 		}
+		
+		initColorScale(result, propertyName, valueListRaw);
 
-		let samplesNames = result.map(({A23})=>A23);
-		let samplesDepths = result.map(({A48})=>A48);
-		let samplesColors = result.map(({COLOR})=>COLOR);
-		let samplesHoles = result.map(({A41})=>A41);
+		var request =['A41','A48','A33'] // 3 properties to request
+
+		var arr2 = Object.values(multiDimArray(result,propertyName,request));
+
+		let samplesHoles = arr2.map(({X})=>X);
+		let samplesDepths = arr2.map(({Y})=>Y);
+		let Z = arr2.map(({Z})=>Z);
+		let samplesColors = arr2.map(mapColors);
+		let text = arr2.map(({ETIQUETTE})=>JSON.stringify(ETIQUETTE.filter((v, i, a) => a.indexOf(v) === i)));
 
 		var trace1 = {
 			x: samplesHoles,
 			y: samplesDepths,
-			text:samplesNames,
+			text:text,
 			mode:'lines',
 			type: 'scatter',
 			color: 'black'
@@ -469,7 +516,7 @@ function buildTraceMap(analysisLines) {
 		var trace2 = {
 			x: samplesHoles,
 			y: samplesDepths,
-			text:samplesNames,
+			text:text,
 			mode:'markers',
 			type: 'scatter',
 			marker:{size:12, color:samplesColors}

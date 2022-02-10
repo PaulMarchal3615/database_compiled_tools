@@ -26,3 +26,8 @@ input[type="color"] {
 
 }
 
+
+.select{
+  background-color: white;
+  font-size: 0.7vw;
+}

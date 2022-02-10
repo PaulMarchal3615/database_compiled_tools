@@ -70,7 +70,6 @@
           <button type="button" class="btn2-hover bn22" id="addLines"> Add Traces</button> 
           <button type="button" class="btn2-hover bn22" id="exportSamples">Export samples</button>
 
-          <progress id='progress_track' value="0" max="100"></progress>
 
           <!-- table for displaying loaded files and characteristics-->
           <div id="table-zone" style="height:250px; overflow-y: auto;">
@@ -79,10 +78,9 @@
                 <tr>
                   <th scope="col">File</th>
                   <th scope="col">Color</th>
-                  <th scope="col">Display</th>
+                  <th scope="col">Show</th>
                   <th scope="col">Lines</th>
                   <th scope="col">Delete</th>
-                  <th scope="col">Type</th>
                 </tr>
               </thead>
               <tbody>
@@ -95,7 +93,7 @@
           <!--filters to select only points following values on a selected property
         subfilter1 is filled when filter1 is modified-->
 
-        <select id="analysisSelect">
+        <select class="select" id="analysisSelect">
           <option value="DEFAULT">DEFAULT DISPLAY</option>
           <option value="METADATA">METADATA</option>
           <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
@@ -111,14 +109,15 @@
           <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
         </select>
 
-          <select name="filter1" id="filter1" multiple="multiple">
+          <select class="select" name="filter1" id="filter1" multiple="multiple">
             <option value="DEFAULT">-- display all data --</option>
           </select>
           <button id="selectAll">Select All</button>
-          <select name="subfilter1[]" id="subfilter1" multiple="multiple">
+          <select class="select" name="subfilter1[]" id="subfilter1" multiple="multiple">
             <option value="DEFAULT">-- display all data --</option>
           </select>
           <p id="miniInfoDisp"> __ </p>
+          <p id="miniInfoDisp2"> ... </p>
 
         </div>
 
@@ -151,41 +150,33 @@
         <div class="sideParameters">
 
           <div id="ratioControl"> 
-            <p>3D Zone Axes Ratio</p>
-            <input id="X_input" value="1" name="X" onkeypress="validate(event)"
-
-              type="text"> <input id="Y_input" value="1" name="Y" onkeypress="validate(event)"
-
-              type="text"> <input id="Z_input" value="1" name="Z" onkeypress="validate(event)"
-
-              type="text"> 
+            <p>3D VIEW AXES RATIO</p>
+            <input id="X_input" value="1" name="X" onkeypress="validate(event)"type="text"> 
+            <input id="Y_input" value="1" name="Y" onkeypress="validate(event)"type="text"> 
+            <input id="Z_input" value="1" name="Z" onkeypress="validate(event)"type="text"> 
           </div>
 
-          <select id="num-classes">
-            <option name="3">3</option>
-            <option name="4">4</option>
-            <option name="5">5</option>
-            <option name="6">6</option>
-            <option name="7">7</option>
-            <option name="8">8</option>
-            <option name="9">9</option>
-            <option name="10">10</option>
-            <option name="11">11</option>
-            <option name="12">12</option>
-          </select>        
-
             <div class="colorSelect">
-
-              <p>Pick a color scheme :</p>
-
+              <p id="colorText">COLOR SCALE PARAMETERS</p>
               <input id="lowCol" type="color" value="#000000">
               <input id="highCol" type="color" value="#00cdff">
-              <p>Multiple Values </p>
+              <select id="num-classes">
+                <option name="3">3</option>
+                <option name="4">4</option>
+                <option name="5">5</option>
+                <option name="6">6</option>
+                <option name="7">7</option>
+                <option name="8">8</option>
+                <option name="9">9</option>
+                <option name="10">10</option>
+                <option name="11">11</option>
+                <option name="12">12</option>
+              </select> 
               <input id="multiCol" type="color" value="#ff00e4">
             </div> 
 
-
-          <div id="color-table-zone" style="width: 250px; height:500px; overflow-y: auto; overflow-x: auto;">
+          <div id="color-table-zone" style="width:230px; height:500px; overflow-y: auto; overflow-x: auto;">
+            <p>LEGEND</p>
             <table id="color_table" class="color-table">
               <thead>
               </thead>

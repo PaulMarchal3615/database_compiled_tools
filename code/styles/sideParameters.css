@@ -1,30 +1,63 @@
 .sideParameters{
-  width: 100%;
+  font-size: 0.9vw;
+  width: 90%;
   height: 100%;
   display: grid;
   grid-template-columns: 100%;
   grid-gap: 10px;
-  grid-template-rows: max-content 30px auto auto;
+  grid-template-rows: max-content max-content max-content;
 }
 
 #ratioControl {
   grid-column: 1;
   grid-row: 1;
-  }
-
-#num-classes {
-  grid-column: 1;
-  grid-row: 2;
-  width: 50px;
-}
-
-#color-table-zone {
-  grid-column: 1;
-  grid-row: 5;
 }
 
 .colorSelect{
-  display: inline-block;
   grid-column: 1;
-  grid-row: 3;
+  grid-row: 2;
+}
+
+#color-table-zone {
+  width: 100%;
+  grid-column: 1;
+  grid-row: 4;
+}
+
+.colorSelect{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-gap: 5px;
+  grid-template-rows: auto max-content;
+}
+
+#colorText{
+  grid-column: 1 / 4;
+  grid-row: 1;
+}
+
+#lowCol{
+  width: 100%;
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#highCol{
+  width: 100%;
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#num-classes{
+  width: 100%;
+  grid-column: 3;
+  grid-row: 2;
+}
+
+#multiCol{
+  width: 100%;
+  grid-column: 4;
+  grid-row: 2;
 }
