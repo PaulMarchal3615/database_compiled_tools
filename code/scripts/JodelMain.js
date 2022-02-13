@@ -36,6 +36,10 @@ var input = document.querySelector('#fileInput');
 document.getElementById('addPointset').addEventListener('click', function() {input.click();});
 input.addEventListener('input',parseFiles);
 
+var input2 = document.querySelector('#fileInput2');
+document.getElementById('addSurface').addEventListener('click', function() {input2.click();});
+input2.addEventListener('input',parseFiles);
+
 document.getElementById("X_input").addEventListener("change",displayMain);
 document.getElementById("Y_input").addEventListener("change",displayMain);
 document.getElementById("Z_input").addEventListener("change",displayMain);
@@ -114,26 +118,45 @@ Papa.parsePromise = function(file) {
 	});
 };
 
+function parseSurfaceFiles(event) {
+
+	var id = event.target.id;
+	var type= 'surface';
+
+	for (let file of input2.files) {
+
+		if (file.name.split('.').pop() =="csv") {
+
+			Papa.parsePromise(file).then(function(results) { 
+				console.log(results);
+
+				let dataset = {FILE_NAME: file.name,ARRAY: results.data,TYPE: type,COLOR: rndHex()};
+				const promise = readSurfaceResults(dataset);
+				promise.then(displayMain, failureCallback);
+			});
+		}
+	}
+
+}
+
 function parseFiles(event) {
 
 	var id = event.target.id;
+	var type= 'scatter3d';
 
-	if (id == "fileInput") {
+	for (let file of input.files) {
 
-		for (let file of input.files) {
+		if (file.name.split('.').pop() =="csv") {
 
-			if (file.name.split('.').pop() =="csv") {
+			console.log(file);
 
-				console.log(file);
+			Papa.parsePromise(file).then(function(results) { 
+				console.log(results);
 
-				Papa.parsePromise(file).then(function(results) { 
-					console.log(results);
-
-					let dataset = {FILE_NAME: file.name,ARRAY: results.data,TYPE: 'scatter3d',COLOR: rndHex()};
-					const promise = readResults(dataset);
-					promise.then(displayMain, failureCallback);
-				});
-			}
+				let dataset = {FILE_NAME: file.name,ARRAY: results.data,TYPE: type,COLOR: rndHex()};
+				const promise = readResults(dataset);
+				promise.then(displayMain, failureCallback);
+			});
 		}
 	}
 }
@@ -156,6 +179,24 @@ function readResults(dataset) {
 
 	});
 }
+
+function readSurfaceResults(dataset) {
+
+	
+	return new Promise((successCallback, failureCallback) => {
+
+		db_jodel.transaction('rw', db_jodel.datasets,db_jodel.analysis, () => {
+			updateFileTable(dataset);
+			db_jodel.datasets.put(dataset);
+
+			}).then(()=>{successCallback();})
+			.catch (error => {
+				failureCallback(error);
+			});	
+
+	});
+}
+
 
 
 function rowsToObjects(headers, rows){
@@ -238,17 +279,22 @@ function getKeyByValue(value) {
 		var cell3 = row.insertCell(2);
 		var cell4 = row.insertCell(3);
 		var cell5 = row.insertCell(4);
+		var cell6 = row.insertCell(5);
 		cell1.innerHTML = dataset.FILE_NAME;
 		cell2.innerHTML = '<input type="color" id="colorPicker_'+dataset.FILE_NAME+'" name="color_'+dataset.FILE_NAME+'" value="'+dataset.COLOR+'">'; 
 		cell3.innerHTML = '<input type="checkbox" id="check_'+dataset.FILE_NAME+'" name="'+dataset.FILE_NAME+'" checked>';
 		cell4.innerHTML = dataset.ARRAY.length;
 		
-		cell5.innerHTML = '<button class="btn-del"><i class="fa fa-trash"></i></button>';
-		const oBtSup = document.getElementsByClassName('btn-del');
-		for(var Btn of oBtSup){
-			Btn.addEventListener('click',  deleteLine);
-			Btn.addEventListener('click',  displayMain);
-		}
+		
+		cell5.innerHTML = '<button id ="btn_del_'+dataset.FILE_NAME+'"class="btn-del"><i class="fa fa-trash"></i></button>';
+		var oBtSup = document.getElementById('btn_del_'+dataset.FILE_NAME);
+		oBtSup.addEventListener('click',  deleteLine);
+		oBtSup.addEventListener('click',  displayMain);
+	
+
+		cell6.innerHTML = '<select name="pets" class="typeSelect" id="typeSelect_'+dataset.FILE_NAME+'"><option value="scatter3d">Pointset</option><option value="surface">Surface</option><option value="line">Lines</option></select>';
+		var typeSelect = document.getElementById('typeSelect_'+dataset.FILE_NAME);
+		typeSelect.addEventListener('change',  displayMain);
 
 		document.getElementById('colorPicker_'+dataset.FILE_NAME).addEventListener('change',updateColor);
 		document.getElementById('check_'+dataset.FILE_NAME).addEventListener('change',displayMain);

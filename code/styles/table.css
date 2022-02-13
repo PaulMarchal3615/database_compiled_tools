@@ -6,20 +6,16 @@
 }
 
 .fl-table {
-    border-radius: 5px;
-    font-size: 0.7vw;
-    font-weight: normal;
-    border: none;
     border-collapse: collapse;
-    width: 100%;
-    max-width: 100%;
-    white-space:normal;
-    background-color: white;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .fl-table td, .fl-table th {
-    text-align: center;
-    padding: 8px;
+    padding: 12px 15px;
 }
 
 .fl-table td {
@@ -29,8 +25,9 @@
 }
 
 .fl-table thead th {
+    background-color: #009879;
     color: #ffffff;
-    background: #285A8E;
+    text-align: left;
 }
 
 

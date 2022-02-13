@@ -11,8 +11,7 @@ db_jodel.version(1).stores({
 export function displayMain() {
 
 	var trace = {};
-    var checkList = getFileListToDisplay();
-	console.log("hello",checkList);
+    var checkList = getFileListToDisplay().SCATTER;
 
 	// --------get filter values------------------------------------
 
@@ -44,7 +43,22 @@ export function displayMain() {
 	})
 	.catch (function (e) {
 		console.error("DISPLAY MAIN",e);
-	});				
+	});		
+	
+	var surfaceCheckList = getFileListToDisplay().SURFACE;
+
+	db_jodel.transaction('rw', db_jodel.dataset, function () {
+		return db_jodel.dataset.where('FILE_NAME').anyOf(surfaceCheckList).toArray();
+}).then (surfaces =>{
+
+})
+.catch (function (e) {
+	console.error("DISPLAY MAIN",e);
+});	
+}
+
+function buildSurface3D(surface) {
+	return 0;
 }
 
 /**
@@ -53,17 +67,26 @@ export function displayMain() {
  */
 export function getFileListToDisplay() {
     let table = document.getElementById("file_table");
-	let checkList = [];
+	let ScatterList = [];
+	let SurfaceList = [];
 
 	for (var row of table.rows) {
 		var fileName = row.cells[0].innerHTML;
 		if (fileName != 'File') {
 			if (document.getElementById('check_'+fileName).checked) {
-				checkList.push(fileName);
+				var e = document.getElementById('typeSelect_'+fileName);
+				var strUser = e.options[e.selectedIndex].value;
+				if (strUser=='scatter3d') {
+					ScatterList.push(fileName);
+				}
+				else{
+					SurfaceList.push(fileName);
+				}
+				
 			}
 		}
 	}
-    return checkList;
+    return {SCATTER:ScatterList, SURFACE:SurfaceList};
 }
 
 /**

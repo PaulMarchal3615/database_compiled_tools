@@ -1,0 +1,105 @@
+<html>
+
+  <title>New File Edition</title>
+
+  <head>
+    <link rel="stylesheet" href="../styles/BDDCreatorGrid.css" />
+    <link rel="stylesheet" href="../styles/input.css" />
+
+    <script type="text/javascript">
+      function openTab(evt, viewName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(viewName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+
+  </script>
+
+  </head>
+
+  <body>
+
+    <button id="BDDImport-Main">IMPORT</button>
+    <button id="BDDSave-Main">SAVE</button>
+    <button id="BDDExport-Main">EXPORT</button>
+
+    <div class="tab"> 
+        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-1')">General Metadata</button> 
+        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-2')">Samples</button> 
+          <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-3')">Analysis</button>
+      </div>
+      <!-- Tab content -->
+      <div id="BDDCreator-tab-1" class="tabcontent" style="display:block">
+      </div>
+      <div id="BDDCreator-tab-2" class="tabcontent" style="display:none">
+      </div>
+      <!-- Tab content -->
+      <div id="BDDCreator-tab-3" class="tabcontent" style="display:none">
+
+        <div class="BDDMainUI">
+
+            <div class="BDDLeftPanel">
+                <select class="select" id="BDDanalysisSelect">
+                    <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
+                    <option value="PETROPHYSICS">PETROPHYSICS</option>
+                    <option value="GRAPHITE">GRAPHITE</option>>
+                    <option value="UO2-GEOCHEMISTRY-EMPA">UO2-GEOCHEMISTRY-EMPA</option>
+                    <option value="UO2-GEOCHEMISTRY-LA-ICP-MS">UO2-GEOCHEMISTRY-LA-ICP-MS</option>
+                    <option value="UO2-GEOCHEMISTRY-SIMS">UO2-GEOCHEMISTRY-SIMS</option>
+                    <option value="FI-RAMAN">FI-RAMAN</option>
+                    <option value="FI-MICROTHERMOMETRY">FI-MICROTHERMOMETRY</option>
+                    <option value="FI-LA-ICP-MS">FI-LA-ICP-MS</option>
+                    <option value="XRD-CLAY">XRD-CLAY</option>
+                    <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
+                  </select>                  
+
+            <button id="BDDLoad">LOAD</button>
+
+            <button id="BDDScan">SCAN</button>
+
+            <button id="BDDCopy">COPY</button>
+
+            <button id="BDDSave">SAVE</button>
+
+            <table id="BDDQCtable" class="fl-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Your Headers</th>
+                        <th scope="col">Associated Field</th>
+                        <th scope="col">% confidence</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                </tfoot>
+              </table>
+            </div>
+
+            <table id="BDDMaintable" class="fl-table">
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                </tfoot>
+              </table>
+
+        </div>
+
+
+      </div>
+      <script type="module" src="../scripts/BDDMain.js"></script>
+
+  </body>
+
+</html>
