@@ -15,6 +15,7 @@ grid-row: 1;
 #BDDMainTable {
 grid-column: 2;
 grid-row: 1;
+width: 100%;
 }
 
 
@@ -57,4 +58,5 @@ grid-row: 1;
 #BDDQCtable{
     grid-column: 1 / 5;
     grid-row: 3;
+    width: 100%;
 }

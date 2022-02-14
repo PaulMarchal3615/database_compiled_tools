@@ -1,5 +1,4 @@
-import {colorbrewer} from './colorBrewer.js';
-import {fields} from './ressources.js';
+import {isFloat,getColumn, random} from './common_functions.js';
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
@@ -8,16 +7,17 @@ db_jodel.version(1).stores({
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
 
+/**
+ * main display function : load data to display, filter it based on filter1 and subfilter1 and display it
+ */
 export function displayMain() {
 
-	var trace = {};
     var checkList = getFileListToDisplay().SCATTER;
 
 	// --------get filter values------------------------------------
 
 	var filter1 = document.querySelectorAll('#filter1 option:checked');
 	var propertyName = Array.from(filter1).map(el => el.value)[0] || "DEFAULT";
-	console.log(propertyName);
 
 	var subfilter1 = document.querySelectorAll('#subfilter1 option:checked');
 	var valueListRaw = Array.from(subfilter1).map(el => el.value);
@@ -37,29 +37,32 @@ export function displayMain() {
 		}
 
         initColorScale(analysis, propertyName, valueListRaw);
-		trace = buildTrace3D(analysis, 'scatter3d', propertyName);
-		scatter3DPlot([trace]);
-		buildTraceMap(analysis);
+
+		var surfaceCheckList = getFileListToDisplay().SURFACE;
+
+		db_jodel.transaction('r', db_jodel.datasets, function () {
+				return db_jodel.datasets.where('FILE_NAME').anyOf(surfaceCheckList).toArray();
+		}).then (surfaces =>{
+
+			var traces = buildTrace3D(analysis, propertyName, surfaces);
+			scatter3DPlot(traces);
+			buildTraceMap(analysis);
+			var densityData = makeTracesForDensity(analysis, propertyName);
+			DensityGraph(densityData);
+		})
+		.catch (function (e) {
+			console.error("DISPLAY MAIN 1",e);
+		});	
+
 	})
 	.catch (function (e) {
-		console.error("DISPLAY MAIN",e);
+		console.error("DISPLAY MAIN 2",e);
 	});		
 	
-	var surfaceCheckList = getFileListToDisplay().SURFACE;
+	
 
-	db_jodel.transaction('rw', db_jodel.dataset, function () {
-		return db_jodel.dataset.where('FILE_NAME').anyOf(surfaceCheckList).toArray();
-}).then (surfaces =>{
-
-})
-.catch (function (e) {
-	console.error("DISPLAY MAIN",e);
-});	
 }
 
-function buildSurface3D(surface) {
-	return 0;
-}
 
 /**
  * 
@@ -74,8 +77,7 @@ export function getFileListToDisplay() {
 		var fileName = row.cells[0].innerHTML;
 		if (fileName != 'File') {
 			if (document.getElementById('check_'+fileName).checked) {
-				var e = document.getElementById('typeSelect_'+fileName);
-				var strUser = e.options[e.selectedIndex].value;
+				var strUser = row.cells[4].innerHTML;
 				if (strUser=='scatter3d') {
 					ScatterList.push(fileName);
 				}
@@ -89,14 +91,7 @@ export function getFileListToDisplay() {
     return {SCATTER:ScatterList, SURFACE:SurfaceList};
 }
 
-/**
- * 
- * @param {*} variable string to test
- * @returns boolean true if variable is number stored in string 
- */
-export function isFloat(variable) {
-    return !Number.isNaN(Number.parseFloat(variable));
-}
+
 
 /**
  * 
@@ -206,23 +201,6 @@ function initColorScale(analysisLines, propertyName, varList) {
 	}
 }
 
-/*
-function multiDimensionalUnique(arr) {
-	var uniquesS =[];
-	var uniquesCol = [];
-    var itemsFound = {};
-	var sampleCols={};
-    for(var i = 0, l = arr[0].length; i < l; i++) {
-        var stringified = JSON.stringify(arr[0][i]+arr[1][i]);
-		console.log(stringified);
-        if(itemsFound[stringified]) { continue; }
-		uniquesS.push(arr[0][i]);
-		uniquesCol.push(arr[1][i]);
-        itemsFound[stringified] = true;
-    }
-    return [uniquesS,uniquesCol];
-}
-*/
 
 /**
  * 
@@ -272,11 +250,15 @@ function mapColors(obj) {
  * @param {*} propertyName 
  * @returns trace,; object containing samples coordinates and tags for display function
  */
-export function buildTrace3D(analysisLines, displayType, propertyName) {
+export function buildTrace3D(analysisLines, propertyName, surfaces) {
+
+	var traces =[];
 
 	var request =['A31','A32','A33'] // 3 properties to request
 
 	var arr2 = Object.values(multiDimArray(analysisLines,propertyName, request));
+
+	// create one traces for all analysis points
 
 	let X = arr2.map(({X})=>X);
 	let Y = arr2.map(({Y})=>Y);
@@ -284,7 +266,7 @@ export function buildTrace3D(analysisLines, displayType, propertyName) {
 	let colors = arr2.map(mapColors);
 	let text = arr2.map(({ETIQUETTE})=>JSON.stringify(ETIQUETTE.filter((v, i, a) => a.indexOf(v) === i)));
 
-	var trace = {
+	var traceScatter = {
 		x: X,
 		y: Y,
 		z: Z,
@@ -297,23 +279,35 @@ export function buildTrace3D(analysisLines, displayType, propertyName) {
 			color:colors,
 			width: 0.5},
 			opacity: 0.8},
-		type: displayType
+		type: 'scatter3d'
 	};
-	return trace;	
+
+	traces.push(traceScatter);
+
+	// create several traces for each surfaces
+
+	console.log(surfaces);
+
+	if (surfaces != []) {
+
+		for (var surface of surfaces) {
+
+			traces.push({
+				x: surface.X_NAD,
+				y: surface.Y_NAD,
+				z: surface.Z_NAD,
+				color: surface.COLOR,
+				opacity : 0.8,
+				type: 'mesh3d'
+			});
+		}
+		
+	}
+
+
+	return traces;	
 }
 
-export function getColumn(colName,  array) {
-
-    var indice; 
-
-    for (var i=0;i<array[0].length;i++) {
-        if (array[0][i] == colName) {
-            indice =  i;
-            break;
-        }
-    }
-    return array.map(x => x[indice]);
-}
 
 /**
  * void 3d plot function 
@@ -559,5 +553,132 @@ function buildTraceMap(analysisLines) {
 	.catch (function (e) {
 		console.error("DISPLAY SAMPLES",e);
 	});
+
+}
+
+
+function makeTracesForDensity(analysisLines, propertyName) {
+
+	var request =['A26','A27','A28'] // 3 properties to request A31,32,33
+
+	var arr2 = Object.values(multiDimArray(analysisLines,propertyName, request));
+
+	// create one traces for all analysis points
+
+	let Y = arr2.map(({X})=>X);
+	let X = arr2.map(({Y})=>Y);
+	let Z = arr2.map(({Z})=>Z);
+	let colors = arr2.map(mapColors);
+	//let text = arr2.map(({ETIQUETTE})=>JSON.stringify(ETIQUETTE.filter((v, i, a) => a.indexOf(v) === i)));
+
+	console.log(X,Y,colors);
+
+	var colorscale = ['Hot','Jet','Blackbody','Bluered','Blues','Earth','Electric','Greys','Greens','Picnic','Portland','Rainbow','RdBu',
+	'Reds','Viridis','YlGnBu','YlOrRd'];
+
+	var trace1 = {
+		x: X,
+		y: Y,
+		mode: 'markers',
+		name: 'points',
+		marker: {
+		  color: colors,
+		  size: 10,
+		  opacity: 0.9
+		},
+		type: 'scatter'
+	  };
+
+
+	  var trace2 = {
+		x: X,
+		y: Y,
+		name: 'density',
+		ncontours: 20,
+		colorscale: colorscale[random(1)],
+		contours: {
+
+			showlabels: true,
+
+			labelfont: {
+			  family: 'Raleway',
+			  color: 'white'
+			}
+		  },
+		reversescale: true,
+		showscale: true,
+		type: 'histogram2dcontour',
+		opacity: 0.5
+	  };
+
+	  var trace3 = {
+		x: X,
+		name: 'x density',
+		marker: {color: colors},
+		yaxis: 'y2',
+		type: 'histogram'
+	  };
+
+	  var trace4 = {
+		y: Y,
+		name: 'y density',
+		marker: {color: colors},
+		xaxis: 'x2',
+		type: 'histogram'
+	  };
+	
+	return [trace1,trace2,trace3,trace4];
+}
+
+/**
+ * void : plot function for density graph
+ * @param {*} data : Array of traces dictionnary objects 
+ */
+function DensityGraph(data)
+{
+	  var layout = {
+		autosize:true,
+		showlegend: false,
+		margin: {t: 50},
+		hovermode: 'closest',
+		bargap: 0,
+		barmode:"stack",
+		xaxis: {
+		  domain: [0, 0.85],
+		  showgrid: false,
+		  zeroline: false,
+		  title: {
+			text: "X",
+			font: {
+			  family: 'Courier New, monospace',
+			  size: 18,
+			}
+		  }
+		},
+		yaxis: {
+		  domain: [0, 0.85],
+		  showgrid: false,
+		  zeroline: false,
+		  title: {
+			text: "Y",
+			font: {
+			  family: 'Courier New, monospace',
+			  size: 18,
+			}
+		  }
+		},
+		xaxis2: {
+		  domain: [0.85, 1],
+		  showgrid: false,
+		  zeroline: false
+		},
+		yaxis2: {
+		  domain: [0.85, 1],
+		  showgrid: false,
+		  zeroline: false
+		}
+	  };
+	  var config = {responsive: true};
+	  Plotly.newPlot('chart2', data, layout, config);
 
 }

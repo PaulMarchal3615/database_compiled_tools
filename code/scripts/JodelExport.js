@@ -56,7 +56,7 @@ const export_csv = (arrayHeader, arrayData, delimiter, fileName) => {
 
 export function exportSamples() {
 
-    var checkList = getFileListToDisplay();
+    var checkList = getFileListToDisplay().SCATTER;
 	var selected2 = document.querySelectorAll('#filter1 option:checked');
 	var propertyName = Array.from(selected2).map(el => el.value);
 
