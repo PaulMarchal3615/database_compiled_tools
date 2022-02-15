@@ -1,15 +1,15 @@
-import {displayMain} from "./JodelDisplay2.js";
+import {displayMain} from "./JodelDisplay.js";
 
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
 	analysis:`LINE,FILE_NAME,COLOR,TYPE,A41`,
-	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
 
 
 //--------------------------------------------
+// Filtering option to display only selected data in subfilter1
 
 /**
  * void : fill subfilter when filter value is changed 

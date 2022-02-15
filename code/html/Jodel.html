@@ -56,6 +56,7 @@
     if(theEvent.preventDefault) theEvent.preventDefault();
   }
 }
+  
   </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
@@ -93,7 +94,7 @@
         subfilter1 is filled when filter1 is modified-->
 
         <select class="select" id="analysisSelect">
-          <option value="DEFAULT">DEFAULT DISPLAY</option>
+          <option selected="selected" value="DEFAULT">DEFAULT DISPLAY</option>
           <option value="METADATA">METADATA</option>
           <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
           <option value="PETROPHYSICS">PETROPHYSICS</option>
@@ -109,11 +110,11 @@
         </select>
 
           <select class="select" name="filter1" id="filter1" multiple="multiple">
-            <option value="DEFAULT">-- display all data --</option>
+            <option selected="selected" value="DEFAULT">-- display all data --</option>
           </select>
           <button id="selectAll">Select All</button>
           <select class="select" name="subfilter1[]" id="subfilter1" multiple="multiple">
-            <option value="DEFAULT">-- display all data --</option>
+            <option selected="selected" value="DEFAULT">-- display all data --</option>
           </select>
           <p id="miniInfoDisp"> __ </p>
           <p id="miniInfoDisp2"> ... </p>

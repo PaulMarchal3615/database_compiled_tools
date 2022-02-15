@@ -1,15 +1,21 @@
-import { getFileListToDisplay } from "./JodelDisplay2.js ";
+import { getFileListToDisplay } from "./JodelDisplay.js ";
 import { keyVal, units } from "./ressources.js";
+
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
 	analysis:`LINE,FILE_NAME,COLOR,TYPE,A41`,
-	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
 
+// -------------------------------------
+// Export functions : export data stored in db_jodel.analysis into csv (based on filtering if used)
 
-
+/**
+ * 
+ * @param {*} arr 
+ * @returns a 2D array from an array of object with keys as first line and units in second line
+ */
 function convertToArray(arr) {
 	var headers = Object.keys(arr[0]);
 	
@@ -29,12 +35,13 @@ function convertToArray(arr) {
 	return data;
   }
 
-function convertToCSV(array) {
-	let csvContent = "data:text/csv;charset=utf-8,"+ array.map(e => e.join(",")).join("\n");
-	return csvContent;
-}
-
-
+/**
+ * convert/export array to csv file and open it as an URL link
+ * @param {*} arrayHeader : array[string] containing 
+ * @param {*} arrayData array[array[string]] data line as array
+ * @param {*} delimiter string delimiter ','
+ * @param {*} fileName string fileName without extension
+ */
 const export_csv = (arrayHeader, arrayData, delimiter, fileName) => {
 	let header = arrayHeader.join(delimiter) + '\n';
 	let csv = header;
@@ -53,12 +60,15 @@ const export_csv = (arrayHeader, arrayData, delimiter, fileName) => {
 }
 
 
-
+/**
+ * main function for export : get all selected files + current working filters --> get concerned analysis in dexie
+ * convert to array --> convert to csv --> dwl link
+ */
 export function exportSamples() {
 
     var checkList = getFileListToDisplay().SCATTER;
 	var selected2 = document.querySelectorAll('#filter1 option:checked');
-	var propertyName = Array.from(selected2).map(el => el.value);
+	var propertyName = Array.from(selected2).map(el => el.value) ||"DEFAULT";
 
 	var selected = document.querySelectorAll('#subfilter1 option:checked');
 	var valueListRaw = Array.from(selected).map(el => el.value);
@@ -70,7 +80,9 @@ export function exportSamples() {
 	db_jodel.transaction('rw', db_jodel.analysis, function () {
 			return db_jodel.analysis.where('FILE_NAME').anyOf(checkList).toArray();
 	}).then (analysis =>{
+
         if (propertyName != "DEFAULT") {
+
 			const filteredAnalysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
 			const data = convertToArray(filteredAnalysis);
 			const [headers, ...lines] = data;
@@ -88,25 +100,4 @@ export function exportSamples() {
 	.catch (function (e) {
 		console.error("EXPORT MAIN",e);
 	});				
-}
-
-
-
-// JSON to CSV Converter
-function ConvertToCSV(objArray) {
-	var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-	var str = '';
-
-	for (var i = 0; i < array.length; i++) {
-		var line = '';
-		for (var index in array[i]) {
-			if (line != '') line += ','
-
-			line += array[i][index];
-		}
-
-		str += line + '\r\n';
-	}
-
-	return str;
 }

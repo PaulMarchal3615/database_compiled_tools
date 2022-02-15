@@ -1,16 +1,16 @@
 import {fields, units} from './ressources.js';
-import {displayMain} from './JodelDisplay2.js';
+import {displayMain} from './JodelDisplay.js';
 import {exportSamples} from './JodelExport.js';
 import {removeOptions,fillSubFilterBox, updateBox} from './JodelFilters.js'
-import {rowsToObjects,rndHex,getColumn} from './common_functions.js'
+import {rowsToObjects,rndHex,getColumn,getAllIndexes,getKeyByValue} from './common_functions.js'
 
-document.getElementById('exportSamples').addEventListener("click",exportSamples);
+//---------------------------------------------
+// 1. init dexie db : db_jodel with two stores : analysis (based on analysis lines of a file and datasets to store files info)
 
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
 	analysis:`LINE,FILE_NAME,COLOR,TYPE,A41`,
-	holes:`HOLEID,HOLEID_LATITUDE,HOLEID_LONGITUDE,COLOR,FILE_NAME`,
 	datasets:`FILE_NAME,COLOR,TYPE`
 });
 
@@ -21,10 +21,13 @@ db_jodel.open().catch(function (e) {
 // clear stores if reload page 
 
 db_jodel.analysis.clear();
-db_jodel.holes.clear();
 db_jodel.datasets.clear();
 
-// add event listener on file input
+//---------------------------------------------
+// 2. init events to trigger 
+
+document.getElementById('exportSamples').addEventListener("click",exportSamples);
+
 var input = document.querySelector('#fileInput');
 document.getElementById('addPointset').addEventListener('click', function() {input.click();});
 input.addEventListener('input',parseFiles);
@@ -41,15 +44,15 @@ document.getElementById("lowCol").addEventListener("change",displayMain);
 document.getElementById("highCol").addEventListener("change",displayMain);
 document.getElementById("multiCol").addEventListener("change",displayMain);
 
-//---------------------------------------------
-
-//add event listener on filter change --> update subfilter
 var filter = document.getElementById("filter1");
 var subfilter = document.getElementById("subfilter1");
 var selectBtn = document.getElementById("selectAll");
 
 selectBtn.addEventListener('click', selectAll);
 
+/**
+ * select all options avalaible in subfilter1
+ */
 function selectAll()
     {
     	var myOpts = document.getElementById('subfilter1').options;
@@ -63,11 +66,13 @@ function selectAll()
 var analysisSelect = document.getElementById("analysisSelect");
 analysisSelect.addEventListener('change',updateAnalysisFilter);
 
+/**
+ * update analysisfilters (filter1, subfilter1) when changing "analysisSelect" select 
+ */
 function updateAnalysisFilter() {
 
 	removeOptions(filter);
 	var analysisName = analysisSelect.options[analysisSelect.selectedIndex].value;
-	console.log(analysisName);
 
 	if (analysisName != "DEFAULT") {
 		updateBox("filter1",Object.keys(fields[analysisName]), Object.values(fields[analysisName]));
@@ -97,21 +102,33 @@ filter.addEventListener('change', function() {
 
 subfilter.addEventListener('change', displayMain);
 
+
 //--------------------------------------------------
+// 2. Parse funtions : file input reading function based on Papa-parse for reading and converting csv files as array
 
-
-
+/**
+ * print error in console
+ * @param {*} error error object to display in console
+ */
 function failureCallback(error) {
 	console.error("Read File Error",error);
 }
 
+/**
+ * 
+ * @param {*} file single fileInput from html input 
+ * @returns Promise based on success of Papa.parse
+ */
 Papa.parsePromise = function(file) {
 	return new Promise(function(complete, error) {
 		Papa.parse(file, {download: true, complete, error});
 	});
 };
 
-function parseSurfaceFiles(event) {
+/**
+ * triggered if button "Add surface" is clicked : read fileInput2 and parse it into Dataset object
+ */
+function parseSurfaceFiles() {
 
 	for (let file of input2.files) {
 
@@ -135,13 +152,14 @@ function parseSurfaceFiles(event) {
 
 }
 
-function parseFiles(event) {
+/**
+ * triggered if button "Add pointset" is clicked : read fileInput and parse it into Dataset object
+ */
+function parseFiles() {
 
 	for (let file of input.files) {
 
 		if (file.name.split('.').pop() =="csv") {
-
-			console.log(file);
 
 			Papa.parsePromise(file).then(function(results) { 
 
@@ -153,6 +171,11 @@ function parseFiles(event) {
 	}
 }
 
+/**
+ * 
+ * @param {*} dataset : dataset object (based on file input)
+ * @returns Promise based on dexie transaction fail or success; save dataset data into dexie db
+ */
 function readResults(dataset) {
 
 	return new Promise((successCallback, failureCallback) => {
@@ -172,6 +195,11 @@ function readResults(dataset) {
 	});
 }
 
+/**
+ * 
+ * @param {*} dataset : dataset object (based on file input)
+ * @returns Promise based on dexie transaction fail or success; save surface data into dexie db
+ */
 function readSurfaceResults(dataset) {
 
 	
@@ -198,8 +226,25 @@ function readDataset(dataset) {
 	
 	var headers, units, values;
 	[headers, units, ...values] = dataset.ARRAY;
-	const headersKeys = headers.map(getKeyByValue);
 
+	var indexes = getAllIndexes(headers,'ANALYSIS_ABBREV');
+	indexes.unshift(0);
+	indexes.push(headers.length);
+
+	var headerSlice = {};
+
+	var measure = getColumn('MEASUREMENT-NATURE',dataset.ARRAY).filter((v,i,a)=> a.indexOf(v)===i).filter(function(f) { return f !== 'MEASUREMENT-NATURE' & f !== 'text' &f !== undefined});
+	measure.unshift('METADATA');
+
+	for (var j =0; j<(indexes.length)-1; j++) {
+
+		var analysisName = measure[j];
+		var subHead = headers.slice(indexes[j], indexes[j+1]);
+		headerSlice[analysisName] = subHead;
+	}
+
+	var headersKeys = mapHeaders(headerSlice);
+	
 	var result = rowsToObjects(headersKeys, values);
 	var i =2;
 
@@ -221,29 +266,35 @@ function readDataset(dataset) {
 		obj.TYPE= dataset.TYPE;
 		i+=1;
 	}
-
 	return result;
 }
 
 
 /**
  * 
- * @param {*} value string name of a property 
- * @returns key associated to value in fields (in ressources.js)
+ * @param {*} headDict : dict of Analysis_type:[Headers]
+ * @returns array[string] containing standardized headers
  */
-function getKeyByValue(value) {
+function mapHeaders(headDict) {
+	var standardsHeads =[];
 
-	for (var analysis of Object.keys(fields)) {
-		if (Object.values(fields[analysis]).includes(value)) {
-			return Object.keys(fields[analysis]).find(key => fields[analysis][key] === value);
+	for (var key of Object.keys(headDict)) {
+
+		for (var value of headDict[key]) {
+
+			if (Object.keys(fields).includes(key)) {
+				var champ = getKeyByValue(fields[key],value);
+			standardsHeads.push(champ);
+			}
 		}
-	}
-  }	
-
-
+	}	
+	return standardsHeads;
+}
 
 
 //--------------------------------------------------
+// 2. Update functions 
+
 /**
  * void update file table adding newly input file in it.
  * @param {*} dataset : Dataset object to add in file table
@@ -279,7 +330,10 @@ function getKeyByValue(value) {
 		document.getElementById('check_'+dataset.FILE_NAME).addEventListener('change',displayMain);
 }
 
-
+/**
+ * change color of dataset in dexie db when color is changed in colorPickers (in file_table)
+ * @param {*} event trigger event 
+ */
 function updateColor(event) {
 
 	let oEleBt = event.currentTarget, oTr = oEleBt.parentNode.parentNode ;
@@ -309,8 +363,6 @@ function updateColor(event) {
 		});
 
 }
-
-//--------------------------------------------------
 
 /**
  * void : delete line of filetable on event --> also delete file in Study

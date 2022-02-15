@@ -11,7 +11,6 @@ export function rowsToObjects(headers, rows){
 	}, []);
 }
 
-
 /**
  * 
  * @returns random color value in hexadecimal
@@ -38,7 +37,6 @@ export function getColumn(colName,  array) {
     return array.map(x => x[indice]);
 }
 
-
 /**
  * 
  * @param {*} variable string to test
@@ -48,8 +46,6 @@ export function getColumn(colName,  array) {
     return !Number.isNaN(Number.parseFloat(variable));
 }
 
-// --------------------------------------------- 
-
  /**
   * 
   * @param {*} number float number
@@ -57,4 +53,28 @@ export function getColumn(colName,  array) {
   */
   export function random(number) {
 	return Math.floor(Math.random() * (number+1));
+}
+
+/**
+ * 
+ * @param {*} arr : array[string/float]
+ * @param {*} val : val to find
+ * @returns [indexes] of val in arr
+ */
+export function getAllIndexes(arr, val) {
+    var indexes = [], i;
+    for(i = 0; i < arr.length; i++)
+        if (arr[i] === val)
+            indexes.push(i);
+    return indexes;
+}
+
+/**
+ * 
+ * @param {*} object : dict structure object
+ * @param {*} value : string/float
+ * @returns key in dict based on value 
+ */
+ export function getKeyByValue(object, value) {
+	return Object.keys(object).find(key => object[key] === value);
 }
