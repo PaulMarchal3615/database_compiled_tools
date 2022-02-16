@@ -3,12 +3,20 @@
 <head>
   <title>Main Page</title>
 
-    <link rel="stylesheet" href="../styles/mainStyle.css" />
-    <link rel="stylesheet" href="../styles/tabs.css" />
-    <link rel="stylesheet" href="../styles/mainTabs.css" />
-    <link rel="stylesheet" href="../styles/table.css" />
-    <link rel="stylesheet" href="../styles/buttons.css" />
-    <script type="text/javascript" language="javascript" src="../ressources/TableFilter-master/dist/tablefilter/tablefilter.js"></script> 
+    <link rel="stylesheet" href="../styles/Common/mainStyle.css" />
+    <link rel="stylesheet" href="../styles/Common/tabs.css" />
+    <link rel="stylesheet" href="../styles/Common/mainTabs.css" />
+    <link rel="stylesheet" href="../styles/Common/table.css" />
+    <link rel="stylesheet" href="../styles/Common/buttons.css" />
+    <link rel="stylesheet" href="../styles/Common/radiobuttons.css" />
+    <link rel="stylesheet" href="../styles/Common/color-table.css" />
+    <link rel="stylesheet" href="../styles/Common/charts.css" />
+    <link rel="stylesheet" href="../styles/Common/input.css" />
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
+    <script src='https://unpkg.com/paralleljs@1.0/lib/parallel.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dexie/3.1.0-beta.13/dexie.min.js" integrity="sha512-9NsvuIByoAxs+5psOm+netmorSh5xE402tKdeneVAucyksBEy3cqpbVcsl7ldcObXZqhpulVaHhaDLHZFm9mVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
@@ -27,7 +35,7 @@
 
 <body>
 
-  <img style="float: left; margin: 5px 15px 5px 5px;"src="./logo_soft.svg"
+  <img style="float: left; margin: 5px 15px 5px 5px;"src="./pictures/logo_soft.svg"
   height=80px width=auto alt="logo"/>
 
   <img style="float: right; margin: 0px 0px 0px 0px;"src="http://lue.univ-lorraine.fr/sites/default/files/users/user2448/logo_Georessources.png"

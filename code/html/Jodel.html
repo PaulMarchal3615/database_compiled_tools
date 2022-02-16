@@ -3,19 +3,12 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=windows-1252">
     <title>JODEL - Sampling Exploration</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
-    <script src='https://unpkg.com/paralleljs@1.0/lib/parallel.js'></script>
-    <link rel="stylesheet" href="../styles/JodelGrid.css">
-    <link rel="stylesheet" href="../styles/radiobutton.css">
-    <link rel="stylesheet" href="../styles/gridColorScale.css">
-    <link rel="stylesheet" href="../styles/sidebar.css">
-    <link rel="stylesheet" href="../styles/sideParameters.css">
-    <link rel="stylesheet" href="../styles/charts.css">
-    <link rel="stylesheet" href="../styles/ratioControl.css">
-    <link rel="stylesheet" href="../styles/color-table.css">
-    <link rel="stylesheet" href="../styles/progressBar.css">
+
+    <link rel="stylesheet" href="../styles/Jodel/JodelGrid.css">
+    <link rel="stylesheet" href="../styles/Jodel/sidebar.css">
+    <link rel="stylesheet" href="../styles/Jodel/sideParameters.css">
+    <link rel="stylesheet" href="../styles/Jodel/ratioControl.css">
+
     <!--function for opening tabs on click-->
     <script type="text/javascript">
   function openView(evt, view) {
@@ -141,6 +134,20 @@
         </div>
         <!-- Tab content -->
         <div id="Jodel-tab-3" class="tabcontent" style="display:none">
+
+          <select class="select" name="densityX" id="densityX" multiple="multiple">
+            <option selected="selected" value="A26">Longitude</option>
+            <option value="A27">Latitude</option>
+            <option value="A28">Altitude</option>
+          </select>
+
+          <select class="select" name="densityY" id="densityY" multiple="multiple">
+            <option value="A26">Longitude</option>
+            <option value="A27">Latitude</option>
+            <option selected="selected" value="A28">Altitude</option>
+          </select>
+
+
           <div id="chart2"></div>
         </div>
       </div>
@@ -191,6 +198,6 @@
 
       </div>
     </div>
-    <script type="module" src="../scripts/JodelMain.js"></script>
+    <script type="module" src="../scripts/Jodel/JodelMain.js"></script>
   </body>
 </html>
