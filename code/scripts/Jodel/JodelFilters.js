@@ -32,8 +32,7 @@ db_jodel.version(1).stores({
 			updateBox(subfilterName,unique.sort(), unique.sort());
 		})
 		.catch (function (e) {
-            console.log(e);
-			alert("subfilter error : No Values",e);
+			console.log("subfilter error : No Values",e);
 		});
 
 	}
@@ -65,7 +64,6 @@ function optionExists (select, value) {
  */
  export function updateBox(box_name, listValues,listText) {
 	 var select = document.getElementById(box_name);
-	 console.log(select,listText, listValues);
 	 for (var i=0 ; i<listText.length ; i++) {
 		 if (!optionExists(select,listText[i])) {
 			 var option = new Option(listText[i],listValues[i]);
