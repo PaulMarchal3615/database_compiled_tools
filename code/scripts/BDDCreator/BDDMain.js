@@ -26,13 +26,14 @@ function runReplacement(event) {
 }
 
 function LoadAnalysisFile() {
+    return 0;
 
 }
 
 function checkFileHeaders() {
-
+    return 0;
 }
 
 function displayResults() {
-    
+    return 0;  
 }

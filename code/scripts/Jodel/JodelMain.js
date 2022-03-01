@@ -101,7 +101,7 @@ filter.addEventListener('change', function() {
 		if (option.selected){
 			fillSubFilterBox("subfilter1",option.value);
 			var text = document.getElementById("miniInfoDisp");
-			text.innerHTML = option.text+' in Unit : '+units[option.text];
+			text.innerHTML = option.text+' in Unit : '+units[option.value];
 		}
 	}
 })
@@ -230,8 +230,8 @@ function readSurfaceResults(dataset) {
  */
 function readDataset(dataset) {
 	
-	var headers, units, values;
-	[headers, units, ...values] = dataset.ARRAY;
+	var headers, unitsLine, values;
+	[headers, unitsLine, ...values] = dataset.ARRAY;
 
 	var indexes = getAllIndexes(headers,'ANALYSIS_ABBREV');
 	indexes.unshift(0);
@@ -252,25 +252,23 @@ function readDataset(dataset) {
 	var headersKeys = mapHeaders(headerSlice);
 	
 	var result = rowsToObjects(headersKeys, values);
-	var i =2;
+
+	var k =2;
 
 	// convert string 'float' to float values
 
 	result = result.map(entry => 
-		Object.entries(entry).reduce(
-			(obj, [key, value]) => (obj[key] = parseFloat(value)||value, obj), 
-			{}
-		)
-	  );
+		Object.entries(entry).reduce((obj, [key, value]) => (obj[key] = parseFloat(value)||value, obj), {})
+		);
 
 	// add dexie main properties
 
 	for (var obj of result) {
-		obj.LINE = i;
+		obj.LINE = k;
 		obj.COLOR = dataset.COLOR;
 		obj.FILE_NAME= dataset.FILE_NAME;
 		obj.TYPE= dataset.TYPE;
-		i+=1;
+		k+=1;
 	}
 	return result;
 }

@@ -107,12 +107,12 @@ function fillCaptionTable(colorList, valueList) {
 		let multiCol = document.getElementById("multiCol").value;
 
 		var tablebody = document.getElementById("color_table").getElementsByTagName('tbody')[0];
-		var row = tablebody.insertRow(0);
-		var cell1 = row.insertCell(0);
-		var cell2 = row.insertCell(1);
-		cell1.bgColor = multiCol;
-		cell1.style.width = '25px';
-		cell2.innerHTML = "Multiple Values"; 
+		var row1 = tablebody.insertRow(0);
+		var cell11 = row1.insertCell(0);
+		var cell12 = row1.insertCell(1);
+		cell11.bgColor = multiCol;
+		cell11.style.width = '25px';
+		cell12.innerHTML = "Multiple Values"; 
 	
 		for (var i=0;i<colorList.length; i++) {
 			var row = tablebody.insertRow(0);
@@ -138,17 +138,19 @@ function initColorScale(analysisLines, propertyName, varList) {
 	// we get choosen values for color scales from input[type=color] lowCol and highCol
 	let colorLow = document.getElementById("lowCol").value;
 	var colorHigh = document.getElementById("highCol").value;
+	var size = 0;
+	var scale = [];
 
 	// if we choose to display a certain property from filters
-	if ((propertyName != "DEFAULT") & (varList.length >0)) {
+	if ((propertyName != "DEFAULT") && (varList.length >0)) {
 
 		// if property is a continuous property (float values)
 		if (isFloat(varList[0])) {
 
-			var size = $('#num-classes').find(":selected").text();
+			size = $('#num-classes').find(":selected").text();
 			var limits = chroma.limits(varList, 'e', size-1);
 
-			var scale = chroma.scale([colorLow,colorHigh])
+			scale = chroma.scale([colorLow,colorHigh])
 			.mode('hsl').colors(size);
 
 			const samples = analysisLines.map(({A23})=>A23).filter((v, i, a) => a.indexOf(v) === i);
@@ -174,9 +176,8 @@ function initColorScale(analysisLines, propertyName, varList) {
 		// categorical property
 		else {
 
-			var size = varList.length;
-
-			var scale = chroma.scale([colorLow,colorHigh])
+			size = varList.length;
+			scale = chroma.scale([colorLow,colorHigh])
 			.mode('hsl').colors(size);
 		
 			for (var analysis of analysisLines) {
@@ -257,16 +258,16 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 
 	// create one traces for all analysis points
 
-	let X = arr2.map(({X})=>X);
-	let Y = arr2.map(({Y})=>Y);
-	let Z = arr2.map(({Z})=>Z);
+	let Xvals = arr2.map(({X})=>X);
+	let Yvals = arr2.map(({Y})=>Y);
+	let Zvals = arr2.map(({Z})=>Z);
 	let colors = arr2.map(mapColors);
 	let text = arr2.map(({ETIQUETTE})=>JSON.stringify(ETIQUETTE.filter((v, i, a) => a.indexOf(v) === i)));
 
 	var traceScatter = {
-		x: X,
-		y: Y,
-		z: Z,
+		x: Xvals,
+		y: Yvals,
+		z: Zvals,
 		text:text,
 		mode: 'markers',
 		marker: {
@@ -298,7 +299,6 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 		}
 		
 	}
-
 
 	return traces;	
 }
@@ -469,9 +469,9 @@ function buildTraceMap(analysisLines) {
         }]
       });
 
-	myPlot.on('plotly_click', function(data){
+	myPlot.on('plotly_click', function(selectedData){
 
-		for(var point of data.points){
+		for(var point of selectedData.points){
 				var ddh = point.text;
 		}
 
@@ -517,7 +517,6 @@ function buildTraceMap(analysisLines) {
 
 		let samplesHoles = arr2.map(({X})=>X);
 		let samplesDepths = arr2.map(({Y})=>Y);
-		let Z = arr2.map(({Z})=>Z);
 		let samplesColors = arr2.map(mapColors);
 		let text = arr2.map(({ETIQUETTE})=>JSON.stringify(ETIQUETTE.filter((v, i, a) => a.indexOf(v) === i)));
 
@@ -571,18 +570,17 @@ function makeTracesForDensity(analysisLines, propertyName) {
 
 	// create one traces for all analysis points
 
-	let X = arr2.map(({X})=>X);
-	let Y = arr2.map(({Y})=>Y);
+	let Xvalues = arr2.map(({X})=>X);
+	let Yvalues = arr2.map(({Y})=>Y);
 
 	let colors = arr2.map(mapColors);
-	//let text = arr2.map(({ETIQUETTE})=>JSON.stringify(ETIQUETTE.filter((v, i, a) => a.indexOf(v) === i)));
 
 	var colorscale = ['Hot','Jet','Blackbody','Bluered','Blues','Earth','Electric','Greys','Greens','Picnic','Portland','Rainbow','RdBu',
 	'Reds','Viridis','YlGnBu','YlOrRd'];
 
 	var trace1 = {
-		x: X,
-		y: Y,
+		x: Xvalues,
+		y: Yvalues,
 		mode: 'markers',
 		name: 'points',
 		marker: {
@@ -595,8 +593,8 @@ function makeTracesForDensity(analysisLines, propertyName) {
 
 
 	  var trace2 = {
-		x: X,
-		y: Y,
+		x: Xvalues,
+		y: Yvalues,
 		name: 'density',
 		ncontours: 20,
 		colorscale: colorscale[0],
@@ -616,7 +614,7 @@ function makeTracesForDensity(analysisLines, propertyName) {
 	  };
 
 	  var trace3 = {
-		x: X,
+		x: Xvalues,
 		name: 'x density',
 		marker: {color: colors},
 		yaxis: 'y2',
@@ -624,7 +622,7 @@ function makeTracesForDensity(analysisLines, propertyName) {
 	  };
 
 	  var trace4 = {
-		y: Y,
+		y: Yvalues,
 		name: 'y density',
 		marker: {color: colors},
 		xaxis: 'x2',

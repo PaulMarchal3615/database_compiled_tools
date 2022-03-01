@@ -148,8 +148,8 @@ export function fillSelect(id,array,cell,value) {
     }
 
     const options = Array.from(select.options);
-    options.forEach((option, i) => {
-    if (option.value === value) select.selectedIndex = i;
+    options.forEach((opt, j) => {
+    if (opt.value === value) select.selectedIndex = j;
     });
     
     cell.appendChild(select);

@@ -38,7 +38,7 @@ db.holes.clear();
 
 $(document).ready(function () {
   $('td input').bind('paste', null, function (e) {
-      $txt = $(this);
+      var $txt = $(this);
       setTimeout(function () {
           var values = $txt.val().split(/\s+/);
           var currentRowIndex = $txt.parent().parent().index();
@@ -87,11 +87,6 @@ btn2.addEventListener("click",createNewFile);
 
 //-------------------------------------------------------------
 
-function readIdentites()
-{
-
-
-}
 
 async function displayIdentities() {
 
@@ -105,14 +100,6 @@ async function displayIdentities() {
 
 }
 
-
-function addIdentity() {
-
-}
-
-function saveIdentitiesFile() {
-
-}
 
 //-------------------------------------------------------------
 
@@ -416,11 +403,9 @@ function buildComplexTable(tableName, dict) {
 
       var row = tablebody.insertRow(-1);
       var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
       var cell3 = row.insertCell(2);
 
       cell1.innerHTML = key;
-      //cell2.innerHTML = dict[key].description;
 
       if (dict[key].htmlContent != 0) {
           cell3.innerHTML = dict[key].htmlContent;
