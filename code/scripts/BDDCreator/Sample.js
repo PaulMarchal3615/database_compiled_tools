@@ -1,4 +1,4 @@
-import {sampleMetadata} from './ressources.js';
+import {sampleMetadata} from '../Common/ressources.js';
 
 export class Sample{
     constructor(name) {

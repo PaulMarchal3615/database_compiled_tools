@@ -47,6 +47,7 @@
 
             <div class="BDDLeftPanel">
                 <select class="select" id="BDDanalysisSelect">
+                  <option value="METADATA">METADATA</option>
                     <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
                     <option value="PETROPHYSICS">PETROPHYSICS</option>
                     <option value="GRAPHITE">GRAPHITE</option>>
@@ -60,40 +61,33 @@
                     <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
                   </select>                  
 
+                  <input id="BDDfileInput" multiple="multiple" type="file">
+
             <button id="BDDLoad">LOAD</button>
 
             <button id="BDDScan">SCAN</button>
 
             <button id="BDDCopy">COPY</button>
 
-            <button id="BDDSave">SAVE</button>
-
-            <table id="BDDQCtable" class="fl-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Your Headers</th>
-                        <th scope="col">Associated Field</th>
-                        <th scope="col">% confidence</th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                </tbody>
-                <tfoot>
-                </tfoot>
-              </table>
-            </div>
-
-            <table id="BDDMaintable" class="fl-table">
-                <thead>
-                </thead>
-                <tbody>
-                </tbody>
-                <tfoot>
-                </tfoot>
-              </table>
-
         </div>
+
+<div class="BDDRightPanel">
+  
+        <table id="BDDQCtable" class="fl-table" style="width:800px; height:800px; overflow-y: auto; overflow-x: auto;">
+          <thead>
+              <tr>
+                  <th scope="col">Your Headers</th>
+                  <th scope="col">Associated Field</th>
+                  <th scope="col">% confidence</th>
+              </tr>
+          </thead>
+          <tbody>
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table>
+      
+      </div>
 
 
       </div>
