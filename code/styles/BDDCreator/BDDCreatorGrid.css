@@ -1,20 +1,20 @@
 .BDDMainUI{
-        width: 100%;
-        height: 100%;
-        display: grid;
-        grid-template-columns: 20% 80%;
-        grid-gap: 10px;
+    width: 100%;
+    height: 90%;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-gap: 10px;
 }
 
 .BDDLeftPanel {
-grid-column: 1;
-grid-row: 1;
+    grid-column: 1;
+    grid-row: 1;
 }
 
 .BDDRightPanel{
-    grid-column:2;
+    grid-column: 2;
     grid-row: 1;
-    width: 100%;
+    width: max-content;
 }
 
 
@@ -23,33 +23,63 @@ grid-row: 1;
     height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 25px 25px 1fr;
+    grid-template-rows: max-content max-content max-content max-content;
     grid-gap: 10px;
 }
-
-#BDDanalysisSelect{
+#BDDText1{
     grid-column: 1 / 5;
     grid-row: 1;
 }
 
-
-#DBBLoad{
-    grid-column: 1;
+#BDDanalysisSelect{
+    grid-column: 1 / 5;
     grid-row: 2;
 }
 
+#BDDText2{
+    grid-column: 1 / 5;
+    grid-row: 3;
+}
+
+#DBBLoad{
+    grid-column: 1;
+    grid-row: 4;
+}
 
 #DBBScan{
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 4;
 }
 
 #DBBCopy{
     grid-column: 3;
-    grid-row: 2;
+    grid-row: 4;
 }
 
 #DBBSave{
     grid-column: 4;
-    grid-row: 2;
+    grid-row: 4;
+}
+
+
+.BDDrightPanel{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    grid-gap: 10px;
+}
+#BDDQCtable-zone{
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#BDDValtable-zone{
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#BDDchart1{
+    grid-column: 3;
+    grid-row: 1;
 }

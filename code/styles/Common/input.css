@@ -8,12 +8,8 @@ input:valid {
     background-color: lightgreen;
 }
 
-#fileInput {
-  display: none;
-}
-
-#fileInput2 {
-  display: none;
+input[type="file"] {
+  display:none;
 }
 
 .FileContainer {

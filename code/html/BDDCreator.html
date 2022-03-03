@@ -4,6 +4,7 @@
 
   <head>
     <link rel="stylesheet" href="../styles/BDDCreator/BDDCreatorGrid.css" />
+    <link rel="stylesheet" href="../styles/Common/input.css" />
 
     <script type="text/javascript">
       function openTab(evt, viewName) {
@@ -43,42 +44,50 @@
       <!-- Tab content -->
       <div id="BDDCreator-tab-3" class="tabcontent" style="display:none">
 
+        <input id="BDDfileInput" multiple="multiple" type="file">
+
         <div class="BDDMainUI">
 
             <div class="BDDLeftPanel">
-                <select class="select" id="BDDanalysisSelect">
-                  <option value="METADATA">METADATA</option>
-                    <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
-                    <option value="PETROPHYSICS">PETROPHYSICS</option>
-                    <option value="GRAPHITE">GRAPHITE</option>>
-                    <option value="UO2-GEOCHEMISTRY-EMPA">UO2-GEOCHEMISTRY-EMPA</option>
-                    <option value="UO2-GEOCHEMISTRY-LA-ICP-MS">UO2-GEOCHEMISTRY-LA-ICP-MS</option>
-                    <option value="UO2-GEOCHEMISTRY-SIMS">UO2-GEOCHEMISTRY-SIMS</option>
-                    <option value="FI-RAMAN">FI-RAMAN</option>
-                    <option value="FI-MICROTHERMOMETRY">FI-MICROTHERMOMETRY</option>
-                    <option value="FI-LA-ICP-MS">FI-LA-ICP-MS</option>
-                    <option value="XRD-CLAY">XRD-CLAY</option>
-                    <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
-                  </select>                  
 
-                  <input id="BDDfileInput" multiple="multiple" type="file">
+              <p id="BDDtext1">1. Select File type to import</p>
 
-            <button id="BDDLoad">LOAD</button>
+              <select class="select" id="BDDanalysisSelect">
+                <option value="METADATA">METADATA</option>
+                  <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
+                  <option value="PETROPHYSICS">PETROPHYSICS</option>
+                  <option value="GRAPHITE">GRAPHITE</option>>
+                  <option value="UO2-GEOCHEMISTRY-EMPA">UO2-GEOCHEMISTRY-EMPA</option>
+                  <option value="UO2-GEOCHEMISTRY-LA-ICP-MS">UO2-GEOCHEMISTRY-LA-ICP-MS</option>
+                  <option value="UO2-GEOCHEMISTRY-SIMS">UO2-GEOCHEMISTRY-SIMS</option>
+                  <option value="FI-RAMAN">FI-RAMAN</option>
+                  <option value="FI-MICROTHERMOMETRY">FI-MICROTHERMOMETRY</option>
+                  <option value="FI-LA-ICP-MS">FI-LA-ICP-MS</option>
+                  <option value="XRD-CLAY">XRD-CLAY</option>
+                  <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
+                </select>  
+                  
+            <P id="BDDtext2">2. Import File & Check Quality</p>
 
-            <button id="BDDScan">SCAN</button>
+            <button id="BDDLoad">a. LOAD</button>
 
-            <button id="BDDCopy">COPY</button>
+            <button id="BDDConvert">b. CONVERT</button>
+
+            <button id="BDDSave">c. SAVE TO BDD</button>
 
         </div>
 
 <div class="BDDRightPanel">
+
+  <div id="BDDQCtable-zone" style="width:fit-content; height:800px; overflow:auto;">
   
-        <table id="BDDQCtable" class="fl-table" style="width:800px; height:800px; overflow-y: auto; overflow-x: auto;">
+        <table id="BDDQCtable" class="fl-table">
           <thead>
               <tr>
                   <th scope="col">Your Headers</th>
                   <th scope="col">Associated Field</th>
-                  <th scope="col">% confidence</th>
+                  <th scope="col">Ignore</th>
+                  <th scope="col">Confidence</th>
               </tr>
           </thead>
           <tbody>
@@ -86,6 +95,24 @@
           <tfoot>
           </tfoot>
         </table>
+      </div>
+
+      <div id="BDDValtable-zone" style="width:fit-content; height:800px; overflow:auto;">
+  
+        <table id="BDDValtable" class="fl-table">
+          <thead>
+              <tr>
+                  <th scope="col">Values</th>
+              </tr>
+          </thead>
+          <tbody>
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table>
+      </div>
+
+      <div id="BDDchart1"></div>
       
       </div>
 

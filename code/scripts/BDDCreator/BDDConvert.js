@@ -1,8 +1,3 @@
-import {fields} from "../Common/ressources.js";
-import {parseFile} from "./BDDLoad.js";
-import { convertDataToArray } from "./BDDConvert.js";
-
-
 //---------------------------------------------
 // 1. init dexie db : db_jodel with two stores : analysis (based on analysis lines of a file and datasets to store files info)
 
@@ -24,11 +19,21 @@ db_BDD.files.clear();
 
 //---------------------------------------------
 
+export function convertDataToArray() {
 
-var input = document.querySelector('#BDDfileInput');
-document.getElementById('BDDLoad').addEventListener('click', function() {input.click();});
-input.addEventListener('input',parseFile);
-
-document.getElementById('BDDConvert').addEventListener('click', convertDataToArray);
+    var assoc = readCurrentAssociation();
+}
 
 
+function readCurrentAssociation() {
+    var assoc = {};
+    var tablebody = document.getElementById("BDDQCtable").getElementsByTagName('tbody')[0];
+
+    for (var row of tablebody.rows) {
+        var select = document.getElementById("select_"+row.cells[0].innerHTML);
+        var opt = select.options[select.selectedIndex].text;
+        assoc[row.cells[0].innerHTML] = opt; 
+    }
+
+    return assoc;
+}
