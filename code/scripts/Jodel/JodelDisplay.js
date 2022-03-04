@@ -440,12 +440,12 @@ function buildTraceMap(analysisLines) {
         titlefont: {
             size: 16
         },
-		height: 700,
         dragmode: "zoom",
         mapbox: { style: "open-street-map", center: { lat: center.lat, lon: center.lon }, zoom: AutoZoom },
 
         margin: { r: 0, t: 0, b: 0, l: 0 },
-		autosize:true,
+		width: '70%',
+		height: '100%',
         annotations:{
             align:"left",
             arrowcolor:"black",
@@ -459,6 +459,7 @@ function buildTraceMap(analysisLines) {
 	var myPlot = document.getElementById('subchart31');
 
     Plotly.newPlot('subchart31', data, layout, {
+		responsive:true,
         modeBarButtonsToRemove: ['toImage', 'sendDataToCloud'],
         modeBarButtonsToAdd: [{
           name: 'toImageSVG',
@@ -539,7 +540,8 @@ function buildTraceMap(analysisLines) {
 		};
 
 		var layout = {
-			autosize:true,
+			width: '30%',
+			height: '100%',
 			hovermode:'closest',
 			yaxis:{autorange:'reversed'}
 		};
@@ -645,7 +647,8 @@ function DensityGraph(data)
 	var Ytext = selectY.options[selectY.selectedIndex].text;
 
 	var layout = {
-	autosize:true,
+		width: '100%',
+		height: '100%',
 	showlegend: false,
 	margin: {t: 50},
 	hovermode: 'closest',

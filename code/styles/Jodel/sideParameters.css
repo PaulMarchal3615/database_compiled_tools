@@ -1,5 +1,5 @@
 .sideParameters{
-  font-size: 0.9vw;
+  font-size: 1em;
   width: 90%;
   height: 100%;
   display: grid;
@@ -28,36 +28,36 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
-  grid-template-rows: auto max-content;
+  grid-template-rows: max-content max-content;
 }
 
 #colorText{
-  grid-column: 1 / 4;
+  grid-column: 1 / 2;
   grid-row: 1;
 }
 
 #lowCol{
-  width: 100%;
+  width: 3em;
   grid-column: 1;
   grid-row: 2;
 }
 
 #highCol{
-  width: 100%;
+  width: 3em;
   grid-column: 2;
   grid-row: 2;
 }
 
 #num-classes{
-  width: 100%;
-  grid-column: 3;
-  grid-row: 2;
+  width: 3em;
+  grid-column: 1;
+  grid-row: 3;
 }
 
 #multiCol{
-  width: 100%;
-  grid-column: 4;
-  grid-row: 2;
+  width: 3em;
+  grid-column: 2;
+  grid-row: 3;
 }

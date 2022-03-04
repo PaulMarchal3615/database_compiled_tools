@@ -65,7 +65,7 @@
 
 
           <!-- table for displaying loaded files and characteristics-->
-          <div id="table-zone" style="height:250px; overflow-y: auto;">
+          <div id="table-zone" style="overflow-y: auto;">
             <table id="file_table" class="fl-table">
               <thead>
                 <tr>
@@ -86,7 +86,7 @@
           <!--filters to select only points following values on a selected property
         subfilter1 is filled when filter1 is modified-->
 
-        <select class="select" id="analysisSelect">
+        <select class="select" width=100% height=100% id="analysisSelect">
           <option selected="selected" value="DEFAULT">DEFAULT DISPLAY</option>
           <option value="METADATA">METADATA</option>
           <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
@@ -102,11 +102,11 @@
           <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
         </select>
 
-          <select class="select" name="filter1" id="filter1" multiple="multiple">
+          <select class="select" width=100% height=100% name="filter1" id="filter1" multiple="multiple">
             <option selected="selected" value="DEFAULT">-- display all data --</option>
           </select>
           <button id="selectAll">Select All</button>
-          <select class="select" name="subfilter1[]" id="subfilter1" multiple="multiple">
+          <select class="select" width=100% height=100% name="subfilter1[]" id="subfilter1" multiple="multiple">
             <option selected="selected" value="DEFAULT">-- display all data --</option>
           </select>
           <p id="miniInfoDisp"> __ </p>
@@ -182,7 +182,7 @@
               <input id="multiCol" type="color" value="#ff00e4">
             </div> 
 
-          <div id="color-table-zone" style="width:230px; height:500px; overflow-y: auto; overflow-x: auto;">
+          <div id="color-table-zone" style="overflow-y: auto; overflow-x: auto;">
             <p>LEGEND</p>
             <table id="color_table" class="color-table">
               <thead>

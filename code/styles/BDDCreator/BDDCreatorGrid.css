@@ -1,6 +1,6 @@
 .BDDMainUI{
     width: 100%;
-    height: 90%;
+    height: 100%;
     display: grid;
     grid-template-columns: 25% 75%;
     grid-gap: 10px;
@@ -66,7 +66,8 @@
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: max-content max-content max-content;
+    grid-template-columns: 50% 5% 45%;
+    grid-template-rows: 1fr;
     grid-gap: 10px;
 }
 #BDDQCtable-zone{

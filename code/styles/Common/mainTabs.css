@@ -6,8 +6,8 @@
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 8px 8px;
-    font-size: 15px;
+    padding: 5px 5px;
+    font-size: 0.9em;
     width: 10%;
     font-weight: bold;
   }
@@ -21,9 +21,9 @@
   .mainTabcontent {
     color: #000;
     display: none;
-    padding: 30px 5px;
-    height: 95vh;
-    width: 100%;
+    padding: 5px 5px;
+    height: 90vh;
+    width: 98vw;
   }
   
   

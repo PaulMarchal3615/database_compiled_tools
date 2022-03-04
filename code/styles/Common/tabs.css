@@ -32,8 +32,9 @@
 .tabcontent {
   display: none;
   padding: 0px 0px;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(0, 0, 0);
   border-top: none;
-  height: 90%;
+  height: 80vh;
   width:auto;
+  background-color: white;
 } 

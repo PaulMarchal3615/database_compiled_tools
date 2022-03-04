@@ -2,8 +2,8 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 25% 63% 12%;
-  grid-gap: 10px;
+  grid-template-columns: 25% 60% 15%;
+  grid-gap: 0.5em;
 }
 .sidebar {
   grid-column: 1;

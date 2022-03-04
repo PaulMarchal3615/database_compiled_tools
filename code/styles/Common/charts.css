@@ -11,7 +11,7 @@
 
   .wrapperMapDisplay {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 70% 30%;
     grid-gap: 0px;
     grid-auto-rows: minmax(100%, auto);
     margin: auto;
@@ -24,13 +24,10 @@
     height:100%;
   }
 
-  #subchart32  {
+  #subchart32{
     grid-column: 2;
     grid-row: 1;
     height: 100%;
     width: auto;
     background-color: white;
-    border: 1px;
-    border-color: black;
-    margin-right: 5px;
   }

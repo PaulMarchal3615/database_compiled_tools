@@ -17,13 +17,13 @@ input[type="file"] {
 }
 
 input[type="color"] {
-  background-color: transparent;
-  width: 50px;
+  padding: 0px 0px;
+  border: none;
 
 }
 
 
 .select{
-  background-color: white;
-  font-size: 0.7vw;
+  background-color: rgb(230, 230, 230);
+  font-size: 1em;
 }
