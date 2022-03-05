@@ -426,7 +426,18 @@ function buildTraceMap(analysisLines) {
 	lat: HOLES_LAT, 
 	name:HOLES, 
 	mode:'markers+text', 
-	marker:{size:10,color:colors }}];
+	
+	marker: {
+
+		color: colors,
+		size: 20,
+		line: {
+		  color: 'rgb(0, 0, 0)',
+		  width: 2
+		}
+	
+	  },
+	}];
 
 	var [center, AutoZoom] = getBoundingBox(HOLES_LAT,HOLES_LON);
 
@@ -441,11 +452,9 @@ function buildTraceMap(analysisLines) {
             size: 16
         },
         dragmode: "zoom",
-        mapbox: { style: "open-street-map", center: { lat: center.lat, lon: center.lon }, zoom: AutoZoom },
+        mapbox: { style: "stamen-terrain", center: { lat: center.lat, lon: center.lon }, zoom: AutoZoom },
 
         margin: { r: 0, t: 0, b: 0, l: 0 },
-		width: '70%',
-		height: '100%',
         annotations:{
             align:"left",
             arrowcolor:"black",
@@ -460,6 +469,8 @@ function buildTraceMap(analysisLines) {
 
     Plotly.newPlot('subchart31', data, layout, {
 		responsive:true,
+		width:"100%",
+		height:"100%",
         modeBarButtonsToRemove: ['toImage', 'sendDataToCloud'],
         modeBarButtonsToAdd: [{
           name: 'toImageSVG',
@@ -540,16 +551,26 @@ function buildTraceMap(analysisLines) {
 		};
 
 		var layout = {
-			width: '30%',
-			height: '100%',
 			hovermode:'closest',
-			yaxis:{autorange:'reversed'}
+			yaxis:{autorange:'reversed'},
+			showlegend: false
 		};
 		
 		var data = [trace1, trace2];
 		
-		Plotly.newPlot('subchart32', data, layout);
-			
+		Plotly.newPlot('subchart32', data, layout , {
+			responsive:true,
+			width:"100%",
+			height:"100%",
+			modeBarButtonsToRemove: ['toImage', 'sendDataToCloud'],
+			modeBarButtonsToAdd: [{
+			  name: 'toImageSVG',
+			  icon: Plotly.Icons.camera,
+			  click: function(gd) {
+				Plotly.downloadImage(gd, {format: 'svg'})
+			  }
+			}]
+		  });
 	})
 	.catch (function (e) {
 		console.error("DISPLAY SAMPLES",e);
@@ -647,8 +668,6 @@ function DensityGraph(data)
 	var Ytext = selectY.options[selectY.selectedIndex].text;
 
 	var layout = {
-		width: '100%',
-		height: '100%',
 	showlegend: false,
 	margin: {t: 50},
 	hovermode: 'closest',
@@ -689,7 +708,21 @@ function DensityGraph(data)
 		zeroline: false
 	}
 	};
-	var config = {responsive: true};
+
+	var config = {
+		responsive: true,
+		width:"100%",
+		height:"100%",
+		modeBarButtonsToRemove: ['toImage', 'sendDataToCloud'],
+		modeBarButtonsToAdd: [{
+			name: 'toImageSVG',
+			icon: Plotly.Icons.camera,
+			click: function(gd) {
+				Plotly.downloadImage(gd, {format: 'svg'})
+			}
+		}]
+	};
+
 	Plotly.newPlot('chart2', data, layout, config);
 
 }

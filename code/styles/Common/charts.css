@@ -14,8 +14,9 @@
     grid-template-columns: 70% 30%;
     grid-gap: 0px;
     grid-auto-rows: minmax(100%, auto);
-    margin: auto;
+    margin: 0;
     width: 100%;
+    height: 100%;
   }
   
   #subchart31 {
