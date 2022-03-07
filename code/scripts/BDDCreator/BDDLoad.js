@@ -63,8 +63,7 @@ Papa.parsePromise = function(file) {
 
 function LoadAnalysisFile(fileName,MDarray) {
 
-    var head , lines;
-    [head, ...lines] = MDarray;
+    var head = MDarray[0];
 
     var BDDselect = document.getElementById("BDDanalysisSelect");
     let selectVal = BDDselect.options[BDDselect.selectedIndex].value;
