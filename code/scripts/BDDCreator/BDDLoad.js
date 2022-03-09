@@ -2,13 +2,13 @@ import {fields} from "../Common/ressources.js";
 import {getColumn} from "../Common/common_functions.js";
 
 //---------------------------------------------
-// 1. init dexie db : db_jodel with two stores : analysis (based on analysis lines of a file and datasets to store files info)
+// 1. init dexie db : db_BDD with two stores : analysis (based on analysis lines of a file and datasets to store files info)
 
 var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
-	analysis:`LINE`,
-	files:`FILE_NAME,ARRAY`
+	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_ARRAY`,
+    metadata:`PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
 });
 
 db_BDD.open().catch(function (e) {
@@ -17,8 +17,8 @@ db_BDD.open().catch(function (e) {
 
 // clear stores if reload page 
 
-db_BDD.analysis.clear();
-db_BDD.files.clear();
+db_BDD.analysis_files.clear();
+db_BDD.metadata.clear();
 
 //---------------------------------------------
 
@@ -65,6 +65,9 @@ function LoadAnalysisFile(fileName,MDarray) {
 
     var head = MDarray[0];
 
+    var fileNameDisplay = document.getElementById("BDDtext3");
+    fileNameDisplay.innerHTML = "File Loaded : "+fileName;
+
     var BDDselect = document.getElementById("BDDanalysisSelect");
     let selectVal = BDDselect.options[BDDselect.selectedIndex].value;
     let references = Object.values(fields[selectVal]).concat(["HOLEID","SAMPLING_POINT-NAME","SAMPLE_DEPTH_FROM","SAMPLE_DEPTH_TO","X_NAD","Y_NAD","Z_NAD"]);
@@ -75,9 +78,9 @@ function LoadAnalysisFile(fileName,MDarray) {
     file.ARRAY = MDarray;
     file.FILE_NAME =fileName;
 
-    db_BDD.transaction('rw', db_BDD.files, () => {
+    db_BDD.transaction('rw', db_BDD.analysis_files, () => {
 
-        db_BDD.files.put(file);
+        db_BDD.analysis_files.put(file);
 
         }).then(()=>{console.log('DONE')})
         .catch (error => {

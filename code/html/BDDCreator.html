@@ -32,92 +32,126 @@
     <button id="BDDExport-Main">EXPORT</button>
 
     <div class="tab"> 
-        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-1')">General Metadata</button> 
-        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-2')">Samples</button> 
-          <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-3')">Analysis</button>
-      </div>
-      <!-- Tab content -->
-      <div id="BDDCreator-tab-1" class="tabcontent" style="display:block">
-      </div>
-      <div id="BDDCreator-tab-2" class="tabcontent" style="display:none">
-      </div>
-      <!-- Tab content -->
-      <div id="BDDCreator-tab-3" class="tabcontent" style="display:none">
+        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-1')">Analysis</button> 
+        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-2')">Metadata</button>
+        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-2')">Export & Save</button>
+    </div>
 
-        <input id="BDDfileInput" multiple="multiple" type="file">
+    <input id="BDDfileInput" multiple="multiple" type="file">
 
-        <div class="BDDMainUI">
+    <!-- Tab content -->
+    <div id="BDDCreator-tab-1" class="tabcontent" style="display:none">
 
-            <div class="BDDLeftPanel">
+      <div class="BDDMainUI">
 
-              <p id="BDDtext1">1. Select File type to import</p>
+        <div class="BDDLeftPanel">
 
-              <select class="select" id="BDDanalysisSelect">
-                <option value="METADATA">METADATA</option>
-                  <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
-                  <option value="PETROPHYSICS">PETROPHYSICS</option>
-                  <option value="GRAPHITE">GRAPHITE</option>>
-                  <option value="UO2-GEOCHEMISTRY-EMPA">UO2-GEOCHEMISTRY-EMPA</option>
-                  <option value="UO2-GEOCHEMISTRY-LA-ICP-MS">UO2-GEOCHEMISTRY-LA-ICP-MS</option>
-                  <option value="UO2-GEOCHEMISTRY-SIMS">UO2-GEOCHEMISTRY-SIMS</option>
-                  <option value="FI-RAMAN">FI-RAMAN</option>
-                  <option value="FI-MICROTHERMOMETRY">FI-MICROTHERMOMETRY</option>
-                  <option value="FI-LA-ICP-MS">FI-LA-ICP-MS</option>
-                  <option value="XRD-CLAY">XRD-CLAY</option>
-                  <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
-                </select>  
-                  
-            <P id="BDDtext2">2. Import File & Check Quality</p>
+          <p id="BDDtext1">1. Select File type to import</p>
 
-            <button id="BDDLoad">a. LOAD</button>
+          <select class="select" id="BDDanalysisSelect">
+              <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
+              <option value="PETROPHYSICS">PETROPHYSICS</option>
+              <option value="GRAPHITE">GRAPHITE</option>>
+              <option value="UO2-GEOCHEMISTRY-EMPA">UO2-GEOCHEMISTRY-EMPA</option>
+              <option value="UO2-GEOCHEMISTRY-LA-ICP-MS">UO2-GEOCHEMISTRY-LA-ICP-MS</option>
+              <option value="UO2-GEOCHEMISTRY-SIMS">UO2-GEOCHEMISTRY-SIMS</option>
+              <option value="FI-RAMAN">FI-RAMAN</option>
+              <option value="FI-MICROTHERMOMETRY">FI-MICROTHERMOMETRY</option>
+              <option value="FI-LA-ICP-MS">FI-LA-ICP-MS</option>
+              <option value="XRD-CLAY">XRD-CLAY</option>
+              <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
+            </select>  
+              
+          <p id="BDDtext2">2. Import File & Check Quality</p>
 
-            <button id="BDDConvert">b. CONVERT</button>
+          <p id="BDDtext3">No File Loaded</p>
 
-            <button id="BDDSave">c. SAVE TO BDD</button>
+          <button id="BDDLoad">a. LOAD</button>
+
+          <button id="BDDConvert">b. CONVERT</button>
+
+          <div id="BDD_Bloc_table_Zone" style="width:auto; height:200px; overflow:auto;">
+
+          <table id="BDD_Bloc_table" class="fl-table">
+            <thead>
+                <tr>
+                    <th scope="col">File Loaded</th>
+                    <th scope="col">Analysis Type</th>
+                    <th scope="col">Ignore</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+            </tfoot>
+          </table>
+          </div>
+
+          <p id="BDDtext4">3. Join loaded files based on a common join : </p>
+
+          <select class="select" id="JointureValSelect">
+          <option value="SAMPLING_POINT-NAME">SAMPLING_POINT-NAME</option>
+          <option value="SAMPLE_NAME">'SAMPLE_NAME</option>
+          <option value="SAMPLE_NAME_ORANO">SAMPLE_NAME_ORANO</option>
+          <option value="SAMPLE_NAME_GEORESSOURCES">SAMPLE_NAME_GEORESSOURCES</option>
+          </select>  
+
+          <button id="BDDSave">c. SAVE TO BDD</button>
 
         </div>
 
-<div class="BDDRightPanel">
+        <div class="BDDRightPanel">
 
-  <div id="BDDQCtable-zone" style="width:auto; height:700px; overflow:auto;">
-  
-        <table id="BDDQCtable" class="fl-table">
-          <thead>
-              <tr>
-                  <th scope="col">Your Headers</th>
-                  <th scope="col">Associated Field</th>
-                  <th scope="col">Ignore</th>
-                  <th scope="col">Confidence</th>
-              </tr>
-          </thead>
-          <tbody>
-          </tbody>
-          <tfoot>
-          </tfoot>
-        </table>
+          <div id="BDDQCtable-zone" style="width:auto; height:700px; overflow:auto;">
+
+            <table id="BDDQCtable" class="fl-table">
+            <thead>
+            <tr>
+                <th scope="col">Your Headers</th>
+                <th scope="col">Associated Field</th>
+                <th scope="col">Ignore</th>
+                <th scope="col">Confidence</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+            </tfoot>
+            </table>
+          </div>
+
+          <div id="BDDValtable-zone" style="width:auto; height:700px; overflow:auto;">
+
+            <table id="BDDValtable" class="fl-table">
+            <thead>
+            <tr>
+                <th scope="col">Values</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+            </tfoot>
+            </table>
+          </div>
+
+          <div id="BDDchart1" style="width:auto; height:700px; overflow:auto;">
+          </div>
+
+        </div>
+
       </div>
+    </div>
 
-      <div id="BDDValtable-zone" style="width:auto; height:700px; overflow:auto;">
-  
-        <table id="BDDValtable" class="fl-table">
-          <thead>
-              <tr>
-                  <th scope="col">Values</th>
-              </tr>
-          </thead>
-          <tbody>
-          </tbody>
-          <tfoot>
-          </tfoot>
-        </table>
-      </div>
+    <div id="BDDCreator-tab-2" class="tabcontent" style="display:none">
+    </div>
 
-      <div id="BDDchart1" style="width:auto; height:700px; overflow:auto;"></div>
-      
-      </div>
+    <!-- Tab content -->
+    <div id="BDDCreator-tab-3" class="tabcontent" style="display:block">
+    </div>
 
 
-      </div>
+  </div>
       <script type="module" src="../scripts/BDDCreator/BDDMain.js"></script>
 
   </body>
