@@ -7,7 +7,7 @@ import {getColumn} from "../Common/common_functions.js";
 var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
-	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_ARRAY`,
+	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
     metadata:`PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
 });
 
@@ -65,7 +65,7 @@ function LoadAnalysisFile(fileName,MDarray) {
 
     var head = MDarray[0];
 
-    var fileNameDisplay = document.getElementById("BDDtext3");
+    var fileNameDisplay = document.getElementById("BDDText3");
     fileNameDisplay.innerHTML = "File Loaded : "+fileName;
 
     var BDDselect = document.getElementById("BDDanalysisSelect");
@@ -75,8 +75,9 @@ function LoadAnalysisFile(fileName,MDarray) {
     displayResults(results,MDarray);
 
     var file = {};
-    file.ARRAY = MDarray;
-    file.FILE_NAME =fileName;
+    file.RAW_ARRAY = MDarray;
+    file.FILE_NAME = fileName;
+    file.TYPE = selectVal;
 
     db_BDD.transaction('rw', db_BDD.analysis_files, () => {
 
@@ -116,6 +117,7 @@ function compareHeads(heads, references) {
  function displayResults(results, array){
 
 	var tablebody = document.getElementById("BDDQCtable").getElementsByTagName('tbody')[0];
+    $("#BDDQCtable tr").remove(); 
 
     for (var head of Object.keys(results)) {
 
@@ -216,7 +218,8 @@ function setCellColor(percentCell, percent) {
 
 }
 
-function selectMaximumValues(values) {
+function selectMaximumValues(values) 
+{
 
     var max =-1;
     var maxName='';
@@ -234,8 +237,7 @@ function selectMaximumValues(values) {
     }
     else {
         return [0, 'NO MATCH']
-    }
-    
+    }  
 
 }
 

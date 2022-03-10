@@ -4,6 +4,7 @@
 
   <head>
     <link rel="stylesheet" href="../styles/BDDCreator/BDDCreatorGrid.css" />
+    <link rel="stylesheet" href="../styles/BDDCreator/BDDCreatorMetadataGrid.css" />
     <link rel="stylesheet" href="../styles/Common/input.css" />
 
     <script type="text/javascript">
@@ -27,10 +28,6 @@
 
   <body>
 
-    <button id="BDDImport-Main">IMPORT</button>
-    <button id="BDDSave-Main">SAVE</button>
-    <button id="BDDExport-Main">EXPORT</button>
-
     <div class="tab"> 
         <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-1')">Analysis</button> 
         <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-2')">Metadata</button>
@@ -46,7 +43,7 @@
 
         <div class="BDDLeftPanel">
 
-          <p id="BDDtext1">1. Select File type to import</p>
+          <p id="BDDText1">1. Select File type to import</p>
 
           <select class="select" id="BDDanalysisSelect">
               <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
@@ -62,9 +59,9 @@
               <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
             </select>  
               
-          <p id="BDDtext2">2. Import File & Check Quality</p>
+          <p id="BDDText2">2. Import File & Check Quality</p>
 
-          <p id="BDDtext3">No File Loaded</p>
+          <p id="BDDText3">No File Loaded</p>
 
           <button id="BDDLoad">a. LOAD</button>
 
@@ -86,17 +83,6 @@
             </tfoot>
           </table>
           </div>
-
-          <p id="BDDtext4">3. Join loaded files based on a common join : </p>
-
-          <select class="select" id="JointureValSelect">
-          <option value="SAMPLING_POINT-NAME">SAMPLING_POINT-NAME</option>
-          <option value="SAMPLE_NAME">'SAMPLE_NAME</option>
-          <option value="SAMPLE_NAME_ORANO">SAMPLE_NAME_ORANO</option>
-          <option value="SAMPLE_NAME_GEORESSOURCES">SAMPLE_NAME_GEORESSOURCES</option>
-          </select>  
-
-          <button id="BDDSave">c. SAVE TO BDD</button>
 
         </div>
 
@@ -144,6 +130,89 @@
     </div>
 
     <div id="BDDCreator-tab-2" class="tabcontent" style="display:none">
+
+      <div class="BDDMetaUI">
+
+        <div class="BDDMetaLeftPanel">
+
+          <p id="BDDMetaText1">1. Select File type to import</p>
+
+          <select class="select" id="BDDMetaSelect">
+              <option value="PROJECT_METADATA">PROJECT_METADATA</option>
+              <option value="HOLES_METADATA">HOLES_METADATA</option>
+              <option value="SAMPLES_METADATA">SAMPLES_METADATA</option>>
+            </select>  
+              
+          <p id="BDDMetaText2">2. Import File & Check Quality</p>
+
+          <p id="BDDMetaText3">No File Loaded</p>
+
+          <button id="BDDMetaLoad">a. LOAD</button>
+
+          <button id="BDDMetaConvert">b. CONVERT</button>
+
+          <div id="BDD_Meta_Bloc_table_Zone" style="width:auto; height:200px; overflow:auto;">
+
+          <table id="BDD_Meta_Bloc_table" class="fl-table">
+            <thead>
+                <tr>
+                    <th scope="col">File Loaded</th>
+                    <th scope="col">Analysis Type</th>
+                    <th scope="col">Ignore</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+            </tfoot>
+          </table>
+          </div>
+
+
+        </div>
+
+        <div class="BDDMetaRightPanel">
+
+
+          <div id="BDDQC_Meta_table-zone" style="width:auto; height:700px; overflow:auto;">
+
+            <table id="BDDQC_Meta_table" class="fl-table">
+            <thead>
+            <tr>
+                <th scope="col">Your Headers</th>
+                <th scope="col">Associated Field</th>
+                <th scope="col">Ignore</th>
+                <th scope="col">Confidence</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+            </tfoot>
+            </table>
+          </div>
+
+          <div id="Meta_table-zone" style="width:auto; height:700px; overflow:auto;">
+
+            <table id="Meta_table" class="fl-table">
+            <thead>
+            <tr>
+                <th scope="col">HOLEID</th>
+                <th scope="col">Associated Field</th>
+                <th scope="col">Ignore</th>
+                <th scope="col">Confidence</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+            </tfoot>
+            </table>
+          </div>
+
+
+        </div>
+
     </div>
 
     <!-- Tab content -->
