@@ -10,11 +10,11 @@
     <script type="text/javascript">
       function openTab(evt, viewName) {
         var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
+        tabcontent = document.getElementsByClassName("tabcontent2");
         for (i = 0; i < tabcontent.length; i++) {
           tabcontent[i].style.display = "none";
         }
-        tablinks = document.getElementsByClassName("tablinks");
+        tablinks = document.getElementsByClassName("tablinks2");
         for (i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
@@ -31,7 +31,8 @@
     <div class="tab" id="BDDtab"> 
         <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-1')">Analysis</button> 
         <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-2')">Metadata</button>
-        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-2')">Export & Save</button>
+        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-3')">QC</button>
+        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-4')">Export & Save</button>
     </div>
 
     <input id="BDDfileInput" multiple="multiple" type="file">
@@ -213,15 +214,109 @@
 
         </div>
 
+      </div>
+
     </div>
 
-    <!-- Tab content -->
-    <div id="BDDCreator-tab-3" class="tabcontent" style="display:block">
+    <div id="BDDCreator-tab-3" class="tabcontent" style="display:none">
+
+      <button id="BDDDisplay">DISPLAY</button>
+
+      <div class="tab" id="QCtab"> 
+
+        <button class="tablinks2" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
+        <button class="tablinks2" onclick="openTab(event, 'SamplesMetadata')">Samples Metadata</button>
+
+      </div>
+
+    <div id="GeneralMetadata" class="tabcontent2" style="display:none">
+          
+      <table id="MetadataTable" class="fl-table">
+        <thead>
+            <tr>
+                <th colspan="3">Project general Metadata</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
     </div>
+  
+    <div id="SamplesMetadata" class="tabcontent2" style="display:none">
+      
+      <div class="wrapper">
+
+      <div class="one">
+
+      <table class="fl-table" id="HolesTable">
+        <thead>
+            <tr>
+                <th colspan="2">Hole List</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+      </div>
+
+      <div class="two">
+
+      <table class="fl-table" id="HoleMetadataTable">
+        <thead>
+            <tr>
+                <th colspan="3">Hole info</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+    </div>
+    <div class="three">
+
+      <table class="fl-table" id="SamplesTable">
+        <thead>
+            <tr>
+                <th colspan="1">Samples List</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+    </div>
+
+
+
+      <div class="four">
+
+        <table class="fl-table" id="SampleMetadataTable">
+          <thead>
+              <tr>
+                  <th colspan="3">Sample info</th>
+              </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+
+      </div>
+
 
 
   </div>
-      <script type="module" src="../scripts/BDDCreator/BDDMain.js"></script>
+      
+
+    </div>
+
+    </div>
+
+    <div id="BDDCreator-tab-4" class="tabcontent" style="display:none">
+      <p>empty</p>
+    </div>
+  
+  <script type="module" src="../scripts/BDDCreator/BDDMain.js"></script>
 
   </body>
 

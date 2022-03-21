@@ -1,6 +1,5 @@
 // function and classes import fron other files
 import {GeoCoordSys,ProjCoordSys,Languages,lithology,gitology,texture,countries, projectMetadata,chronostratigraphic} from './ressources.js';
-import {updateSelect,buildMultipleSelect,initselect, findValue} from './display.js';
 import {Drillhole} from './HardbaseDrillhole.js';
 import {Sample} from './Sample.js';
 
@@ -415,8 +414,7 @@ function buildComplexTable(tableName, dict) {
         console.log("init",patternText1);
         console.log("pattern",dict[key].requiredPattern);
       cell3.innerHTML = '<input type="text" value="'+dict[key].value+'"placeholder="'+dict[key].placeholder+'" title="'+dict[key].description+'" class="TextInput" id="name" name="name" required minlength="1" maxlength="15" size="10" style="width: 100%" required pattern="'+dict[key].requiredPattern+'">';
-      }
-      
+      } 
   }
 }
 

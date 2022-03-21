@@ -1,19 +1,3 @@
-var db = new Dexie("database");
-
-db.version(1).stores({
-    projects:`name,
-    project`,
-      samples: `
-        name,
-        meta,
-        lines`,
-    holes:`
-      name,
-      samples,
-      meta
-      `
-    });
-
 
 /**
  * bool : returns false if tested value is in the options of a select

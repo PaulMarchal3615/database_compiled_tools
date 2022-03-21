@@ -8,7 +8,7 @@ var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
 	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
-    metadata:`PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+    metadata:`ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
     rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`
 });
 
@@ -30,8 +30,8 @@ export function convertDataToArray() {
 
     var fileName = document.getElementById("BDDText3").innerHTML.split(" ")[3];
 
-        db_BDD.transaction('r', db_BDD.analysis_files, function () {
-            return db_BDD.analysis_files.where('FILE_NAME').equals(fileName).toArray();
+    db_BDD.transaction('r', db_BDD.analysis_files, function () {
+        return db_BDD.analysis_files.where('FILE_NAME').equals(fileName).toArray();
     }).then (files =>{
         
         var newArray = createCorrectedArray(assoc, files[0].RAW_ARRAY);
