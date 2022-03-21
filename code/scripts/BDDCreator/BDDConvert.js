@@ -9,6 +9,7 @@ var db_BDD = new Dexie("BDD_DB");
 db_BDD.version(1).stores({
 	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
     metadata:`PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+    rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`
 });
 
 db_BDD.open().catch(function (e) {
@@ -19,6 +20,7 @@ db_BDD.open().catch(function (e) {
 
 db_BDD.analysis_files.clear();
 db_BDD.metadata.clear();
+db_BDD.rawMetadata_files.clear();
 
 //---------------------------------------------
 

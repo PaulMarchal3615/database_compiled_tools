@@ -9,6 +9,7 @@ var db_BDD = new Dexie("BDD_DB");
 db_BDD.version(1).stores({
 	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
     metadata:`PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+    rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`
 });
 
 db_BDD.open().catch(function (e) {
@@ -19,6 +20,7 @@ db_BDD.open().catch(function (e) {
 
 db_BDD.analysis_files.clear();
 db_BDD.metadata.clear();
+db_BDD.rawMetadata_files.clear();
 
 //---------------------------------------------
 
@@ -28,13 +30,25 @@ db_BDD.metadata.clear();
  export function parseFile() {
 
     var input = document.querySelector('#BDDfileInput');
+    var pageName =$('#BDDtab .active').text()
+    console.log(pageName);
+
 
 	for (let file of input.files) {
 
 		if (file.name.split('.').pop() =="csv") {
 
-			Papa.parsePromise(file).then(function(results) { 
-                LoadAnalysisFile(file.name,results.data);
+			Papa.parsePromise(file).then(function(results) {
+
+                if (pageName == "Analysis") {
+
+                    LoadAnalysisFile(file.name,results.data);
+
+                }
+                if (pageName == "Metadata") {
+                    LoadMetaDataFile(file.name, results.data);
+                }
+                
 			});
 		}
 	}
@@ -72,7 +86,7 @@ function LoadAnalysisFile(fileName,MDarray) {
     let selectVal = BDDselect.options[BDDselect.selectedIndex].value;
     let references = Object.values(fields[selectVal]).concat(["HOLEID","SAMPLING_POINT-NAME","SAMPLE_DEPTH_FROM","SAMPLE_DEPTH_TO","X_NAD","Y_NAD","Z_NAD"]);
     var results = compareHeads(head, references);
-    displayResults(results,MDarray);
+    displayResults(results,MDarray,"BDDQCtable");
 
     var file = {};
     file.RAW_ARRAY = MDarray;
@@ -87,6 +101,34 @@ function LoadAnalysisFile(fileName,MDarray) {
         .catch (error => {
             console.error(error);
         });	
+
+}
+
+function LoadMetaDataFile(fileName,MDarray) {
+
+    var head = MDarray[0];
+
+    var fileNameDisplay = document.getElementById("BDDMetaText3");
+    fileNameDisplay.innerHTML = "File Loaded : "+fileName;
+
+    var BDDselect = document.getElementById("BDDMetaSelect");
+    let selectVal = BDDselect.options[BDDselect.selectedIndex].value;
+    let references = Object.values(fields["METADATA"]);
+    var results = compareHeads(head, references);
+
+    displayResults(results,MDarray, "BDDQC_Meta_table");
+
+    var file = {};
+    file.RAW_ARRAY = MDarray;
+    file.FILE_NAME = fileName;
+    file.TYPE = selectVal;
+
+    db_BDD.transaction('rw', db_BDD.rawMetadata_files, () => {
+        db_BDD.rawMetadata_files.put(file);
+    }).then(()=>{console.log('DONE')})
+    .catch (error => {
+        console.error(error);
+    });	
 
 }
 
@@ -114,10 +156,10 @@ function compareHeads(heads, references) {
  * void update file table adding newly input file in it.
  * @param {*} dataset : Dataset object to add in file table
  */
- function displayResults(results, array){
+ function displayResults(results, array, tableName){
 
-	var tablebody = document.getElementById("BDDQCtable").getElementsByTagName('tbody')[0];
-    $("#BDDQCtable tr").remove(); 
+	var tablebody = document.getElementById(tableName).getElementsByTagName('tbody')[0];
+    $("#"+tableName+" tr").remove(); 
 
     for (var head of Object.keys(results)) {
 
@@ -136,7 +178,10 @@ function compareHeads(heads, references) {
         colValues.shift();
         cell1.allValues = colValues;
 
-        cell1.addEventListener('click', showValues);
+        if (tableName == "BDDQCtable") {
+            cell1.addEventListener('click', showValues);
+        }
+        
         cell2.innerHTML = '<select id ="select_'+head+'"</select>';
         cell3.innerHTML = '<button id ="btnIgn_'+head+'">&#10003</button>'; 
 

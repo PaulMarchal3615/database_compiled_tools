@@ -18,17 +18,32 @@ db_jodel.version(1).stores({
  */
 function convertToArray(arr) {
 	var headers = Object.keys(arr[0]);
+
+	console.log(headers);
 	
 	var data =[];
 	const trueHeaders = headers.map(val => keyVal[val]);
-	const unitsLine = trueHeaders.map(val => units[val]);
+	const unitsLine = headers.map(val => units[val]);
+
+	trueHeaders.pop();
+	trueHeaders.pop();
+	trueHeaders.pop();
+	trueHeaders.pop();
+
+	unitsLine.pop();
+	unitsLine.pop();
+	unitsLine.pop();
+	unitsLine.pop();
 
 	data.push(trueHeaders, unitsLine);
 
 	for (let obj of arr) {
-		let line =[];
+		let line = [];
 		for (let key of headers) {
-			line.push(obj[key]);
+			if ((key != "FILE_NAME") && (key != "COLOR") && (key != "TYPE") && (key != "LINE")) {
+				line.push(obj[key]);
+			}
+			
 		}
 		data.push(line);
 	}
