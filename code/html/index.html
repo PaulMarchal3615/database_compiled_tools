@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../styles/Common/color-table.css" />
     <link rel="stylesheet" href="../styles/Common/charts.css" />
     <link rel="stylesheet" href="../styles/Common/input.css" />
+    <link rel="stylesheet" href="../styles/Common/indexGrid.css" />
     
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -24,7 +25,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/country-region-selector/0.5.1/crs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js"></script>
     <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -36,52 +36,52 @@
 
 <body>
 
-  <img style="float: left; margin: 5px 15px 5px 5px;"src="./pictures/logo_soft.svg"
-  height=80px width=auto alt="logo"/>
+  <div class="indexGrid">
 
-  <img style="float: right; margin: 0px 0px 0px 0px;"src="http://lue.univ-lorraine.fr/sites/default/files/users/user2448/logo_Georessources.png"
-height=70x width=auto alt="logo"/>
+    <header id="headerIndex">
+      <img id="logo0" src="https://multi.univ-lorraine.fr/img/ul-logo.png" height="100%" width="auto" alt="logo"/>
+      <img id="logo1" style="justify-self:end" src="./pictures/logo_soft.svg" height="100%" width=100% alt="logo"/>
+      <button id="btn-BDD" class="mainTablink" onclick="openPage('Historical', this, '#709CA7')">HISTORICAL DATASETS INTEGRATION</button>
+      <button id="btn-JODEL" class="mainTablink" onclick="openPage('Jodel', this, '#709CA7')"> JODEL</button>
+    </header>
 
-  <button class="mainTablink" onclick="openPage('Historical', this, '#E78680')">HISTORICAL DATASETS INTEGRATION</button>
-  <button class="mainTablink" onclick="openPage('New', this, '#38BFA7')">NEW DATASET FILE CREATION</button>
-  <button class="mainTablink" onclick="openPage('Jodel', this, '#285A8E')" id="defaultOpen"> JODEL</button>
+    <div id="Historical" class="mainTabcontent">
 
-  <div id="Historical" class="mainTabcontent">
+      <div id="divTestArea1"></div>
 
-    <div id="divTestArea1"></div>
+      <script type="text/javascript">
+        $(function()
+        {
+          $("#divTestArea1").load("BDDCreator.html");
+        });
+        </script>
 
-    <script type="text/javascript">
-      $(function()
-      {
-        $("#divTestArea1").load("BDDCreator.html");
-      });
-      </script>
-
-  </div>
+    </div>
   
-  <div id="New" class="mainTabcontent">
+    <div id="Jodel" class="mainTabcontent">
 
-    <div id="divTestArea2"></div>
-    <script type="text/javascript">
-      $(function()
-      {
-        $("#divTestArea2").load("HardBase.html");
-      });
-      </script>
-
-  </div>
-  
-  <div id="Jodel" class="mainTabcontent">
-
-    <div id="divTestArea3"></div>
+      <div id="divTestArea3"></div>
 
 
-    <script type="text/javascript">
-      $(function()
-      {
-        $("#divTestArea3").load("Jodel.html");
-      });
-      </script>
+      <script type="text/javascript">
+        $(function()
+        {
+          $("#divTestArea3").load("Jodel.html");
+        });
+        </script>
+
+    </div>
+
+    <footer id="footer">
+
+      <p class="copyright"> Otelo - GeoRessources © 2022</p>
+      <img id="logo3" src="./pictures/otelo_bw.png" height="100%" width="100%" alt="logo"/>
+      
+      <img id="logo2" src="http://lue.univ-lorraine.fr/sites/default/files/users/user2448/logo_Georessources.png"
+      height="100%" width="100%" alt="logo"/>
+
+      
+    </footer>
 
   </div>
   
@@ -109,10 +109,12 @@ height=70x width=auto alt="logo"/>
     }
 
     // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click(); 
+    document.getElementById("btn-JODEL").click(); 
     </script>
 
 </body>
+
+
 
 </html>
 

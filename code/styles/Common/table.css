@@ -20,11 +20,11 @@
 .fl-table td {
     border-right: 1px solid #f8f8f8;
     font-size: 1em;
-    word-break: break-word;
+    width: min-content;
 }
 
 .fl-table thead th {
-    background-color: #009879;
+    background-color: #137C8B;
     color: #ffffff;
     text-align: left;
 }
@@ -32,7 +32,7 @@
 
 .fl-table thead th:nth-child(odd) {
     color: #ffffff;
-    background: #202E38;
+    background: #344D59;
 }
 
 .fl-table tr:nth-child(even) {

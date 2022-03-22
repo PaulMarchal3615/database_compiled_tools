@@ -1,0 +1,96 @@
+.indexGrid{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-gap: 0.5em;
+    grid-template-rows: 5% 1fr 4%;
+    grid-template-columns: 100%;
+}
+
+#headerIndex{
+    grid-column: 1;
+    grid-row: 1;
+    background-color: #323232;
+}
+
+.mainTabContent{
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    height: 100%;
+}
+
+#footer{
+    grid-column: 1;
+    grid-row: 3;
+    background-color: #323232;
+}
+
+#headerIndex{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: 155px 1fr 1fr 60px;
+    grid-template-rows: 100%;
+}
+
+
+.logo0 {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#btn-BDD {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#btn-Jodel {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.logo1 {
+    grid-column: 4;
+    grid-row: 1;
+    align-self: end;
+}
+
+#footer{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-gap: 0.1em;
+    grid-template-columns: 155px 1fr 100px;
+    grid-template-rows: 100%;
+    align-items: center;
+    justify-items: center;
+}
+
+.logo3{
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.copyright{
+    grid-column: 2;
+    grid-row: 1;
+}
+
+
+.logo2{
+    grid-column: 3;
+    grid-row: 1;
+}
+
+
+#divtestArea3 {
+    width: 100%;
+    height: 100%;
+}
+  
+#divtestArea1 {
+width: 100%;
+height: 100%;
+}

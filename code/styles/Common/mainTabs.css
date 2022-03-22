@@ -1,29 +1,32 @@
 /* Style tab links */
 .mainTablink {
-    background-color: #202E38;
+    background-color: #323232;
     color: white;
     float: unset;
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 20px 0px;
     font-size: 0.9em;
-    width: 10%;
+    width: 100%;
     font-weight: bold;
   }
   
   .mainTablink:hover {
     transform: scale(1.05);
-    background-color:#48AAE0;
+    background-color:#137C8B;
+  }
+
+  .mainTablink:focus{
+    transform: scale(1.05);
+    background-color:#137C8B;
   }
   
   /* Style the tab content (and add height:100% for full page content) */
   .mainTabcontent {
-    color: #000;
+    color: #323232;
     display: none;
-    padding: 5px 5px;
-    height: 90vh;
-    width: 98vw;
+    height: 100%;
+    width: 100%;
   }
   
   

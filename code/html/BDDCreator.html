@@ -175,7 +175,7 @@
         <div class="BDDMetaRightPanel">
 
 
-          <div id="BDDQC_Meta_table-zone" style="width:auto; height:700px; overflow:auto;">
+          <div id="BDDQC_Meta_table-zone" style="width:95%; height:700px; overflow:auto;">
 
             <table id="BDDQC_Meta_table" class="fl-table">
             <thead>
@@ -193,25 +193,6 @@
             </table>
           </div>
 
-          <div id="Meta_table-zone" style="width:auto; height:700px; overflow:auto;">
-
-            <table id="Meta_table" class="fl-table">
-            <thead>
-            <tr>
-                <th scope="col">HOLEID</th>
-                <th scope="col">Associated Field</th>
-                <th scope="col">Ignore</th>
-                <th scope="col">Confidence</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-            </tfoot>
-            </table>
-          </div>
-
-
         </div>
 
       </div>
@@ -222,93 +203,105 @@
 
       <button id="BDDDisplay">DISPLAY</button>
 
-      <div class="tab" id="QCtab"> 
 
-        <button class="tablinks2" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
-        <button class="tablinks2" onclick="openTab(event, 'SamplesMetadata')">Samples Metadata</button>
+      <div id="QCSubTab">
 
-      </div>
+        <div class="tab" id="QCtab"> 
 
-    <div id="GeneralMetadata" class="tabcontent2" style="display:none">
+          <button class="tablinks2" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
+          <button class="tablinks2" onclick="openTab(event, 'SamplesMetadata')">Samples Metadata</button>
+
+        </div>
+
+        <div id="QCDivArea">
+
+        <div id="GeneralMetadata" class="tabcontent2" style="display:none">
+
+          <div id="metadata-table-zone" style="width:auto; height:800px; overflow:auto;">
+              
+            <table id="MetadataTable" class="fl-table">
+              <thead>
+                  <tr>
+                      <th colspan="3">Project general Metadata</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    
+        <div id="SamplesMetadata" class="tabcontent2" style="display:none">
           
-      <table id="MetadataTable" class="fl-table">
-        <thead>
-            <tr>
-                <th colspan="3">Project general Metadata</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    </div>
-  
-    <div id="SamplesMetadata" class="tabcontent2" style="display:none">
-      
-      <div class="wrapper">
+          <div class="wrapper">
 
-      <div class="one">
+          <div class="one">
 
-      <table class="fl-table" id="HolesTable">
-        <thead>
-            <tr>
-                <th colspan="2">Hole List</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+          <table class="fl-table" id="HolesTable">
+            <thead>
+                <tr>
+                    <th colspan="2">Hole List</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+
+          </div>
+
+          <div class="two">
+
+          <table class="fl-table" id="HoleMetadataTable">
+            <thead>
+                <tr>
+                    <th colspan="3">Hole info</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+
+        </div>
+        <div class="three">
+
+          <table class="fl-table" id="SamplesTable">
+            <thead>
+                <tr>
+                    <th colspan="1">Samples List</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+
+        </div>
+
+
+
+          <div class="four">
+
+            <table class="fl-table" id="SampleMetadataTable">
+              <thead>
+                  <tr>
+                      <th colspan="3">Sample info</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+
+          </div>
+
+
+
+      </div>
+          
+
+        </div>
 
       </div>
 
-      <div class="two">
-
-      <table class="fl-table" id="HoleMetadataTable">
-        <thead>
-            <tr>
-                <th colspan="3">Hole info</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-
-    </div>
-    <div class="three">
-
-      <table class="fl-table" id="SamplesTable">
-        <thead>
-            <tr>
-                <th colspan="1">Samples List</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-
-    </div>
-
-
-
-      <div class="four">
-
-        <table class="fl-table" id="SampleMetadataTable">
-          <thead>
-              <tr>
-                  <th colspan="3">Sample info</th>
-              </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-
       </div>
-
-
-
-  </div>
-      
-
-    </div>
 
     </div>
 

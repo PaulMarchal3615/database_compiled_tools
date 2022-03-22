@@ -66,7 +66,7 @@
 
           <!-- table for displaying loaded files and characteristics-->
           <div id="table-zone" style="overflow-y: auto;">
-            <table id="file_table" class="fl-table">
+            <table id="file_table" class="fl-table" style="word-break: break-word;">
               <thead>
                 <tr>
                   <th scope="col">File</th>
@@ -117,38 +117,42 @@
       <!-- main display zone-->
       <div class="displayZone">
         <!-- Tab links -->
-        <div class="tab"> 
+        <div id="displayZoneTabs" class="tab"> 
           <button class="tablinks" onclick="openView(event, 'Jodel-tab-1')">3D View</button> 
           <button class="tablinks" onclick="openView(event, 'Jodel-tab-2')">Map view</button> 
             <button class="tablinks" onclick="openView(event, 'Jodel-tab-3')">Density</button>
         </div>
         <!-- Tab content -->
-        <div id="Jodel-tab-1" class="tabcontent" style="display:block">
-          <div id="chart1" width=100% height=100%></div>
-        </div>
-        <div id="Jodel-tab-2" class="tabcontent" style="display:none">
-          <div class="wrapperMapDisplay">
-            <div id="subchart31" width=100% height=100%></div>
-            <div id="subchart32" width=100% height=100%></div>
+          <div id="chartsZone">
+
+          <div id="Jodel-tab-1" class="tabcontent" style="display:block">
+            <div id="chart1" width=100% height=100%></div>
           </div>
-        </div>
-        <!-- Tab content -->
-        <div id="Jodel-tab-3" class="tabcontent" style="display:none">
+          <div id="Jodel-tab-2" class="tabcontent" style="display:none">
+            <div class="wrapperMapDisplay">
+              <div id="subchart31" width=100% height=100%></div>
+              <div id="subchart32" width=100% height=100%></div>
+            </div>
+          </div>
+          <!-- Tab content -->
+          <div id="Jodel-tab-3" class="tabcontent" style="display:none">
 
-          <select class="select" name="densityX" id="densityX" multiple="multiple">
-            <option selected="selected" value="A26">Longitude</option>
-            <option value="A27">Latitude</option>
-            <option value="A28">Altitude</option>
-          </select>
+            <select class="select" name="densityX" id="densityX" multiple="multiple">
+              <option selected="selected" value="A26">Longitude</option>
+              <option value="A27">Latitude</option>
+              <option value="A28">Altitude</option>
+            </select>
 
-          <select class="select" name="densityY" id="densityY" multiple="multiple">
-            <option value="A26">Longitude</option>
-            <option value="A27">Latitude</option>
-            <option selected="selected" value="A28">Altitude</option>
-          </select>
+            <select class="select" name="densityY" id="densityY" multiple="multiple">
+              <option value="A26">Longitude</option>
+              <option value="A27">Latitude</option>
+              <option selected="selected" value="A28">Altitude</option>
+            </select>
 
 
-          <div id="chart2" width=100% height=100%></div>
+            <div id="chart2" width=100% height=100%></div>
+          </div>
+
         </div>
       </div>
 

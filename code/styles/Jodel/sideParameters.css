@@ -3,7 +3,7 @@
   width: 90%;
   height: 100%;
   display: grid;
-  grid-template-columns: 100%;
+  grid-template-columns: 1fr;
   grid-gap: 10px;
   grid-template-rows: max-content max-content max-content;
 }
@@ -34,30 +34,30 @@
 }
 
 #colorText{
-  grid-column: 1 / 2;
+  grid-column: 1 / 3;
   grid-row: 1;
 }
 
 #lowCol{
-  width: 3em;
+  width: 100%;
   grid-column: 1;
   grid-row: 2;
 }
 
 #highCol{
-  width: 3em;
+  width: 100%;
   grid-column: 2;
   grid-row: 2;
 }
 
 #num-classes{
-  width: 3em;
+  width: 100%;
   grid-column: 1;
   grid-row: 3;
 }
 
 #multiCol{
-  width: 3em;
+  width: 100%;
   grid-column: 2;
   grid-row: 3;
 }

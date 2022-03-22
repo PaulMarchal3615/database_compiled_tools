@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 25% 60% 15%;
+  grid-template-columns: 1fr 2fr 150px;
   grid-gap: 0.5em;
 }
 .sidebar {
@@ -17,4 +17,19 @@
 .parameterBar{
   grid-column: 3;
   grid-row: 1;
+}
+
+.displayZone{
+  grid-template-rows: max-content 1fr;
+  display: grid;
+}
+
+#displayZoneTabs{
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#chartsZone{
+  grid-column: 1;
+  grid-row: 2;
 }
