@@ -9,7 +9,7 @@ var db_BDD = new Dexie("BDD_DB");
 db_BDD.version(1).stores({
 	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
     metadata:`ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
-    rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`
+    rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT,IS_READ`
 });
 
 db_BDD.open().catch(function (e) {
@@ -122,6 +122,7 @@ function LoadMetaDataFile(fileName,MDarray) {
     file.RAW_ARRAY = MDarray;
     file.FILE_NAME = fileName;
     file.TYPE = selectVal;
+    file.IS_READ =false;
 
     db_BDD.transaction('rw', db_BDD.rawMetadata_files, () => {
         db_BDD.rawMetadata_files.put(file);
