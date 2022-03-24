@@ -1,4 +1,4 @@
-import {fields} from "../Common/ressources.js";
+import {fields, metadataFields} from "../Common/ressources.js";
 import {getColumn} from "../Common/common_functions.js";
 
 //---------------------------------------------
@@ -113,7 +113,7 @@ function LoadMetaDataFile(fileName,MDarray) {
 
     var BDDselect = document.getElementById("BDDMetaSelect");
     let selectVal = BDDselect.options[BDDselect.selectedIndex].value;
-    let references = Object.values(fields["METADATA"]);
+    let references = Object.values(metadataFields[selectVal]);
     var results = compareHeads(head, references);
 
     displayResults(results,MDarray, "BDDQC_Meta_table");
@@ -122,11 +122,11 @@ function LoadMetaDataFile(fileName,MDarray) {
     file.RAW_ARRAY = MDarray;
     file.FILE_NAME = fileName;
     file.TYPE = selectVal;
-    file.IS_READ =false;
+    file.IS_READ = 0;
 
     db_BDD.transaction('rw', db_BDD.rawMetadata_files, () => {
         db_BDD.rawMetadata_files.put(file);
-    }).then(()=>{console.log('DONE')})
+    }).then(()=>{console.log('DONE : File Loaded')})
     .catch (error => {
         console.error(error);
     });	
@@ -314,6 +314,9 @@ function updatePercent(event) {
 
 const JaroWrinker  =  (s1, s2) =>  {
     var m = 0;
+
+    s1 = s1.toUpperCase();
+    s2 = s2.toUpperCase();
 
     // Exit early if either are empty.
     if ( s1.length === 0 || s2.length === 0 ) {

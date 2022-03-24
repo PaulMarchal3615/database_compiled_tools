@@ -1,5 +1,5 @@
-import { projectMetadata } from "../Common/ressources.js";
-import { buildMultipleSelect,initselect, fillSelect } from "./BDDSelect.js";
+import {projectMetadata, countries, GeoCoordSys,ProjCoordSys,Languages} from "../Common/ressources.js";
+import { buildMultipleSelect,initselect, fillSelect,updateSelect } from "./BDDSelect.js";
 //---------------------------------------------
 // 1. init dexie db : db_BDD with two stores : analysis (based on analysis lines of a file and datasets to store files info)
 
@@ -31,26 +31,10 @@ export function displayMetadata() {
     db_BDD.transaction('rw', db_BDD.metadata, function () {
         return db_BDD.metadata.toArray();
     }).then (metadatas =>{
-
-        console.log(metadatas);
         
         if (metadatas.length > 0) {
-
-            if (!(jQuery.isEmptyObject(metadatas[0].HOLES_METADATA)) && !(jQuery.isEmptyObject(metadatas[0].SAMPLES_METADATA))) {
-
-                var samples = Object.keys(metadatas.SAMPLES_METADATA) ;
-                var holes = Object.keys(holes.HOLES_METADATA);
-
-                console.log(samples, holes);
-    
-                buildComplexTable("MetadataTable", metadatas[0].PROJECT_METADATA);
-                buildSimpleTable("SamplesTable",samples);
-                buildSimpleTable("HolesTable",holes);
-
-            }
-            else {
-                buildComplexTable("MetadataTable", metadatas[0].PROJECT_METADATA);
-            }
+            displayLoadedProjectData(metadatas[0].PROJECT_METADATA);
+            displayLoadedHolesData(metadatas[0].HOLES_METADATA);
         }
     })
     .catch (function (e) {
@@ -60,25 +44,30 @@ export function displayMetadata() {
 }
 
   
-function displayLoadedData(project) {
+function displayLoadedProjectData(projectMetadata) {
   
-    buildComplexTable("GeneralMetadata", project.metadata);
+    buildComplexTable("GeneralMetadata", projectMetadata);
     buildMultipleSelect(["PROJECT_COUNTRY","PROJECT_PROVINCE"],countries,2);
-    initselect("PROJECT_COUNTRY", project.metadata.PROJECT_COUNTRY.value);
-    initselect("PROJECT_PROVINCE", project.metadata.PROJECT_PROVINCE.value);
+
+    initselect("PROJECT_COUNTRY", projectMetadata['PROJECT_COUNTRY'].value);
+    initselect("PROJECT_PROVINCE", projectMetadata['PROJECT_PROVINCE'].value);
   
     updateSelect("SAMPLING_POINT-COORDINATE_SYSTEM",GeoCoordSys);
-    initselect("SAMPLING_POINT-COORDINATE_SYSTEM", project.metadata["SAMPLING_POINT-COORDINATE_SYSTEM"].value);
+    initselect("SAMPLING_POINT-COORDINATE_SYSTEM", projectMetadata["SAMPLING_POINT-COORDINATE_SYSTEM"].value);
     updateSelect("COORDINATE_SYSTEM_NAD",ProjCoordSys);
-    initselect("COORDINATE_SYSTEM_NAD", project.metadata.COORDINATE_SYSTEM_NAD.value);
+    initselect("COORDINATE_SYSTEM_NAD", projectMetadata['COORDINATE_SYSTEM_NAD'].value);
     updateSelect("LANGUAGE",Languages);
-    initselect("LANGUAGE", project.metadata.LANGUAGE.value);
-    
-    buildSimpleTable("HolesTable",Object.keys(project.holes), displayHoleMetadata);
-    var buildingList = getStorageInformation(Object.values(project.samples));
-    
-    buildSimpleTable("StorageBuildingsTable",buildingList,displayBuildingContent);
+    initselect("LANGUAGE", projectMetadata['LANGUAGE'].value);
   
+}
+
+
+function displayLoadedHolesData(holesMetadata) {
+
+    var holeList = Object.keys(holesMetadata);
+    console.log(holeList);
+    buildSimpleTable("HolesTable", holeList, displayHoleMetadata);
+
 }
 
 
@@ -95,16 +84,27 @@ function getValues(array, metaDict, i) {
 }
   
   
-async function displayHoleMetadata(event) {
+function displayHoleMetadata(event) {
 
     var cell = $(event.target);
     var holeid = cell[0].innerHTML;
+    console.log(holeid);
+
+    db_BDD.transaction('rw', db_BDD.metadata, function () {
+        return db_BDD.metadata.toArray();
+    }).then (metadatas =>{
+        
+        var holeMetadata = metadatas[0].HOLES_METADATA[holeid];
+        console.log(holeMetadata);
+        buildComplexTable("HoleMetadataTable",holeMetadata);
+
+    })
+    .catch (function (e) {
+        console.error("DISPLAY HOLE METADATA ERROR : ",e);
+    });	
   
-    var container = await db.projects.get(1);
-    var project = container.object;
   
-    buildComplexTable("HoleMetadataTable",project.holes[holeid].meta);
-    buildSimpleTable("SamplesTable",project.holes[holeid].samples, displaySampleMetadata);
+    
 }
   
 
@@ -149,23 +149,16 @@ function buildSimpleTable(tableName,array,fonct) {
 
 function buildComplexTable(tableName, dict) {
 
-    console.log(tableName, dict);
-
     clearTable(tableName);
   
     var tablebody = document.getElementById(tableName).getElementsByTagName('tbody')[0];
-
-    console.log(tablebody);
     for (var key of Object.keys(dict)) {
-
-        console.log(key);
   
         var row = tablebody.insertRow(-1);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
 
-        console.log('opo');
   
         cell1.innerHTML = key;
         cell2.innerHTML = dict[key].description;
@@ -174,12 +167,8 @@ function buildComplexTable(tableName, dict) {
             cell3.innerHTML = dict[key].htmlContent;
         }
         else {
-
-            console.log('test');
-          const patternText1 = new String("[A-Za-z]+[-|_]+|[0-9]+");
-          console.log("init",patternText1);
-          console.log("pattern",dict[key].requiredPattern);
-        cell3.innerHTML = '<input type="text" value="'+dict[key].value+'"placeholder="'+dict[key].placeholder+'" title="'+dict[key].description+'" class="TextInput" id="name" name="name" required minlength="1" maxlength="15" size="10" style="width: 100%" required pattern="'+dict[key].requiredPattern+'">';
+            const patternText1 = new String("[A-Za-z]+[-|_]+|[0-9]+");
+            cell3.innerHTML = '<input type="text" value="'+dict[key].value+'"placeholder="'+dict[key].placeholder+'" title="'+dict[key].description+'" class="TextInput" id="name" name="name" required minlength="1" maxlength="15" size="10" style="width: 100%" required pattern="'+dict[key].requiredPattern+'">';
         } 
     }
 }

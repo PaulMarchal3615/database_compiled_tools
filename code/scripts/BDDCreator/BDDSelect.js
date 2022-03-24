@@ -47,6 +47,7 @@ function removeOptions(selectElement) {
 export function buildMultipleSelect(NameList, propertydict, level) {
 
     let select = document.getElementById(NameList[0]);
+    console.log(select);
 
     updateSelect(NameList[0],Object.keys(propertydict));
 
