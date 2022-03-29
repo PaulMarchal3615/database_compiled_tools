@@ -217,7 +217,6 @@ function importProjectMetadata(rawFile, metadata, assoc) {
             if (assoc[wrongKey] != "NO MATCH") {
 
                 var values = getColumn(wrongKey,rawFile.RAW_ARRAY);
-                console.log(assoc[wrongKey]);
                 metadata.PROJECT_METADATA[assoc[wrongKey]].value = getMostRepresentedItem(values);   
 
             }
@@ -251,9 +250,7 @@ function importHolesMetadata(rawFile, metadata, assoc) {
 
             var filtered = [headers].concat(filterByValue(lines, hole, colNumber));
 
-            console.log("holeid",hole,"filtered",filtered);
-
-            metadata.HOLES_METADATA[hole] = Object.assign({}, holeMetadata);
+            metadata.HOLES_METADATA[hole] = JSON.parse(JSON.stringify(holeMetadata));
 
             for (var wrongKey of Object.keys(assoc)) {
 
@@ -265,7 +262,6 @@ function importHolesMetadata(rawFile, metadata, assoc) {
                 }
             }   
         }
-        console.log("metadata",metadata);
         return metadata;
     }
     else {
