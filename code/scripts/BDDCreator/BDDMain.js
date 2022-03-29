@@ -1,7 +1,8 @@
 import {fields, projectMetadata, sampleMetadata,holeMetadata} from "../Common/ressources.js";
-import {parseFile} from "./BDDOpen.js";
+import {parseFile, deactivateHeads} from "./BDDOpen.js";
 import { convertDataToArray, saveMetadata } from "./BDDSave.js";
 import { displayMetadata } from "./BDDQC.js";
+import {showData, exportData} from "./BDDExport.js";
 
 
 //---------------------------------------------
@@ -50,3 +51,15 @@ document.getElementById('BDDMetaSave').addEventListener('click', saveMetadata);
 
 
 document.getElementById('BDDDisplay').addEventListener('click', displayMetadata);
+
+
+document.getElementById('BDDIgnore').addEventListener('click', deactivateHeads);
+;
+document.getElementById('BDDMetaIgnore').addEventListener('click', deactivateHeads);
+
+
+document.getElementById('BDDExport').addEventListener('click',exportData);
+
+document.getElementById('BDDShowData').addEventListener('click',showData);
+
+

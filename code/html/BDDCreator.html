@@ -67,7 +67,11 @@
 
           <button id="BDDOpen">a. OPEN</button>
 
-          <button id="BDDSave">b. SAVE</button>
+          <button id="BDDIgnore">b. IGNORE</button>
+
+          <input id="IgnoreNumber1" type="number" value="99">
+
+          <button id="BDDSave">c. SAVE</button>
 
           <div id="BDD_Bloc_table_Zone" style="width:auto; height:200px; overflow:auto;">
 
@@ -76,7 +80,6 @@
                 <tr>
                     <th scope="col">File Loaded</th>
                     <th scope="col">Analysis Type</th>
-                    <th scope="col">Ignore</th>
                 </tr>
             </thead>
             <tbody>
@@ -151,7 +154,11 @@
 
           <button id="BDDMetaOpen">a. OPEN</button>
 
-          <button id="BDDMetaSave">b. SAVE</button>
+          <button id="BDDMetaIgnore">b. IGNORE</button>
+
+          <input id="IgnoreNumber2" type="number" value="99">
+
+          <button id="BDDMetaSave">c. SAVE</button>
 
           <div id="BDD_Meta_Bloc_table_Zone" style="width:auto; height:200px; overflow:auto;">
 
@@ -160,7 +167,6 @@
                 <tr>
                     <th scope="col">File Loaded</th>
                     <th scope="col">Analysis Type</th>
-                    <th scope="col">Ignore</th>
                 </tr>
             </thead>
             <tbody>
@@ -203,6 +209,7 @@
     <div id="BDDCreator-tab-3" class="tabcontent" style="display:none">
 
       <button id="BDDDisplay">DISPLAY</button>
+      <button id="BDDApplyScript">APPLY SCRIPT</button>
 
 
       <div id="QCSubTab">
@@ -307,6 +314,25 @@
     </div>
 
     <div id="BDDCreator-tab-4" class="tabcontent" style="display:none">
+
+      <div id="export-table-zone" style="width:auto; height:800px; overflow:auto;">
+
+        <button id="BDDShowData">a. SHOW</button>
+
+        <button id="BDDExport">b. EXPORT</button>
+              
+        <table id="ExportTable" class="fl-table">
+          <thead>
+            <tr>
+              <th scope="col">File</th>
+              <th scope="col">Type</th>
+              <th scope="col">USE ?</th>
+          </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
       <p>empty</p>
     </div>
   

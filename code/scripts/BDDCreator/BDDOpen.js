@@ -383,3 +383,41 @@ const JaroWrinker  =  (s1, s2) =>  {
 
     return weight;
 };
+
+
+export function deactivateHeads(event) {
+
+    var btn = event.currentTarget;
+    var tablebody;
+    console.log(btn.id);
+    var IgnValue = 100;
+
+    if (btn.id == "BDDMetaIgnore") {
+
+        IgnValue = document.getElementById("IgnoreNumber2").value;
+        var tablebody = document.getElementById("BDDQC_Meta_table").getElementsByTagName('tbody')[0];
+    }
+    else {
+        IgnValue = document.getElementById("IgnoreNumber1").value;
+        var tablebody = document.getElementById("BDDQCtable").getElementsByTagName('tbody')[0];
+    }
+
+    for (var row of tablebody.rows) {
+
+        var select = document.getElementById("select_"+row.cells[0].innerHTML);
+        var percentCell = row.cells[row.cells.length-1];
+        var percent = select.options[select.selectedIndex].value;
+
+        if (parseFloat(percent) <= parseFloat(IgnValue)) {
+
+            const $options = Array.from(select.options);
+            const optionToSelect = $options.find(item => item.text === "NO MATCH");
+            optionToSelect.selected = true;
+            percentCell.innerHTML = 0;
+            setCellColor(percentCell, 0);
+
+        }
+    }
+
+}
+

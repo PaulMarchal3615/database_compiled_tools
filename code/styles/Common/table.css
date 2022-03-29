@@ -11,6 +11,7 @@
     min-width: 100%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     font-size: 1em;
+    table-layout: auto;
 }
 
 .fl-table td, .fl-table th {
@@ -20,7 +21,7 @@
 .fl-table td {
     border-right: 1px solid #f8f8f8;
     font-size: 1em;
-    width: min-content;
+    width: 1fr;
 }
 
 .fl-table thead th {

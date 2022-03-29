@@ -35,6 +35,7 @@ export function displayMetadata() {
         if (metadatas.length > 0) {
             displayLoadedProjectData(metadatas[0].PROJECT_METADATA);
             displayLoadedHolesData(metadatas[0].HOLES_METADATA);
+            displayLoadedsSamplesData(metadatas[0].SAMPLES_METADATA);
         }
     })
     .catch (function (e) {
@@ -65,8 +66,14 @@ function displayLoadedProjectData(projectMetadata) {
 function displayLoadedHolesData(holesMetadata) {
 
     var holeList = Object.keys(holesMetadata);
-    console.log(holeList);
     buildSimpleTable("HolesTable", holeList, displayHoleMetadata);
+
+}
+
+function displayLoadedsSamplesData(samplesMetadata) {
+
+    var sampleList = Object.keys(samplesMetadata);
+    buildSimpleTable("SamplesTable", sampleList, displaySampleMetadata);
 
 }
 
@@ -108,19 +115,27 @@ function displayHoleMetadata(event) {
 }
   
 
-async function displaySampleMetadata(event) {
-
-    var container = await db.projects.get(1);
-    var project = container.object;
+function displaySampleMetadata(event) {
 
     var cell = $(event.target);
     var sample = cell[0].innerHTML;
-    buildComplexTable("SampleMetadataTable",project.samples[sample].meta);
-    buildMultipleSelect(["LITHOLOGY","LITHOLOGY_2","LITHOLOGY_3"],lithology,3);
-    buildMultipleSelect(["TEXTURE_STRUCTURE","TEXTURE_STRUCTURE_2"],texture,2);
-    buildMultipleSelect(["ORE_TYPE","ORE_TYPE_2","ORE_TYPE_3"],gitology,3);
-    buildMultipleSelect(["CHRONOSTRATIGRAPHIC_AGE","CHRONOSTRATIGRAPHIC_AGE_2",
-    "CHRONOSTRATIGRAPHIC_AGE_3"],chronostratigraphic,3);
+    console.log(sample);
+
+    db_BDD.transaction('rw', db_BDD.metadata, function () {
+        return db_BDD.metadata.toArray();
+    }).then (metadatas =>{
+        
+        var sampleMetadata = metadatas[0].HOLES_METADATA[sample];
+        buildComplexTable("SampleMetadataTable",sampleMetadata);
+        buildMultipleSelect(["LITHOLOGY","LITHOLOGY_2","LITHOLOGY_3"],lithology,3);
+        buildMultipleSelect(["TEXTURE_STRUCTURE","TEXTURE_STRUCTURE_2"],texture,2);
+        buildMultipleSelect(["ORE_TYPE","ORE_TYPE_2","ORE_TYPE_3"],gitology,3);
+        buildMultipleSelect(["CHRONOSTRATIGRAPHIC_AGE","CHRONOSTRATIGRAPHIC_AGE_2","CHRONOSTRATIGRAPHIC_AGE_3"],chronostratigraphic,3);
+
+    })
+    .catch (function (e) {
+        console.error("DISPLAY SAMPLE METADATA ERROR : ",e);
+    });	
 }
 
 function clearTable(tableName) {

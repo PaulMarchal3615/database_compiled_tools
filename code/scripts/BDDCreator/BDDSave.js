@@ -85,7 +85,6 @@ function createCorrectedArray(assoc, rawArray){
     for (var key of Object.keys(assoc)) {
 
         if (assoc[key] != "NO MATCH" ) {
-            console.log(key);
             var column = getColumn(key, rawArray);
             column.shift();
             correctDict[assoc[key]] = column;
@@ -125,26 +124,19 @@ function readCurrentAssociation(tableName) {
 export function saveMetadata() {
 
     var assoc = readCurrentAssociation("BDDQC_Meta_table");
-    console.log(assoc);
 
     db_BDD.transaction('rw', db_BDD.metadata, function () {
         return db_BDD.metadata.where('ID').equals(1).toArray();
     }).then (metadata =>{
 
-        console.log(metadata);
-
         db_BDD.transaction('r', db_BDD.rawMetadata_files, function() {
             return db_BDD.rawMetadata_files.where('IS_READ').equals(0).toArray();
         }).then(rawFiles => {
 
-            console.log(rawFiles);
-
             var updatedMetadata = {};
 
             for (var rawFile of rawFiles) {
-                console.log(rawFile);
                 if (rawFile.TYPE == "PROJECT_METADATA") {
-                    console.log('PROJECT',rawFile);
                     updatedMetadata = importProjectMetadata(rawFile, metadata[0], assoc);
                 }
                 else if (rawFile.TYPE == "HOLES_METADATA") {
@@ -258,10 +250,10 @@ function importHolesMetadata(rawFile, metadata, assoc) {
                     var values = getColumn(wrongKey,filtered);
                     values.shift();
                     metadata.HOLES_METADATA[hole][assoc[wrongKey]].value = getMostRepresentedItem(values);
-                    console.log("update",metadata.HOLES_METADATA[hole][assoc[wrongKey]].value);   
                 }
             }   
         }
+
         return metadata;
     }
     else {
@@ -273,22 +265,31 @@ function importSamplesMetadata(rawFile, metadata, assoc) {
 
     if ((!jQuery.isEmptyObject(assoc)) && (Object.keys(assoc).includes('SAMPLING_POINT-NAME'))){
 
-        var sampleName = Object.keys(assoc).find(key => object[key] === 'SAMPLING_POINT-NAME');
-
-        var samples = getColumn(sampleName,rawFile.RAW_ARRAY);
+        var sampleColName = Object.keys(assoc).find(key => assoc[key] === 'SAMPLING_POINT-NAME');
+        var samples = getColumn(sampleColName,rawFile.RAW_ARRAY);
         var uniqueSamples = samples.filter((v, i, a) => a.indexOf(v) === i);
+        uniqueSamples.shift(); // we assume firt element is header
+        var colNumber = rawFile.RAW_ARRAY[0].indexOf(sampleColName);
 
-        var colNumber = rawFile.RAW_ARRAY[0].indexOf(sampleName);
+        var headers, lines;
+        [headers, ...lines] = rawFile.RAW_ARRAY;
 
         for (var sample of uniqueSamples) {
 
-            var filtered = rawFile.filter(i => i[colNumber].match(sample));
+            var filtered = [headers].concat(filterByValue(lines, sample, colNumber));
 
-            for (var wrongKey of Object.keys(assoc)) { // à modifier pour ne pas ecraser les valeurs existantes
-                var values = getColumn(wrongKey,filtered);
-                metadata.PROJECT_METADATA[assoc[wrongKey]].value = getMostRepresentedItem(values);   
-            }
+            metadata.SAMPLES_METADATA[sample] = JSON.parse(JSON.stringify(sampleMetadata));
+
+            for (var wrongKey of Object.keys(assoc)) {
+                
+                if (assoc[wrongKey] != "NO MATCH") {
+                    var values = getColumn(wrongKey,filtered);
+                    values.shift();
+                    metadata.SAMPLES_METADATA[sample][assoc[wrongKey]].value = getMostRepresentedItem(values);
+                }
+            }   
         }
+        
         return metadata;
     }
     else {
