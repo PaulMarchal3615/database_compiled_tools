@@ -1,5 +1,5 @@
-import {getColumn} from "../Common/common_functions.js";
-import { holeMetadata,sampleMetadata,projectMetadata } from "../Common/ressources.js";
+import {getColumn, getAllIndexes} from "../Common/common_functions.js";
+import { holeMetadata,sampleMetadata,metadataFields} from "../Common/ressources.js";
 import { displayMetadata } from "./BDDQC.js";
 
 
@@ -9,8 +9,8 @@ import { displayMetadata } from "./BDDQC.js";
 var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
-	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
-    metadata:`ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+	analysis_files:`++ID,FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
+    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
     rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT,IS_READ`
 });
 
@@ -28,50 +28,69 @@ db_BDD.rawMetadata_files.clear();
 
 export function convertDataToArray() {
 
+    var BDDselect = document.getElementById("BDDSelect");
+    let selectVal = BDDselect.options[BDDselect.selectedIndex].value;
+
     var assoc = readCurrentAssociation("BDDQCtable");
 
     var fileName = document.getElementById("BDDText3").innerHTML.split(" ")[3];
 
-    db_BDD.transaction('r', db_BDD.analysis_files, function () {
-        return db_BDD.analysis_files.where('FILE_NAME').equals(fileName).toArray();
-    }).then (files =>{
-        
-        var newArray = createCorrectedArray(assoc, files[0].RAW_ARRAY);
+    if (Object.keys(metadataFields).includes(selectVal)) { 
 
-        if (!jQuery.isEmptyObject(newArray)) {
-            updateAnalysisTable(files[0].FILE_NAME,files[0].TYPE);
-            db_BDD.analysis_files.update(fileName, {CORRECT_DICT:newArray});
-        }
-        
-    })
-    .catch (function (e) {
-        console.error("CONVERT DATA ERROR : ",e);
-    });	
+        saveMetadata(assoc);
+    }
+
+    else {
+
+        console.log(fileName);
+
+        db_BDD.transaction('r', db_BDD.analysis_files, function () {
+            return db_BDD.analysis_files.where({FILE_NAME:fileName, TYPE:selectVal}).toArray();
+        }).then (files =>{
+
+            console.log(files);
+            
+            var newArray = createCorrectedArray(assoc, files[0].RAW_ARRAY);
+
+            var id = files[0].ID;
+
+            if (!jQuery.isEmptyObject(newArray)) {
+                updateFileTable(files[0].FILE_NAME,files[0].TYPE,"BDD_Bloc_table_Zone");
+                db_BDD.analysis_files.update(id, {CORRECT_DICT:newArray});
+            }
+            
+        })
+        .catch (function (e) {
+            console.error("CONVERT DATA ERROR : ",e);
+        });	
+
+    }
 
 }
 
-function updateAnalysisTable(fileName, type) {
+function updateFileTable(fileName, type, tableName) {
 
-    var tablebody = document.getElementById("BDD_Bloc_table_Zone").getElementsByTagName('tbody')[0];
+    var tablebody = document.getElementById(tableName).getElementsByTagName('tbody')[0];
 
-    var arr = [];
+    var arr1 = [];
+    var arr2 = [];
+
     for (var i =0; i<tablebody.rows.length; i++) {
-        arr.push(tablebody.rows[i].cells[0].innerText);
+        arr1.push(tablebody.rows[i].cells[0].innerText);
+        arr2.push(tablebody.rows[i].cells[1].innerText);
     }
 
-    if (!arr.includes(fileName)) {
+    if ((!arr1.includes(fileName)) || (!arr2.includes(type))) {
 
         var row = tablebody.insertRow(0);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2)
 
         cell1.innerHTML = fileName;
         cell2.innerHTML = type;
-        cell3.innerHTML = "";
     }
     else {
-        alert("ERROR : FILE ALREADY REFERENCED");
+        alert("ERROR : FILE ALREADY REFERENCED with this TYPE");
     }
 
     
@@ -121,9 +140,7 @@ function readCurrentAssociation(tableName) {
 
 // METADATA ---------------------------------------------
 
-export function saveMetadata() {
-
-    var assoc = readCurrentAssociation("BDDQC_Meta_table");
+function saveMetadata(assoc) {
 
     db_BDD.transaction('rw', db_BDD.metadata, function () {
         return db_BDD.metadata.where('ID').equals(1).toArray();
@@ -151,7 +168,7 @@ export function saveMetadata() {
                     db_BDD.rawMetadata_files.update(rawFile.FILE_NAME, {IS_READ:1}); 
 
                     // display loaded file 
-                    updateMetadataTable(rawFile.FILE_NAME, rawFile.TYPE);
+                    updateFileTable(rawFile.FILE_NAME, rawFile.TYPE,"BDD_Bloc_table_Zone") ;
 
                     // update information in referenced metadata
                     db_BDD.metadata.update(1, updatedMetadata);
@@ -170,34 +187,6 @@ export function saveMetadata() {
 
     return 0;
 }
-
-function updateMetadataTable(fileName, type) {
-
-    var tablebody = document.getElementById("BDD_Meta_Bloc_table_Zone").getElementsByTagName('tbody')[0];
-
-    var arr = [];
-    for (var i =0; i<tablebody.rows.length; i++) {
-        arr.push(tablebody.rows[i].cells[0].innerText);
-    }
-
-    if (!arr.includes(fileName)) {
-
-        var row = tablebody.insertRow(0);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2)
-
-        cell1.innerHTML = fileName;
-        cell2.innerHTML = type;
-        cell3.innerHTML = "";
-    }
-    else {
-        alert("ERROR : FILE ALREADY REFERENCED");
-    }
-
-    
-}
-
 
 function importProjectMetadata(rawFile, metadata, assoc) {
 

@@ -7,8 +7,8 @@ import {units, keyVal, abbrev} from "../Common/ressources.js";
 var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
-	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
-    metadata:`ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+	analysis_files:`++ID,FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
+    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
     rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT,IS_READ`
 });
 

@@ -1,4 +1,4 @@
-import {projectMetadata, countries, GeoCoordSys,ProjCoordSys,Languages} from "../Common/ressources.js";
+import {projectMetadata,lithology,gitology,texture, countries, GeoCoordSys,ProjCoordSys,Languages} from "../Common/ressources.js";
 import { buildMultipleSelect,initselect, fillSelect,updateSelect } from "./BDDSelect.js";
 //---------------------------------------------
 // 1. init dexie db : db_BDD with two stores : analysis (based on analysis lines of a file and datasets to store files info)
@@ -6,8 +6,8 @@ import { buildMultipleSelect,initselect, fillSelect,updateSelect } from "./BDDSe
 var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
-	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
-    metadata:`ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+	analysis_files:`++ID,FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
+    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
     rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT,IS_READ`
 });
 
@@ -125,12 +125,13 @@ function displaySampleMetadata(event) {
         return db_BDD.metadata.toArray();
     }).then (metadatas =>{
         
-        var sampleMetadata = metadatas[0].HOLES_METADATA[sample];
+        var sampleMetadata = metadatas[0].SAMPLES_METADATA[sample];
+
         buildComplexTable("SampleMetadataTable",sampleMetadata);
         buildMultipleSelect(["LITHOLOGY","LITHOLOGY_2","LITHOLOGY_3"],lithology,3);
         buildMultipleSelect(["TEXTURE_STRUCTURE","TEXTURE_STRUCTURE_2"],texture,2);
         buildMultipleSelect(["ORE_TYPE","ORE_TYPE_2","ORE_TYPE_3"],gitology,3);
-        buildMultipleSelect(["CHRONOSTRATIGRAPHIC_AGE","CHRONOSTRATIGRAPHIC_AGE_2","CHRONOSTRATIGRAPHIC_AGE_3"],chronostratigraphic,3);
+        //buildMultipleSelect(["CHRONOSTRATIGRAPHIC_AGE","CHRONOSTRATIGRAPHIC_AGE_2","CHRONOSTRATIGRAPHIC_AGE_3"],chronostratigraphic,3);
 
     })
     .catch (function (e) {
@@ -183,7 +184,7 @@ function buildComplexTable(tableName, dict) {
         }
         else {
             const patternText1 = new String("[A-Za-z]+[-|_]+|[0-9]+");
-            cell3.innerHTML = '<input type="text" value="'+dict[key].value+'"placeholder="'+dict[key].placeholder+'" title="'+dict[key].description+'" class="TextInput" id="name" name="name" required minlength="1" maxlength="15" size="10" style="width: 100%" required pattern="'+dict[key].requiredPattern+'">';
+            cell3.innerHTML = '<input type="text" value="'+dict[key].value+'"placeholder="'+dict[key].placeholder+'" title="'+dict[key].description+'" class="TextInput" id="name" name="name" required minlength="1" maxlength="30" size="10" style="width: 200px" required pattern="'+dict[key].requiredPattern+'">';
         } 
     }
 }

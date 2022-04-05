@@ -18,8 +18,6 @@ db_jodel.version(1).stores({
  */
 function convertToArray(arr) {
 	var headers = Object.keys(arr[0]);
-
-	console.log(headers);
 	
 	var data =[];
 	const trueHeaders = headers.map(val => keyVal[val]);

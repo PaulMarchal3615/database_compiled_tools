@@ -1,6 +1,6 @@
-import {fields, projectMetadata, sampleMetadata,holeMetadata} from "../Common/ressources.js";
+import {projectMetadata} from "../Common/ressources.js";
 import {parseFile, deactivateHeads} from "./BDDOpen.js";
-import { convertDataToArray, saveMetadata } from "./BDDSave.js";
+import { convertDataToArray} from "./BDDSave.js";
 import { displayMetadata } from "./BDDQC.js";
 import {showData, exportData} from "./BDDExport.js";
 
@@ -11,8 +11,8 @@ import {showData, exportData} from "./BDDExport.js";
 var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
-	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
-    metadata:`ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+	analysis_files:`++ID,FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
+    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
     rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT,IS_READ`
 });
 
@@ -42,20 +42,15 @@ db_BDD.transaction('rw', db_BDD.metadata, () => {
 
 var input = document.querySelector('#BDDfileInput');
 document.getElementById('BDDOpen').addEventListener('click', function() {input.click();});
-document.getElementById('BDDMetaOpen').addEventListener('click', function() {input.click();});
 input.addEventListener('input',parseFile);
 
 document.getElementById('BDDSave').addEventListener('click', convertDataToArray);
-;
-document.getElementById('BDDMetaSave').addEventListener('click', saveMetadata);
 
 
 document.getElementById('BDDDisplay').addEventListener('click', displayMetadata);
 
 
 document.getElementById('BDDIgnore').addEventListener('click', deactivateHeads);
-;
-document.getElementById('BDDMetaIgnore').addEventListener('click', deactivateHeads);
 
 
 document.getElementById('BDDExport').addEventListener('click',exportData);

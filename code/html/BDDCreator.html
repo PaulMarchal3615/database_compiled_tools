@@ -4,7 +4,6 @@
 
   <head>
     <link rel="stylesheet" href="../styles/BDDCreator/BDDCreatorGrid.css" />
-    <link rel="stylesheet" href="../styles/BDDCreator/BDDCreatorMetadataGrid.css" />
     <link rel="stylesheet" href="../styles/BDDCreator/BDDCreatorHolesSamplesGrid.css" />
     <link rel="stylesheet" href="../styles/Common/input.css" />
 
@@ -30,10 +29,9 @@
   <body>
 
     <div class="tab" id="BDDtab"> 
-        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-1')">Analysis</button> 
-        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-2')">Metadata</button>
-        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-3')">QC</button>
-        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-4')">Export & Save</button>
+        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-1')">Import Raw Files</button> 
+        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-2')">QC</button>
+        <button class="tablinks" onclick="openView(event, 'BDDCreator-tab-3')">Export & Save</button>
     </div>
 
     <input id="BDDfileInput" multiple="multiple" type="file">
@@ -47,7 +45,10 @@
 
           <p id="BDDText1">1. Select File type to import</p>
 
-          <select class="select" id="BDDanalysisSelect">
+          <select class="select" id="BDDSelect">
+              <option value="PROJECT_METADATA">PROJECT_METADATA</option>
+              <option value="HOLES_METADATA">HOLES_METADATA</option>
+              <option value="SAMPLES_METADATA">SAMPLES_METADATA</option>
               <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
               <option value="PETROPHYSICS">PETROPHYSICS</option>
               <option value="GRAPHITE">GRAPHITE</option>>
@@ -79,7 +80,7 @@
             <thead>
                 <tr>
                     <th scope="col">File Loaded</th>
-                    <th scope="col">Analysis Type</th>
+                    <th scope="col">File Type</th>
                 </tr>
             </thead>
             <tbody>
@@ -111,21 +112,6 @@
             </table>
           </div>
 
-          <div id="BDDValtable-zone" style="width:auto; height:700px; overflow:auto;">
-
-            <table id="BDDValtable" class="fl-table">
-            <thead>
-            <tr>
-                <th scope="col">Values</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-            </tfoot>
-            </table>
-          </div>
-
           <div id="BDDchart1" style="width:auto; height:700px; overflow:auto;">
           </div>
 
@@ -135,78 +121,6 @@
     </div>
 
     <div id="BDDCreator-tab-2" class="tabcontent" style="display:none">
-
-      <div class="BDDMetaUI">
-
-        <div class="BDDMetaLeftPanel">
-
-          <p id="BDDMetaText1">1. Select File type to import</p>
-
-          <select class="select" id="BDDMetaSelect">
-              <option value="PROJECT_METADATA">PROJECT_METADATA</option>
-              <option value="HOLES_METADATA">HOLES_METADATA</option>
-              <option value="SAMPLES_METADATA">SAMPLES_METADATA</option>>
-            </select>  
-              
-          <p id="BDDMetaText2">2. Import File & Check Quality</p>
-
-          <p id="BDDMetaText3">No File Loaded</p>
-
-          <button id="BDDMetaOpen">a. OPEN</button>
-
-          <button id="BDDMetaIgnore">b. IGNORE</button>
-
-          <input id="IgnoreNumber2" type="number" value="99">
-
-          <button id="BDDMetaSave">c. SAVE</button>
-
-          <div id="BDD_Meta_Bloc_table_Zone" style="width:auto; height:200px; overflow:auto;">
-
-          <table id="BDD_Meta_Bloc_table" class="fl-table">
-            <thead>
-                <tr>
-                    <th scope="col">File Loaded</th>
-                    <th scope="col">Analysis Type</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-            </tfoot>
-          </table>
-          </div>
-
-
-        </div>
-
-        <div class="BDDMetaRightPanel">
-
-
-          <div id="BDDQC_Meta_table-zone" style="width:95%; height:800px; overflow:auto;">
-
-            <table id="BDDQC_Meta_table" class="fl-table">
-            <thead>
-            <tr>
-                <th scope="col">Your Headers</th>
-                <th scope="col">Associated Field</th>
-                <th scope="col">Ignore</th>
-                <th scope="col">Confidence</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-            </tfoot>
-            </table>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div id="BDDCreator-tab-3" class="tabcontent" style="display:none">
 
       <button id="BDDDisplay">DISPLAY</button>
       <button id="BDDApplyScript">APPLY SCRIPT</button>
@@ -270,7 +184,7 @@
           </table>
 
         </div>
-        <div class="three">
+        <div class="three" style="width:100%; height:800px; overflow:auto;">
 
           <table class="fl-table" id="SamplesTable">
             <thead>
@@ -286,7 +200,7 @@
 
 
 
-          <div class="four">
+          <div class="four" style="width:100%; height:800px; overflow:auto;">
 
             <table class="fl-table" id="SampleMetadataTable">
               <thead>
@@ -313,7 +227,7 @@
 
     </div>
 
-    <div id="BDDCreator-tab-4" class="tabcontent" style="display:none">
+    <div id="BDDCreator-tab-3" class="tabcontent" style="display:none">
 
       <div id="export-table-zone" style="width:auto; height:800px; overflow:auto;">
 
@@ -326,14 +240,12 @@
             <tr>
               <th scope="col">File</th>
               <th scope="col">Type</th>
-              <th scope="col">USE ?</th>
           </tr>
           </thead>
           <tbody>
           </tbody>
         </table>
       </div>
-      <p>empty</p>
     </div>
   
   <script type="module" src="../scripts/BDDCreator/BDDMain.js"></script>

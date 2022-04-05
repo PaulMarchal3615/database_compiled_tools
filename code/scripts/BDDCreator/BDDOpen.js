@@ -7,8 +7,8 @@ import {getColumn} from "../Common/common_functions.js";
 var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
-	analysis_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
-    metadata:`ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+	analysis_files:`++ID,FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
+    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
     rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT,IS_READ`
 });
 
@@ -40,14 +40,7 @@ db_BDD.rawMetadata_files.clear();
 
 			Papa.parsePromise(file).then(function(results) {
 
-                if (pageName == "Analysis") {
-
-                    LoadAnalysisFile(file.name,results.data);
-
-                }
-                if (pageName == "Metadata") {
-                    LoadMetaDataFile(file.name, results.data);
-                }
+                LoadFile(file.name,results.data);
                 
 			});
 		}
@@ -74,24 +67,52 @@ Papa.parsePromise = function(file) {
 	});
 };
 
-
-function LoadAnalysisFile(fileName,MDarray) {
+function LoadFile(fileName, MDarray) {
 
     var head = MDarray[0];
 
     var fileNameDisplay = document.getElementById("BDDText3");
     fileNameDisplay.innerHTML = "File Loaded : "+fileName;
 
-    var BDDselect = document.getElementById("BDDanalysisSelect");
+    var BDDselect = document.getElementById("BDDSelect");
     let selectVal = BDDselect.options[BDDselect.selectedIndex].value;
-    let references = Object.values(fields[selectVal]).concat(["HOLEID","SAMPLING_POINT-NAME","SAMPLE_DEPTH_FROM","SAMPLE_DEPTH_TO","X_NAD","Y_NAD","Z_NAD"]);
+
+    let references = [];
+
+    if (Object.keys(metadataFields).includes(selectVal)) {
+
+        references = Object.values(metadataFields[selectVal]).concat(['SAMPLE_NAME']);
+    }
+    else {
+
+        references = Object.values(fields[selectVal]).concat(['SAMPLE_NAME']);
+    }
+
     var results = compareHeads(head, references);
-    displayResults(results,MDarray,"BDDQCtable");
+
+    displayResults(results,MDarray, "BDDQCtable");
 
     var file = {};
     file.RAW_ARRAY = MDarray;
     file.FILE_NAME = fileName;
     file.TYPE = selectVal;
+
+    console.log("open file", file);
+
+
+    if (!Object.keys(metadataFields).includes(selectVal)) {
+
+        LoadAnalysisFile(file);
+
+    } 
+    else {
+        LoadMetaDataFile(file);
+    }
+
+}
+
+
+function LoadAnalysisFile(file) {
 
     db_BDD.transaction('rw', db_BDD.analysis_files, () => {
 
@@ -104,24 +125,8 @@ function LoadAnalysisFile(fileName,MDarray) {
 
 }
 
-function LoadMetaDataFile(fileName,MDarray) {
+function LoadMetaDataFile(file) {
 
-    var head = MDarray[0];
-
-    var fileNameDisplay = document.getElementById("BDDMetaText3");
-    fileNameDisplay.innerHTML = "File Loaded : "+fileName;
-
-    var BDDselect = document.getElementById("BDDMetaSelect");
-    let selectVal = BDDselect.options[BDDselect.selectedIndex].value;
-    let references = Object.values(metadataFields[selectVal]);
-    var results = compareHeads(head, references);
-
-    displayResults(results,MDarray, "BDDQC_Meta_table");
-
-    var file = {};
-    file.RAW_ARRAY = MDarray;
-    file.FILE_NAME = fileName;
-    file.TYPE = selectVal;
     file.IS_READ = 0;
 
     db_BDD.transaction('rw', db_BDD.rawMetadata_files, () => {
@@ -160,7 +165,8 @@ function compareHeads(heads, references) {
  function displayResults(results, array, tableName){
 
 	var tablebody = document.getElementById(tableName).getElementsByTagName('tbody')[0];
-    $("#"+tableName+" tr").remove(); 
+
+    $("#"+tableName+" tbody tr").remove(); 
 
     for (var head of Object.keys(results)) {
 
@@ -220,15 +226,6 @@ function showValues(event) {
 
     var cell = event.currentTarget;
     var colValues = cell.allValues;
-
-    var tablebody = document.getElementById("BDDValtable").getElementsByTagName('tbody')[0];
-    $("#BDDValtable tr").remove();
-
-    for (var val of colValues) {
-        var row = tablebody.insertRow(0);
-        var cell1 = row.insertCell(0);  
-        cell1.innerHTML = val;
-    }
 
     var trace = {
         x: colValues,
