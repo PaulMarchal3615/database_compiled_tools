@@ -32,8 +32,11 @@ export function displayMain() {
 			return db_jodel.analysis.where('FILE_NAME').anyOf(checkList).toArray();
 	}).then (analysis =>{
 
+		console.log(analysis, propertyName);
+
         if (propertyName != "DEFAULT") {
 			analysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
+			console.log(propertyName, analysis);
 		}
 
         initColorScale(analysis, propertyName, valueListRaw);
@@ -44,7 +47,10 @@ export function displayMain() {
 				return db_jodel.datasets.where('FILE_NAME').anyOf(surfaceCheckList).toArray();
 		}).then (surfaces =>{
 
+			console.log(surfaces);
+
 			var traces = buildTrace3D(analysis, propertyName, surfaces);
+			console.log(traces);
 			scatter3DPlot(traces);
 			buildTraceMap(analysis);
 			var densityData = makeTracesForDensity(analysis, propertyName);
@@ -52,6 +58,7 @@ export function displayMain() {
 		})
 		.catch (function (e) {
 			console.error("DISPLAY MAIN 1",e);
+			console.log("error is ",e);
 		});	
 
 	})
@@ -255,6 +262,8 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 	var request =['A31','A32','A33'] // 3 properties to request
 
 	var arr2 = Object.values(multiDimArray(analysisLines,propertyName, request));
+
+	console.log(arr2);
 
 	// create one traces for all analysis points
 
