@@ -58,3 +58,38 @@ document.getElementById('BDDExport').addEventListener('click',exportData);
 document.getElementById('BDDShowData').addEventListener('click',showData);
 
 
+
+var editor = CodeMirror(document.querySelector('#scrInput'), {
+    lineNumbers: false,
+    tabSize: 2,
+    value: '//you can write a script here : allMetadata is an object containing all metadatas for your project;\nconsole.log(allMetadata);',
+    mode: 'javascript',
+    theme: 'lesser-dark'
+});
+
+
+document.getElementById('applyScript').addEventListener('click', executeScript);
+
+
+function executeScript() {
+
+    db_BDD.transaction('rw', db_BDD.metadata, function () {
+        return db_BDD.metadata.where('ID').equals(1).toArray();
+    }).then (metadata =>{
+
+        var allMetadata = metadata[0];
+    
+        var textInput = editor.getValue();
+        eval(textInput);
+
+        db_BDD.metadata.update(1, allMetadata);
+    
+    })
+    .catch (function (e) {
+        console.error("LOAD METADATA TEMPLATE ERROR : ",e);
+    });	
+
+
+}
+
+

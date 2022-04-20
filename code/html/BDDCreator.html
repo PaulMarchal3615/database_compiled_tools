@@ -5,6 +5,7 @@
   <head>
     <link rel="stylesheet" href="../styles/BDDCreator/BDDCreatorGrid.css" />
     <link rel="stylesheet" href="../styles/BDDCreator/BDDCreatorHolesSamplesGrid.css" />
+    <link rel="stylesheet" href="../styles/BDDCreator/BDDScriptGrid.css" />
     <link rel="stylesheet" href="../styles/Common/input.css" />
 
     <script type="text/javascript">
@@ -132,6 +133,7 @@
 
           <button class="tablinks2" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
           <button class="tablinks2" onclick="openTab(event, 'SamplesMetadata')">Samples Metadata</button>
+          <button class="tablinks2" onclick="openTab(event, 'ScriptArea')">Apply Script on Metadata</button>
 
         </div>
 
@@ -221,6 +223,32 @@
 
         </div>
 
+        <div id="ScriptArea" class="tabcontent2" style="display:none">
+
+          <div id="ScriptGrid">
+
+        
+          <select class="select" width=100% height=100% name="metadataScrSelect" id="ScrSelect" multiple="multiple">
+            <option selected="selected" value="DEFAULT">-- DEFAULT --</option>
+          </select>
+
+          <div id="scrInput"></div>
+
+          <button id="loadScript1"> Load Coordinate script</button>
+          <button id="loadScript2"> Load Geological script</button>
+
+          <div id="scriptBtn">
+
+          <button id="applyScript"> Apply</button>
+          <button id="revertScript"> Revert</button>
+          <button id="loadScript"> Load</button>
+
+        </div>
+
+        </div>
+
+      </div>
+
       </div>
 
       </div>
@@ -249,6 +277,7 @@
     </div>
   
   <script type="module" src="../scripts/BDDCreator/BDDMain.js"></script>
+
 
   </body>
 
