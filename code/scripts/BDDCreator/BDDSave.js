@@ -1,7 +1,5 @@
-import {getColumn, getAllIndexes} from "../Common/common_functions.js";
+import {getColumn} from "../Common/common_functions.js";
 import { holeMetadata,sampleMetadata,metadataFields} from "../Common/ressources.js";
-import { displayMetadata } from "./BDDQC.js";
-
 
 //---------------------------------------------
 // 1. init dexie db : db_BDD with two stores : analysis (based on analysis lines of a file and datasets to store files info)
@@ -287,6 +285,12 @@ function importSamplesMetadata(rawFile, metadata, assoc) {
 
 }
 
+
+/**
+ * returns the most occured item in array
+ * @param {*} arr1 
+ * @returns string/float item 
+ */
 function getMostRepresentedItem(arr1) {
 
     if (arr1.length == 1) {
@@ -301,12 +305,12 @@ function getMostRepresentedItem(arr1) {
         for (var i=0; i<arr1.length; i++)
         {
             for (var j=i; j<arr1.length; j++){
-                if (arr1[i] == arr1[j])
+                if (arr1[i] == arr1[j]){
                     m++;
-                    if (mf<m)
-                    {
-                    mf=m; 
-                    item = arr1[i];
+                    if (mf<m){
+                        mf=m; 
+                        item = arr1[i];
+                    }
                 }
             }
             m=0;

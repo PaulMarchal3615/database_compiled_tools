@@ -63,7 +63,7 @@ db_BDD.rawMetadata_files.clear();
  */
 Papa.parsePromise = function(file) {
 	return new Promise(function(complete, error) {
-		Papa.parse(file, {download: true, complete, error});
+		Papa.parse(file, {header: true,download: true, complete, error});
 	});
 };
 
@@ -222,6 +222,10 @@ function compareHeads(heads, references) {
     }
 }
 
+/**
+ * display col of value as an histogram when clicking on it in table
+ * @param {*} event 
+ */
 function showValues(event) {
 
     var cell = event.currentTarget;
@@ -238,6 +242,11 @@ function showValues(event) {
 
 }
 
+/**
+ * modify background color of a cell based on its value
+ * @param {*} percentCell cell to modifiy background
+ * @param {*} percent value of cell
+ */
 function setCellColor(percentCell, percent) {
 
     if (percent < 10) {
@@ -261,6 +270,12 @@ function setCellColor(percentCell, percent) {
 
 }
 
+
+/**
+ * set most likely head correpsonding to your heads 
+ * @param {*} values object containing matching percent and corresponding heads
+ * @returns 
+ */
 function selectMaximumValues(values) 
 {
 
@@ -284,6 +299,11 @@ function selectMaximumValues(values)
 
 }
 
+
+/**
+ * set cell matching value to 0 "No Match"
+ * @param {*} event 
+ */
 function setToIgnore(event) {
     var btn = event.currentTarget;
     var currentRow = btn.parentNode.parentNode;
@@ -298,6 +318,11 @@ function setToIgnore(event) {
     percentCell.innerHTML = percent;
 }
 
+
+/**
+ * update value and color of percent cell
+ * @param {*} event 
+ */
 function updatePercent(event) {
 
     var select = event.currentTarget;
@@ -309,6 +334,13 @@ function updatePercent(event) {
     percentCell.innerHTML = percent;
 }
 
+
+/**
+ * Compute Jaro-Wrinker distance between s1 and s2
+ * @param {*} s1 STRING
+ * @param {*} s2 STRING
+ * @returns float value btw 0 (no match) and 1 (full match)
+ */
 const JaroWrinker  =  (s1, s2) =>  {
     var m = 0;
 
@@ -382,22 +414,14 @@ const JaroWrinker  =  (s1, s2) =>  {
 };
 
 
+/**
+ * Set all headers fields below IgnValue to "No Match", ie ignore these values
+ * @param {*} event : triggered by button pressing "BDDIgnore"
+ */
 export function deactivateHeads(event) {
 
-    var btn = event.currentTarget;
-    var tablebody;
-    console.log(btn.id);
-    var IgnValue = 100;
-
-    if (btn.id == "BDDMetaIgnore") {
-
-        IgnValue = document.getElementById("IgnoreNumber2").value;
-        var tablebody = document.getElementById("BDDQC_Meta_table").getElementsByTagName('tbody')[0];
-    }
-    else {
-        IgnValue = document.getElementById("IgnoreNumber1").value;
-        var tablebody = document.getElementById("BDDQCtable").getElementsByTagName('tbody')[0];
-    }
+    var IgnValue = document.getElementById("IgnoreNumber1").value;
+    var tablebody = document.getElementById("BDDQCtable").getElementsByTagName('tbody')[0];
 
     for (var row of tablebody.rows) {
 

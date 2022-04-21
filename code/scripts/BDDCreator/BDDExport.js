@@ -164,21 +164,21 @@ function updateExportTable(metadataFiles, analysisFiles) {
     var tablebody = document.getElementById("ExportTable").getElementsByTagName('tbody')[0];
     $("#ExportTable tbody tr").remove();
     
-    for (var file of metadataFiles) {
-        var row = tablebody.insertRow(0);
-        var cell1 = row.insertCell(0);  
-        cell1.innerHTML = file.FILE_NAME;
+    for (var file1 of metadataFiles) {
+        var row1 = tablebody.insertRow(0);
+        var cell1 = row1.insertCell(0);  
+        cell1.innerHTML = file1.FILE_NAME;
 
-        var cell2 = row.insertCell(0);  
-        cell2.innerHTML = file.TYPE;
+        var cell2 = row1.insertCell(0);  
+        cell2.innerHTML = file1.TYPE;
     }
 
-    for (var file of analysisFiles) {
-        var row = tablebody.insertRow(0);
-        var cell1 = row.insertCell(0);  
-        cell1.innerHTML = file.FILE_NAME;
+    for (var file2 of analysisFiles) {
+        var row2 = tablebody.insertRow(0);
+        var cell3 = row2.insertCell(0);  
+        cell3.innerHTML = file2.FILE_NAME;
 
-        var cell2 = row.insertCell(0);  
-        cell2.innerHTML = file.TYPE;
+        var cell4 = row2.insertCell(0);  
+        cell4.innerHTML = file2.TYPE;
     }
 }

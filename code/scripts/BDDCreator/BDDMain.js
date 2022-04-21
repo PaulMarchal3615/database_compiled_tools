@@ -1,4 +1,4 @@
-import {projectMetadata} from "../Common/ressources.js";
+import {projectMetadata, metadataFields} from "../Common/ressources.js";
 import {parseFile, deactivateHeads} from "./BDDOpen.js";
 import { convertDataToArray} from "./BDDSave.js";
 import { displayMetadata } from "./BDDQC.js";
@@ -41,6 +41,7 @@ db_BDD.transaction('rw', db_BDD.metadata, () => {
 
 
 var input = document.querySelector('#BDDfileInput');
+var inputCollar = document.querySelector('#inputCollar');
 document.getElementById('BDDOpen').addEventListener('click', function() {input.click();});
 input.addEventListener('input',parseFile);
 
@@ -62,7 +63,7 @@ document.getElementById('BDDShowData').addEventListener('click',showData);
 var editor = CodeMirror(document.querySelector('#scrInput'), {
     lineNumbers: false,
     tabSize: 2,
-    value: '//you can write a script here : allMetadata is an object containing all metadatas for your project;\nconsole.log(allMetadata);',
+    value: '//you can write a script here : allMetadata is an object containing all metadatas for your project;\n console.log(allMetadata);\n',
     mode: 'javascript',
     theme: 'lesser-dark'
 });
@@ -92,4 +93,61 @@ function executeScript() {
 
 }
 
+initSCRList();
 
+function initSCRList() {
+    let scrSelect = document.getElementById("ScrSelect");
+    let samplesMeta = metadataFields.SAMPLES_METADATA;
+
+    var i =0;
+
+    for (var name of samplesMeta) {
+        i++;
+
+        if (!scrSelect.contains(name)) {
+            var option = new Option(name,i);
+            option.addEventListener('click',addOptionToScr);
+            scrSelect.options[scrSelect.options.length] = option;
+        }
+    }
+
+}
+
+function addOptionToScr(event) {
+
+    var opt = event.target;
+    var text = "";
+    var textInput = editor.getValue();
+    var newText = "";
+
+    if (event.target.id == "loop-scr") {
+
+        text = 'for (var sample of Object.keys(allMetadata.SAMPLES_METADATA)) {\n \t // do something on sample object \n \t// ie you can change sample["HOLEID"] \n}';
+       
+        newText = textInput.concat(text+"\n");
+        
+
+    }
+    else if (event.target.id == "if-scr") {
+
+        text = 'if (sample["HOLEID"]!="SF731_05") || (sample["X_NAD"]<=500000) {\n \t //do something \n}';
+
+        newText = textInput.concat(text+"\n");
+
+
+    }
+
+    else {
+
+        text = opt.text;
+        newText = textInput.concat('"'+text+'" ');
+
+    }
+    editor.setValue(newText);
+
+
+
+}
+
+document.getElementById("if-scr").addEventListener('click',addOptionToScr);
+document.getElementById("loop-scr").addEventListener('click',addOptionToScr);
