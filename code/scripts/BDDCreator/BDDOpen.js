@@ -63,7 +63,7 @@ db_BDD.rawMetadata_files.clear();
  */
 Papa.parsePromise = function(file) {
 	return new Promise(function(complete, error) {
-		Papa.parse(file, {header: true,download: true, complete, error});
+		Papa.parse(file, {download: true, complete, error});
 	});
 };
 

@@ -40,10 +40,10 @@ db_BDD.transaction('rw', db_BDD.metadata, () => {
 //---------------------------------------------
 
 
-var input = document.querySelector('#BDDfileInput');
+var inputBDD = document.querySelector('#BDDfileInput');
 var inputCollar = document.querySelector('#inputCollar');
-document.getElementById('BDDOpen').addEventListener('click', function() {input.click();});
-input.addEventListener('input',parseFile);
+document.getElementById('BDDOpen').addEventListener('click', function() {inputBDD.click();});
+inputBDD.addEventListener('input',parseFile);
 
 document.getElementById('BDDSave').addEventListener('click', convertDataToArray);
 
