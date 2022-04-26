@@ -33,6 +33,8 @@ export function convertDataToArray() {
 
     var fileName = document.getElementById("BDDText3").innerHTML.split(" ")[3];
 
+    console.log(fileName, selectVal, Object.keys(metadataFields).includes(selectVal));
+
     if (Object.keys(metadataFields).includes(selectVal)) { 
 
         saveMetadata(assoc);
@@ -158,10 +160,14 @@ function saveMetadata(assoc) {
                     updatedMetadata = importHolesMetadata(rawFile, metadata[0], assoc);
                 }
                 else if (rawFile.TYPE == "SAMPLES_METADATA") {
+                    console.log('hey 2!');
                     updatedMetadata = importSamplesMetadata(rawFile, metadata[0], assoc);
+                    console.log(updatedMetadata);
                 }
                 
                 if (!jQuery.isEmptyObject(updatedMetadata)) {
+
+                    console.log('hey ! ');
 
                     db_BDD.rawMetadata_files.update(rawFile.FILE_NAME, {IS_READ:1}); 
 
@@ -250,9 +256,13 @@ function importHolesMetadata(rawFile, metadata, assoc) {
 
 function importSamplesMetadata(rawFile, metadata, assoc) {
 
-    if ((!jQuery.isEmptyObject(assoc)) && (Object.keys(assoc).includes('SAMPLING_POINT-NAME'))){
+    if (!jQuery.isEmptyObject(assoc)) {
 
-        var sampleColName = Object.keys(assoc).find(key => assoc[key] === 'SAMPLING_POINT-NAME');
+        console.log(assoc);
+
+        if (Object.values(assoc).includes('SAMPLE_NAME')) {
+
+        var sampleColName = Object.keys(assoc).find(key => assoc[key] === 'SAMPLE_NAME');
         var samples = getColumn(sampleColName,rawFile.RAW_ARRAY);
         var uniqueSamples = samples.filter((v, i, a) => a.indexOf(v) === i);
         uniqueSamples.shift(); // we assume firt element is header
@@ -278,8 +288,15 @@ function importSamplesMetadata(rawFile, metadata, assoc) {
         }
         
         return metadata;
+        }
+        else {
+            alert("ERROR : There is no samples in your imported File : check presence of SAMPLE_NAME column");
+            return {};
+
+        }
     }
     else {
+        alert("ERROR : There is no HEADERS in your imported File : check presence of column TITLES");
         return {};
     }
 

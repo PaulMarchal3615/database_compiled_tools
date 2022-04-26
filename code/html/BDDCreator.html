@@ -227,29 +227,31 @@
         <div id="ScriptArea" class="tabcontent2" style="display:none">
 
           <div id="ScriptGrid">
-
         
           <select class="select" width=100% height=100% name="metadataScrSelect" id="ScrSelect" multiple="multiple">
-            <option selected="selected" value="DEFAULT">-- DEFAULT --</option>
           </select>
 
           <div id="scrInput"></div>
 
-          <button id="loadScript1"> Load Coordinate script</button>
-          <button id="loadScript2"> Load Geological script</button>
-          <button id="loadScript3"> Load Default script</button>
-
           <div id="scriptBtn">
 
-          <button id="applyScript"> Apply</button>
-          <button id="revertScript"> Revert</button>
-          <button id="loadScript"> Load</button>
+            <button id="applyScript"> Apply</button>
+            <button id="revertScript"> Revert</button>
+            <button id="loadScript"> Load</button>
 
-          <button id="if-scr"> Add IF</button>
-          <button id="loop-scr"> Add LOOP</button>
+            <button id="if-scr"> Add IF</button>
+            <button id="loop-scr"> Add LOOP</button>
+          </div>
 
+          <select class="select" width=100% height=100% name="predefinedScrSelect" id="predefinedScrSelect" multiple="multiple">
+            <option selected="selected" value="1_naming_script.js">1. Create SAMPLING_POINT-NAME</option>
+            <option selected="selected" value="2_latitude_longitude.js">2. Compute Alternative coordinates</option>
+            <option selected="selected" value="3_coordinates_script.js">3. Compute Samples Coordinates from well data & depth</option>
+            <option selected="selected" value="4_geological_log_script.js">4. Assign Log values from csv log</option>
+          </select>
 
-        </div>
+          <p id ="basicInfoScr"> Default Script</p>
+          <p id ="logArea"> ___ </p> 
 
 
 

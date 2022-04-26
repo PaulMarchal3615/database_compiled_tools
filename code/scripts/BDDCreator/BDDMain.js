@@ -122,7 +122,7 @@ function addOptionToScr(event) {
 
     if (event.target.id == "loop-scr") {
 
-        text = 'for (var sample of Object.keys(allMetadata.SAMPLES_METADATA)) {\n \t // do something on sample object \n \t// ie you can change sample["HOLEID"] \n}';
+        text = 'for (var sample of Object.keys(allMetadata.SAMPLES_METADATA)) {\n \t // do something on sample object \n \t var sampleInfo = allMetadata.SAMPLES_METADATA[sample]; \n \t // ie you can change sample["HOLEID"] \n}';
        
         newText = textInput.concat(text+"\n");
         
@@ -151,3 +151,35 @@ function addOptionToScr(event) {
 
 document.getElementById("if-scr").addEventListener('click',addOptionToScr);
 document.getElementById("loop-scr").addEventListener('click',addOptionToScr);
+
+function preFilledScript() {
+
+    let scrSelect = document.getElementById("predefinedScrSelect");
+    let value = $(scrSelect).find('option:selected').attr('value');
+
+    console.log(value);
+    
+    readTextFile("file:///C:/Users/marchal79/Desktop/Code/Javascript/database_compiled_tools/code/scripts/BDDCreator/executable_scripts/"+value);
+    }
+
+document.getElementById("predefinedScrSelect").addEventListener('change',preFilledScript);
+
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                //alert(allText);
+                //console.log(allText);
+                editor.setValue(String(allText));
+            }
+        }
+    }
+    rawFile.send(null);
+}

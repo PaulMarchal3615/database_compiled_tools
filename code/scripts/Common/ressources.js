@@ -1031,7 +1031,8 @@ export var sampleMetadata = {
     'METHODOLOGY-ANALYSIS':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
     'METHODOLOGY-SAMPLE':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
     'LITHOLOGY_ORANO':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'FORMATION_ORANO':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1}
+    'FORMATION_ORANO':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
+    "HOLEID" : {unit:"text",description:"drillhole name",value:null,htmlContent:0, requiredPattern:patternText1}
 }
 export var holeMetadata = {
     "HOLEID" : {unit:"text",description:"drillhole name",value:null,htmlContent:0, requiredPattern:patternText1},

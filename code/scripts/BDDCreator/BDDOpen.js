@@ -81,12 +81,14 @@ function LoadFile(fileName, MDarray) {
 
     if (Object.keys(metadataFields).includes(selectVal)) {
 
-        references = Object.values(metadataFields[selectVal]).concat(['SAMPLE_NAME']);
+        references = Object.values(metadataFields[selectVal]).concat(['SAMPLE_NAME','HOLEID','SAMPLE_NAME_ORANO','SAMPLE_NAME_GEORESSOURCES']);
     }
     else {
 
-        references = Object.values(fields[selectVal]).concat(['SAMPLE_NAME']);
+        references = Object.values(fields[selectVal]).concat(['SAMPLE_NAME','HOLEID','SAMPLE_NAME_ORANO','SAMPLE_NAME_GEORESSOURCES']);
     }
+
+    references = references.filter((v, i, a) => a.indexOf(v) === i);
 
     var results = compareHeads(head, references);
 
