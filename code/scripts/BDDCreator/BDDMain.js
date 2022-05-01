@@ -155,11 +155,14 @@ document.getElementById("loop-scr").addEventListener('click',addOptionToScr);
 function preFilledScript() {
 
     let scrSelect = document.getElementById("predefinedScrSelect");
-    let value = $(scrSelect).find('option:selected').attr('value');
+let value = $(scrSelect).find('option:selected').attr('value');
 
     console.log(value);
+    var path = document.location.pathname;
+    var directory = path.substring(path.indexOf('/'), path.lastIndexOf('/'));
+    console.log(directory);
     
-    readTextFile("file:///C:/Users/marchal79/Desktop/Code/Javascript/database_compiled_tools/code/scripts/BDDCreator/executable_scripts/"+value);
+    readTextFile("file:///code/scripts/BDDCreator/executable_scripts/1_naming_script.js");
     }
 
 document.getElementById("predefinedScrSelect").addEventListener('change',preFilledScript);
