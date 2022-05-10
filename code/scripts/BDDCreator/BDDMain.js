@@ -149,8 +149,19 @@ function addOptionToScr(event) {
 
 }
 
+window.console.log = function(txt) { 
+    //alert(txt)
+    $("#logArea").text($("#logArea").text()+'\n'+ txt);
+}
+
 document.getElementById("if-scr").addEventListener('click',addOptionToScr);
 document.getElementById("loop-scr").addEventListener('click',addOptionToScr);
+
+document.getElementById("clear-scr").addEventListener('click',clearLog);
+
+function clearLog() {
+    $("#logArea").text("");
+}
 
 function preFilledScript() {
 
@@ -160,15 +171,20 @@ let value = $(scrSelect).find('option:selected').attr('value');
     console.log(value);
     var path = document.location.pathname;
     var directory = path.substring(path.indexOf('/'), path.lastIndexOf('/'));
-    console.log(directory);
+
+    var tempArr = directory.split('/');
+    tempArr.pop();
+    directory = tempArr.join('/');
+    var url = "file://"+directory+"/scripts/BDDCreator/executable_scripts".concat('/',value);
     
-    readTextFile("file:///code/scripts/BDDCreator/executable_scripts/1_naming_script.js");
+    readTextFile(url);
     }
 
 document.getElementById("predefinedScrSelect").addEventListener('change',preFilledScript);
 
 function readTextFile(file)
 {
+    console.log(file);
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", file, false);
     rawFile.onreadystatechange = function ()

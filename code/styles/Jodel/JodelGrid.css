@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 2fr 150px;
+  grid-template-columns: 1fr 2fr 225px;
   grid-gap: 0.5em;
 }
 .sidebar {
