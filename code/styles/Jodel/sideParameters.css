@@ -5,7 +5,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 10px;
-  grid-template-rows: max-content max-content max-content;
+  grid-template-rows: max-content max-content max-content max-content;
 }
 
 #ratioControl {
@@ -16,6 +16,10 @@
 .colorSelect{
   grid-column: 1;
   grid-row: 2;
+}
+#dispWellTraces{
+  grid-column: 1;
+  grid-row: 3;
 }
 
 #color-table-zone {

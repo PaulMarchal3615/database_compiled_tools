@@ -1,4 +1,5 @@
-import {isFloat, random} from '../Common/common_functions.js';
+import {isFloat} from '../Common/common_functions.js';
+import { holesTraces } from '../Common/ressources.js';
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
@@ -256,6 +257,7 @@ function mapColors(obj) {
  * @returns trace,; object containing samples coordinates and tags for display function
  */
 export function buildTrace3D(analysisLines, propertyName, surfaces) {
+	alert('ah');
 
 	var traces =[];
 
@@ -279,13 +281,14 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 		z: Zvals,
 		text:text,
 		mode: 'markers',
+		opacity:1,
 		marker: {
 			size: 12,
 			color:colors,
 			line: {
 			color:colors,
-			width: 0.5},
-			opacity: 0.8},
+			width: 0.4},
+			opacity: 1},
 		type: 'scatter3d'
 	};
 
@@ -309,7 +312,53 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 		
 	}
 
+	if ($("#dispTraces").is(":checked")) {
+
+		var wellraw = analysisLines.map(({A41})=>A41);
+		var wellList = wellraw.filter((v, i, a) => a.indexOf(v) === i);
+
+		var wells = addWellTraces(wellList);
+		traces = traces.concat(wells);
+
+	}
 	return traces;	
+	
+}
+
+function addWellTraces(wellList) {
+
+	var tracesWells = [];
+
+	for (var well of wellList) {
+
+		if (Object.keys(holesTraces).includes(well)) {
+
+			alert(holesTraces[well].X.map(x => well));
+
+			var traceWell = {
+				x: holesTraces[well].X,
+				y: holesTraces[well].Y,
+				z: holesTraces[well].Z,
+				text:holesTraces[well].X.map(x => well),
+				mode: 'lines',
+				type: 'scatter3d',
+				opacity:0.8,
+				line: {
+					width: 4,
+					color: '#AF1F00'}
+			};
+
+			tracesWells.push(traceWell);
+
+		}
+		else {
+			//alert (well, ' not in BDD');
+		}
+	}
+
+	return tracesWells;
+
+    
 }
 
 /**
@@ -321,9 +370,12 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 	var ratio = {
 		x:document.getElementById("X_input").value,
 		y:document.getElementById("Y_input").value,
-		z:document.getElementById("Z_input").value};
+		z:document.getElementById("Z_input").value
+	};
 
 	 var layout = {
+		 showlegend:false,
+		 showgrid:false,
 		 scene:{
 			 aspectmode:'manual',
 			 aspectratio: ratio,

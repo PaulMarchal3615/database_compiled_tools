@@ -1,1 +1,4 @@
-console.log('3');
+import { askForSurveyAndCollar } from "../BDDCollarSurveyImport";
+
+
+askForSurveyAndCollar();

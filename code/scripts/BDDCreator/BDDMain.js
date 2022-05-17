@@ -166,7 +166,7 @@ function clearLog() {
 function preFilledScript() {
 
     let scrSelect = document.getElementById("predefinedScrSelect");
-let value = $(scrSelect).find('option:selected').attr('value');
+    let value = $(scrSelect).find('option:selected').attr('value');
 
     console.log(value);
     var path = document.location.pathname;
@@ -202,3 +202,4 @@ function readTextFile(file)
     }
     rawFile.send(null);
 }
+

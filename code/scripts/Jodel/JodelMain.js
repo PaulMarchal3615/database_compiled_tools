@@ -39,6 +39,7 @@ input2.addEventListener('input',parseSurfaceFiles);
 document.getElementById("X_input").addEventListener("change",displayMain);
 document.getElementById("Y_input").addEventListener("change",displayMain);
 document.getElementById("Z_input").addEventListener("change",displayMain);
+document.getElementById("dispTraces").addEventListener("change",displayMain);
 
 document.getElementById("lowCol").addEventListener("change",displayMain);
 document.getElementById("highCol").addEventListener("change",displayMain);
