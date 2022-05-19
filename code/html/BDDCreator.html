@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../styles/BDDCreator/BDDCreatorHolesSamplesGrid.css" />
     <link rel="stylesheet" href="../styles/BDDCreator/BDDScriptGrid.css" />
     <link rel="stylesheet" href="../styles/Common/input.css" />
+    <link rel="stylesheet" href="../styles/BDDCreator/BDDRadioButtons.css" />
 
     <script type="text/javascript">
       function openTab(evt, viewName) {
@@ -64,7 +65,24 @@
               <option value="FI-LA-ICP-MS">FI-LA-ICP-MS</option>
               <option value="XRD-CLAY">XRD-CLAY</option>
               <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
-            </select>  
+            </select>
+            
+            
+            <fieldset id = "holesRadioButton">
+              <legend>Select a HOLES FILE TYPE:</legend>
+          
+              <div>
+                <input type="radio" id="collar" name="holesFile" value="collar"
+                       checked>
+                <label for="collar">Collar</label>
+              </div>
+          
+              <div>
+                <input type="radio" id="survey" name="holesFile" value="survey">
+                <label for="survey">Survey</label>
+              </div>
+          
+          </fieldset>
               
           <p id="BDDText2">2. Import File & Check Quality</p>
 
@@ -127,8 +145,6 @@
     <div id="BDDCreator-tab-2" class="tabcontent" style="display:none">
 
       <button id="BDDDisplay">DISPLAY</button>
-      <button id="BDDApplyScript">APPLY SCRIPT</button>
-
 
       <div id="QCSubTab">
 

@@ -1,4 +1,1 @@
-import { askForSurveyAndCollar } from "../BDDCollarSurveyImport";
-
-
-askForSurveyAndCollar();
+// console.log('3');

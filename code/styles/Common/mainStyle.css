@@ -1,6 +1,7 @@
 html, 
 body{
-  position:fixed;
+  height: 1fr;
+  width: 100%;
   top:0;
   bottom: 0;
   left:0;
@@ -10,7 +11,6 @@ body{
 }
 
 body {
-  padding: 0px;
   margin: 0.5em;
   background-color:#B8CBD0;
   box-sizing: border-box;
@@ -31,9 +31,30 @@ body {
 }
 
 footer {
+  position: fixed;
+  bottom: 0;
+  left:0;
+  height: 30px;
   padding: 0px 0px;
-  background: #323232;
+  background-color: #323232;
   color: white;
-  height: 4%;
   display: inline;
+  width: 100%;
+}
+
+header {
+  position: fixed;
+  height: 40px;
+  width: 100%;
+  background-color: #323232;;
+}
+
+.mainTabContent{
+  position: fixed;
+  height: 50%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
 }

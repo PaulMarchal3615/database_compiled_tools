@@ -5,6 +5,7 @@ import { displayMetadata } from "./BDDQC.js";
 import {showData, exportData} from "./BDDExport.js";
 
 
+
 //---------------------------------------------
 // 1. init dexie db : db_BDD with two stores : analysis (based on analysis lines of a file and datasets to store files info)
 
@@ -12,7 +13,7 @@ var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
 	analysis_files:`++ID,FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
-    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA,HOLES_TRACES`,
     rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT,IS_READ`
 });
 
@@ -29,9 +30,11 @@ db_BDD.rawMetadata_files.clear();
 
 db_BDD.transaction('rw', db_BDD.metadata, () => {
 
-    db_BDD.metadata.bulkPut([{ID: 1,PROJECT_METADATA:projectMetadata, SAMPLES_METADATA:{},HOLES_METADATA:{}}]);
+    db_BDD.metadata.bulkPut([{ID: 1,PROJECT_METADATA:projectMetadata, SAMPLES_METADATA:{},HOLES_METADATA:{},HOLES_TRACES:{}}]);
 
-}).then(()=>{console.log("ok")})
+}).then(()=>{
+    console.log('BDD INIT OK');
+})
     .catch (error => {
         console.error(error);
 });	
@@ -41,7 +44,21 @@ db_BDD.transaction('rw', db_BDD.metadata, () => {
 
 
 var inputBDD = document.querySelector('#BDDfileInput');
-var inputCollar = document.querySelector('#inputCollar');
+
+var typeSelect = document.querySelector('#BDDSelect');
+typeSelect.addEventListener('change', function() {
+    var fieldset = document.getElementById('holesRadioButton');
+
+    console.log(typeSelect, typeSelect.value);
+    
+    if (typeSelect.value == "HOLES_METADATA") {
+        fieldset.style.visibility = "visible";
+    }
+    else {
+        fieldset.style.visibility = "collapse";
+    }
+})
+
 document.getElementById('BDDOpen').addEventListener('click', function() {inputBDD.click();});
 inputBDD.addEventListener('input',parseFile);
 
@@ -149,10 +166,10 @@ function addOptionToScr(event) {
 
 }
 
-window.console.log = function(txt) { 
+//window.console.log = function(txt) { 
     //alert(txt)
-    $("#logArea").text($("#logArea").text()+'\n'+ txt);
-}
+//    $("#logArea").text($("#logArea").text()+'\n'+ txt);
+//}
 
 document.getElementById("if-scr").addEventListener('click',addOptionToScr);
 document.getElementById("loop-scr").addEventListener('click',addOptionToScr);
@@ -203,3 +220,13 @@ function readTextFile(file)
     rawFile.send(null);
 }
 
+
+
+
+function matchWellsWithRawSampleName() {
+
+}
+
+function createSamplesFromAnalysisFile() {
+
+}

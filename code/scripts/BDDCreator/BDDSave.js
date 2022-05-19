@@ -1,5 +1,5 @@
 import {getColumn} from "../Common/common_functions.js";
-import { holeMetadata,sampleMetadata,metadataFields} from "../Common/ressources.js";
+import { holeMetadata,sampleMetadata,metadataFields, holesTracesTemplate} from "../Common/ressources.js";
 
 //---------------------------------------------
 // 1. init dexie db : db_BDD with two stores : analysis (based on analysis lines of a file and datasets to store files info)
@@ -8,7 +8,7 @@ var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
 	analysis_files:`++ID,FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
-    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA,HOLES_TRACES`,
     rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT,IS_READ`
 });
 
@@ -42,13 +42,9 @@ export function convertDataToArray() {
 
     else {
 
-        console.log(fileName);
-
         db_BDD.transaction('r', db_BDD.analysis_files, function () {
             return db_BDD.analysis_files.where({FILE_NAME:fileName, TYPE:selectVal}).toArray();
         }).then (files =>{
-
-            console.log(files);
             
             var newArray = createCorrectedArray(assoc, files[0].RAW_ARRAY);
 
@@ -157,17 +153,20 @@ function saveMetadata(assoc) {
                     updatedMetadata = importProjectMetadata(rawFile, metadata[0], assoc);
                 }
                 else if (rawFile.TYPE == "HOLES_METADATA") {
-                    updatedMetadata = importHolesMetadata(rawFile, metadata[0], assoc);
+
+                    if ($('input[name="holesFile"]:checked').val()=="survey") {
+                        updatedMetadata = importSurveyMetadata(rawFile, metadata[0], assoc);
+                    }
+                    else {
+                        updatedMetadata = importHolesMetadata(rawFile, metadata[0], assoc);
+                    }
+                    
                 }
                 else if (rawFile.TYPE == "SAMPLES_METADATA") {
-                    console.log('hey 2!');
                     updatedMetadata = importSamplesMetadata(rawFile, metadata[0], assoc);
-                    console.log(updatedMetadata);
                 }
                 
                 if (!jQuery.isEmptyObject(updatedMetadata)) {
-
-                    console.log('hey ! ');
 
                     db_BDD.rawMetadata_files.update(rawFile.FILE_NAME, {IS_READ:1}); 
 
@@ -252,6 +251,57 @@ function importHolesMetadata(rawFile, metadata, assoc) {
     else {
         return {};
     }
+}
+
+function importSurveyMetadata(rawFile, metadata, assoc) {
+
+    if ((!jQuery.isEmptyObject(assoc)) && (Object.keys(assoc).includes('HOLEID'))){
+
+        var holeName = Object.keys(assoc).find(key => assoc[key] === 'HOLEID');
+        var holes = getColumn(holeName,rawFile.RAW_ARRAY);
+        var uniqueHoles = holes.filter((v, i, a) => a.indexOf(v) === i);
+        uniqueHoles.shift(); // we assume firt element is header
+        var colNumber = rawFile.RAW_ARRAY[0].indexOf(holeName);
+
+        var headers, lines;
+        [headers, ...lines] = rawFile.RAW_ARRAY;
+
+        for (var hole of uniqueHoles) {
+
+            var filtered = [headers].concat(filterByValue(lines, hole, colNumber));
+
+            var tempStore = JSON.parse(JSON.stringify(holesTracesTemplate));
+
+            for (var wrongKey of Object.keys(assoc)) {
+
+                if (assoc[wrongKey] != "NO MATCH") {
+                    var values = getColumn(wrongKey,filtered);
+                    values.shift();
+                    tempStore[assoc[wrongKey]].value = values;
+                }
+            }
+
+            var trace = {};
+            metadata.HOLES_TRACES[hole] = JSON.parse(JSON.stringify({"DEPTH":0,"DIP":0,"DIP_DIRECTION":0}));
+
+            for (var i = 0; i<tempStore["DEPTH"].value.length; i++) {
+
+                var tracePoint = {"DEPTH":tempStore["DEPTH"].value[i],"DIP":tempStore["DIP"].value[i],"DIP_DIRECTION":tempStore["DIP_DIRECTION"].value[i]};
+
+                trace[tempStore["DEPTH"].value[i]] = tracePoint;
+            }
+
+            metadata.HOLES_TRACES[hole] = trace;
+        }
+
+        console.log(metadata);
+
+        return metadata;
+    }
+    else {
+        return {};
+    }
+
 }
 
 function importSamplesMetadata(rawFile, metadata, assoc) {

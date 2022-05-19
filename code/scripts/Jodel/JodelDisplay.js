@@ -257,15 +257,12 @@ function mapColors(obj) {
  * @returns trace,; object containing samples coordinates and tags for display function
  */
 export function buildTrace3D(analysisLines, propertyName, surfaces) {
-	alert('ah');
 
 	var traces =[];
 
 	var request =['A31','A32','A33'] // 3 properties to request
 
 	var arr2 = Object.values(multiDimArray(analysisLines,propertyName, request));
-
-	console.log(arr2);
 
 	// create one traces for all analysis points
 
@@ -332,8 +329,6 @@ function addWellTraces(wellList) {
 	for (var well of wellList) {
 
 		if (Object.keys(holesTraces).includes(well)) {
-
-			alert(holesTraces[well].X.map(x => well));
 
 			var traceWell = {
 				x: holesTraces[well].X,

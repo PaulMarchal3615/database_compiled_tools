@@ -8,7 +8,7 @@ var db_BDD = new Dexie("BDD_DB");
 
 db_BDD.version(1).stores({
 	analysis_files:`++ID,FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT`,
-    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA`,
+    metadata:`++ID,PROJECT_METADATA,HOLES_METADATA,SAMPLES_METADATA,HOLES_TRACES`,
     rawMetadata_files:`FILE_NAME,RAW_ARRAY,TYPE,CORRECT_DICT,IS_READ`
 });
 
@@ -79,9 +79,15 @@ function LoadFile(fileName, MDarray) {
 
     let references = [];
 
+
     if (Object.keys(metadataFields).includes(selectVal)) {
 
-        references = Object.values(metadataFields[selectVal]).concat(['SAMPLE_NAME','HOLEID','SAMPLE_NAME_ORANO','SAMPLE_NAME_GEORESSOURCES']);
+        if ((selectVal =="HOLES_METADATA") && ($('input[name="holesFile"]:checked').val()=="survey")) {
+            references = ['HOLEID','DIP','DIP_DIRECTION','DEPTH'];
+        }
+        else {
+            references = Object.values(metadataFields[selectVal]).concat(['SAMPLE_NAME','HOLEID','SAMPLE_NAME_ORANO','SAMPLE_NAME_GEORESSOURCES']);
+        }
     }
     else {
 
