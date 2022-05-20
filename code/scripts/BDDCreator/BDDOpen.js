@@ -349,7 +349,7 @@ function updatePercent(event) {
  * @param {*} s2 STRING
  * @returns float value btw 0 (no match) and 1 (full match)
  */
-const JaroWrinker  =  (s1, s2) =>  {
+export const JaroWrinker  =  (s1, s2) =>  {
     var m = 0;
 
     s1 = s1.toUpperCase();

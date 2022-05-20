@@ -48,14 +48,16 @@
 
 <body>
 
-  <div class="indexGrid">
+  <div id="container">
 
-    <header id="headerIndex">
+    <div id="header">
       <img id="logo0" src="https://multi.univ-lorraine.fr/img/ul-logo.png" height="100%" width="auto" alt="logo"/>
-      <img id="logo1" style="justify-self:end" src="./pictures/logo_soft.svg" height="100%" width=100% alt="logo"/>
+      <img id="logo1" style="justify-self:end" src="./pictures/logo_soft.svg" height="100%" width=auto alt="logo"/>
       <button id="btn-BDD" class="mainTablink" onclick="openPage('Historical', this, '#709CA7')">HISTORICAL DATASETS INTEGRATION</button>
       <button id="btn-JODEL" class="mainTablink" onclick="openPage('Jodel', this, '#709CA7')"> JODEL</button>
-    </header>
+    </div>
+
+    <div id="body">
 
     <div id="Historical" class="mainTabcontent">
 
@@ -84,16 +86,19 @@
 
     </div>
 
-    <footer id="footer">
+  </div>
+
+    <div id="footer">
 
       <p class="copyright"> Otelo - GeoRessources © 2022</p>
-      <img id="logo3" src="./pictures/otelo_bw.png" height="100%" width="100%" alt="logo"/>
+      <img id="logo3" src="./pictures/otelo_bw.png" height="100%" width="auto" alt="logo"/>
       
-      <img id="logo2" src="./pictures/georessources.png" height="100%" width="100%" alt="logo"/>
+      <img id="logo2" src="./pictures/georessources.png" height="100%" width="auto" alt="logo"/>
 
       
     </footer>
 
+  </div>
   </div>
   
 

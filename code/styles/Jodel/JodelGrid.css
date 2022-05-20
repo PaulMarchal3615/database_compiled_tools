@@ -20,7 +20,7 @@
 }
 
 .displayZone{
-  grid-template-rows: max-content 1fr;
+  grid-template-rows: 50px 80vh;
   display: grid;
 }
 

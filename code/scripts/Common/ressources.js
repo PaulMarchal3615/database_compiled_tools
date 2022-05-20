@@ -996,6 +996,7 @@ export var sampleMetadata = {
     "SAMPLING_POINT-ELEVATION" : {unit:"m",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
     "SAMPLING_POINT-DESCRIPTION" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
     'SAMPLING_POINT-COORDINATE_SYSTEM':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
+    "HOLEID" : {unit:"text",description:"drillhole name",value:"",htmlContent:0, requiredPattern:patternText1},
     "X_NAD" : {unit:"m",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
     "Y_NAD" : {unit:"m",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
     "Z_NAD" : {unit:"m",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
@@ -1032,8 +1033,8 @@ export var sampleMetadata = {
     'METHODOLOGY-ANALYSIS':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
     'METHODOLOGY-SAMPLE':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
     'LITHOLOGY_ORANO':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'FORMATION_ORANO':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "HOLEID" : {unit:"text",description:"drillhole name",value:null,htmlContent:0, requiredPattern:patternText1}
+    'FORMATION_ORANO':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1}
+    
 }
 export var holeMetadata = {
     "HOLEID" : {unit:"text",description:"drillhole name",value:null,htmlContent:0, requiredPattern:patternText1},

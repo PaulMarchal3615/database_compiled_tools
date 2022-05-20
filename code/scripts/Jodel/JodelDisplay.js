@@ -665,7 +665,7 @@ function makeTracesForDensity(analysisLines, propertyName) {
 		marker: {
 		  color: colors,
 		  size: 10,
-		  opacity: 0.9
+		  opacity: 0
 		},
 		type: 'scatter'
 	  };
@@ -679,7 +679,7 @@ function makeTracesForDensity(analysisLines, propertyName) {
 		colorscale: colorscale[0],
 		contours: {
 
-			showlabels: true,
+			showlabels: false,
 
 			labelfont: {
 			  family: 'Raleway',
@@ -687,9 +687,9 @@ function makeTracesForDensity(analysisLines, propertyName) {
 			}
 		  },
 		reversescale: true,
-		showscale: true,
+		showscale: false,
 		type: 'histogram2dcontour',
-		opacity: 0.5
+		opacity: 1
 	  };
 
 	  var trace3 = {

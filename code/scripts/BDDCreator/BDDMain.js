@@ -1,5 +1,5 @@
 import {projectMetadata, metadataFields} from "../Common/ressources.js";
-import {parseFile, deactivateHeads} from "./BDDOpen.js";
+import {parseFile, deactivateHeads, JaroWrinker} from "./BDDOpen.js";
 import { convertDataToArray} from "./BDDSave.js";
 import { displayMetadata } from "./BDDQC.js";
 import {showData, exportData} from "./BDDExport.js";
@@ -201,7 +201,6 @@ document.getElementById("predefinedScrSelect").addEventListener('change',preFill
 
 function readTextFile(file)
 {
-    console.log(file);
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", file, false);
     rawFile.onreadystatechange = function ()
@@ -220,13 +219,39 @@ function readTextFile(file)
     rawFile.send(null);
 }
 
+function findTopValues(array, value) {
 
+    const closest = array.reduce((a, b) => {
+        let aDiff = Math.abs(a - value);
+        let bDiff = Math.abs(b - value);
+    
+        if (aDiff == bDiff) {
+            // Choose largest vs smallest (> vs <)
+            return a < b ? a : b;
+        } else {
+            return bDiff < aDiff ? b : a;
+        }
+    });
 
-
-function matchWellsWithRawSampleName() {
+    return closest;
 
 }
 
-function createSamplesFromAnalysisFile() {
+function findBottomValues(array, value) {
+
+    const closest = array.reduce((a, b) => {
+        let aDiff = Math.abs(a - value);
+        let bDiff = Math.abs(b - value);
+    
+        if (aDiff == bDiff) {
+            // Choose largest vs smallest (> vs <)
+            return a > b ? a : b;
+        } else {
+            return bDiff < aDiff ? b : a;
+        }
+    });
+
+    return closest;
 
 }
+
