@@ -13,6 +13,7 @@ for (var sample of Object.keys(allMetadata.SAMPLES_METADATA)) {
     holeid  = holeid.replaceAll("_","");
     holeid = holeid.replaceAll('WC','WC-');
     depth = depth.replaceAll(".","-");
+   depth = depth.replaceAll(",","-");
 
     // we fill the SAMPLING_POINT-NAME property ! string must be stored in Object.value
     sampleInfo["SAMPLING_POINT-NAME"].value = holeid+"--"+depth;

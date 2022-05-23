@@ -1,5 +1,5 @@
-import {getKeyByValue} from "../Common/common_functions.js";
-import {units, keyVal, abbrev} from "../Common/ressources.js";
+import {getColumn, getKeyByValue, getColumnIndice} from "../Common/common_functions.js";
+import {units, keyVal, abbrev, fields, metadataFields} from "../Common/ressources.js";
 
 //---------------------------------------------
 // 1. init dexie db : db_BDD with two stores : analysis (based on analysis lines of a file and datasets to store files info)
@@ -34,16 +34,18 @@ export function exportData() {
         }).then(analysis_files => {
 
             var types = getTypeList(analysis_files);
-            console.log(types);
+
+            var dataExport ={};
 
             for (var type of types) {
 
-                console.log(analysis_files.filter(file => file.TYPE == type));
-
                 var filteredfiles = analysis_files.filter(file => file.TYPE == type);
                 var array = convertToArray(filteredfiles);
-                console.log(array);
+
+                dataExport[type] = array;
             }
+            console.log('ehloejhbdfjkfbh');
+            mergeDataAndMetadata(dataExport);
             
         })
         .catch (function (e) {
@@ -126,12 +128,6 @@ function getHeadersLine(analysis_files) {
     return [unique, unitsList];
 }
 
-function mergeAnalysis(analysis_files) {
-
-    return Array;
-
-}
-
 export function showData() {
 
     db_BDD.transaction('r', db_BDD.rawMetadata_files, function() {
@@ -181,4 +177,116 @@ function updateExportTable(metadataFiles, analysisFiles) {
         var cell4 = row2.insertCell(0);  
         cell4.innerHTML = file2.TYPE;
     }
+}
+
+function mergeDataAndMetadata(dataExport) {
+
+    console.log('mergeData');
+
+    db_BDD.transaction('rw', db_BDD.metadata, function () {
+        return db_BDD.metadata.where('ID').equals(1).toArray();
+    }).then (metadata =>{
+        
+        generateFinalArray(dataExport, metadata[0]);
+
+    })
+    .catch (function (e) {
+        console.error("LOAD METADATA TEMPLATE ERROR : ",e);
+    });	
+
+}
+
+
+function generateFinalArray(dataExport, metadata) {
+    console.log('generateFinal');
+
+    var heads = metadataFields['PROJECT_METADATA']+metadataFields['HOLES_METADATA']+metadataFields['SAMPLES_METADATA'];
+
+
+    for (var analysis of Object.keys(dataExport)) {
+        heads.concat(dataExport[analysis][0]);
+    }
+    var blank1 = 0;
+    var blank2 = heads.length - metadataFields['PROJECT_METADATA'].length+metadataFields['HOLES_METADATA'].length+metadataFields['SAMPLES_METADATA'].length;
+    var newArray = [];
+    
+    
+    for (var analysis of Object.keys(dataExport)) {
+
+        var table = dataExport[analysis];
+        var tableLength = table[0].length;
+        blank2 = blank2 - tableLength;
+
+        var sampleColIndice = getColumnIndice('SAMPLE_NAME', table);
+        for (var line of dataExport[analysis]) {
+
+            var newLine = [];
+
+            var sampleName = line[sampleColIndice];
+
+            if ((sampleName != 'SAMPLE_NAME') && (sampleName != 'text')) {
+            console.log(sampleName, metadata);
+            var holeName = metadata.SAMPLES_METADATA[sampleName].HOLEID.value;
+
+            for (var head of metadataFields['PROJECT_METADATA']) {
+
+                newLine.push(metadata.PROJECT_METADATA[head].value);
+            }
+
+            for (var head of metadataFields['HOLES_METADATA']) {
+
+                newLine.push(metadata.HOLES_METADATA[holeName][head].value);
+            }
+
+            for (var head of metadataFields['SAMPLES_METADATA']) {
+
+                newLine.push(metadata.SAMPLES_METADATA[sampleName][head].value);
+            }
+
+            if (blank1 != 0) {
+                newLine = newLine.concat(new Array(blank1));
+            }
+
+            newLine = newLine.concat(line);
+            newLine = newLine.concat(new Array(blank2));
+
+            blank1 = tableLength;  
+            newArray.push(newLine);
+        }
+    }
+
+    }
+
+    console.log(newArray);
+
+    if (newArray.length >0) {
+        export_csv(heads, newArray, ',', 'exportBDD.csv');
+    }
+
+    
+
+}
+
+/**
+ * convert/export array to csv file and open it as an URL link
+ * @param {*} arrayHeader : array[string] containing 
+ * @param {*} arrayData array[array[string]] data line as array
+ * @param {*} delimiter string delimiter ','
+ * @param {*} fileName string fileName without extension
+ */
+ const export_csv = (arrayHeader, arrayData, delimiter, fileName) => {
+	let header = arrayHeader.join(delimiter) + '\n';
+	let csv = header;
+	arrayData.forEach( array => {
+		csv += array.join(delimiter)+"\n";
+	});
+
+	let csvData = new Blob([csv], { type: 'text/csv' });  
+	let csvUrl = URL.createObjectURL(csvData);
+
+	let hiddenElement = document.createElement('a');
+	hiddenElement.href = csvUrl;
+	hiddenElement.target = '_blank';
+	hiddenElement.download = fileName + '.csv';
+	hiddenElement.click();
 }

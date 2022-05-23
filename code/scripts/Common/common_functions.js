@@ -26,6 +26,13 @@ export function rndHex(){return'#'+('00000'+(Math.random()*(1<<24)|0).toString(1
  */
 export function getColumn(colName,  array) {
 
+    var indice = getColumnIndice(colName, array);
+    return array.map(x => x[indice]);
+}
+
+
+export function getColumnIndice(colName, array) {
+
     var indice; 
 
     for (var i=0;i<array[0].length;i++) {
@@ -34,8 +41,11 @@ export function getColumn(colName,  array) {
             break;
         }
     }
-    return array.map(x => x[indice]);
+
+    return indice;
+
 }
+
 
 /**
  * 
