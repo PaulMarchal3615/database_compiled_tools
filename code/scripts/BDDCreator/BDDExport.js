@@ -196,19 +196,40 @@ function mergeDataAndMetadata(dataExport) {
 
 }
 
-
+/**
+ * convert js object to array and export it using export_csv() function 
+ * @param {*} dataExport 
+ * @param {*} metadata 
+ */
 function generateFinalArray(dataExport, metadata) {
     console.log('generateFinal');
 
-    var heads = metadataFields['PROJECT_METADATA']+metadataFields['HOLES_METADATA']+metadataFields['SAMPLES_METADATA'];
-
+    var heads = [...metadataFields['PROJECT_METADATA'],...metadataFields['HOLES_METADATA'],...metadataFields['SAMPLES_METADATA']];
+    var unitsList = [];
 
     for (var analysis of Object.keys(dataExport)) {
-        heads.concat(dataExport[analysis][0]);
+        heads  = heads.concat(dataExport[analysis][0]);
     }
     var blank1 = 0;
     var blank2 = heads.length - metadataFields['PROJECT_METADATA'].length+metadataFields['HOLES_METADATA'].length+metadataFields['SAMPLES_METADATA'].length;
     var newArray = [];
+
+    for (var head of heads) {
+
+
+
+        var unitVal = units[getKeyByValue(keyVal,head)];
+
+        if (typeof myVar !== 'undefined') {
+            unitsList.push(units[getKeyByValue(keyVal,head)]);
+        }
+        else {
+            unitsList.push(units[" "]);
+        }
+        
+    }
+
+    newArray.push(unitsList);
     
     
     for (var analysis of Object.keys(dataExport)) {
@@ -225,7 +246,7 @@ function generateFinalArray(dataExport, metadata) {
             var sampleName = line[sampleColIndice];
 
             if ((sampleName != 'SAMPLE_NAME') && (sampleName != 'text')) {
-            console.log(sampleName, metadata);
+
             var holeName = metadata.SAMPLES_METADATA[sampleName].HOLEID.value;
 
             for (var head of metadataFields['PROJECT_METADATA']) {
@@ -257,13 +278,10 @@ function generateFinalArray(dataExport, metadata) {
 
     }
 
-    console.log(newArray);
-
     if (newArray.length >0) {
+        console.log("newArray",newArray);
         export_csv(heads, newArray, ',', 'exportBDD.csv');
     }
-
-    
 
 }
 
@@ -278,6 +296,12 @@ function generateFinalArray(dataExport, metadata) {
 	let header = arrayHeader.join(delimiter) + '\n';
 	let csv = header;
 	arrayData.forEach( array => {
+        console.log(array);
+
+        for (var el of array) {
+            el.replaceAll(',','.');
+        }
+        
 		csv += array.join(delimiter)+"\n";
 	});
 

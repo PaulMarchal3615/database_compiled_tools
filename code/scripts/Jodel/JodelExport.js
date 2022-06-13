@@ -106,6 +106,7 @@ export function exportSamples() {
 
 			const data = convertToArray(analysis);
 			const [headers, ...lines] = data;
+
 			export_csv(headers, lines, ",", "sampleExport");
 
         }

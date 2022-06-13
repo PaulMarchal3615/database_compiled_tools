@@ -1,3 +1,5 @@
+const deg_to_rad = deg => (deg * Math.PI) / 180.0;
+
 // simple script computing X,Y,Z coordinates for survey traces using collar and dip, dipdir
 // we iterate on every hole referenced in database 
 for (var hole of Object.keys(allMetadata.HOLES_TRACES)) {
@@ -10,6 +12,8 @@ for (var hole of Object.keys(allMetadata.HOLES_TRACES)) {
     var y = holeCollarInfo["HOLEID_Y_NAD"].value;
     var z = holeCollarInfo["HOLEID_Z_NAD"].value;
 
+    console.log(holeTraceInfo);
+
     var previous = 0;
     var dip = holeTraceInfo[0]["DIP"];
     var dipDir = holeTraceInfo[0]["DIP_DIRECTION"];
@@ -19,11 +23,11 @@ for (var hole of Object.keys(allMetadata.HOLES_TRACES)) {
 
         var delta = depth - previous;
 
-        x -= delta*m.cos(m.radians(90+dipDir))*m.sin(m.radians(90+dip));
+        x -= delta*Math.cos(deg_to_rad(90+dipDir))*Math.sin(deg_to_rad(90+dip));
 
-        y += delta*m.sin(m.radians(90+dipDir))*m.sin(m.radians(90+dip));
+        y += delta*Math.sin(deg_to_rad(90+dipDir))*Math.sin(deg_to_rad(90+dip));
 
-        z -= delta*m.cos(m.radians(90+dip));
+        z -= delta*Math.cos(deg_to_rad(90+dip));
 
         holeTraceInfo[depth]["TRACE_X"] = x;
         holeTraceInfo[depth]["TRACE_Y"] = y;

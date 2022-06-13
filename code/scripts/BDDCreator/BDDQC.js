@@ -159,7 +159,7 @@ function buildSimpleTable(tableName,array,fonct) {
             cell1.addEventListener("click",fonction);
         }
     }
-  }
+}
 
 
 function buildComplexTable(tableName, dict) {
@@ -184,8 +184,19 @@ function buildComplexTable(tableName, dict) {
         else {
             const patternText1 = new String("[A-Za-z]+[-|_]+|[0-9]+");
             cell3.innerHTML = '<input type="text" value="'+dict[key].value+'"placeholder="'+dict[key].placeholder+'" title="'+dict[key].description+'" class="TextInput" id="name" name="name" required minlength="1" maxlength="30" size="10" style="width: 200px" required pattern="'+dict[key].requiredPattern+'">';
+            cell3.addEventListener('change',saveCellContent);
         } 
     }
+}
+
+function saveCellContent(event) {
+    console.log('save');
+
+    var tablebody = event.target.parentNode.parentNode;
+    var sampleName = tablebody.rows[12].cell3.innerHTML;
+    console.log(tablebody, sampleName);
+
+
 }
 
 
