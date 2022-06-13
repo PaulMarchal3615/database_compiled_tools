@@ -24,6 +24,9 @@ db_BDD.rawMetadata_files.clear();
 
 // ANALYSIS DATA ---------------------------------------------
 
+/**
+ * 
+ */
 export function convertDataToArray() {
 
     var BDDselect = document.getElementById("BDDSelect");
@@ -64,6 +67,12 @@ export function convertDataToArray() {
 
 }
 
+/**
+ * add file name and type to tableName if not in 
+ * @param {*} fileName str : file name
+ * @param {*} type : str : type of analysis or metadata
+ * @param {*} tableName str : table id 
+ */
 function updateFileTable(fileName, type, tableName) {
 
     var tablebody = document.getElementById(tableName).getElementsByTagName('tbody')[0];
@@ -93,6 +102,12 @@ function updateFileTable(fileName, type, tableName) {
 }
 
 
+/**
+ * 
+ * @param {*} assoc js object containing pairs of string (wrong and write head name)
+ * @param {*} rawArray imported 2D array 
+ * @returns js object with correct name as key and column of vals as values
+ */
 function createCorrectedArray(assoc, rawArray){
 
     var correctDict = {};
@@ -119,7 +134,11 @@ function createCorrectedArray(assoc, rawArray){
 }
 
 
-
+/**
+ * 
+ * @param {*} tableName js object containing pairs of string (wrong and write head name)
+ * @returns js object containg pairs of str 
+ */
 function readCurrentAssociation(tableName) {
     var assoc = {};
     var tablebody = document.getElementById(tableName).getElementsByTagName('tbody')[0];
@@ -136,6 +155,11 @@ function readCurrentAssociation(tableName) {
 
 // METADATA ---------------------------------------------
 
+/**
+ * save metadata informations in db_BDD.metadata
+ * @param {*} assoc js object containing pairs of string (wrong and write head name)
+ * @returns 0
+ */
 function saveMetadata(assoc) {
 
     db_BDD.transaction('rw', db_BDD.metadata, function () {
@@ -191,6 +215,13 @@ function saveMetadata(assoc) {
     return 0;
 }
 
+/**
+ * 
+ * @param {*} rawFile file object stored in db_BDD.rawMetadata_files
+ * @param {*} metadata metadata object stored in db_BDD.metadata
+ * @param {*} assoc js object containing pairs of string (wrong and write head name)
+ * @returns updated metadata object
+ */
 function importProjectMetadata(rawFile, metadata, assoc) {
 
     if (!jQuery.isEmptyObject(assoc)) {
@@ -213,10 +244,24 @@ function importProjectMetadata(rawFile, metadata, assoc) {
     }
 }
 
+/**
+ * 
+ * @param {*} array : 2D array to filter
+ * @param {*} value : researched value
+ * @param {*} colNumber : researched column head
+ * @returns filtered 2D array lines where line[colNumber] = value
+ */
 function filterByValue(array, value, colNumber) {
     return array.filter(innerArray => innerArray[colNumber] == value);
 }
 
+/**
+ * 
+ * @param {*} rawFile 
+ * @param {*} metadata 
+ * @param {*} assoc 
+ * @returns 
+ */
 function importHolesMetadata(rawFile, metadata, assoc) {
 
     if ((!jQuery.isEmptyObject(assoc)) && (Object.keys(assoc).includes('HOLEID'))){

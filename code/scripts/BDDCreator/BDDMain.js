@@ -88,7 +88,9 @@ var editor = CodeMirror(document.querySelector('#scrInput'), {
 
 document.getElementById('applyScript').addEventListener('click', executeScript);
 
-
+/**
+ * main function for personnalized script execution uqsing eval; it can access to db_BDD.metadata only
+ */
 function executeScript() {
 
     db_BDD.transaction('rw', db_BDD.metadata, function () {
@@ -112,6 +114,9 @@ function executeScript() {
 
 initSCRList();
 
+/**
+ * fill src list select 
+ */
 function initSCRList() {
     let scrSelect = document.getElementById("ScrSelect");
     let samplesMeta = metadataFields.SAMPLES_METADATA;
@@ -130,6 +135,10 @@ function initSCRList() {
 
 }
 
+/**
+ * write choosen element in script area
+ * @param {*} event when element is triggered by btn
+ */
 function addOptionToScr(event) {
 
     var opt = event.target;
@@ -166,26 +175,28 @@ function addOptionToScr(event) {
 
 }
 
-//window.console.log = function(txt) { 
-    //alert(txt)
-//    $("#logArea").text($("#logArea").text()+'\n'+ txt);
-//}
 
 document.getElementById("if-scr").addEventListener('click',addOptionToScr);
 document.getElementById("loop-scr").addEventListener('click',addOptionToScr);
 
 document.getElementById("clear-scr").addEventListener('click',clearLog);
 
+/**
+ * clear log area
+ */
 function clearLog() {
     $("#logArea").text("");
 }
 
+
+/**
+ * triggered if change select option : load & write selected script in script area
+ */
 function preFilledScript() {
 
     let scrSelect = document.getElementById("predefinedScrSelect");
     let value = $(scrSelect).find('option:selected').attr('value');
 
-    console.log(value);
     var path = document.location.pathname;
     var directory = path.substring(path.indexOf('/'), path.lastIndexOf('/'));
 
@@ -199,6 +210,11 @@ function preFilledScript() {
 
 document.getElementById("predefinedScrSelect").addEventListener('change',preFilledScript);
 
+
+/**
+ * read js file (or text file) and write it into editor (script area)
+ * @param {*} file : text file link
+ */
 function readTextFile(file)
 {
     var rawFile = new XMLHttpRequest();
@@ -210,8 +226,6 @@ function readTextFile(file)
             if(rawFile.status === 200 || rawFile.status == 0)
             {
                 var allText = rawFile.responseText;
-                //alert(allText);
-                //console.log(allText);
                 editor.setValue(String(allText));
             }
         }
