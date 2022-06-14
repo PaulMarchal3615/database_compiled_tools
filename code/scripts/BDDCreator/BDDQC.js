@@ -25,6 +25,8 @@ db_BDD.rawMetadata_files.clear();
 
 //---------------------------------------------
 
+var lastClicked = undefined;
+
 
 export function displayMetadata() {
 
@@ -119,6 +121,7 @@ function displaySampleMetadata(event) {
 
     var cell = $(event.target);
     var sample = cell[0].innerHTML;
+    lastClicked = sample;
     console.log(sample);
 
     db_BDD.transaction('rw', db_BDD.metadata, function () {
@@ -191,10 +194,35 @@ function buildComplexTable(tableName, dict) {
 
 function saveCellContent(event) {
     console.log('save');
+    console.log(lastClicked);
 
-    var tablebody = event.target.parentNode.parentNode;
-    var sampleName = tablebody.rows[12].cell3.innerHTML;
-    console.log(tablebody, sampleName);
+    console.log(event.target.parentNode.parentNode);
+    var property = event.target.parentNode.parentNode.cells[0].children[0].value;
+    var value = event.target.parentNode.parentNode.cells[2].children[0].value;
+
+    if (typeof lastClicked !== 'undefined') {
+
+
+        db_BDD.transaction('rw', db_BDD.metadata, function () {
+            return db_BDD.metadata.where('ID').equals(1).toArray();
+        }).then (metadata =>{
+    
+            var allMetadata = metadata[0];
+
+            var sampleMetadata = allMetadata.SAMPLES_METADATA[lastClicked][event.target.value]
+        
+    
+            db_BDD.metadata.update(1, allMetadata);
+        
+        })
+        .catch (function (e) {
+            console.error("LOAD METADATA TEMPLATE ERROR : ",e);
+        });	
+
+
+    }
+
+
 
 
 }

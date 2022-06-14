@@ -44,7 +44,7 @@ export function exportData() {
 
                 dataExport[type] = array;
             }
-            console.log('ehloejhbdfjkfbh');
+
             mergeDataAndMetadata(dataExport);
             
         })
@@ -181,8 +181,6 @@ function updateExportTable(metadataFiles, analysisFiles) {
 
 function mergeDataAndMetadata(dataExport) {
 
-    console.log('mergeData');
-
     db_BDD.transaction('rw', db_BDD.metadata, function () {
         return db_BDD.metadata.where('ID').equals(1).toArray();
     }).then (metadata =>{
@@ -216,12 +214,11 @@ function generateFinalArray(dataExport, metadata) {
 
     for (var head of heads) {
 
-
-
         var unitVal = units[getKeyByValue(keyVal,head)];
+        console.log(unitVal);
 
-        if (typeof myVar !== 'undefined') {
-            unitsList.push(units[getKeyByValue(keyVal,head)]);
+        if (typeof unitVal !== 'undefined') {
+            unitsList.push(unitVal);
         }
         else {
             unitsList.push(units[" "]);
@@ -299,7 +296,14 @@ function generateFinalArray(dataExport, metadata) {
         console.log(array);
 
         for (var el of array) {
-            el.replaceAll(',','.');
+            console.log(el);
+
+            if ((typeof el === 'object') && (el !== null)) {
+                el = el.replaceAll(',','.');
+            }
+            else {
+                el ="";
+            }        
         }
         
 		csv += array.join(delimiter)+"\n";

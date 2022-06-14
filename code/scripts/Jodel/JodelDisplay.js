@@ -427,7 +427,17 @@ function addWellTraces(wellList) {
 			 }};
 
  
-	 var config = {responsive: true};
+	 var config = {responsive: true, 
+		width:"5000px",
+		height:"5000px",
+		modeBarButtonsToRemove:['toImage', 'sendDataToCloud'],
+		modeBarButtonsToAdd:[{
+		name: 'toImage2',
+		icon: Plotly.Icons.camera,
+		click: function(gd) {
+		  Plotly.downloadImage(gd, {format: 'svg'})
+		}
+	  }]};
  
 	Plotly.newPlot('chart1', data, layout, config);
  }
@@ -523,19 +533,19 @@ function buildTraceMap(analysisLines) {
 
 	var myPlot = document.getElementById('subchart31');
 
-    Plotly.newPlot('subchart31', data, layout, {
-		responsive:true,
-		width:"100%",
-		height:"100%",
-        modeBarButtonsToRemove: ['toImage', 'sendDataToCloud'],
-        modeBarButtonsToAdd: [{
-          name: 'toImageSVG',
-          icon: Plotly.Icons.camera,
-          click: function(gd) {
-            Plotly.downloadImage(gd, {format: 'svg'})
-          }
-        }]
-      });
+	var config = {responsive: true, 
+		width:"5000px",
+		height:"5000px",
+		modeBarButtonsToRemove:['toImage', 'sendDataToCloud'],
+		modeBarButtonsToAdd:[{
+		name: 'toImage2',
+		icon: Plotly.Icons.camera,
+		click: function(gd) {
+		  Plotly.downloadImage(gd, {format: 'svg'})
+		}
+	  }]};
+
+    Plotly.newPlot('subchart31', data, layout, config);
 
 	myPlot.on('plotly_click', function(selectedData){
 
@@ -767,8 +777,8 @@ function DensityGraph(data)
 
 	var config = {
 		responsive: true,
-		width:"100%",
-		height:"100%",
+		width:"5000px",
+		height:"5000px",
 		modeBarButtonsToRemove: ['toImage', 'sendDataToCloud'],
 		modeBarButtonsToAdd: [{
 			name: 'toImageSVG',

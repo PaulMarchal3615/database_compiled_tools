@@ -14,28 +14,34 @@ for (var hole of Object.keys(allMetadata.HOLES_TRACES)) {
 
     console.log(holeTraceInfo);
 
-    var previous = 0;
-    var dip = holeTraceInfo[0]["DIP"];
-    var dipDir = holeTraceInfo[0]["DIP_DIRECTION"];
+    if (typeof(holeTraceInfo[0]) != "undefined") {
 
+      var previous = 0;
+      var dip = holeTraceInfo[0]["DIP"];
+      var dipDir = holeTraceInfo[0]["DIP_DIRECTION"];
+  
+  
+      for (var depth of Object.keys(holeTraceInfo)) {
+  
+          var delta = depth - previous;
+  
+          x -= delta*Math.cos(deg_to_rad(90+dipDir))*Math.sin(deg_to_rad(90+dip));
+  
+          y += delta*Math.sin(deg_to_rad(90+dipDir))*Math.sin(deg_to_rad(90+dip));
+  
+          z -= delta*Math.cos(deg_to_rad(90+dip));
+  
+          holeTraceInfo[depth]["TRACE_X"] = x;
+          holeTraceInfo[depth]["TRACE_Y"] = y;
+          holeTraceInfo[depth]["TRACE_Z"] = z;
+          var dip = holeTraceInfo[depth]["DIP"];
+          var dipDir = holeTraceInfo[depth]["DIP_DIRECTION"];
+          previous = depth;
+      }
 
-    for (var depth of Object.keys(holeTraceInfo)) {
-
-        var delta = depth - previous;
-
-        x -= delta*Math.cos(deg_to_rad(90+dipDir))*Math.sin(deg_to_rad(90+dip));
-
-        y += delta*Math.sin(deg_to_rad(90+dipDir))*Math.sin(deg_to_rad(90+dip));
-
-        z -= delta*Math.cos(deg_to_rad(90+dip));
-
-        holeTraceInfo[depth]["TRACE_X"] = x;
-        holeTraceInfo[depth]["TRACE_Y"] = y;
-        holeTraceInfo[depth]["TRACE_Z"] = z;
-        var dip = holeTraceInfo[depth]["DIP"];
-        var dipDir = holeTraceInfo[depth]["DIP_DIRECTION"];
-        previous = depth;
     }
+
+
   
 
   allMetadata.HOLES_TRACES[hole] = holeTraceInfo;
