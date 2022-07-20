@@ -1,4 +1,4 @@
-import {projectMetadata,lithology,gitology,texture, countries, GeoCoordSys,ProjCoordSys,Languages} from "../Common/ressources.js";
+import {projectMetadata,lithology,gitology,texture, countries, GeoCoordSys,ProjCoordSys,Languages, lithoOrano} from "../Common/ressources.js";
 import { buildMultipleSelect,initselect, fillSelect,updateSelect } from "./BDDSelect.js";
 //---------------------------------------------
 // 1. init dexie db : db_BDD with two stores : analysis (based on analysis lines of a file and datasets to store files info)
@@ -61,6 +61,8 @@ function displayLoadedProjectData(projectMetadata) {
     initselect("COORDINATE_SYSTEM_NAD", projectMetadata['COORDINATE_SYSTEM_NAD'].value);
     updateSelect("LANGUAGE",Languages);
     initselect("LANGUAGE", projectMetadata['LANGUAGE'].value);
+
+    document.getElementById("datePicker").value = projectMetadata['CREATION_DATE'].value;
   
 }
 
@@ -122,7 +124,6 @@ function displaySampleMetadata(event) {
     var cell = $(event.target);
     var sample = cell[0].innerHTML;
     lastClicked = sample;
-    console.log(sample);
 
     db_BDD.transaction('rw', db_BDD.metadata, function () {
         return db_BDD.metadata.toArray();
@@ -134,6 +135,8 @@ function displaySampleMetadata(event) {
         buildMultipleSelect(["LITHOLOGY","LITHOLOGY_2","LITHOLOGY_3"],lithology,3);
         buildMultipleSelect(["TEXTURE_STRUCTURE","TEXTURE_STRUCTURE_2"],texture,2);
         buildMultipleSelect(["ORE_TYPE","ORE_TYPE_2","ORE_TYPE_3"],gitology,3);
+        updateSelect("LITHOLOGY_ORANO",lithoOrano);
+        initselect("LITHOLOGY_ORANO", sampleMetadata['LITHOLOGY_ORANO'].value);
         
     })
     .catch (function (e) {
@@ -183,6 +186,7 @@ function buildComplexTable(tableName, dict) {
   
         if (dict[key].htmlContent != 0) {
             cell3.innerHTML = dict[key].htmlContent;
+            cell3.addEventListener('change',saveCellContent);
         }
         else {
             const patternText1 = new String("[A-Za-z]+[-|_]+|[0-9]+");
@@ -193,15 +197,32 @@ function buildComplexTable(tableName, dict) {
 }
 
 function saveCellContent(event) {
-    console.log('save');
-    console.log(lastClicked);
 
-    console.log(event.target.parentNode.parentNode);
-    var property = event.target.parentNode.parentNode.cells[0].children[0].value;
-    var value = event.target.parentNode.parentNode.cells[2].children[0].value;
+    var tableName = event.target.parentNode.parentNode.parentNode.parentNode.id;
 
-    if (typeof lastClicked !== 'undefined') {
+    console.log("tableName",tableName);
 
+    console.log(event.target);
+    var property;
+    var newValue;
+
+    if (event.target.tagName == "SELECT") {
+
+        var select = event.target;
+        newValue = select.options[select.selectedIndex].text;
+        property = select.parentNode.parentNode.cells[0].childNodes[0].textContent;
+
+    }
+
+
+    else {
+        property = event.target.parentNode.parentNode.cells[0].childNodes[0].textContent;
+        newValue = event.target.parentNode.parentNode.cells[2].children[0].value;
+    }
+
+    console.log(property, newValue);
+
+    if (tableName == "MetadataTable") {
 
         db_BDD.transaction('rw', db_BDD.metadata, function () {
             return db_BDD.metadata.where('ID').equals(1).toArray();
@@ -209,18 +230,71 @@ function saveCellContent(event) {
     
             var allMetadata = metadata[0];
 
-            var sampleMetadata = allMetadata.SAMPLES_METADATA[lastClicked][event.target.value]
-        
+            allMetadata.PROJECT_METADATA[property].value = newValue;
+            console.log(allMetadata);
     
             db_BDD.metadata.update(1, allMetadata);
         
         })
         .catch (function (e) {
-            console.error("LOAD METADATA TEMPLATE ERROR : ",e);
+            console.error("SAVE METADATA TEMPLATE ERROR : ",e);
         });	
+
+    }
+
+    else if (tableName =="HolesTable") {
+
+        if (typeof lastClicked !== 'undefined') {
+
+
+            db_BDD.transaction('rw', db_BDD.metadata, function () {
+                return db_BDD.metadata.where('ID').equals(1).toArray();
+            }).then (metadata =>{
+        
+                var allMetadata = metadata[0];
+    
+                allMetadata.HOLES_METADATA[lastClicked][property].value = newValue;
+        
+                db_BDD.metadata.update(1, allMetadata);
+            
+            })
+            .catch (function (e) {
+                console.error("SAVE METADATA TEMPLATE ERROR : ",e);
+            });	
+    
+    
+        }
 
 
     }
+
+    else if (tableName =="SampleMetadataTable") {
+
+        if (typeof lastClicked !== 'undefined') {
+
+
+            db_BDD.transaction('rw', db_BDD.metadata, function () {
+                return db_BDD.metadata.where('ID').equals(1).toArray();
+            }).then (metadata =>{
+        
+                var allMetadata = metadata[0];
+    
+                allMetadata.SAMPLES_METADATA[lastClicked][property].value = newValue;
+        
+                db_BDD.metadata.update(1, allMetadata);
+            
+            })
+            .catch (function (e) {
+                console.error("SAVE METADATA TEMPLATE ERROR : ",e);
+            });	
+    
+    
+        }
+
+    }
+
+
+
 
 
 

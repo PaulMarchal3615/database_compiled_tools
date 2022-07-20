@@ -5,6 +5,9 @@
   display: grid;
   grid-gap: 10px;
   grid-template-rows: 10% 10% 5% 1fr;
+  border : #323232;
+  border-width: 4px;
+  border-style: solid;
 }
 
 #ratioControl {

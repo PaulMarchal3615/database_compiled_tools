@@ -1,8 +1,26 @@
+#divTestArea1{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    grid-gap: 10px;
+
+}
+
+#BDDTab{
+    grid-row: 1;
+}
+
+#BDDTabContent{
+    grid-row: 2;
+}
+
+
 .BDDMainUI{
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 25% 75%;
+    grid-template-columns: 25vw 75vw;
     grid-gap: 10px;
 }
 
@@ -19,24 +37,24 @@
 
 
 .BDDLeftPanel{
-    padding-right: 10px;
+    padding-right: 5px;
     padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-top-width: 1px;
     border-top-style: solid;
     border-right-width: 5px;
     border-right-style: solid;
     border-left-width: 1px;
     border-left-style: solid;
-    border-bottom-width: 1px;
+    border-bottom-width: 5px;
     border-bottom-style: solid;
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 60% 1fr;
-    grid-template-rows:30px 30px 80px 30px 30px 30px 30px 30px 1fr;
-    grid-gap: 5px;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto auto auto auto auto auto auto 1fr;
+    grid-gap: 10px;
     background-color: #709CA7;
 }
 #BDDText1{

@@ -19,10 +19,12 @@ input[type="file"] {
 input[type="color"] {
   padding: 0px 0px;
   border: none;
-
 }
 
-
+input[id="IgnoreNumber1"] {
+  background-color: white;
+  width: 5vw;
+}
 .select{
   background-color: rgb(230, 230, 230);
   font-size: 1em;

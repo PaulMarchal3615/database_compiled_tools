@@ -5,6 +5,9 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 5px;
   grid-template-rows: 45px 15% 35px 50% 35px 35px;
+  border : #323232;
+  border-width: 4px;
+  border-style: solid;
 }
 #addPointset {
   grid-column: 1;

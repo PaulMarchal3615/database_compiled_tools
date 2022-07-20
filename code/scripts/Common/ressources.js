@@ -457,6 +457,8 @@ export var ProjCoordSys = ["Select Projected coordinate system","NAD83_UTM_zone_
 
 export var Languages = ["Select Language","FRENCH","ENGLISH","GERMAN","ITALIAN","SPANISH"];
 
+export var lithoOrano = ["AltBas","Amph","ArgBas","BIF","Bxfault","CaBnd","CaSi","Cgl","CglSSt","ChlBas","ClayBst","ClaySst","Diab","EOH","FLT","GarnT","GnGra","GnGraGra","GnGran","GnGraPel","GnPel","GnPsa","GnPsaPel","GnQtzFd","GranT","H2O","LOST","MigmT","MudSt","Myl","NO LOG","OB","PegmT","Pitchb","Qtzite","Silt","Skrn","SSt","SStCgl","SStGrit","SStMed","Uc","Umin"];
+
 export var lithology = 
 {    'Select Lithology':
     {'Select sub-lithology':[]},
@@ -920,8 +922,8 @@ FILE_CREATOR_DISPLAY_NAME : {
 CREATION_DATE:{
     description:"",
     value:"",
-    placeholder:"",
-    htmlContent:'<input type="date" id="start" value="" name="trip-start"></input>', 
+    placeholder:"1789-07-14",
+    htmlContent:'<input type="date" id="datePicker" value="" name="trip-start"></input>', 
     requiredPattern:patternText1},
 REFERENT_NAME:{
     description:"",
@@ -1032,7 +1034,7 @@ export var sampleMetadata = {
     'METHODOLOGY-SAMPLE_CONDITIONNING':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
     'METHODOLOGY-ANALYSIS':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
     'METHODOLOGY-SAMPLE':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'LITHOLOGY_ORANO':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
+    "LITHOLOGY_ORANO" : {unit:"text",description:"",value:"", htmlContent : '<select style="width: 200px" id="LITHOLOGY_ORANO" name="LITHOLOGY_ORANO" "><option>SELECT AN ORANO LITHOLOGY</option></select>'},
     'FORMATION_ORANO':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1}
     
 }

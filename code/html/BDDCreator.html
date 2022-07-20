@@ -42,38 +42,41 @@
     <input id="inputSurvey" type="file">
 
     <!-- Tab content -->
-    <div id="BDDCreator-tab-1" class="tabcontent" style="display:none">
 
-      <div class="BDDMainUI">
+    <div id="BDDTabContent">
 
-        <div class="BDDLeftPanel">
+      <div id="BDDCreator-tab-1" class="tabcontent" style="display:none">
 
-          <p id="BDDText1">1. Select File type to import</p>
+        <div class="BDDMainUI">
 
-          <select class="select" id="BDDSelect">
-              <option value="PROJECT_METADATA">PROJECT_METADATA</option>
-              <option value="HOLES_METADATA">HOLES_METADATA</option>
-              <option value="SAMPLES_METADATA">SAMPLES_METADATA</option>
-              <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
-              <option value="PETROPHYSICS">PETROPHYSICS</option>
-              <option value="GRAPHITE">GRAPHITE</option>>
-              <option value="UO2-GEOCHEMISTRY-EMPA">UO2-GEOCHEMISTRY-EMPA</option>
-              <option value="UO2-GEOCHEMISTRY-LA-ICP-MS">UO2-GEOCHEMISTRY-LA-ICP-MS</option>
-              <option value="UO2-GEOCHEMISTRY-SIMS">UO2-GEOCHEMISTRY-SIMS</option>
-              <option value="FI-RAMAN">FI-RAMAN</option>
-              <option value="FI-MICROTHERMOMETRY">FI-MICROTHERMOMETRY</option>
-              <option value="FI-LA-ICP-MS">FI-LA-ICP-MS</option>
-              <option value="XRD-CLAY">XRD-CLAY</option>
-              <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
+          <div class="BDDLeftPanel">
+
+            <p id="BDDText1">1. Select File type to import</p>
+
+            <select class="select" id="BDDSelect">
+                <option value="PROJECT_METADATA">PROJECT_METADATA</option>
+                <option value="HOLES_METADATA">HOLES_METADATA</option>
+                <option value="SAMPLES_METADATA">SAMPLES_METADATA</option>
+                <option value="BULK-GEOCHEMISTRY">BULK-GEOCHEMISTRY</option>
+                <option value="PETROPHYSICS">PETROPHYSICS</option>
+                <option value="GRAPHITE">GRAPHITE</option>>
+                <option value="UO2-GEOCHEMISTRY-EMPA">UO2-GEOCHEMISTRY-EMPA</option>
+                <option value="UO2-GEOCHEMISTRY-LA-ICP-MS">UO2-GEOCHEMISTRY-LA-ICP-MS</option>
+                <option value="UO2-GEOCHEMISTRY-SIMS">UO2-GEOCHEMISTRY-SIMS</option>
+                <option value="FI-RAMAN">FI-RAMAN</option>
+                <option value="FI-MICROTHERMOMETRY">FI-MICROTHERMOMETRY</option>
+                <option value="FI-LA-ICP-MS">FI-LA-ICP-MS</option>
+                <option value="XRD-CLAY">XRD-CLAY</option>
+                <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
             </select>
-            
-            
+              
+              
             <fieldset id = "holesRadioButton">
               <legend>Select a HOLES FILE TYPE:</legend>
           
               <div>
                 <input type="radio" id="collar" name="holesFile" value="collar"
-                       checked>
+                        checked>
                 <label for="collar">Collar</label>
               </div>
           
@@ -82,226 +85,220 @@
                 <label for="survey">Survey</label>
               </div>
           
-          </fieldset>
+            </fieldset>
+                
+            <p id="BDDText2">2. Import File & Check Quality</p>
+
+            <p id="BDDText3">No File Loaded</p>
+
+            <button type="button" class="btn2-hover bn22" id="BDDOpen">a. OPEN</button>
+
+            <button type="button" class="btn2-hover bn22" id="BDDIgnore">b. IGNORE</button>
+
+            <input id="IgnoreNumber1" type="number" value="99">
+
+            <button type="button" class="btn2-hover bn22" id="BDDSave">c. SAVE</button>
+
+            <div id="BDD_Bloc_table_Zone" style="width:auto; height:200px; overflow:auto;">
+
+              <table id="BDD_Bloc_table" class="fl-table">
+                <thead>
+                    <tr>
+                        <th scope="col">File Loaded</th>
+                        <th scope="col">File Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                </tfoot>
+              </table>
+            </div>
+
+          </div>
+
+          <div class="BDDRightPanel">
+
+            <div id="BDDQCtable-zone" style="width:auto; height:700px; overflow:auto;">
+
+              <table id="BDDQCtable" class="fl-table">
+              <thead>
+              <tr>
+                  <th scope="col">Your Headers</th>
+                  <th scope="col">Associated Field</th>
+                  <th scope="col">Ignore</th>
+                  <th scope="col">Confidence</th>
+              </tr>
+              </thead>
+              <tbody>
+              </tbody>
+              <tfoot>
+              </tfoot>
+              </table>
+            </div>
+
+            <div id="BDDchart1" style="width:auto; height:700px; overflow:auto;">
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div id="BDDCreator-tab-2" class="tabcontent" style="display:none">
+
+        <button type="button" style="width:100px;height:50px;" class="btn2-hover bn22" id="BDDDisplay">DISPLAY</button>
+
+        <div id="QCSubTab">
+
+          <div class="tab" id="QCtab"> 
+
+            <button class="tablinks2" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
+            <button class="tablinks2" onclick="openTab(event, 'SamplesMetadata')">Samples Metadata</button>
+            <button class="tablinks2" onclick="openTab(event, 'ScriptArea')">Apply Script on Metadata</button>
+
+          </div>
+
+          <div id="QCDivArea">
+
+            <div id="GeneralMetadata" class="tabcontent2" style="display:none">
+
+              <div id="metadata-table-zone" style="width:100%; height:85%; overflow:auto;">
+                  
+                <table id="MetadataTable" class="fl-table">
+                  <thead>
+                      <tr>
+                          <th colspan="3">Project general Metadata</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        
+            <div id="SamplesMetadata" class="tabcontent2" style="display:none">
               
-          <p id="BDDText2">2. Import File & Check Quality</p>
+              <div class="wrapper">
 
-          <p id="BDDText3">No File Loaded</p>
+                <div class="one" style="width:100%; height:700px; overflow:auto;">
 
-          <button type="button" class="btn2-hover bn22" id="BDDOpen">a. OPEN</button>
+                  <table class="fl-table" id="HolesTable">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Hole List</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
 
-          <button type="button" class="btn2-hover bn22" id="BDDIgnore">b. IGNORE</button>
+                </div>
 
-          <input id="IgnoreNumber1" type="number" value="99">
+                <div class="two" style="width:100%; height:700px; overflow:auto;">
 
-          <button type="button" class="btn2-hover bn22" id="BDDSave">c. SAVE</button>
+                  <table class="fl-table" id="HoleMetadataTable">
+                    <thead>
+                        <tr>
+                            <th colspan="3">Hole info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
 
-          <div id="BDD_Bloc_table_Zone" style="width:auto; height:200px; overflow:auto;">
+                <div class="three" style="width:100%; height:700px; overflow:auto;">
 
-          <table id="BDD_Bloc_table" class="fl-table">
-            <thead>
-                <tr>
-                    <th scope="col">File Loaded</th>
-                    <th scope="col">File Type</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-            </tfoot>
-          </table>
+                  <table class="fl-table" id="SamplesTable">
+                    <thead>
+                        <tr>
+                            <th colspan="1">Samples List</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+
+                </div>
+
+                <div class="four" style="width:100%; height:700px; overflow:auto;">
+
+                  <table class="fl-table" id="SampleMetadataTable">
+                    <thead>
+                        <tr>
+                            <th colspan="3">Sample info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+              
+
+            </div>
+
+            <div id="ScriptArea" class="tabcontent2" style="display:none">
+
+              <div id="ScriptGrid">
+            
+              <select class="select" width=100% height=100% name="metadataScrSelect" id="ScrSelect" multiple="multiple"></select>
+
+              <div id="scrInput"></div>
+
+              <div id="scriptBtn">
+
+                <button type="button" class="btn2-hover bn22" id="applyScript"> Apply</button>
+
+                <button type="button" class="btn2-hover bn22" id="if-scr"> Add IF</button>
+                <button type="button" class="btn2-hover bn22" id="loop-scr"> Add LOOP</button>
+                <button type="button" class="btn2-hover bn22" id="clear-scr"> Clear Log</button>
+              </div>
+
+              <select class="select" width=100% height=100% name="predefinedScrSelect" id="predefinedScrSelect" multiple="multiple">
+                <option selected="selected" value="1_naming_script.js">1. Create SAMPLING_POINT-NAME</option>
+                <option selected="selected" value="2_auto_assign_well.js">2. Assign Well Name & Depth</option>
+                <option selected="selected" value="3_coordinates_traces.js">3. Compute Coordinates Traces</option>
+                <option selected="selected" value="4_coordinates_samples.js">4. Compute Samples Coordinates from well data & depth</option>
+                <option selected="selected" value="5_latitude_longitude.js">5. Assign Log values from csv log</option>
+                <option selected="selected" value="6_assign_geol_feature.js">5. Assign Log values from csv log</option>
+              </select>
+
+              <p id ="basicInfoScr"> Default Script</p>
+              <p id ="logArea" style="margin-top: 0px;margin-bottom: 0px;height: 500px;"> ___ </p> 
+
+            </div>
+
+            </div>
+
           </div>
 
         </div>
 
-        <div class="BDDRightPanel">
+      </div>
 
-          <div id="BDDQCtable-zone" style="width:auto; height:700px; overflow:auto;">
+      <div id="BDDCreator-tab-3" class="tabcontent" style="display:none">
 
-            <table id="BDDQCtable" class="fl-table">
+        <div id="export-table-zone" style="width:100%; height:100%; overflow:auto;">
+
+          <button type="button" style="width:100px;height:50px;" class="btn2-hover bn22" id="BDDShowData">a. SHOW</button>
+
+          <button type="button" style="width:100px;height:50px;" class="btn2-hover bn22" id="BDDExport">b. EXPORT</button>
+                
+          <table id="ExportTable" class="fl-table">
             <thead>
-            <tr>
-                <th scope="col">Your Headers</th>
-                <th scope="col">Associated Field</th>
-                <th scope="col">Ignore</th>
-                <th scope="col">Confidence</th>
+              <tr>
+                <th scope="col">File</th>
+                <th scope="col">Type</th>
             </tr>
             </thead>
             <tbody>
             </tbody>
-            <tfoot>
-            </tfoot>
-            </table>
-          </div>
-
-          <div id="BDDchart1" style="width:auto; height:700px; overflow:auto;">
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <div id="BDDCreator-tab-2" class="tabcontent" style="display:none">
-
-      <button type="button" style="width:100px;height:50px;" class="btn2-hover bn22" id="BDDDisplay">DISPLAY</button>
-
-      <div id="QCSubTab">
-
-        <div class="tab" id="QCtab"> 
-
-          <button class="tablinks2" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
-          <button class="tablinks2" onclick="openTab(event, 'SamplesMetadata')">Samples Metadata</button>
-          <button class="tablinks2" onclick="openTab(event, 'ScriptArea')">Apply Script on Metadata</button>
-
-        </div>
-
-        <div id="QCDivArea">
-
-        <div id="GeneralMetadata" class="tabcontent2" style="display:none">
-
-          <div id="metadata-table-zone" style="width:100%; height:85%; overflow:auto;">
-              
-            <table id="MetadataTable" class="fl-table">
-              <thead>
-                  <tr>
-                      <th colspan="3">Project general Metadata</th>
-                  </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-        </div>
-    
-        <div id="SamplesMetadata" class="tabcontent2" style="display:none">
-          
-          <div class="wrapper">
-
-          <div class="one" style="width:100%; height:700px; overflow:auto;"></div>>
-
-          <table class="fl-table" id="HolesTable">
-            <thead>
-                <tr>
-                    <th colspan="2">Hole List</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
           </table>
-
-          </div>
-
-          <div class="two" style="width:100%; height:700px; overflow:auto;"></div>>
-
-          <table class="fl-table" id="HoleMetadataTable">
-            <thead>
-                <tr>
-                    <th colspan="3">Hole info</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-
         </div>
-        <div class="three" style="width:100%; height:700px; overflow:auto;">
-
-          <table class="fl-table" id="SamplesTable">
-            <thead>
-                <tr>
-                    <th colspan="1">Samples List</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-
-        </div>
-
-
-
-          <div class="four" style="width:100%; height:700px; overflow:auto;">
-
-            <table class="fl-table" id="SampleMetadataTable">
-              <thead>
-                  <tr>
-                      <th colspan="3">Sample info</th>
-                  </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-
-          </div>
-
-
-
-      </div>
-          
-
-        </div>
-
-        <div id="ScriptArea" class="tabcontent2" style="display:none">
-
-          <div id="ScriptGrid">
-        
-          <select class="select" width=100% height=100% name="metadataScrSelect" id="ScrSelect" multiple="multiple">
-          </select>
-
-          <div id="scrInput"></div>
-
-          <div id="scriptBtn">
-
-            <button type="button" class="btn2-hover bn22" id="applyScript"> Apply</button>
-
-            <button type="button" class="btn2-hover bn22" id="if-scr"> Add IF</button>
-            <button type="button" class="btn2-hover bn22" id="loop-scr"> Add LOOP</button>
-            <button type="button" class="btn2-hover bn22" id="clear-scr"> Clear Log</button>
-          </div>
-
-          <select class="select" width=100% height=100% name="predefinedScrSelect" id="predefinedScrSelect" multiple="multiple">
-            <option selected="selected" value="1_naming_script.js">1. Create SAMPLING_POINT-NAME</option>
-            <option selected="selected" value="2_auto_assign_well.js">2. Assign Well Name & Depth</option>
-            <option selected="selected" value="3_coordinates_traces.js">3. Compute Coordinates Traces</option>
-            <option selected="selected" value="4_coordinates_samples.js">4. Compute Samples Coordinates from well data & depth</option>
-            <option selected="selected" value="5_latitude_longitude.js">5. Assign Log values from csv log</option>
-            <option selected="selected" value="6_assign_geol_feature.js">5. Assign Log values from csv log</option>
-          </select>
-
-          <p id ="basicInfoScr"> Default Script</p>
-          <p id ="logArea" style="margin-top: 0px;margin-bottom: 0px;height: 500px;"> ___ </p> 
-
-
-
-        </div>
-
-      </div>
-
-      </div>
-
-      </div>
-
-    </div>
-
-    <div id="BDDCreator-tab-3" class="tabcontent" style="display:none">
-
-      <div id="export-table-zone" style="width:100%; height:100%; overflow:auto;">
-
-        <button type="button" style="width:100px;height:50px;" class="btn2-hover bn22" id="BDDShowData">a. SHOW</button>
-
-        <button type="button" style="width:100px;height:50px;" class="btn2-hover bn22" id="BDDExport">b. EXPORT</button>
-              
-        <table id="ExportTable" class="fl-table">
-          <thead>
-            <tr>
-              <th scope="col">File</th>
-              <th scope="col">Type</th>
-          </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
       </div>
     </div>
   

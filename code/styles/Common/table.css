@@ -1,7 +1,7 @@
 /* Table Styles */
 
 .table-wrapper{
-    margin: 1vw 1vw 1vw;
+    margin: 0.5vw 0.5vw 0.5vw;
     box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
 }
 
@@ -10,7 +10,7 @@
     margin: 0 0;
     min-width: 100%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    font-size: 1em;
+    font-size: 0.8em;
     table-layout: auto;
 }
 
@@ -20,7 +20,7 @@
 
 .fl-table td {
     border-right: 1px solid #f8f8f8;
-    font-size: 1em;
+    font-size: 0.8em;
     width: 1fr;
 }
 

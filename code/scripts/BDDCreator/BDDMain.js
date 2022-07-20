@@ -48,8 +48,6 @@ var inputBDD = document.querySelector('#BDDfileInput');
 var typeSelect = document.querySelector('#BDDSelect');
 typeSelect.addEventListener('change', function() {
     var fieldset = document.getElementById('holesRadioButton');
-
-    console.log(typeSelect, typeSelect.value);
     
     if (typeSelect.value == "HOLES_METADATA") {
         fieldset.style.visibility = "visible";
