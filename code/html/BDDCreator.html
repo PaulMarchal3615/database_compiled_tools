@@ -297,8 +297,182 @@
             </thead>
             <tbody>
             </tbody>
+<<<<<<< HEAD
           </table>
         </div>
+=======
+            <tfoot>
+            </tfoot>
+            </table>
+          </div>
+
+          <div id="BDDchart1" style="width:auto; height:700px; overflow:auto;">
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div id="BDDCreator-tab-2" class="tabcontent" style="display:none">
+
+      <button type="button" style="width:100px;height:50px;" class="btn2-hover bn22" id="BDDDisplay">DISPLAY</button>
+
+      <div id="QCSubTab">
+
+        <div class="tab" id="QCtab"> 
+
+          <button class="tablinks2" onclick="openTab(event, 'GeneralMetadata')">General Project Metadata</button>
+          <button class="tablinks2" onclick="openTab(event, 'SamplesMetadata')">Samples Metadata</button>
+          <button class="tablinks2" onclick="openTab(event, 'ScriptArea')">Apply Script on Metadata</button>
+
+        </div>
+
+        <div id="QCDivArea">
+
+        <div id="GeneralMetadata" class="tabcontent2" style="display:none">
+
+          <div id="metadata-table-zone" style="width:100%; height:85%; overflow:auto;">
+              
+            <table id="MetadataTable" class="fl-table">
+              <thead>
+                  <tr>
+                      <th colspan="3">Project general Metadata</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    
+        <div id="SamplesMetadata" class="tabcontent2" style="display:none">
+          
+          <div class="wrapper">
+
+          <div class="one" style="width:100%; height:700px; overflow:auto;">
+
+          <table class="fl-table" id="HolesTable">
+            <thead>
+                <tr>
+                    <th colspan="2">Hole List</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+
+          </div>
+
+          <div class="two" style="width:100%; height:700px; overflow:auto;">
+
+          <table class="fl-table" id="HoleMetadataTable">
+            <thead>
+                <tr>
+                    <th colspan="3">Hole info</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+
+          </div>
+          <div class="three" style="width:100%; height:700px; overflow:auto;">
+
+          <table class="fl-table" id="SamplesTable">
+            <thead>
+                <tr>
+                    <th colspan="1">Samples List</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+
+          </div>
+          
+          <div class="four" style="width:100%; height:700px; overflow:auto;">
+
+            <table class="fl-table" id="SampleMetadataTable">
+              <thead>
+                  <tr>
+                      <th colspan="3">Sample info</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+
+          </div>
+
+
+
+      </div>
+          
+
+        </div>
+
+        <div id="ScriptArea" class="tabcontent2" style="display:none">
+
+          <div id="ScriptGrid">
+        
+          <select class="select" width=100% height=100% name="metadataScrSelect" id="ScrSelect" multiple="multiple">
+          </select>
+
+          <div id="scrInput"></div>
+
+          <div id="scriptBtn">
+
+            <button type="button" class="btn2-hover bn22" id="applyScript"> Apply</button>
+
+            <button type="button" class="btn2-hover bn22" id="if-scr"> Add IF</button>
+            <button type="button" class="btn2-hover bn22" id="loop-scr"> Add LOOP</button>
+            <button type="button" class="btn2-hover bn22" id="clear-scr"> Clear Log</button>
+          </div>
+
+          <select class="select" width=100% height=100% name="predefinedScrSelect" id="predefinedScrSelect" multiple="multiple">
+            <option selected="selected" value="1_naming_script.js">1. Create SAMPLING_POINT-NAME</option>
+            <option selected="selected" value="2_auto_assign_well.js">2. Assign Well Name & Depth</option>
+            <option selected="selected" value="3_coordinates_traces.js">3. Compute Coordinates Traces</option>
+            <option selected="selected" value="4_coordinates_samples.js">4. Compute Samples Coordinates from well data & depth</option>
+            <option selected="selected" value="5_latitude_longitude.js">5. Assign Log values from csv log</option>
+            <option selected="selected" value="6_assign_geol_feature.js">5. Assign Log values from csv log</option>
+          </select>
+
+          <p id ="basicInfoScr"> Default Script</p>
+          <p id ="logArea" style="margin-top: 0px;margin-bottom: 0px;height: 500px;"> ___ </p> 
+
+
+
+        </div>
+
+      </div>
+
+      </div>
+
+      </div>
+
+    </div>
+
+    <div id="BDDCreator-tab-3" class="tabcontent" style="display:none">
+
+      <div id="export-table-zone" style="width:100%; height:100%; overflow:auto;">
+
+        <button type="button" style="width:100px;height:50px;" class="btn2-hover bn22" id="BDDShowData">a. SHOW</button>
+
+        <button type="button" style="width:100px;height:50px;" class="btn2-hover bn22" id="BDDExport">b. EXPORT</button>
+              
+        <table id="ExportTable" class="fl-table">
+          <thead>
+            <tr>
+              <th scope="col">File</th>
+              <th scope="col">Type</th>
+          </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+>>>>>>> b063b07c3bb3d6f7dfa2521c1a77a76725e9f5ce
       </div>
     </div>
   
