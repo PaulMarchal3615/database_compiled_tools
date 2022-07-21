@@ -1,5 +1,5 @@
 import {fields, metadataFields} from "../Common/ressources.js";
-import {getColumn} from "../Common/common_functions.js";
+import {getColumn, isFloat} from "../Common/common_functions.js";
 
 //---------------------------------------------
 // 1. init dexie db : db_BDD with two stores : analysis (based on analysis lines of a file and datasets to store files info)
@@ -31,8 +31,6 @@ db_BDD.rawMetadata_files.clear();
 
     var input = document.querySelector('#BDDfileInput');
     var pageName =$('#BDDtab .active').text()
-    console.log(pageName);
-
 
 	for (let file of input.files) {
 
@@ -44,6 +42,9 @@ db_BDD.rawMetadata_files.clear();
                 
 			});
 		}
+        else {
+            alert('not a csv');
+        }
 	}
 }
 
@@ -66,6 +67,7 @@ Papa.parsePromise = function(file) {
 		Papa.parse(file, {download: true, complete, error});
 	});
 };
+
 
 function LoadFile(fileName, MDarray) {
 
@@ -104,8 +106,6 @@ function LoadFile(fileName, MDarray) {
     file.RAW_ARRAY = MDarray;
     file.FILE_NAME = fileName;
     file.TYPE = selectVal;
-
-    console.log("open file", file);
 
 
     if (!Object.keys(metadataFields).includes(selectVal)) {
@@ -197,8 +197,8 @@ function compareHeads(heads, references) {
             cell1.addEventListener('click', showValues);
         }
         
-        cell2.innerHTML = '<select id ="select_'+head+'"</select>';
-        cell3.innerHTML = '<button id ="btnIgn_'+head+'">&#10003</button>'; 
+        cell2.innerHTML = '<select class ="selectOpen" id ="select_'+head+'"</select>';
+        cell3.innerHTML = '<button class ="btnIgn" id ="btnIgn_'+head+'">&#10003</button>'; 
 
         var btn = document.getElementById('btnIgn_'+head);
         btn.addEventListener('click',setToIgnore);
@@ -219,6 +219,7 @@ function compareHeads(heads, references) {
         setCellColor(cell4, max);
 
         cell4.innerHTML = max;
+        cell4.style.width = 'max-content';
         const $options = Array.from(select.options);
         const optionToSelect = $options.find(item => item.text === maxName);
         optionToSelect.selected = true;

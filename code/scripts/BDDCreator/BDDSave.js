@@ -1,4 +1,4 @@
-import {getColumn} from "../Common/common_functions.js";
+import {getColumn, isFloat} from "../Common/common_functions.js";
 import { holeMetadata,sampleMetadata,metadataFields, holesTracesTemplate} from "../Common/ressources.js";
 
 //---------------------------------------------
@@ -353,14 +353,12 @@ function importSamplesMetadata(rawFile, metadata, assoc) {
 
     if (!jQuery.isEmptyObject(assoc)) {
 
-        console.log(assoc);
-
         if (Object.values(assoc).includes('SAMPLE_NAME')) {
 
         var sampleColName = Object.keys(assoc).find(key => assoc[key] === 'SAMPLE_NAME');
         var samples = getColumn(sampleColName,rawFile.RAW_ARRAY);
         var uniqueSamples = samples.filter((v, i, a) => a.indexOf(v) === i);
-        uniqueSamples.shift(); // we assume firt element is header
+        uniqueSamples.shift(); // we assume first element is header
         var colNumber = rawFile.RAW_ARRAY[0].indexOf(sampleColName);
 
         var headers, lines;
@@ -397,6 +395,18 @@ function importSamplesMetadata(rawFile, metadata, assoc) {
 
 }
 
+function miniFormat(value){
+
+    var newValue;
+
+    if (isFloat(value) && ('-'.indexOf(value)>-1)) {
+        newValue = parseFloat(value);
+    }
+    else {
+        newValue = value.replace(',','-');
+    }
+    return newValue;
+}
 
 /**
  * returns the most occured item in array
@@ -427,7 +437,9 @@ function getMostRepresentedItem(arr1) {
             }
             m=0;
         }
-        return item;
+
+        var item2 = miniFormat(item);
+        return item2;
 
     }
 

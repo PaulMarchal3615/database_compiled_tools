@@ -1,3 +1,8 @@
 .select{
     font-size: 1em;
 }
+
+.selectOpen{
+    font-size: 1em;
+    width: 8vw;
+}

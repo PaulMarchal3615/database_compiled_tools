@@ -25,7 +25,6 @@ db_BDD.rawMetadata_files.clear();
 //---------------------------------------------
 
 
-
 export function exportData() {
 
 
@@ -209,13 +208,12 @@ function generateFinalArray(dataExport, metadata) {
         heads  = heads.concat(dataExport[analysis][0]);
     }
     var blank1 = 0;
-    var blank2 = heads.length - metadataFields['PROJECT_METADATA'].length+metadataFields['HOLES_METADATA'].length+metadataFields['SAMPLES_METADATA'].length;
+    var blank2 = heads.length - metadataFields['PROJECT_METADATA'].length + metadataFields['HOLES_METADATA'].length + metadataFields['SAMPLES_METADATA'].length;
     var newArray = [];
 
     for (var head of heads) {
 
         var unitVal = units[getKeyByValue(keyVal,head)];
-        console.log(unitVal);
 
         if (typeof unitVal !== 'undefined') {
             unitsList.push(unitVal);
@@ -236,6 +234,7 @@ function generateFinalArray(dataExport, metadata) {
         blank2 = blank2 - tableLength;
 
         var sampleColIndice = getColumnIndice('SAMPLE_NAME', table);
+
         for (var line of dataExport[analysis]) {
 
             var newLine = [];
@@ -248,17 +247,59 @@ function generateFinalArray(dataExport, metadata) {
 
             for (var head of metadataFields['PROJECT_METADATA']) {
 
-                newLine.push(metadata.PROJECT_METADATA[head].value);
+                var value = metadata.PROJECT_METADATA[head].value;
+
+                if (!value) {
+                    newLine.push("");
+                }
+
+                else {
+
+                    var exportValue = value.replace(',','.');
+                    newLine.push(exportValue);
+
+                }
             }
 
-            for (var head of metadataFields['HOLES_METADATA']) {
+            if (Object.keys(metadata.HOLES_METADATA).length > 0) {
 
-                newLine.push(metadata.HOLES_METADATA[holeName][head].value);
+                for (var head of metadataFields['HOLES_METADATA']) {
+
+                    var value = metadata.HOLES_METADATA[holeName][head].value;
+
+                    if (!value) {
+                        newLine.push("");
+                    }
+
+                    else {
+
+                        var exportValue = value.replace(',','.');
+                        newLine.push(exportValue);
+
+                    }
+
+
+                }    
+
             }
 
-            for (var head of metadataFields['SAMPLES_METADATA']) {
+            if (Object.keys(metadata.SAMPLES_METADATA).length > 0) {
 
-                newLine.push(metadata.SAMPLES_METADATA[sampleName][head].value);
+                for (var head of metadataFields['SAMPLES_METADATA']) {
+
+                    var value = metadata.SAMPLES_METADATA[sampleName][head].value;
+
+                    if (!value) {
+                        newLine.push("");
+                    }
+
+                    else {
+
+                        var exportValue = value.replace(',','.');
+                        newLine.push(exportValue);
+
+                    }
+                }
             }
 
             if (blank1 != 0) {
@@ -277,7 +318,7 @@ function generateFinalArray(dataExport, metadata) {
 
     if (newArray.length >0) {
         console.log("newArray",newArray);
-        export_csv(heads, newArray, ',', 'exportBDD.csv');
+        export_csv(heads, newArray, '\t', 'exportBDD.csv');
     }
 
 }
@@ -292,20 +333,7 @@ function generateFinalArray(dataExport, metadata) {
  const export_csv = (arrayHeader, arrayData, delimiter, fileName) => {
 	let header = arrayHeader.join(delimiter) + '\n';
 	let csv = header;
-	arrayData.forEach( array => {
-        console.log(array);
-
-        for (var el of array) {
-            console.log(el);
-
-            if ((typeof el === 'object') && (el !== null)) {
-                el = el.replaceAll(',','.');
-            }
-            else {
-                el ="";
-            }        
-        }
-        
+	arrayData.forEach( array => {  
 		csv += array.join(delimiter)+"\n";
 	});
 
