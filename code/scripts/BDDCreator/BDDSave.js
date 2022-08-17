@@ -397,15 +397,19 @@ function importSamplesMetadata(rawFile, metadata, assoc) {
 
 function miniFormat(value){
 
-    var newValue;
+    var newValue ="";
 
-    if (isFloat(value) && ('-'.indexOf(value)>-1)) {
-        newValue = parseFloat(value);
-    }
-    else {
-        newValue = value.replace(',','-');
+    if (typeof value !== 'undefined') {
+
+        if (isFloat(value) && ('-'.indexOf(value)> - 1)) {
+            newValue = parseFloat(value);
+        }
+        else {
+            newValue = value.replace(',','-');
+        }
     }
     return newValue;
+
 }
 
 /**

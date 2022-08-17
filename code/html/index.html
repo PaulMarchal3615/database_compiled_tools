@@ -56,6 +56,7 @@
       <img id="logo1" style="justify-self:end" src="./pictures/logo_soft.svg" height="100%" width=auto alt="logo"/>
       <button id="btn-BDD" class="mainTablink" onclick="openPage('Historical', this, '#709CA7')">HISTORICAL DATASETS INTEGRATION</button>
       <button id="btn-JODEL" class="mainTablink" onclick="openPage('Jodel', this, '#709CA7')"> JODEL</button>
+      <button id="btn-HELP" class="mainTablink" onclick="openPage('HELP', this, '#709CA7')"> Help - Tutorials</button>
     </div>
 
     <main>
@@ -82,6 +83,20 @@
         $(function()
         {
           $("#divTestArea3").load("Jodel.html");
+        });
+        </script>
+
+    </div>
+
+    <div id="HELP" class="mainTabcontent">
+
+      <div id="divTestArea4"></div>
+
+
+      <script type="text/javascript">
+        $(function()
+        {
+          $("#divTestArea4").load("Help.html");
         });
         </script>
 

@@ -199,16 +199,18 @@ function mergeDataAndMetadata(dataExport) {
  * @param {*} metadata 
  */
 function generateFinalArray(dataExport, metadata) {
-    console.log('generateFinal');
 
     var heads = [...metadataFields['PROJECT_METADATA'],...metadataFields['HOLES_METADATA'],...metadataFields['SAMPLES_METADATA']];
     var unitsList = [];
 
+    var blank1 = 0;
+    var blank2 = 0;
+
     for (var analysis of Object.keys(dataExport)) {
+        blank2 += dataExport[analysis][0].length;
         heads  = heads.concat(dataExport[analysis][0]);
     }
-    var blank1 = 0;
-    var blank2 = heads.length - metadataFields['PROJECT_METADATA'].length + metadataFields['HOLES_METADATA'].length + metadataFields['SAMPLES_METADATA'].length;
+    
     var newArray = [];
 
     for (var head of heads) {
@@ -243,51 +245,11 @@ function generateFinalArray(dataExport, metadata) {
 
             if ((sampleName != 'SAMPLE_NAME') && (sampleName != 'text')) {
 
-            var holeName = metadata.SAMPLES_METADATA[sampleName].HOLEID.value;
+                var holeName = metadata.SAMPLES_METADATA[sampleName].HOLEID.value;
 
-            for (var head of metadataFields['PROJECT_METADATA']) {
+                for (var head of metadataFields['PROJECT_METADATA']) {
 
-                var value = metadata.PROJECT_METADATA[head].value;
-
-                if (!value) {
-                    newLine.push("");
-                }
-
-                else {
-
-                    var exportValue = value.replace(',','.');
-                    newLine.push(exportValue);
-
-                }
-            }
-
-            if (Object.keys(metadata.HOLES_METADATA).length > 0) {
-
-                for (var head of metadataFields['HOLES_METADATA']) {
-
-                    var value = metadata.HOLES_METADATA[holeName][head].value;
-
-                    if (!value) {
-                        newLine.push("");
-                    }
-
-                    else {
-
-                        var exportValue = value.replace(',','.');
-                        newLine.push(exportValue);
-
-                    }
-
-
-                }    
-
-            }
-
-            if (Object.keys(metadata.SAMPLES_METADATA).length > 0) {
-
-                for (var head of metadataFields['SAMPLES_METADATA']) {
-
-                    var value = metadata.SAMPLES_METADATA[sampleName][head].value;
+                    var value = metadata.PROJECT_METADATA[head].value;
 
                     if (!value) {
                         newLine.push("");
@@ -300,25 +262,72 @@ function generateFinalArray(dataExport, metadata) {
 
                     }
                 }
-            }
 
-            if (blank1 != 0) {
-                newLine = newLine.concat(new Array(blank1));
-            }
+                if (Object.keys(metadata.HOLES_METADATA).length > 0) {
 
-            newLine = newLine.concat(line);
-            newLine = newLine.concat(new Array(blank2));
+                    for (var head of metadataFields['HOLES_METADATA']) {
 
-            blank1 = tableLength;  
-            newArray.push(newLine);
+                        var value = metadata.HOLES_METADATA[holeName][head].value;
+
+                        if (!value) {
+                            newLine.push("");
+                        }
+
+                        else {
+
+                            var exportValue = value.replace(',','.');
+                            newLine.push(exportValue);
+
+                        }
+
+
+                    }    
+
+                }
+
+                if (Object.keys(metadata.SAMPLES_METADATA).length > 0) {
+
+                    for (var head of metadataFields['SAMPLES_METADATA']) {
+
+                        var value = metadata.SAMPLES_METADATA[sampleName][head].value;
+
+                        if (!value) {
+                            newLine.push("");
+                        }
+
+                        else {
+
+                            var exportValue = value.replace(',','.');
+                            newLine.push(exportValue);
+
+                        }
+                    }
+                }
+
+                if (blank1 != 0) {
+                    newLine = newLine.concat(new Array(blank1));
+                }
+                console.log(line);
+
+                var lineTxt = line.join('#');
+                console.log(lineTxt);
+                lineTxt = lineTxt.replaceAll(',','.');
+
+                line = lineTxt.split('#');
+                console.log(line);
+
+                newLine = newLine.concat(line);
+
+                newLine = newLine.concat(new Array(blank2));
+                newArray.push(newLine);
         }
     }
+        blank1 = tableLength;  
 
     }
 
-    if (newArray.length >0) {
-        console.log("newArray",newArray);
-        export_csv(heads, newArray, '\t', 'exportBDD.csv');
+    if (newArray.length > 0) {
+        export_csv(heads, newArray, ',', 'exportBDD.csv');
     }
 
 }
