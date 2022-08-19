@@ -322,6 +322,11 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 	
 }
 
+/**
+ * 
+ * @param {*} wellList array of well string names
+ * @returns array of traces object (plotly format for scatter lines) 
+ */
 function addWellTraces(wellList) {
 
 	var tracesWells = [];
@@ -645,6 +650,12 @@ function buildTraceMap(analysisLines) {
 }
 
 
+/**
+ * 
+ * @param {*} analysisLines : array[analysis Obj]
+ * @param {*} propertyName : string containing current used property
+ * @returns array of traces for density map
+ */
 function makeTracesForDensity(analysisLines, propertyName) {
 
 	var selectX = document.getElementById("densityX");

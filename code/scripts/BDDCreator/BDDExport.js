@@ -24,7 +24,10 @@ db_BDD.rawMetadata_files.clear();
 
 //---------------------------------------------
 
-
+/**
+ * exporta current data stored in BDD
+ * @returns 0
+ */
 export function exportData() {
 
 
@@ -55,6 +58,11 @@ export function exportData() {
 
 }
 
+/**
+ * 
+ * @param {*} files array of analysis files soted in BDD 
+ * @returns 2D array compiling files 
+ */
 function convertToArray(files) {
 
     var array =[];
@@ -97,6 +105,11 @@ function convertToArray(files) {
 
 }
 
+/**
+ * 
+ * @param {*} files array of file object
+ * @returns array of all unique types of files
+ */
 function getTypeList(files) {
     var types =[];
 
@@ -109,6 +122,11 @@ function getTypeList(files) {
     return types.filter((v, i, a) => a.indexOf(v) === i);
 }
 
+/**
+ * 
+ * @param {*} analysis_files array fo analysis files fron BDD
+ * @returns [array of unique heads,array of associated units]
+ */
 function getHeadersLine(analysis_files) {
     var headers = [];
     var unitsList = [];
@@ -127,6 +145,9 @@ function getHeadersLine(analysis_files) {
     return [unique, unitsList];
 }
 
+/**
+ * show current loaded data in Export Table
+ */
 export function showData() {
 
     db_BDD.transaction('r', db_BDD.rawMetadata_files, function() {
@@ -154,6 +175,11 @@ export function showData() {
 
 }
 
+/**
+ * show loaded files in Export Table
+ * @param {*} metadataFiles array of metadata files
+ * @param {*} analysisFiles array of analysis files
+ */
 function updateExportTable(metadataFiles, analysisFiles) {
 
     var tablebody = document.getElementById("ExportTable").getElementsByTagName('tbody')[0];
@@ -178,7 +204,13 @@ function updateExportTable(metadataFiles, analysisFiles) {
     }
 }
 
+/**
+ * merge all analysis and metadatas
+ * @param {*} dataExport 
+ */
 function mergeDataAndMetadata(dataExport) {
+
+    console.log(dataExport);
 
     db_BDD.transaction('rw', db_BDD.metadata, function () {
         return db_BDD.metadata.where('ID').equals(1).toArray();

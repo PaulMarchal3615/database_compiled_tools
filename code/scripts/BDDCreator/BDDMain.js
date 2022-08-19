@@ -231,39 +231,18 @@ function readTextFile(file)
     rawFile.send(null);
 }
 
-function findTopValues(array, value) {
 
-    const closest = array.reduce((a, b) => {
-        let aDiff = Math.abs(a - value);
-        let bDiff = Math.abs(b - value);
-    
-        if (aDiff == bDiff) {
-            // Choose largest vs smallest (> vs <)
-            return a < b ? a : b;
-        } else {
-            return bDiff < aDiff ? b : a;
-        }
-    });
 
-    return closest;
-
-}
-
-function findBottomValues(array, value) {
-
-    const closest = array.reduce((a, b) => {
-        let aDiff = Math.abs(a - value);
-        let bDiff = Math.abs(b - value);
-    
-        if (aDiff == bDiff) {
-            // Choose largest vs smallest (> vs <)
-            return a > b ? a : b;
-        } else {
-            return bDiff < aDiff ? b : a;
-        }
-    });
-
-    return closest;
-
-}
-
+// send logs etc to logArea in script QC of BDD
+var log = document.querySelector('#logArea');
+['log','debug','info','warn','error'].forEach(function (verb) {
+    console[verb] = (function (method, verb, log) {
+        return function () {
+            method.apply(console, arguments);
+            var msg = document.createElement('div');
+            msg.classList.add(verb);
+            msg.textContent = verb + ': ' + Array.prototype.slice.call(arguments).join(' ');
+            log.appendChild(msg);
+        };
+    })(console[verb], verb, log);
+});
