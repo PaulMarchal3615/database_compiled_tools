@@ -2,9 +2,62 @@
 
 <head>
   <title>Main Page</title>
+
+  <script type="text/javascript">
+
+    document.getElementById('dlExampleFile').addEventListener("click",dlExampleFile);
+    document.getElementById('dlExampleFile2').addEventListener("click",dlExampleFile2);
+
+
+    function dlExampleFile() {
+      let hiddenElement = document.createElement('a');
+
+      var path = document.location.pathname;
+      var directory = path.substring(path.indexOf('/'), path.lastIndexOf('/'));
+
+      var tempArr = directory.split('/');
+      tempArr.pop();
+      directory = tempArr.join('/');
+
+      var url = "file://"+directory+"/example_files/Datasets/MARTZ_THESIS_2017.csv";
+
+      hiddenElement.href = url;
+      hiddenElement.target = '_blank';
+      hiddenElement.download = url;
+      hiddenElement.click();
+    } 
+
+    function dlExampleFile2() {
+
+      let hiddenElement2 = document.createElement('a');
+
+      var path = document.location.pathname;
+      var directory = path.substring(path.indexOf('/'), path.lastIndexOf('/'));
+
+      var tempArr = directory.split('/');
+      tempArr.pop();
+      directory = tempArr.join('/');
+
+      console.log(directory);
+
+      var url2 = "file://"+directory+"/example_files/Surfaces/TOPOGRAPHY.csv";
+
+      hiddenElement2.href = url2;
+      hiddenElement2.target = '_blank';
+      hiddenElement2.download = url2;
+      hiddenElement2.click();
+    } 
+    
+    </script>
+
 </head>
 
 <body>
+
+  <li>Download here a template file example used in JODEL visualisation interface</li>
+
+  <button type="button" class="btn2-hover bn22" id="dlExampleFile">Download Dataset Example</button>
+  <button type="button" class="btn2-hover bn22" id="dlExampleFile2">Download Surface Example</button>
 
   <li>Link to Tutorial playlist on youtube</li>
 
