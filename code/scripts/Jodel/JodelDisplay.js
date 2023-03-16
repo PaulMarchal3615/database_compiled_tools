@@ -15,6 +15,7 @@ db_jodel.version(1).stores({
  */
 export function displayMain() {
 
+
     var checkList = getFileListToDisplay().SCATTER;
 
 	// --------get filter values------------------------------------
@@ -27,17 +28,16 @@ export function displayMain() {
 	valueListRaw.sort();
 	valueListRaw = valueListRaw.map(value => parseFloat(value)||value);
 
+
 	// ------------------------- 3D & density view
 
 	db_jodel.transaction('rw', db_jodel.analysis, function () {
 			return db_jodel.analysis.where('FILE_NAME').anyOf(checkList).toArray();
 	}).then (analysis =>{
 
-		console.log(analysis, propertyName);
-
         if (propertyName != "DEFAULT") {
 			analysis = analysis.filter(analysisLine => valueListRaw.includes(analysisLine[propertyName]));
-			console.log(propertyName, analysis);
+
 		}
 
         initColorScale(analysis, propertyName, valueListRaw);
@@ -48,10 +48,7 @@ export function displayMain() {
 				return db_jodel.datasets.where('FILE_NAME').anyOf(surfaceCheckList).toArray();
 		}).then (surfaces =>{
 
-			console.log(surfaces);
-
 			var traces = buildTrace3D(analysis, propertyName, surfaces);
-			console.log(traces);
 			scatter3DPlot(traces);
 			buildTraceMap(analysis);
 			var densityData = makeTracesForDensity(analysis, propertyName);
@@ -258,11 +255,15 @@ function mapColors(obj) {
  */
 export function buildTrace3D(analysisLines, propertyName, surfaces) {
 
+
+
 	var traces =[];
 
-	var request =['A31','A32','A33'] // 3 properties to request
+	var request =['A26','A27','A28'] // 3 properties to request
 
 	var arr2 = Object.values(multiDimArray(analysisLines,propertyName, request));
+
+	console.log(arr2);
 
 	// create one traces for all analysis points
 
@@ -272,9 +273,22 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 	let colors = arr2.map(mapColors);
 	let text = arr2.map(({ETIQUETTE})=>JSON.stringify(ETIQUETTE.filter((v, i, a) => a.indexOf(v) === i)));
 
+	let minX = Math.min(... Xvals);
+	let maxX = Math.max(... Xvals);
+
+	let minY= Math.min(... Yvals);
+	let maxY= Math.max(... Yvals);
+
+	console.log(Xvals,minX);
+
+	var Xmul= Xvals.map(function(x) { return (x-minX)/(maxX-minX); });
+	var Ymul = Yvals.map(function(x) { return(x-minY)/(maxY-minY); });
+
+	console.log(Xmul, Ymul);
+
 	var traceScatter = {
-		x: Xvals,
-		y: Yvals,
+		x: Xmul,
+		y: Ymul,
 		z: Zvals,
 		text:text,
 		mode: 'markers',
@@ -389,7 +403,7 @@ function addWellTraces(wellList) {
 			 zerolinecolor: "rgb(255, 255, 255)",
 			 automargin:true,
 			 title: {
-			   text: "X_NAD",
+			   text: "Longitude",
 			   font: {
 				 family: 'Courier New, monospace',
 				 size: 18,
@@ -403,7 +417,7 @@ function addWellTraces(wellList) {
 			 zerolinecolor: "rgb(255, 255, 255)",
 			 automargin:true,
 			 title: {
-			   text: "Y_NAD",
+			   text: "Latitude",
 			   font: {
 				 family: 'Courier New, monospace',
 				 size: 18,
@@ -417,7 +431,7 @@ function addWellTraces(wellList) {
 			 zerolinecolor: "rgb(255, 255, 255)",
 			 automargin:true,
 			 title: {
-			   text: "Z_NAD",
+			   text: "Z",
 			   font: {
 				 family: 'Courier New, monospace',
 				 size: 18,
