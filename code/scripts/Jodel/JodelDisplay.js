@@ -246,6 +246,7 @@ function mapColors(obj) {
 	}
 }
 
+
 /**
  * 
  * @param {*} analysisLines 
@@ -259,27 +260,35 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 
 	var traces =[];
 
-	var request =['A26','A27','A28'] // 3 properties to request
+	var request =['A31','A32','A33'] // 3 properties to request
 
 	var arr2 = Object.values(multiDimArray(analysisLines,propertyName, request));
 
-	console.log(arr2);
-
 	// create one traces for all analysis points
 
-	let Xvals = arr2.map(({X})=>X);
-	let Yvals = arr2.map(({Y})=>Y);
-	let Zvals = arr2.map(({Z})=>Z);
+	let Xvals1 = arr2.map(({X})=>X);
+	let Yvals1 = arr2.map(({Y})=>Y);
+	let Zvals1 = arr2.map(({Z})=>Z);
 	let colors = arr2.map(mapColors);
 	let text = arr2.map(({ETIQUETTE})=>JSON.stringify(ETIQUETTE.filter((v, i, a) => a.indexOf(v) === i)));
 
-	let minX = Math.min(... Xvals);
-	let maxX = Math.max(... Xvals);
+	var Xvals = Xvals1.filter(function( element ) {
+		return element !== undefined;
+		});
 
-	let minY= Math.min(... Yvals);
-	let maxY= Math.max(... Yvals);
+	var Yvals = Yvals1.filter(function( element ) {
+		return element !== undefined;
+		});
 
-	console.log(Xvals,minX);
+	var Zvals = Zvals1.filter(function( element ) {
+		return element !== undefined;
+		});
+
+	let minX = Math.min(...Xvals);
+	let maxX = Math.max(...Xvals);
+
+	let minY= Math.min(...Yvals);
+	let maxY= Math.max(...Yvals);
 
 	var Xmul= Xvals.map(function(x) { return (x-minX)/(maxX-minX); });
 	var Ymul = Yvals.map(function(x) { return(x-minY)/(maxY-minY); });
@@ -311,9 +320,12 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 
 		for (var surface of surfaces) {
 
+			let Xsurf = surface.X_NAD.map(function(x) { return (x-minX)/(maxX-minX); });
+			let Ysurf = surface.Y_NAD.map(function(x) { return (x-minY)/(maxY-minY); });
+
 			traces.push({
-				x: surface.X_NAD,
-				y: surface.Y_NAD,
+				x: Xsurf,
+				y: Ysurf,
 				z: surface.Z_NAD,
 				color: surface.COLOR,
 				opacity : 0.8,
@@ -328,7 +340,7 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 		var wellraw = analysisLines.map(({A41})=>A41);
 		var wellList = wellraw.filter((v, i, a) => a.indexOf(v) === i);
 
-		var wells = addWellTraces(wellList);
+		var wells = addWellTraces(wellList, minX, maxX, minY, maxY);
 		traces = traces.concat(wells);
 
 	}
@@ -341,7 +353,7 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
  * @param {*} wellList array of well string names
  * @returns array of traces object (plotly format for scatter lines) 
  */
-function addWellTraces(wellList) {
+function addWellTraces(wellList, minX, maxX, minY, maxY) {
 
 	var tracesWells = [];
 
@@ -349,9 +361,13 @@ function addWellTraces(wellList) {
 
 		if (Object.keys(holesTraces).includes(well)) {
 
+			let Xwell = holesTraces[well].X.map(function(x) { return (x-minX)/(maxX-minX);});
+			let Ywell = holesTraces[well].Y.map(function(x) { return (x-minY)/(maxY-minY);});	
+
 			var traceWell = {
-				x: holesTraces[well].X,
-				y: holesTraces[well].Y,
+
+				x: Xwell,
+				y: Ywell,
 				z: holesTraces[well].Z,
 				text:holesTraces[well].X.map(x => well),
 				mode: 'lines',
