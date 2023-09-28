@@ -24,9 +24,16 @@ db_jodel.version(1).stores({
 		db_jodel.transaction('r', db_jodel.analysis, function () {
 			return db_jodel.analysis.toArray();		
 		}).then (analysis =>{
+
+			console.log(varName);
+
+			console.log(analysis);
 			
 			let result = analysis.map(a => a[varName]);
+			console.log(result);
 			var unique = result.filter((v, i, a) => a.indexOf(v) === i).filter(function (el) {return el != null & el!= "";});
+
+			console.log("unique",unique);
 
 			removeOptions(subfilter);
 			updateBox(subfilterName,unique.sort(), unique.sort());

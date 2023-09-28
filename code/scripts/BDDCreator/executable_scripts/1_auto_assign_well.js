@@ -18,7 +18,7 @@ for (var sample of Object.keys(allMetadata.SAMPLES_METADATA)) {
       
       max = dist;
       closest = hole;
-      if (dist ==1) {
+      if (dist == 1) {
           break;
       }
     }

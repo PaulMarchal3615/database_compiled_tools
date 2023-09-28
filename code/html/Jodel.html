@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../styles/Jodel/sidebar.css">
     <link rel="stylesheet" href="../styles/Jodel/sideParameters.css">
     <link rel="stylesheet" href="../styles/Jodel/ratioControl.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--function for opening tabs on click-->
     <script type="text/javascript">
@@ -51,7 +52,8 @@
 }
   
   </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+    
   </head>
   <body>
     <input id="fileInput" multiple="multiple" type="file">
@@ -100,6 +102,7 @@
           <option value="FI-LA-ICP-MS">FI-LA-ICP-MS</option>
           <option value="XRD-CLAY">XRD-CLAY</option>
           <option value="CLAY-CRISTALLOGRAPHY">CLAY-CRISTALLOGRAPHY</option>  
+          <option value="FRACT_DENSITY">FRACT_DENSITY</option>  
         </select>
 
           <select class="select" width=100% height=100% name="filter1" id="filter1" multiple="multiple">
@@ -169,20 +172,12 @@
 
             <div class="colorSelect">
               <p id="colorText"style="margin-top: 0px;margin-bottom: 0px;">COLOR PARAMETERS</p>
-              <input id="lowCol" type="color" value="#2EB61F">
-              <input id="highCol" type="color" value="#00CDFF">
-              <select id="num-classes">
-                <option name="3">3</option>
-                <option name="4">4</option>
-                <option name="5">5</option>
-                <option name="6">6</option>
-                <option name="7">7</option>
-                <option name="8">8</option>
-                <option name="9">9</option>
-                <option name="10">10</option>
-                <option name="11">11</option>
-                <option name="12">12</option>
+
+              <input id="num-classes" value="10" name="num-classes" onkeypress="validate(event)"type="int"> 
+
+              <select id="color-id">
               </select> 
+
               <input id="multiCol" type="color" value="#7A8B90">
             </div> 
 

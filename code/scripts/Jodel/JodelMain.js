@@ -1,4 +1,4 @@
-import {fields, units} from '../Common/ressources.js';
+import {fields, units, colorscales_list} from '../Common/ressources.js';
 import {displayMain} from './JodelDisplay.js';
 import {exportSamples} from './JodelExport.js';
 import {removeOptions,fillSubFilterBox, updateBox} from './JodelFilters.js'
@@ -41,11 +41,21 @@ document.getElementById("Y_input").addEventListener("change",displayMain);
 document.getElementById("Z_input").addEventListener("change",displayMain);
 document.getElementById("dispTraces").addEventListener("change",displayMain);
 
-document.getElementById("lowCol").addEventListener("change",displayMain);
-document.getElementById("highCol").addEventListener("change",displayMain);
+document.getElementById("color-id").addEventListener("change",displayMain);
 document.getElementById("multiCol").addEventListener("change",displayMain);
 
+var color_select = document.getElementById("color-id");
+
+for (var j = 0; j<(colorscales_list.length)-1; j++) {
+	console.log(j);
+	let opt = document.createElement("option");
+	opt.value = j;
+	opt.text = colorscales_list[j];
+	color_select.add(opt, null);
+}
+
 var filter = document.getElementById("filter1");
+console.log(filter);
 var subfilter = document.getElementById("subfilter1");
 var selectBtn = document.getElementById("selectAll");
 
@@ -246,6 +256,7 @@ function readDataset(dataset) {
 	for (var j =0; j<(indexes.length)-1; j++) {
 
 		var analysisName = measure[j];
+		console.log("analysisname",analysisName);
 		var subHead = headers.slice(indexes[j], indexes[j+1]);
 		headerSlice[analysisName] = subHead;
 	}

@@ -1,4 +1,4 @@
-import {projectMetadata, metadataFields} from "../Common/ressources.js";
+import {projectMetadata, metadataFields, holeMetadata} from "../Common/ressources.js";
 import {parseFile, deactivateHeads, JaroWrinker} from "./BDDOpen.js";
 import { convertDataToArray} from "./BDDSave.js";
 import { displayMetadata } from "./BDDQC.js";
@@ -96,15 +96,47 @@ function executeScript() {
     }).then (metadata =>{
 
         var allMetadata = metadata[0];
-    
-        var textInput = editor.getValue();
-        eval(textInput);
 
-        db_BDD.metadata.update(1, allMetadata);
+        if (allMetadata.length == 0) {
+            window.alert("EMPTY DATABASE");
+        }
+
+        if (Object.keys(allMetadata.SAMPLES_METADATA).length ==0) {
+            window.alert("No samples in database. ¨Please Load samples.");
+        }
+        
+        
+        else if (Object.keys(allMetadata.HOLES_METADATA).length == 0) {
+            window.alert("No drillholes in database. ¨Please Load drillholes.");
+
+            allMetadata.HOLES_TRACES = holesTraces;
+
+            for (var el in  Object.keys(allMetadata.HOLES_TRACES)) {
+
+                var hole  = holeMetadata;
+                hole.HOLEID = el.HOLEID;
+                allMetadata.HOLES_METADATA[el.HOLEID] = hole;
+
+            }
+        }
+
+        else {
+
+            var textInput = editor.getValue();
+            eval(textInput);
+    
+            db_BDD.metadata.update(1, allMetadata);
+
+
+        }
+
+    
+
     
     })
     .catch (function (e) {
-        console.error("LOAD METADATA TEMPLATE ERROR : ",e);
+        window.alert("LOAD EXECUTE SCRIPT : ",e);
+        console.error("LOAD EXECUTE SCRIPT : ",e);
     });	
 
 

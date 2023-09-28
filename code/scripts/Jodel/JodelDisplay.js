@@ -1,5 +1,5 @@
 import {isFloat} from '../Common/common_functions.js';
-import { holesTraces } from '../Common/ressources.js';
+import { holesTraces ,litho_colors} from '../Common/ressources.js';
 var db_jodel = new Dexie("jodelDB");
 
 db_jodel.version(1).stores({
@@ -141,10 +141,12 @@ function fillCaptionTable(colorList, valueList) {
 function initColorScale(analysisLines, propertyName, varList) {
 
 	// we get choosen values for color scales from input[type=color] lowCol and highCol
-	let colorLow = document.getElementById("lowCol").value;
-	var colorHigh = document.getElementById("highCol").value;
+	var size = document.getElementById("num-classes").value;
+
+	var scale_name = document.getElementById("color-id").text;
+	var scale_name = $('#color-id').find(":selected").text();
 	var size = 0;
-	var scale = [];
+	//var scale = [];
 
 	// if we choose to display a certain property from filters
 	if ((propertyName != "DEFAULT") && (varList.length >0)) {
@@ -152,11 +154,18 @@ function initColorScale(analysisLines, propertyName, varList) {
 		// if property is a continuous property (float values)
 		if (isFloat(varList[0])) {
 
-			size = $('#num-classes').find(":selected").text();
+			//size = $('#num-classes').find(":selected").text();
+			size = document.getElementById("num-classes").value;
 			var limits = chroma.limits(varList, 'e', size-1);
 
-			scale = chroma.scale([colorLow,colorHigh])
-			.mode('hsl').colors(size);
+
+
+			//scale = chroma.scale([colorLow,colorHigh])
+			//.mode('hsl').colors(size);
+
+			var scale = chroma.scale(scale_name).mode('hsl').colors(size);
+
+			//chroma.scale(['lightyellow', 'navy']).domain([1, 100000], 7, 'log');
 
 			const samples = analysisLines.map(({A23})=>A23).filter((v, i, a) => a.indexOf(v) === i);
 
@@ -182,13 +191,13 @@ function initColorScale(analysisLines, propertyName, varList) {
 		else {
 
 			size = varList.length;
-			scale = chroma.scale([colorLow,colorHigh])
-			.mode('hsl').colors(size);
+			scale = chroma.scale(scale_name).mode('hsl').colors(size);
 		
 			for (var analysis of analysisLines) {
 
 				
 				for (var value of varList) {
+
 					if (analysis[propertyName] == value) {
 						analysis.COLOR = scale[varList.indexOf(value)];
 						break;
@@ -238,7 +247,7 @@ function multiDimArray(arrLines, propertyName, request) {
 function mapColors(obj) {
 
 	var colorMulti = document.getElementById("multiCol").value;
-	if (obj.COLOR.length >1) {
+	if (obj.COLOR.length > 1) {
 		return colorMulti;
 	}
 	else {
@@ -263,6 +272,8 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 	var request =['A31','A32','A33'] // 3 properties to request
 
 	var arr2 = Object.values(multiDimArray(analysisLines,propertyName, request));
+
+	console.log(arr2);
 
 	// create one traces for all analysis points
 

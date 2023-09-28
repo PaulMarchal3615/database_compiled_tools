@@ -34,27 +34,24 @@
   width: 90%;
   height: 100%;
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 50% 25% 25%;
   grid-template-rows: max-content max-content;
   grid-gap: 5px;
 }
+
+
 
 #colorText{
   grid-column: 1 / 4;
   grid-row: 1;
 }
 
-#lowCol{
+#color-id{
   width: 100%;
-  grid-column: 1;
+  grid-column: 1 / 2;
   grid-row: 2;
 }
 
-#highCol{
-  width: 100%;
-  grid-column: 2;
-  grid-row: 2;
-}
 
 #num-classes{
   width: 100%;

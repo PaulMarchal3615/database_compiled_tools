@@ -1,5 +1,57 @@
 // file containing data structures as references for controlled inputs 
 
+export const colorscales_list = [  "OrRd",
+"PuBu",
+"BuPu",
+"Oranges",
+"BuGn",
+"YlOrBr",
+"YlGn",
+"Reds",
+"RdPu",
+"Greens",
+"YlGnBu",
+"Purples",
+"GnBu",
+"Greys",
+"YlOrRd",
+"PuRd",
+"Blues",
+"PuBuGn",
+"Viridis",
+"Spectral",
+"RdYlGn",
+"RdBu",
+"PiYG",
+"PRGn",
+"RdYlBu",
+"BrBG",
+"RdGy",
+"PuOr",
+"Set2",
+"Accent",
+"Set1",
+"Set3",
+"Dark2",
+"Paired",
+"Pastel2",
+"Pastel1"];
+
+export const litho_colors = {
+    'pink':['GranD','GranT','PegmD','PegmT','PegmT, GnPsaPel'],
+    'red':['BxQtz','FLT','Bxfault','QtzVein','Qtz','Myl'],
+    'purple':['AltBas'],
+    'brown':['OB'],
+    'grey':['EOH','NO LOG'],
+    'blue':['GnBi, EOH','GnQtzFd','GnGaBi','GnCo','GnAlt','GnBFGQ','GnPsaPel, FLT','GnBi','GnMaf','GnPsa','GnGran','GnPel','GnPsaPel','GnCaSi'],
+    'green':['CaBnd','Amph','CaSi'],
+    'orange':['CglSSt','CglMicro','Cgl'],
+    'yellow':['SStCgl','SStFine','SSt','SStMed','SStGrit'],
+    'black':['GnGra, GnPel','GnGra, GnPsaPel, CaSi','GnGra','GnGraPel','GnGraGra']
+}
+    
+
+
 export const fields = {
     'METADATA':{'A0':'PROJECT_NAME','A1':'DATA_DESCRIPTION','A2':'KEYWORD','A3':'KEYWORD2','A4':'LANGUAGE','A5':'INSTITUTION','A6':'INSTITUTION2','A7':'SCIENTIFIC_FIELD','A8':'SCIENTIFIC_FIELD2','A9':'PROJECT_COUNTRY','A10':'PROJECT_PROVINCE','A11':'PROJECT_AREA','A12':'PROJECT_CODE','A13':'FILE_CREATOR_NAME','A14':'FILE_CREATOR_FIRST_NAME','A15':'FILE_CREATOR_MAIL','A16':'CREATION_DATE','A17':'REFERENT_NAME','A18':'REFERENT_FIRST_NAME','A19':'REFERENT_MAIL','A20':'REFERENT_NAME2','A21':'REFERENT_FIRST_NAME2','A22':'REFERENT_MAIL2','A23':'SAMPLING_POINT-NAME','A24':'SAMPLING_POINT-COORDINATE_SYSTEM','A25':'SAMPLING_POINT-ABBREVIATION','A26':'SAMPLING_POINT-LONGITUDE','A27':'SAMPLING_POINT-LATITUDE','A28':'SAMPLING_POINT-ELEVATION','A29':'SAMPLING_POINT-DESCRIPTION','A30':'COORDINATE_SYSTEM_NAD','A31':'X_NAD','A32':'Y_NAD','A33':'Z_NAD','A34':'FILE_CREATOR_DISPLAY_NAME','A35':'TITLE','A36':'SAMPLE_NAME','A37':'SAMPLE_NAME_ORANO','A38':'SAMPLE_NAME_GEORESSOURCES','A39':'SAMPLE_TYPE','A40':'SAMPLING_DATE','A41':'HOLEID','A42':'HOLEID_LATITUDE','A43':'HOLEID_LONGITUDE','A44':'HOLEID_ELEVATION','A45':'HOLEID_X_NAD','A46':'HOLEID_Y_NAD','A47':'HOLEID_Z_NAD','A48':'SAMPLE_DEPTH_FROM','A49':'SAMPLE_DEPTH_TO','A50':'LITHOLOGY','A51':'LITHOLOGY_2','A52':'LITHOLOGY_3','A53':'TEXTURE_STRUCTURE','A54':'TEXTURE_STRUCTURE_2','A55':'ORE_TYPE','A56':'ORE_TYPE_2','A57':'ORE_TYPE_3','A58':'HOST_AGE','A59':'MAIN_EVENT_AGE','A60':'ALTERATION_DEGREE','A61':'PICTURE','A62':'PICTURE2','A63':'PICTURE3','A64':'SAMPLE_LOCATION_BUILDING','A65':'STORAGE_ACCESS_REFERENT','A66':'SAMPLE_LOCATION_ROOM','A67':'SAMPLE_LOCATION_SHELF','A68':'SAMPLE_LOCATION_BOX','A69':'SAMPLE_LOCATION_BOX_TYPE','A70':'SAFETY_CONSTRAINTS','A71':'METHODOLOGY-SAMPLING','A72':'METHODOLOGY-SAMPLE_CONDITIONNING','A73':'METHODOLOGY-ANALYSIS','A74':'METHODOLOGY-SAMPLE','A75':'MEASUREMENT-NATURE','A76':'MEASUREMENT-ABBREV','A77':'MEASUREMENT-UNIT','A78':'ANALYSIS_LABORATORY','A79':'LITHOLOGY_ORANO','A80':'FORMATION_ORANO'},
     'BULK-GEOCHEMISTRY':{'B0':'ANALYSIS_ABBREV','B1':'Type','B2':'SiO2','B3':'Al2O3','B4':'Fe2O3','B5':'MgO','B6':'CaO','B7':'Na2O','B8':'K2O','B9':'TiO2','B10':'P2O5','B11':'MnO','B12':'Cr2O3','B13':'Ni','B14':'Sc','B15':'Ba','B16':'Be','B17':'Co','B18':'Cs','B19':'Ga','B20':'Hf','B21':'Nb','B22':'Rb','B23':'Sn','B24':'Sr','B25':'Ta','B26':'Th','B27':'U','B28':'V','B29':'W','B30':'Zr','B31':'Y','B32':'La','B33':'Ce','B34':'Pr','B35':'Nd','B36':'Sm','B37':'Eu','B38':'Gd','B39':'Tb','B40':'Dy','B41':'Ho','B42':'Er','B43':'Tm','B44':'Yb','B45':'Lu','B46':'Mo','B47':'Cu','B48':'Pb','B49':'Zn','B50':'As','B51':'Cd','B52':'Sb','B53':'Bi','B54':'Ag','B55':'Au','B56':'Hg','B57':'Tl','B58':'Se','B59':'B','B60':'F','B61':'Li','B62':'Cl','B63':'CO2_total','B64':'S_total','B65':'Cr','B66':'Ge','B67':'In','B68':'PF','B69':'Total'},
@@ -12,7 +64,8 @@ export const fields = {
     'XRD-CLAY':{'I0':'ANALYSIS_ABBREV','I1':'C001','I2':'C002','I3':'C003','I4':'C004','I5':'C005','I6':'C003_C005-1','I7':'D_range','I8':'C003prime','I9':'C002plusC004_C003prime-1','I10':'Y_xrd','I11':'I001','I12':'I002','I13':'I003','I14':'I003_C003-1','I15':'I001_C002','I16':'Main_clay_assemblage'},
     'CLAY-CRISTALLOGRAPHY':{'J':'ANALYSIS_ABBREV','J0':'Clay_mineral','J1':'CLAY_Analysis_ID','J2':'clay_Na','J3':'clay_Mg','J4':'clay_Al','J5':'clay_Si','J6':'clay_K','J7':'clay_Ca','J8':'clay_Mn','J9':'clay_Fe','J10':'clay_Ti','J11':'clay_O','J12':'clay_Total'},
     'UO2-GEOCHEMISTRY-LA-ICP-MS':{'K0':'ANALYSIS_ABBREV','K1':'UO2_LAICPMS_spot_ID','K2':'UO2_LAICPMS_B','K3':'UO2_LAICPMS_Ti','K4':'UO2_LAICPMS_V','K5':'UO2_LAICPMS_Cr','K6':'UO2_LAICPMS_Mn','K7':'UO2_LAICPMS_Co','K8':'UO2_LAICPMS_Ni','K9':'UO2_LAICPMS_Ga','K10':'UO2_LAICPMS_As','K11':'UO2_LAICPMS_Sr','K12':'UO2_LAICPMS_Y','K13':'UO2_LAICPMS_Zr','K14':'UO2_LAICPMS_Nb','K15':'UO2_LAICPMS_Mo','K16':'UO2_LAICPMS_Sb','K17':'UO2_LAICPMS_Ba','K18':'UO2_LAICPMS_La','K19':'UO2_LAICPMS_Ce','K20':'UO2_LAICPMS_Pr','K21':'UO2_LAICPMS_Nd','K22':'UO2_LAICPMS_Sm','K23':'UO2_LAICPMS_Eu','K24':'UO2_LAICPMS_Gd','K25':'UO2_LAICPMS_Tb','K26':'UO2_LAICPMS_Dy','K27':'UO2_LAICPMS_Ho','K28':'UO2_LAICPMS_Er','K29':'UO2_LAICPMS_Tm','K30':'UO2_LAICPMS_Yb','K31':'UO2_LAICPMS_Lu','K32':'UO2_LAICPMS_W','K33':'UO2_LAICPMS_Bi','K34':'UO2_LAICPMS_Th'},
-    'UO2-GEOCHEMISTRY-EMPA':{'L0':'ANALYSIS_ABBREV','L1':'UO2_EMPA_spot_ID','L2':'MINERALIZATION_TYPE','L3':'Al','L4':'As','L5':'Ca','L6':'Cl','L7':'Co','L8':'Cr','L9':'Cu','L10':'Fe','L11':'Hf','L12':'K','L13':'Mg','L14':'Mn','L15':'Na','L16':'O','L17':'P','L18':'Pb','L19':'S','L20':'Si','L21':'Th','L22':'Ti','L23':'U','L24':'V','L25':'W','L26':'Y','L27':'Zn','L28':'Zr','L29':'Total_wt','L30':'Al2O3','L31':'CaO','L32':'FeO','L33':'Fe2O3','L34':'K2O','L35':'MgO','L36':'MnO','L37':'Na2O','L38':'P2O5','L39':'PbO','L40':'SiO2','L41':'ThO2','L42':'TiO2','L43':'UO2','L44':'V2O3','L45':'Y2O3','L46':'ZrO2','L47':'Total_oxydes'}}
+    'UO2-GEOCHEMISTRY-EMPA':{'L0':'ANALYSIS_ABBREV','L1':'UO2_EMPA_spot_ID','L2':'MINERALIZATION_TYPE','L3':'Al','L4':'As','L5':'Ca','L6':'Cl','L7':'Co','L8':'Cr','L9':'Cu','L10':'Fe','L11':'Hf','L12':'K','L13':'Mg','L14':'Mn','L15':'Na','L16':'O','L17':'P','L18':'Pb','L19':'S','L20':'Si','L21':'Th','L22':'Ti','L23':'U','L24':'V','L25':'W','L26':'Y','L27':'Zn','L28':'Zr','L29':'Total_wt','L30':'Al2O3','L31':'CaO','L32':'FeO','L33':'Fe2O3','L34':'K2O','L35':'MgO','L36':'MnO','L37':'Na2O','L38':'P2O5','L39':'PbO','L40':'SiO2','L41':'ThO2','L42':'TiO2','L43':'UO2','L44':'V2O3','L45':'Y2O3','L46':'ZrO2','L47':'Total_oxydes'},
+    'FRACT_DENSITY':{'X0':'ANALYSIS_ABBREV','X1':'Densite_apparente','X2':'Densite_apparente_ArgB','X3':'Densite_apparente_Arg_BC','X4':'Densite_apparente_Cb','X5':'Densite_apparente_Chl','X6':'Densite_apparente_Gp','X7':'Densite_apparente_Hm','X8':'Densite_apparente_Il','X9':'Densite_apparente_Py','X10':'Densite_apparente_Qz','X11':'Densite_apparente_U','X12':'Densite_apparente_Arg_BS','X13':'Densite_apparente_Lim'}}
 
 export const keyVal = {'A0':'PROJECT_NAME','A1':'DATA_DESCRIPTION','A2':'KEYWORD','A3':'KEYWORD2','A4':'LANGUAGE','A5':'INSTITUTION','A6':'INSTITUTION2','A7':'SCIENTIFIC_FIELD','A8':'SCIENTIFIC_FIELD2','A9':'PROJECT_COUNTRY','A10':'PROJECT_PROVINCE','A11':'PROJECT_AREA','A12':'PROJECT_CODE','A13':'FILE_CREATOR_NAME','A14':'FILE_CREATOR_FIRST_NAME','A15':'FILE_CREATOR_MAIL','A16':'CREATION_DATE','A17':'REFERENT_NAME','A18':'REFERENT_FIRST_NAME','A19':'REFERENT_MAIL','A20':'REFERENT_NAME2','A21':'REFERENT_FIRST_NAME2','A22':'REFERENT_MAIL2','A23':'SAMPLING_POINT-NAME','A24':'SAMPLING_POINT-COORDINATE_SYSTEM','A25':'SAMPLING_POINT-ABBREVIATION','A26':'SAMPLING_POINT-LONGITUDE','A27':'SAMPLING_POINT-LATITUDE','A28':'SAMPLING_POINT-ELEVATION','A29':'SAMPLING_POINT-DESCRIPTION','A30':'COORDINATE_SYSTEM_NAD','A31':'X_NAD','A32':'Y_NAD','A33':'Z_NAD','A34':'FILE_CREATOR_DISPLAY_NAME','A35':'TITLE','A36':'SAMPLE_NAME','A37':'SAMPLE_NAME_ORANO','A38':'SAMPLE_NAME_GEORESSOURCES','A39':'SAMPLE_TYPE','A40':'SAMPLING_DATE','A41':'HOLEID',
 'A42':'HOLEID_LATITUDE','A43':'HOLEID_LONGITUDE','A44':'HOLEID_ELEVATION','A45':'HOLEID_X_NAD','A46':'HOLEID_Y_NAD','A47':'HOLEID_Z_NAD','A48':'SAMPLE_DEPTH_FROM','A49':'SAMPLE_DEPTH_TO','A50':'LITHOLOGY','A51':'LITHOLOGY_2','A52':'LITHOLOGY_3','A53':'TEXTURE_STRUCTURE','A54':'TEXTURE_STRUCTURE_2','A55':'ORE_TYPE','A56':'ORE_TYPE_2','A57':'ORE_TYPE_3','A58':'HOST_AGE','A59':'MAIN_EVENT_AGE','A60':'ALTERATION_DEGREE','A61':'PICTURE','A62':'PICTURE2','A63':'PICTURE3','A64':'SAMPLE_LOCATION_BUILDING','A65':'STORAGE_ACCESS_REFERENT','A66':'SAMPLE_LOCATION_ROOM','A67':'SAMPLE_LOCATION_SHELF','A68':'SAMPLE_LOCATION_BOX','A69':'SAMPLE_LOCATION_BOX_TYPE','A70':'SAFETY_CONSTRAINTS','A71':'METHODOLOGY-SAMPLING','A72':'METHODOLOGY-SAMPLE_CONDITIONNING','A73':'METHODOLOGY-ANALYSIS','A74':'METHODOLOGY-SAMPLE','A75':'MEASUREMENT-NATURE','A76':'MEASUREMENT-ABBREV','A77':'MEASUREMENT-UNIT','A78':'ANALYSIS_LABORATORY','A79':'LITHOLOGY_ORANO','A80':'FORMATION_ORANO',
@@ -26,7 +79,8 @@ export const keyVal = {'A0':'PROJECT_NAME','A1':'DATA_DESCRIPTION','A2':'KEYWORD
 'I0':'ANALYSIS_ABBREV','I1':'C001','I2':'C002','I3':'C003','I4':'C004','I5':'C005','I6':'C003_C005-1','I7':'D_range','I8':'C003prime','I9':'C002plusC004_C003prime-1','I10':'Y_xrd','I11':'I001','I12':'I002','I13':'I003','I14':'I003_C003-1','I15':'I001_C002','I16':'Main_clay_assemblage',
 'J':'ANALYSIS_ABBREV','J0':'Clay_mineral','J1':'CLAY_Analysis_ID','J2':'clay_Na','J3':'clay_Mg','J4':'clay_Al','J5':'clay_Si','J6':'clay_K','J7':'clay_Ca','J8':'clay_Mn','J9':'clay_Fe','J10':'clay_Ti','J11':'clay_O','J12':'clay_Total',
 'K0':'ANALYSIS_ABBREV','K1':'UO2_LAICPMS_spot_ID','K2':'UO2_LAICPMS_B','K3':'UO2_LAICPMS_Ti','K4':'UO2_LAICPMS_V','K5':'UO2_LAICPMS_Cr','K6':'UO2_LAICPMS_Mn','K7':'UO2_LAICPMS_Co','K8':'UO2_LAICPMS_Ni','K9':'UO2_LAICPMS_Ga','K10':'UO2_LAICPMS_As','K11':'UO2_LAICPMS_Sr','K12':'UO2_LAICPMS_Y','K13':'UO2_LAICPMS_Zr','K14':'UO2_LAICPMS_Nb','K15':'UO2_LAICPMS_Mo','K16':'UO2_LAICPMS_Sb','K17':'UO2_LAICPMS_Ba','K18':'UO2_LAICPMS_La','K19':'UO2_LAICPMS_Ce','K20':'UO2_LAICPMS_Pr','K21':'UO2_LAICPMS_Nd','K22':'UO2_LAICPMS_Sm','K23':'UO2_LAICPMS_Eu','K24':'UO2_LAICPMS_Gd','K25':'UO2_LAICPMS_Tb','K26':'UO2_LAICPMS_Dy','K27':'UO2_LAICPMS_Ho','K28':'UO2_LAICPMS_Er','K29':'UO2_LAICPMS_Tm','K30':'UO2_LAICPMS_Yb','K31':'UO2_LAICPMS_Lu','K32':'UO2_LAICPMS_W','K33':'UO2_LAICPMS_Bi','K34':'UO2_LAICPMS_Th',
-'L0':'ANALYSIS_ABBREV','L1':'UO2_EMPA_spot_ID','L2':'MINERALIZATION_TYPE','L3':'Al','L4':'As','L5':'Ca','L6':'Cl','L7':'Co','L8':'Cr','L9':'Cu','L10':'Fe','L11':'Hf','L12':'K','L13':'Mg','L14':'Mn','L15':'Na','L16':'O','L17':'P','L18':'Pb','L19':'S','L20':'Si','L21':'Th','L22':'Ti','L23':'U','L24':'V','L25':'W','L26':'Y','L27':'Zn','L28':'Zr','L29':'Total_wt','L30':'Al2O3','L31':'CaO','L32':'FeO','L33':'Fe2O3','L34':'K2O','L35':'MgO','L36':'MnO','L37':'Na2O','L38':'P2O5','L39':'PbO','L40':'SiO2','L41':'ThO2','L42':'TiO2','L43':'UO2','L44':'V2O3','L45':'Y2O3','L46':'ZrO2','L47':'Total_oxydes'}
+'L0':'ANALYSIS_ABBREV','L1':'UO2_EMPA_spot_ID','L2':'MINERALIZATION_TYPE','L3':'Al','L4':'As','L5':'Ca','L6':'Cl','L7':'Co','L8':'Cr','L9':'Cu','L10':'Fe','L11':'Hf','L12':'K','L13':'Mg','L14':'Mn','L15':'Na','L16':'O','L17':'P','L18':'Pb','L19':'S','L20':'Si','L21':'Th','L22':'Ti','L23':'U','L24':'V','L25':'W','L26':'Y','L27':'Zn','L28':'Zr','L29':'Total_wt','L30':'Al2O3','L31':'CaO','L32':'FeO','L33':'Fe2O3','L34':'K2O','L35':'MgO','L36':'MnO','L37':'Na2O','L38':'P2O5','L39':'PbO','L40':'SiO2','L41':'ThO2','L42':'TiO2','L43':'UO2','L44':'V2O3','L45':'Y2O3','L46':'ZrO2','L47':'Total_oxydes',
+'X0':'ANALYSIS_ABBREV','X1':'Densite_apparente','X2':'Densite_apparente_ArgB','X3':'Densite_apparente_Arg_BC','X4':'Densite_apparente_Cb','X5':'Densite_apparente_Chl','X6':'Densite_apparente_Gp','X7':'Densite_apparente_Hm','X8':'Densite_apparente_Il','X9':'Densite_apparente_Py','X10':'Densite_apparente_Qz','X11':'Densite_apparente_U','X12':'Densite_apparente_Arg_BS','X13':'Densite_apparente_Lim'}
 
 
 export var units ={'A0':'text',
@@ -441,7 +495,14 @@ export var units ={'A0':'text',
 'J9':'percent',
 'J10':'percent',
 'J11':'percent',
-'J12':'percent'};
+'J12':'percent',
+'X0':'text',
+'X1':'text',
+'X2':'text',
+'X3':'text',
+'X4':'text',
+'X5':'text',
+'X6':'text','X7':'text','X8':'text','X9':'text','X10':'text','X11':'text','X12':'text','X13':'text'};
 
 export var metadataFields = 
 {

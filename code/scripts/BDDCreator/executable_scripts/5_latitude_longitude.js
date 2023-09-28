@@ -7,13 +7,15 @@ proj4.defs([
 var NAD83_Z13_Projection = proj4('EPSG:2151');
 var NAD83_Z12_Projection = proj4('EPSG:2152');
 var WGS84_Projection = proj4('EPSG:4326');
+var RGNC9193_Projection = proj4('EPSG:3163');
 
 console.log(proj4(NAD83_Z13_Projection,WGS84_Projection).inverse([-104.5419199,58.07132686]));
 // [242075.00535055372, 750123.32090043]
 console.log(proj4(NAD83_Z13_Projection,WGS84_Projection).forward([527023.6,6436742]));
 
+WGStoNAD83(RGNC9193_Projection, WGS84_Projection)
 
-function WGStoNAD83() {
+function WGStoNAD83(in_coord, out_coord) {
 
     for (var sample of Object.keys(allMetadata.SAMPLES_METADATA)) {
         // do something on sample object 
@@ -23,7 +25,7 @@ function WGStoNAD83() {
         var latitude = parseFloat(sampleInfo["SAMPLING_POINT-LATITUDE"]);
         var longitude = parseFloat(sampleInfo["SAMPLING_POINT-LONGITUDE"]);
     
-        var X_NAD, Y_NAD = proj4(NAD83_Z13_Projection,WGS84_Projection).inverse([longitude, latitude]);
+        var X_NAD, Y_NAD = proj4(i_coord,out_coord).inverse([longitude, latitude]);
         sampleInfo["X_NAD"].value = X_NAD;
         sampleInfo["Y_NAD"].value = Y_NAD;
     }
