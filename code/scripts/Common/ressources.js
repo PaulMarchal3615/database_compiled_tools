@@ -1,6 +1,6 @@
-// file containing data structures as references for controlled inputs 
+//filecontainingdatastructuresasreferencesforcontrolledinputs
 
-export const colorscales_list = [  "OrRd",
+export const colorscales_list=["OrRd",
 "PuBu",
 "BuPu",
 "Oranges",
@@ -37,54 +37,54 @@ export const colorscales_list = [  "OrRd",
 "Pastel2",
 "Pastel1"];
 
-export const litho_colors = {
-    'pink':['GranD','GranT','PegmD','PegmT','PegmT, GnPsaPel'],
-    'red':['BxQtz','FLT','Bxfault','QtzVein','Qtz','Myl'],
-    'purple':['AltBas'],
-    'brown':['OB'],
-    'grey':['EOH','NO LOG'],
-    'blue':['GnBi, EOH','GnQtzFd','GnGaBi','GnCo','GnAlt','GnBFGQ','GnPsaPel, FLT','GnBi','GnMaf','GnPsa','GnGran','GnPel','GnPsaPel','GnCaSi'],
-    'green':['CaBnd','Amph','CaSi'],
-    'orange':['CglSSt','CglMicro','Cgl'],
-    'yellow':['SStCgl','SStFine','SSt','SStMed','SStGrit'],
-    'black':['GnGra, GnPel','GnGra, GnPsaPel, CaSi','GnGra','GnGraPel','GnGraGra']
+export const litho_colors={
+'pink':['GranD','GranT','PegmD','PegmT','PegmT,GnPsaPel'],
+'red':['BxQtz','FLT','Bxfault','QtzVein','Qtz','Myl'],
+'purple':['AltBas'],
+'brown':['OB'],
+'grey':['EOH','NOLOG'],
+'blue':['GnBi,EOH','GnQtzFd','GnGaBi','GnCo','GnAlt','GnBFGQ','GnPsaPel,FLT','GnBi','GnMaf','GnPsa','GnGran','GnPel','GnPsaPel','GnCaSi'],
+'green':['CaBnd','Amph','CaSi'],
+'orange':['CglSSt','CglMicro','Cgl'],
+'yellow':['SStCgl','SStFine','SSt','SStMed','SStGrit'],
+'black':['GnGra,GnPel','GnGra,GnPsaPel,CaSi','GnGra','GnGraPel','GnGraGra']
 }
-    
 
 
-export const fields = {
-    'METADATA':{'A0':'PROJECT_NAME','A1':'DATA_DESCRIPTION','A2':'KEYWORD','A3':'KEYWORD2','A4':'LANGUAGE','A5':'INSTITUTION','A6':'INSTITUTION2','A7':'SCIENTIFIC_FIELD','A8':'SCIENTIFIC_FIELD2','A9':'PROJECT_COUNTRY','A10':'PROJECT_PROVINCE','A11':'PROJECT_AREA','A12':'PROJECT_CODE','A13':'FILE_CREATOR_NAME','A14':'FILE_CREATOR_FIRST_NAME','A15':'FILE_CREATOR_MAIL','A16':'CREATION_DATE','A17':'REFERENT_NAME','A18':'REFERENT_FIRST_NAME','A19':'REFERENT_MAIL','A20':'REFERENT_NAME2','A21':'REFERENT_FIRST_NAME2','A22':'REFERENT_MAIL2','A23':'SAMPLING_POINT-NAME','A24':'SAMPLING_POINT-COORDINATE_SYSTEM','A25':'SAMPLING_POINT-ABBREVIATION','A26':'SAMPLING_POINT-LONGITUDE','A27':'SAMPLING_POINT-LATITUDE','A28':'SAMPLING_POINT-ELEVATION','A29':'SAMPLING_POINT-DESCRIPTION','A30':'COORDINATE_SYSTEM_NAD','A31':'X_NAD','A32':'Y_NAD','A33':'Z_NAD','A34':'FILE_CREATOR_DISPLAY_NAME','A35':'TITLE','A36':'SAMPLE_NAME','A37':'SAMPLE_NAME_ORANO','A38':'SAMPLE_NAME_GEORESSOURCES','A39':'SAMPLE_TYPE','A40':'SAMPLING_DATE','A41':'HOLEID','A42':'HOLEID_LATITUDE','A43':'HOLEID_LONGITUDE','A44':'HOLEID_ELEVATION','A45':'HOLEID_X_NAD','A46':'HOLEID_Y_NAD','A47':'HOLEID_Z_NAD','A48':'SAMPLE_DEPTH_FROM','A49':'SAMPLE_DEPTH_TO','A50':'LITHOLOGY','A51':'LITHOLOGY_2','A52':'LITHOLOGY_3','A53':'TEXTURE_STRUCTURE','A54':'TEXTURE_STRUCTURE_2','A55':'ORE_TYPE','A56':'ORE_TYPE_2','A57':'ORE_TYPE_3','A58':'HOST_AGE','A59':'MAIN_EVENT_AGE','A60':'ALTERATION_DEGREE','A61':'PICTURE','A62':'PICTURE2','A63':'PICTURE3','A64':'SAMPLE_LOCATION_BUILDING','A65':'STORAGE_ACCESS_REFERENT','A66':'SAMPLE_LOCATION_ROOM','A67':'SAMPLE_LOCATION_SHELF','A68':'SAMPLE_LOCATION_BOX','A69':'SAMPLE_LOCATION_BOX_TYPE','A70':'SAFETY_CONSTRAINTS','A71':'METHODOLOGY-SAMPLING','A72':'METHODOLOGY-SAMPLE_CONDITIONNING','A73':'METHODOLOGY-ANALYSIS','A74':'METHODOLOGY-SAMPLE','A75':'MEASUREMENT-NATURE','A76':'MEASUREMENT-ABBREV','A77':'MEASUREMENT-UNIT','A78':'ANALYSIS_LABORATORY','A79':'LITHOLOGY_ORANO','A80':'FORMATION_ORANO'},
-    'BULK-GEOCHEMISTRY':{'B0':'ANALYSIS_ABBREV','B1':'Type','B2':'SiO2','B3':'Al2O3','B4':'Fe2O3','B5':'MgO','B6':'CaO','B7':'Na2O','B8':'K2O','B9':'TiO2','B10':'P2O5','B11':'MnO','B12':'Cr2O3','B13':'Ni','B14':'Sc','B15':'Ba','B16':'Be','B17':'Co','B18':'Cs','B19':'Ga','B20':'Hf','B21':'Nb','B22':'Rb','B23':'Sn','B24':'Sr','B25':'Ta','B26':'Th','B27':'U','B28':'V','B29':'W','B30':'Zr','B31':'Y','B32':'La','B33':'Ce','B34':'Pr','B35':'Nd','B36':'Sm','B37':'Eu','B38':'Gd','B39':'Tb','B40':'Dy','B41':'Ho','B42':'Er','B43':'Tm','B44':'Yb','B45':'Lu','B46':'Mo','B47':'Cu','B48':'Pb','B49':'Zn','B50':'As','B51':'Cd','B52':'Sb','B53':'Bi','B54':'Ag','B55':'Au','B56':'Hg','B57':'Tl','B58':'Se','B59':'B','B60':'F','B61':'Li','B62':'Cl','B63':'CO2_total','B64':'S_total','B65':'Cr','B66':'Ge','B67':'In','B68':'PF','B69':'Total'},
-    'FI-RAMAN':{'C0':'ANALYSIS_ABBREV','C1':'Inclusion_type','C2':'aqueous_phase','C3':'TmCO2','C4':'ThCO2','C5':'Tmd','C6':'Tmice','C7':'Thom','C8':'Raman_Co2','C9':'Raman_CH4','C10':'Raman_N2','C11':'Raman_H2','C12':'Bulk_H2O','C13':'Bulk_CO2','C14':'Bulk_CH4','C15':'Bulk_N2','C16':'Bulk_NaCl','C17':'dv'},
-    'FI-LA-ICP-MS':{'D0':'ANALYSIS_ABBREV','D1':'File','D2':'Na23','D3':'Li7','D4':'B11','D5':'Mg24','D6':'K39','D7':'Ca44','D8':'Mn55','D9':'Fe57','D10':'Cu63','D11':'Zn66','D12':'75As','D13':'Rb85','D14':'Sr88','D15':'Sb122','D16':'Cs133','D17':'Ba137','D18':'W182','D19':'Pb208','D20':'U238'},
-    'FI-MICROTHERMOMETRY':{'E0':'ANALYSIS_ABBREV','E1':'Inclusion_type','E2':'Thom','E3':'SWIR_illite_muscovite','E4':'SWIR_kaolin_polymorphs','E5':'SWIR_sudoite_clinochlore','E6':'clay_occurence','E7':'type_of_quartz','E8':'type_of_occurence','E9':'solid','E10':'Te','E11':'tmice','E12':'thyd','E13':'tsnacl','E14':'salinity_NaCl_CaCl2','E15':'eq_NaCl','E16':'eq_CaCl2','E17':'Cl','E18':'Na','E19':'Li ','E20':'B ','E21':'Mg ','E22':'K ','E23':'Ca ','E24':'Mn ','E25':'Fe ','E26':'Cu ','E27':'Zn ','E28':'As ','E29':'Sr ','E30':'Sb ','E31':'Ba ','E32':'W ','E33':'Pb ','E34':'U ','E35':'O2_gaz','E36':'CO2_gaz','E37':'N2_gaz','E38':'CH4_gaz','E39':'H2_gaz','E40':'H2S_gaz','E41':'fluorescence','E42':'vapor_fraction','E43':'Tmcl','E44':'ThC02'},
-    'GRAPHITE':{'F0':'ANALYSIS_ABBREV','F1':'Date','F2':'12C ','F3':'13C ','F4':'13C_12C -1','F5':'d13C_12C-1_PDB','F6':'d13C_12C_SL','F7':'error_graph','F8':'H_graph','F9':'t_graph','F10':'d13C_12C-1_cor_vs_PBD','F11':'No','F12':'comments','F13':'distance_mineralization','F14':'Graph_type','F15':'Graph_Raman_D1','F16':'Graph_Raman_D2','F17':'Graph_Raman_D3','F18':'Graph_Raman_D4','F19':'Graph_Raman_R2','F20':'Graph_Raman_T_cristallization','F21':'Graph_SIMS_ID','F22':'Graph_Raman_G','F23':'Graph_SIMS_comment'},
-    'PETROPHYSICS':{'G0':'ANALYSIS_ABBREV','G1':'Kv','G3':'Porosity_H2O','G4':'Porosity_He','G5':'Porosity_Hg','G6':'Vp_short_axis','G7':'Vp_long_axis','G8':'Absolute_solid_density','G9':'Bulk_density','G10':'Permeability','G11':'Magnetic_susceptibility','G13':'Thermic_conductivity','G14':'Graphite_prop_Imagery','G15':'Estimated_qtz_fraction_paleo_brine_mix','G16':'Vs_short_axis','G17':'Vs_long_axis','G18':'Vp_short_axis_sature','G19':'Vs_short_axis_sature','G20':'Vp_long_axis_sature','G21':'Vs_long_axis_sature','G12':'Resistivity_DC','G22':'Resistivity_AC_1hz','G23':'Resistivity_AC_10khz','G24':'Poisson_ratio','G25':'Young_modulus'},
-    'UO2-GEOCHEMISTRY-SIMS':{'H0':'ANALYSIS_ABBREV','H1':'UO2_SIMS_UPb_spot_ID','H2':'207Pb_235U','H3':'207Pb_235U_error','H4':'206Pb_238U','H5':'206Pb_238U_error','H6':'Concordia_Correl_Err','H7':'Age_6_8','H8':'Age_6_8_error','H9':'Age_7_5','H10':'Age_7_5_error','H11':'Age_7_6','H12':'Age_7_6_error','H13':'UO2_δ18O_spot_ID','H14':'UO2_Dlt18O','H15':'UO2_Dlt18O_error'},
-    'XRD-CLAY':{'I0':'ANALYSIS_ABBREV','I1':'C001','I2':'C002','I3':'C003','I4':'C004','I5':'C005','I6':'C003_C005-1','I7':'D_range','I8':'C003prime','I9':'C002plusC004_C003prime-1','I10':'Y_xrd','I11':'I001','I12':'I002','I13':'I003','I14':'I003_C003-1','I15':'I001_C002','I16':'Main_clay_assemblage'},
-    'CLAY-CRISTALLOGRAPHY':{'J':'ANALYSIS_ABBREV','J0':'Clay_mineral','J1':'CLAY_Analysis_ID','J2':'clay_Na','J3':'clay_Mg','J4':'clay_Al','J5':'clay_Si','J6':'clay_K','J7':'clay_Ca','J8':'clay_Mn','J9':'clay_Fe','J10':'clay_Ti','J11':'clay_O','J12':'clay_Total'},
-    'UO2-GEOCHEMISTRY-LA-ICP-MS':{'K0':'ANALYSIS_ABBREV','K1':'UO2_LAICPMS_spot_ID','K2':'UO2_LAICPMS_B','K3':'UO2_LAICPMS_Ti','K4':'UO2_LAICPMS_V','K5':'UO2_LAICPMS_Cr','K6':'UO2_LAICPMS_Mn','K7':'UO2_LAICPMS_Co','K8':'UO2_LAICPMS_Ni','K9':'UO2_LAICPMS_Ga','K10':'UO2_LAICPMS_As','K11':'UO2_LAICPMS_Sr','K12':'UO2_LAICPMS_Y','K13':'UO2_LAICPMS_Zr','K14':'UO2_LAICPMS_Nb','K15':'UO2_LAICPMS_Mo','K16':'UO2_LAICPMS_Sb','K17':'UO2_LAICPMS_Ba','K18':'UO2_LAICPMS_La','K19':'UO2_LAICPMS_Ce','K20':'UO2_LAICPMS_Pr','K21':'UO2_LAICPMS_Nd','K22':'UO2_LAICPMS_Sm','K23':'UO2_LAICPMS_Eu','K24':'UO2_LAICPMS_Gd','K25':'UO2_LAICPMS_Tb','K26':'UO2_LAICPMS_Dy','K27':'UO2_LAICPMS_Ho','K28':'UO2_LAICPMS_Er','K29':'UO2_LAICPMS_Tm','K30':'UO2_LAICPMS_Yb','K31':'UO2_LAICPMS_Lu','K32':'UO2_LAICPMS_W','K33':'UO2_LAICPMS_Bi','K34':'UO2_LAICPMS_Th'},
-    'UO2-GEOCHEMISTRY-EMPA':{'L0':'ANALYSIS_ABBREV','L1':'UO2_EMPA_spot_ID','L2':'MINERALIZATION_TYPE','L3':'Al','L4':'As','L5':'Ca','L6':'Cl','L7':'Co','L8':'Cr','L9':'Cu','L10':'Fe','L11':'Hf','L12':'K','L13':'Mg','L14':'Mn','L15':'Na','L16':'O','L17':'P','L18':'Pb','L19':'S','L20':'Si','L21':'Th','L22':'Ti','L23':'U','L24':'V','L25':'W','L26':'Y','L27':'Zn','L28':'Zr','L29':'Total_wt','L30':'Al2O3','L31':'CaO','L32':'FeO','L33':'Fe2O3','L34':'K2O','L35':'MgO','L36':'MnO','L37':'Na2O','L38':'P2O5','L39':'PbO','L40':'SiO2','L41':'ThO2','L42':'TiO2','L43':'UO2','L44':'V2O3','L45':'Y2O3','L46':'ZrO2','L47':'Total_oxydes'},
-    'FRACT_DENSITY':{'X0':'ANALYSIS_ABBREV','X1':'Densite_apparente','X2':'Densite_apparente_ArgB','X3':'Densite_apparente_Arg_BC','X4':'Densite_apparente_Cb','X5':'Densite_apparente_Chl','X6':'Densite_apparente_Gp','X7':'Densite_apparente_Hm','X8':'Densite_apparente_Il','X9':'Densite_apparente_Py','X10':'Densite_apparente_Qz','X11':'Densite_apparente_U','X12':'Densite_apparente_Arg_BS','X13':'Densite_apparente_Lim'},
-    'analyse':{'M0':'propriete1','M1':'propriete2','M2':'propriete3'}}
 
-export const keyVal = {'A0':'PROJECT_NAME','A1':'DATA_DESCRIPTION','A2':'KEYWORD','A3':'KEYWORD2','A4':'LANGUAGE','A5':'INSTITUTION','A6':'INSTITUTION2','A7':'SCIENTIFIC_FIELD','A8':'SCIENTIFIC_FIELD2','A9':'PROJECT_COUNTRY','A10':'PROJECT_PROVINCE','A11':'PROJECT_AREA','A12':'PROJECT_CODE','A13':'FILE_CREATOR_NAME','A14':'FILE_CREATOR_FIRST_NAME','A15':'FILE_CREATOR_MAIL','A16':'CREATION_DATE','A17':'REFERENT_NAME','A18':'REFERENT_FIRST_NAME','A19':'REFERENT_MAIL','A20':'REFERENT_NAME2','A21':'REFERENT_FIRST_NAME2','A22':'REFERENT_MAIL2','A23':'SAMPLING_POINT-NAME','A24':'SAMPLING_POINT-COORDINATE_SYSTEM','A25':'SAMPLING_POINT-ABBREVIATION','A26':'SAMPLING_POINT-LONGITUDE','A27':'SAMPLING_POINT-LATITUDE','A28':'SAMPLING_POINT-ELEVATION','A29':'SAMPLING_POINT-DESCRIPTION','A30':'COORDINATE_SYSTEM_NAD','A31':'X_NAD','A32':'Y_NAD','A33':'Z_NAD','A34':'FILE_CREATOR_DISPLAY_NAME','A35':'TITLE','A36':'SAMPLE_NAME','A37':'SAMPLE_NAME_ORANO','A38':'SAMPLE_NAME_GEORESSOURCES','A39':'SAMPLE_TYPE','A40':'SAMPLING_DATE','A41':'HOLEID',
+export const fields={
+'METADATA':{'A0':'PROJECT_NAME','A1':'DATA_DESCRIPTION','A2':'KEYWORD','A3':'KEYWORD2','A4':'LANGUAGE','A5':'INSTITUTION','A6':'INSTITUTION2','A7':'SCIENTIFIC_FIELD','A8':'SCIENTIFIC_FIELD2','A9':'PROJECT_COUNTRY','A10':'PROJECT_PROVINCE','A11':'PROJECT_AREA','A12':'PROJECT_CODE','A13':'FILE_CREATOR_NAME','A14':'FILE_CREATOR_FIRST_NAME','A15':'FILE_CREATOR_MAIL','A16':'CREATION_DATE','A17':'REFERENT_NAME','A18':'REFERENT_FIRST_NAME','A19':'REFERENT_MAIL','A20':'REFERENT_NAME2','A21':'REFERENT_FIRST_NAME2','A22':'REFERENT_MAIL2','A23':'SAMPLING_POINT-NAME','A24':'SAMPLING_POINT-COORDINATE_SYSTEM','A25':'SAMPLING_POINT-ABBREVIATION','A26':'SAMPLING_POINT-LONGITUDE','A27':'SAMPLING_POINT-LATITUDE','A28':'SAMPLING_POINT-ELEVATION','A29':'SAMPLING_POINT-DESCRIPTION','A30':'COORDINATE_SYSTEM_NAD','A31':'X_NAD','A32':'Y_NAD','A33':'Z_NAD','A34':'FILE_CREATOR_DISPLAY_NAME','A35':'TITLE','A36':'SAMPLE_NAME','A37':'SAMPLE_NAME_ORANO','A38':'SAMPLE_NAME_GEORESSOURCES','A39':'SAMPLE_TYPE','A40':'SAMPLING_DATE','A41':'HOLEID','A42':'HOLEID_LATITUDE','A43':'HOLEID_LONGITUDE','A44':'HOLEID_ELEVATION','A45':'HOLEID_X_NAD','A46':'HOLEID_Y_NAD','A47':'HOLEID_Z_NAD','A48':'SAMPLE_DEPTH_FROM','A49':'SAMPLE_DEPTH_TO','A50':'LITHOLOGY','A51':'LITHOLOGY_2','A52':'LITHOLOGY_3','A53':'TEXTURE_STRUCTURE','A54':'TEXTURE_STRUCTURE_2','A55':'ORE_TYPE','A56':'ORE_TYPE_2','A57':'ORE_TYPE_3','A58':'HOST_AGE','A59':'MAIN_EVENT_AGE','A60':'ALTERATION_DEGREE','A61':'PICTURE','A62':'PICTURE2','A63':'PICTURE3','A64':'SAMPLE_LOCATION_BUILDING','A65':'STORAGE_ACCESS_REFERENT','A66':'SAMPLE_LOCATION_ROOM','A67':'SAMPLE_LOCATION_SHELF','A68':'SAMPLE_LOCATION_BOX','A69':'SAMPLE_LOCATION_BOX_TYPE','A70':'SAFETY_CONSTRAINTS','A71':'METHODOLOGY-SAMPLING','A72':'METHODOLOGY-SAMPLE_CONDITIONNING','A73':'METHODOLOGY-ANALYSIS','A74':'METHODOLOGY-SAMPLE','A75':'MEASUREMENT-NATURE','A76':'MEASUREMENT-ABBREV','A77':'MEASUREMENT-UNIT','A78':'ANALYSIS_LABORATORY','A79':'LITHOLOGY_ORANO','A80':'FORMATION_ORANO'},
+'BULK-GEOCHEMISTRY':{'B0':'ANALYSIS_ABBREV','B1':'Type','B2':'SiO2','B3':'Al2O3','B4':'Fe2O3','B5':'MgO','B6':'CaO','B7':'Na2O','B8':'K2O','B9':'TiO2','B10':'P2O5','B11':'MnO','B12':'Cr2O3','B13':'Ni','B14':'Sc','B15':'Ba','B16':'Be','B17':'Co','B18':'Cs','B19':'Ga','B20':'Hf','B21':'Nb','B22':'Rb','B23':'Sn','B24':'Sr','B25':'Ta','B26':'Th','B27':'U','B28':'V','B29':'W','B30':'Zr','B31':'Y','B32':'La','B33':'Ce','B34':'Pr','B35':'Nd','B36':'Sm','B37':'Eu','B38':'Gd','B39':'Tb','B40':'Dy','B41':'Ho','B42':'Er','B43':'Tm','B44':'Yb','B45':'Lu','B46':'Mo','B47':'Cu','B48':'Pb','B49':'Zn','B50':'As','B51':'Cd','B52':'Sb','B53':'Bi','B54':'Ag','B55':'Au','B56':'Hg','B57':'Tl','B58':'Se','B59':'B','B60':'F','B61':'Li','B62':'Cl','B63':'CO2_total','B64':'S_total','B65':'Cr','B66':'Ge','B67':'In','B68':'PF','B69':'Total'},
+'FI-RAMAN':{'C0':'ANALYSIS_ABBREV','C1':'Inclusion_type','C2':'aqueous_phase','C3':'TmCO2','C4':'ThCO2','C5':'Tmd','C6':'Tmice','C7':'Thom','C8':'Raman_Co2','C9':'Raman_CH4','C10':'Raman_N2','C11':'Raman_H2','C12':'Bulk_H2O','C13':'Bulk_CO2','C14':'Bulk_CH4','C15':'Bulk_N2','C16':'Bulk_NaCl','C17':'dv'},
+'FI-LA-ICP-MS':{'D0':'ANALYSIS_ABBREV','D1':'File','D2':'Na23','D3':'Li7','D4':'B11','D5':'Mg24','D6':'K39','D7':'Ca44','D8':'Mn55','D9':'Fe57','D10':'Cu63','D11':'Zn66','D12':'75As','D13':'Rb85','D14':'Sr88','D15':'Sb122','D16':'Cs133','D17':'Ba137','D18':'W182','D19':'Pb208','D20':'U238'},
+'FI-MICROTHERMOMETRY':{'E0':'ANALYSIS_ABBREV','E1':'Inclusion_type','E2':'Thom','E3':'SWIR_illite_muscovite','E4':'SWIR_kaolin_polymorphs','E5':'SWIR_sudoite_clinochlore','E6':'clay_occurence','E7':'type_of_quartz','E8':'type_of_occurence','E9':'solid','E10':'Te','E11':'tmice','E12':'thyd','E13':'tsnacl','E14':'salinity_NaCl_CaCl2','E15':'eq_NaCl','E16':'eq_CaCl2','E17':'Cl','E18':'Na','E19':'Li','E20':'B','E21':'Mg','E22':'K','E23':'Ca','E24':'Mn','E25':'Fe','E26':'Cu','E27':'Zn','E28':'As','E29':'Sr','E30':'Sb','E31':'Ba','E32':'W','E33':'Pb','E34':'U','E35':'O2_gaz','E36':'CO2_gaz','E37':'N2_gaz','E38':'CH4_gaz','E39':'H2_gaz','E40':'H2S_gaz','E41':'fluorescence','E42':'vapor_fraction','E43':'Tmcl','E44':'ThC02'},
+'GRAPHITE':{'F0':'ANALYSIS_ABBREV','F1':'Date','F2':'12C','F3':'13C','F4':'13C_12C-1','F5':'d13C_12C-1_PDB','F6':'d13C_12C_SL','F7':'error_graph','F8':'H_graph','F9':'t_graph','F10':'d13C_12C-1_cor_vs_PBD','F11':'No','F12':'comments','F13':'distance_mineralization','F14':'Graph_type','F15':'Graph_Raman_D1','F16':'Graph_Raman_D2','F17':'Graph_Raman_D3','F18':'Graph_Raman_D4','F19':'Graph_Raman_R2','F20':'Graph_Raman_T_cristallization','F21':'Graph_SIMS_ID','F22':'Graph_Raman_G','F23':'Graph_SIMS_comment'},
+'PETROPHYSICS':{'G0':'ANALYSIS_ABBREV','G1':'Kv','G3':'Porosity_H2O','G4':'Porosity_He','G5':'Porosity_Hg','G6':'Vp_short_axis','G7':'Vp_long_axis','G8':'Absolute_solid_density','G9':'Bulk_density','G10':'Permeability','G11':'Magnetic_susceptibility','G13':'Thermic_conductivity','G14':'Graphite_prop_Imagery','G15':'Estimated_qtz_fraction_paleo_brine_mix','G16':'Vs_short_axis','G17':'Vs_long_axis','G18':'Vp_short_axis_sature','G19':'Vs_short_axis_sature','G20':'Vp_long_axis_sature','G21':'Vs_long_axis_sature','G12':'Resistivity_DC','G22':'Resistivity_AC_1hz','G23':'Resistivity_AC_10khz','G24':'Poisson_ratio','G25':'Young_modulus'},
+'UO2-GEOCHEMISTRY-SIMS':{'H0':'ANALYSIS_ABBREV','H1':'UO2_SIMS_UPb_spot_ID','H2':'207Pb_235U','H3':'207Pb_235U_error','H4':'206Pb_238U','H5':'206Pb_238U_error','H6':'Concordia_Correl_Err','H7':'Age_6_8','H8':'Age_6_8_error','H9':'Age_7_5','H10':'Age_7_5_error','H11':'Age_7_6','H12':'Age_7_6_error','H13':'UO2_δ18O_spot_ID','H14':'UO2_Dlt18O','H15':'UO2_Dlt18O_error'},
+'XRD-CLAY':{'I0':'ANALYSIS_ABBREV','I1':'C001','I2':'C002','I3':'C003','I4':'C004','I5':'C005','I6':'C003_C005-1','I7':'D_range','I8':'C003prime','I9':'C002plusC004_C003prime-1','I10':'Y_xrd','I11':'I001','I12':'I002','I13':'I003','I14':'I003_C003-1','I15':'I001_C002','I16':'Main_clay_assemblage'},
+'CLAY-CRISTALLOGRAPHY':{'J':'ANALYSIS_ABBREV','J0':'Clay_mineral','J1':'CLAY_Analysis_ID','J2':'clay_Na','J3':'clay_Mg','J4':'clay_Al','J5':'clay_Si','J6':'clay_K','J7':'clay_Ca','J8':'clay_Mn','J9':'clay_Fe','J10':'clay_Ti','J11':'clay_O','J12':'clay_Total'},
+'UO2-GEOCHEMISTRY-LA-ICP-MS':{'K0':'ANALYSIS_ABBREV','K1':'UO2_LAICPMS_spot_ID','K2':'UO2_LAICPMS_B','K3':'UO2_LAICPMS_Ti','K4':'UO2_LAICPMS_V','K5':'UO2_LAICPMS_Cr','K6':'UO2_LAICPMS_Mn','K7':'UO2_LAICPMS_Co','K8':'UO2_LAICPMS_Ni','K9':'UO2_LAICPMS_Ga','K10':'UO2_LAICPMS_As','K11':'UO2_LAICPMS_Sr','K12':'UO2_LAICPMS_Y','K13':'UO2_LAICPMS_Zr','K14':'UO2_LAICPMS_Nb','K15':'UO2_LAICPMS_Mo','K16':'UO2_LAICPMS_Sb','K17':'UO2_LAICPMS_Ba','K18':'UO2_LAICPMS_La','K19':'UO2_LAICPMS_Ce','K20':'UO2_LAICPMS_Pr','K21':'UO2_LAICPMS_Nd','K22':'UO2_LAICPMS_Sm','K23':'UO2_LAICPMS_Eu','K24':'UO2_LAICPMS_Gd','K25':'UO2_LAICPMS_Tb','K26':'UO2_LAICPMS_Dy','K27':'UO2_LAICPMS_Ho','K28':'UO2_LAICPMS_Er','K29':'UO2_LAICPMS_Tm','K30':'UO2_LAICPMS_Yb','K31':'UO2_LAICPMS_Lu','K32':'UO2_LAICPMS_W','K33':'UO2_LAICPMS_Bi','K34':'UO2_LAICPMS_Th'},
+'UO2-GEOCHEMISTRY-EMPA':{'L0':'ANALYSIS_ABBREV','L1':'UO2_EMPA_spot_ID','L2':'MINERALIZATION_TYPE','L3':'Al','L4':'As','L5':'Ca','L6':'Cl','L7':'Co','L8':'Cr','L9':'Cu','L10':'Fe','L11':'Hf','L12':'K','L13':'Mg','L14':'Mn','L15':'Na','L16':'O','L17':'P','L18':'Pb','L19':'S','L20':'Si','L21':'Th','L22':'Ti','L23':'U','L24':'V','L25':'W','L26':'Y','L27':'Zn','L28':'Zr','L29':'Total_wt','L30':'Al2O3','L31':'CaO','L32':'FeO','L33':'Fe2O3','L34':'K2O','L35':'MgO','L36':'MnO','L37':'Na2O','L38':'P2O5','L39':'PbO','L40':'SiO2','L41':'ThO2','L42':'TiO2','L43':'UO2','L44':'V2O3','L45':'Y2O3','L46':'ZrO2','L47':'Total_oxydes'},
+'FRACT_DENSITY':{'X0':'ANALYSIS_ABBREV','X1':'Densite_apparente','X2':'Densite_apparente_ArgB','X3':'Densite_apparente_Arg_BC','X4':'Densite_apparente_Cb','X5':'Densite_apparente_Chl','X6':'Densite_apparente_Gp','X7':'Densite_apparente_Hm','X8':'Densite_apparente_Il','X9':'Densite_apparente_Py','X10':'Densite_apparente_Qz','X11':'Densite_apparente_U','X12':'Densite_apparente_Arg_BS','X13':'Densite_apparente_Lim'}
+}
+
+export const keyVal={'A0':'PROJECT_NAME','A1':'DATA_DESCRIPTION','A2':'KEYWORD','A3':'KEYWORD2','A4':'LANGUAGE','A5':'INSTITUTION','A6':'INSTITUTION2','A7':'SCIENTIFIC_FIELD','A8':'SCIENTIFIC_FIELD2','A9':'PROJECT_COUNTRY','A10':'PROJECT_PROVINCE','A11':'PROJECT_AREA','A12':'PROJECT_CODE','A13':'FILE_CREATOR_NAME','A14':'FILE_CREATOR_FIRST_NAME','A15':'FILE_CREATOR_MAIL','A16':'CREATION_DATE','A17':'REFERENT_NAME','A18':'REFERENT_FIRST_NAME','A19':'REFERENT_MAIL','A20':'REFERENT_NAME2','A21':'REFERENT_FIRST_NAME2','A22':'REFERENT_MAIL2','A23':'SAMPLING_POINT-NAME','A24':'SAMPLING_POINT-COORDINATE_SYSTEM','A25':'SAMPLING_POINT-ABBREVIATION','A26':'SAMPLING_POINT-LONGITUDE','A27':'SAMPLING_POINT-LATITUDE','A28':'SAMPLING_POINT-ELEVATION','A29':'SAMPLING_POINT-DESCRIPTION','A30':'COORDINATE_SYSTEM_NAD','A31':'X_NAD','A32':'Y_NAD','A33':'Z_NAD','A34':'FILE_CREATOR_DISPLAY_NAME','A35':'TITLE','A36':'SAMPLE_NAME','A37':'SAMPLE_NAME_ORANO','A38':'SAMPLE_NAME_GEORESSOURCES','A39':'SAMPLE_TYPE','A40':'SAMPLING_DATE','A41':'HOLEID',
 'A42':'HOLEID_LATITUDE','A43':'HOLEID_LONGITUDE','A44':'HOLEID_ELEVATION','A45':'HOLEID_X_NAD','A46':'HOLEID_Y_NAD','A47':'HOLEID_Z_NAD','A48':'SAMPLE_DEPTH_FROM','A49':'SAMPLE_DEPTH_TO','A50':'LITHOLOGY','A51':'LITHOLOGY_2','A52':'LITHOLOGY_3','A53':'TEXTURE_STRUCTURE','A54':'TEXTURE_STRUCTURE_2','A55':'ORE_TYPE','A56':'ORE_TYPE_2','A57':'ORE_TYPE_3','A58':'HOST_AGE','A59':'MAIN_EVENT_AGE','A60':'ALTERATION_DEGREE','A61':'PICTURE','A62':'PICTURE2','A63':'PICTURE3','A64':'SAMPLE_LOCATION_BUILDING','A65':'STORAGE_ACCESS_REFERENT','A66':'SAMPLE_LOCATION_ROOM','A67':'SAMPLE_LOCATION_SHELF','A68':'SAMPLE_LOCATION_BOX','A69':'SAMPLE_LOCATION_BOX_TYPE','A70':'SAFETY_CONSTRAINTS','A71':'METHODOLOGY-SAMPLING','A72':'METHODOLOGY-SAMPLE_CONDITIONNING','A73':'METHODOLOGY-ANALYSIS','A74':'METHODOLOGY-SAMPLE','A75':'MEASUREMENT-NATURE','A76':'MEASUREMENT-ABBREV','A77':'MEASUREMENT-UNIT','A78':'ANALYSIS_LABORATORY','A79':'LITHOLOGY_ORANO','A80':'FORMATION_ORANO',
 'B0':'ANALYSIS_ABBREV','B1':'Type','B2':'SiO2','B3':'Al2O3','B4':'Fe2O3','B5':'MgO','B6':'CaO','B7':'Na2O','B8':'K2O','B9':'TiO2','B10':'P2O5','B11':'MnO','B12':'Cr2O3','B13':'Ni','B14':'Sc','B15':'Ba','B16':'Be','B17':'Co','B18':'Cs','B19':'Ga','B20':'Hf','B21':'Nb','B22':'Rb','B23':'Sn','B24':'Sr','B25':'Ta','B26':'Th','B27':'U','B28':'V','B29':'W','B30':'Zr','B31':'Y','B32':'La','B33':'Ce','B34':'Pr','B35':'Nd','B36':'Sm','B37':'Eu','B38':'Gd','B39':'Tb','B40':'Dy','B41':'Ho','B42':'Er','B43':'Tm','B44':'Yb','B45':'Lu','B46':'Mo','B47':'Cu','B48':'Pb','B49':'Zn','B50':'As','B51':'Cd','B52':'Sb','B53':'Bi','B54':'Ag','B55':'Au','B56':'Hg','B57':'Tl','B58':'Se','B59':'B','B60':'F','B61':'Li','B62':'Cl','B63':'CO2_total','B64':'S_total','B65':'Cr','B66':'Ge','B67':'In','B68':'PF','B69':'Total',
 'C0':'ANALYSIS_ABBREV','C1':'Inclusion_type','C2':'aqueous_phase','C3':'TmCO2','C4':'ThCO2','C5':'Tmd','C6':'Tmice','C7':'Thom','C8':'Raman_Co2','C9':'Raman_CH4','C10':'Raman_N2','C11':'Raman_H2','C12':'Bulk_H2O','C13':'Bulk_CO2','C14':'Bulk_CH4','C15':'Bulk_N2','C16':'Bulk_NaCl','C17':'dv',
 'D0':'ANALYSIS_ABBREV','D1':'File','D2':'Na23','D3':'Li7','D4':'B11','D5':'Mg24','D6':'K39','D7':'Ca44','D8':'Mn55','D9':'Fe57','D10':'Cu63','D11':'Zn66','D12':'75As','D13':'Rb85','D14':'Sr88','D15':'Sb122','D16':'Cs133','D17':'Ba137','D18':'W182','D19':'Pb208','D20':'U238',
-'E0':'ANALYSIS_ABBREV','E1':'Inclusion_type','E2':'Thom','E3':'SWIR_illite_muscovite','E4':'SWIR_kaolin_polymorphs','E5':'SWIR_sudoite_clinochlore','E6':'clay_occurence','E7':'type_of_quartz','E8':'type_of_occurence','E9':'solid','E10':'Te','E11':'tmice','E12':'thyd','E13':'tsnacl','E14':'salinity_NaCl_CaCl2','E15':'eq_NaCl','E16':'eq_CaCl2','E17':'Cl','E18':'Na','E19':'Li ','E20':'B ','E21':'Mg ','E22':'K ','E23':'Ca ','E24':'Mn ','E25':'Fe ','E26':'Cu ','E27':'Zn ','E28':'As ','E29':'Sr ','E30':'Sb ','E31':'Ba ','E32':'W ','E33':'Pb ','E34':'U ','E35':'O2_gaz','E36':'CO2_gaz','E37':'N2_gaz','E38':'CH4_gaz','E39':'H2_gaz','E40':'H2S_gaz','E41':'fluorescence','E42':'vapor_fraction','E43':'Tmcl','E44':'ThC02',
-'F0':'ANALYSIS_ABBREV','F1':'Date','F2':'12C ','F3':'13C ','F4':'13C_12C -1','F5':'d13C_12C-1_PDB','F6':'d13C_12C_SL','F7':'error_graph','F8':'H_graph','F9':'t_graph','F10':'d13C_12C-1_cor_vs_PBD','F11':'No','F12':'comments','F13':'distance_mineralization','F14':'Graph_type','F15':'Graph_Raman_D1','F16':'Graph_Raman_D2','F17':'Graph_Raman_D3','F18':'Graph_Raman_D4','F19':'Graph_Raman_R2','F20':'Graph_Raman_T_cristallization','F21':'Graph_SIMS_ID','F22':'Graph_Raman_G','F23':'Graph_SIMS_comment',
+'E0':'ANALYSIS_ABBREV','E1':'Inclusion_type','E2':'Thom','E3':'SWIR_illite_muscovite','E4':'SWIR_kaolin_polymorphs','E5':'SWIR_sudoite_clinochlore','E6':'clay_occurence','E7':'type_of_quartz','E8':'type_of_occurence','E9':'solid','E10':'Te','E11':'tmice','E12':'thyd','E13':'tsnacl','E14':'salinity_NaCl_CaCl2','E15':'eq_NaCl','E16':'eq_CaCl2','E17':'Cl','E18':'Na','E19':'Li','E20':'B','E21':'Mg','E22':'K','E23':'Ca','E24':'Mn','E25':'Fe','E26':'Cu','E27':'Zn','E28':'As','E29':'Sr','E30':'Sb','E31':'Ba','E32':'W','E33':'Pb','E34':'U','E35':'O2_gaz','E36':'CO2_gaz','E37':'N2_gaz','E38':'CH4_gaz','E39':'H2_gaz','E40':'H2S_gaz','E41':'fluorescence','E42':'vapor_fraction','E43':'Tmcl','E44':'ThC02',
+'F0':'ANALYSIS_ABBREV','F1':'Date','F2':'12C','F3':'13C','F4':'13C_12C-1','F5':'d13C_12C-1_PDB','F6':'d13C_12C_SL','F7':'error_graph','F8':'H_graph','F9':'t_graph','F10':'d13C_12C-1_cor_vs_PBD','F11':'No','F12':'comments','F13':'distance_mineralization','F14':'Graph_type','F15':'Graph_Raman_D1','F16':'Graph_Raman_D2','F17':'Graph_Raman_D3','F18':'Graph_Raman_D4','F19':'Graph_Raman_R2','F20':'Graph_Raman_T_cristallization','F21':'Graph_SIMS_ID','F22':'Graph_Raman_G','F23':'Graph_SIMS_comment',
 'G0':'ANALYSIS_ABBREV','G1':'Kv','G3':'Porosity_H2O','G4':'Porosity_He','G5':'Porosity_Hg','G6':'Vp_short_axis','G7':'Vp_long_axis','G8':'Absolute_solid_density','G9':'Bulk_density','G10':'Permeability','G11':'Magnetic_susceptibility','G13':'Thermic_conductivity','G14':'Graphite_prop_Imagery','G15':'Estimated_qtz_fraction_paleo_brine_mix','G16':'Vs_short_axis','G17':'Vs_long_axis','G18':'Vp_short_axis_sature','G19':'Vs_short_axis_sature','G20':'Vp_long_axis_sature','G21':'Vs_long_axis_sature','G12':'Resistivity_DC','G22':'Resistivity_AC_1hz','G23':'Resistivity_AC_10khz','G24':'Poisson_ratio','G25':'Young_modulus',
 'H0':'ANALYSIS_ABBREV','H1':'UO2_SIMS_UPb_spot_ID','H2':'207Pb_235U','H3':'207Pb_235U_error','H4':'206Pb_238U','H5':'206Pb_238U_error','H6':'Concordia_Correl_Err','H7':'Age_6_8','H8':'Age_6_8_error','H9':'Age_7_5','H10':'Age_7_5_error','H11':'Age_7_6','H12':'Age_7_6_error','H13':'UO2_δ18O_spot_ID','H14':'UO2_Dlt18O','H15':'UO2_Dlt18O_error',
 'I0':'ANALYSIS_ABBREV','I1':'C001','I2':'C002','I3':'C003','I4':'C004','I5':'C005','I6':'C003_C005-1','I7':'D_range','I8':'C003prime','I9':'C002plusC004_C003prime-1','I10':'Y_xrd','I11':'I001','I12':'I002','I13':'I003','I14':'I003_C003-1','I15':'I001_C002','I16':'Main_clay_assemblage',
 'J':'ANALYSIS_ABBREV','J0':'Clay_mineral','J1':'CLAY_Analysis_ID','J2':'clay_Na','J3':'clay_Mg','J4':'clay_Al','J5':'clay_Si','J6':'clay_K','J7':'clay_Ca','J8':'clay_Mn','J9':'clay_Fe','J10':'clay_Ti','J11':'clay_O','J12':'clay_Total',
 'K0':'ANALYSIS_ABBREV','K1':'UO2_LAICPMS_spot_ID','K2':'UO2_LAICPMS_B','K3':'UO2_LAICPMS_Ti','K4':'UO2_LAICPMS_V','K5':'UO2_LAICPMS_Cr','K6':'UO2_LAICPMS_Mn','K7':'UO2_LAICPMS_Co','K8':'UO2_LAICPMS_Ni','K9':'UO2_LAICPMS_Ga','K10':'UO2_LAICPMS_As','K11':'UO2_LAICPMS_Sr','K12':'UO2_LAICPMS_Y','K13':'UO2_LAICPMS_Zr','K14':'UO2_LAICPMS_Nb','K15':'UO2_LAICPMS_Mo','K16':'UO2_LAICPMS_Sb','K17':'UO2_LAICPMS_Ba','K18':'UO2_LAICPMS_La','K19':'UO2_LAICPMS_Ce','K20':'UO2_LAICPMS_Pr','K21':'UO2_LAICPMS_Nd','K22':'UO2_LAICPMS_Sm','K23':'UO2_LAICPMS_Eu','K24':'UO2_LAICPMS_Gd','K25':'UO2_LAICPMS_Tb','K26':'UO2_LAICPMS_Dy','K27':'UO2_LAICPMS_Ho','K28':'UO2_LAICPMS_Er','K29':'UO2_LAICPMS_Tm','K30':'UO2_LAICPMS_Yb','K31':'UO2_LAICPMS_Lu','K32':'UO2_LAICPMS_W','K33':'UO2_LAICPMS_Bi','K34':'UO2_LAICPMS_Th',
 'L0':'ANALYSIS_ABBREV','L1':'UO2_EMPA_spot_ID','L2':'MINERALIZATION_TYPE','L3':'Al','L4':'As','L5':'Ca','L6':'Cl','L7':'Co','L8':'Cr','L9':'Cu','L10':'Fe','L11':'Hf','L12':'K','L13':'Mg','L14':'Mn','L15':'Na','L16':'O','L17':'P','L18':'Pb','L19':'S','L20':'Si','L21':'Th','L22':'Ti','L23':'U','L24':'V','L25':'W','L26':'Y','L27':'Zn','L28':'Zr','L29':'Total_wt','L30':'Al2O3','L31':'CaO','L32':'FeO','L33':'Fe2O3','L34':'K2O','L35':'MgO','L36':'MnO','L37':'Na2O','L38':'P2O5','L39':'PbO','L40':'SiO2','L41':'ThO2','L42':'TiO2','L43':'UO2','L44':'V2O3','L45':'Y2O3','L46':'ZrO2','L47':'Total_oxydes',
-'X0':'ANALYSIS_ABBREV','X1':'Densite_apparente','X2':'Densite_apparente_ArgB','X3':'Densite_apparente_Arg_BC','X4':'Densite_apparente_Cb','X5':'Densite_apparente_Chl','X6':'Densite_apparente_Gp','X7':'Densite_apparente_Hm','X8':'Densite_apparente_Il','X9':'Densite_apparente_Py','X10':'Densite_apparente_Qz','X11':'Densite_apparente_U','X12':'Densite_apparente_Arg_BS','X13':'Densite_apparente_Lim','M0':'propriete1','M1':'propriete2','M2':'propriete3'}
+'X0':'ANALYSIS_ABBREV','X1':'Densite_apparente','X2':'Densite_apparente_ArgB','X3':'Densite_apparente_Arg_BC','X4':'Densite_apparente_Cb','X5':'Densite_apparente_Chl','X6':'Densite_apparente_Gp','X7':'Densite_apparente_Hm','X8':'Densite_apparente_Il','X9':'Densite_apparente_Py','X10':'Densite_apparente_Qz','X11':'Densite_apparente_U','X12':'Densite_apparente_Arg_BS','X13':'Densite_apparente_Lim'}
 
 
-export var units ={'A0':'text',
+export var units={'A0':'text',
 'A1':'text',
 'A2':'text',
 'A3':'text',
@@ -503,105 +503,104 @@ export var units ={'A0':'text',
 'X3':'text',
 'X4':'text',
 'X5':'text',
-'X6':'text','X7':'text','X8':'text','X9':'text','X10':'text','X11':'text','X12':'text','X13':'text',
-'M0':'patate','M1':'m','M2':'m_2'};
+'X6':'text','X7':'text','X8':'text','X9':'text','X10':'text','X11':'text','X12':'text','X13':'text'};
 
-export var metadataFields = 
+export var metadataFields=
 {
-    'PROJECT_METADATA':['PROJECT_NAME','DATA_DESCRIPTION','KEYWORD','KEYWORD2','LANGUAGE','INSTITUTION','INSTITUTION2','SCIENTIFIC_FIELD','SCIENTIFIC_FIELD2','PROJECT_COUNTRY','PROJECT_PROVINCE','PROJECT_AREA','PROJECT_CODE','FILE_CREATOR_NAME','FILE_CREATOR_FIRST_NAME','FILE_CREATOR_MAIL','CREATION_DATE','REFERENT_NAME','REFERENT_FIRST_NAME','REFERENT_MAIL','REFERENT_NAME2','REFERENT_FIRST_NAME2','REFERENT_MAIL2','COORDINATE_SYSTEM_NAD','FILE_CREATOR_DISPLAY_NAME','TITLE'],
-    'HOLES_METADATA':['HOLEID','HOLEID_LATITUDE','HOLEID_LONGITUDE','HOLEID_ELEVATION','HOLEID_X_NAD','HOLEID_Y_NAD','HOLEID_Z_NAD'],
-    'SAMPLES_METADATA':['SAMPLING_POINT-NAME','SAMPLING_POINT-COORDINATE_SYSTEM','SAMPLING_POINT-ABBREVIATION','SAMPLING_POINT-LONGITUDE','SAMPLING_POINT-LATITUDE','SAMPLING_POINT-ELEVATION','SAMPLING_POINT-DESCRIPTION','X_NAD','Y_NAD','Z_NAD','SAMPLE_NAME','SAMPLE_NAME_ORANO','SAMPLE_NAME_GEORESSOURCES','SAMPLE_TYPE','SAMPLING_DATE','SAMPLE_DEPTH_FROM','SAMPLE_DEPTH_TO','LITHOLOGY','LITHOLOGY_2','LITHOLOGY_3','TEXTURE_STRUCTURE','TEXTURE_STRUCTURE_2','ORE_TYPE','ORE_TYPE_2','ORE_TYPE_3','HOST_AGE','MAIN_EVENT_AGE','ALTERATION_DEGREE','PICTURE','PICTURE2','PICTURE3','SAMPLE_LOCATION_BUILDING','STORAGE_ACCESS_REFERENT','SAMPLE_LOCATION_ROOM','SAMPLE_LOCATION_SHELF','SAMPLE_LOCATION_BOX','SAMPLE_LOCATION_BOX_TYPE','SAFETY_CONSTRAINTS','METHODOLOGY-SAMPLING','METHODOLOGY-SAMPLE_CONDITIONNING','METHODOLOGY-ANALYSIS','METHODOLOGY-SAMPLE','LITHOLOGY_ORANO','FORMATION_ORANO']
+'PROJECT_METADATA':['PROJECT_NAME','DATA_DESCRIPTION','KEYWORD','KEYWORD2','LANGUAGE','INSTITUTION','INSTITUTION2','SCIENTIFIC_FIELD','SCIENTIFIC_FIELD2','PROJECT_COUNTRY','PROJECT_PROVINCE','PROJECT_AREA','PROJECT_CODE','FILE_CREATOR_NAME','FILE_CREATOR_FIRST_NAME','FILE_CREATOR_MAIL','CREATION_DATE','REFERENT_NAME','REFERENT_FIRST_NAME','REFERENT_MAIL','REFERENT_NAME2','REFERENT_FIRST_NAME2','REFERENT_MAIL2','COORDINATE_SYSTEM_NAD','FILE_CREATOR_DISPLAY_NAME','TITLE'],
+'HOLES_METADATA':['HOLEID','HOLEID_LATITUDE','HOLEID_LONGITUDE','HOLEID_ELEVATION','HOLEID_X_NAD','HOLEID_Y_NAD','HOLEID_Z_NAD'],
+'SAMPLES_METADATA':['SAMPLING_POINT-NAME','SAMPLING_POINT-COORDINATE_SYSTEM','SAMPLING_POINT-ABBREVIATION','SAMPLING_POINT-LONGITUDE','SAMPLING_POINT-LATITUDE','SAMPLING_POINT-ELEVATION','SAMPLING_POINT-DESCRIPTION','X_NAD','Y_NAD','Z_NAD','SAMPLE_NAME','SAMPLE_NAME_ORANO','SAMPLE_NAME_GEORESSOURCES','SAMPLE_TYPE','SAMPLING_DATE','SAMPLE_DEPTH_FROM','SAMPLE_DEPTH_TO','LITHOLOGY','LITHOLOGY_2','LITHOLOGY_3','TEXTURE_STRUCTURE','TEXTURE_STRUCTURE_2','ORE_TYPE','ORE_TYPE_2','ORE_TYPE_3','HOST_AGE','MAIN_EVENT_AGE','ALTERATION_DEGREE','PICTURE','PICTURE2','PICTURE3','SAMPLE_LOCATION_BUILDING','STORAGE_ACCESS_REFERENT','SAMPLE_LOCATION_ROOM','SAMPLE_LOCATION_SHELF','SAMPLE_LOCATION_BOX','SAMPLE_LOCATION_BOX_TYPE','SAFETY_CONSTRAINTS','METHODOLOGY-SAMPLING','METHODOLOGY-SAMPLE_CONDITIONNING','METHODOLOGY-ANALYSIS','METHODOLOGY-SAMPLE','LITHOLOGY_ORANO','FORMATION_ORANO']
 }
 
 
-export var GeoCoordSys = ["Select Geographic coordinate system","WGS84 Greenwich"];
+export var GeoCoordSys=["SelectGeographiccoordinatesystem","WGS84Greenwich"];
 
-export var ProjCoordSys = ["Select Projected coordinate system","NAD83_UTM_zone_13N","NAD83_UTM_zone_12N"];
+export var ProjCoordSys=["SelectProjectedcoordinatesystem","NAD83_UTM_zone_13N","NAD83_UTM_zone_12N"];
 
-export var Languages = ["Select Language","FRENCH","ENGLISH","GERMAN","ITALIAN","SPANISH"];
+export var Languages=["SelectLanguage","FRENCH","ENGLISH","GERMAN","ITALIAN","SPANISH"];
 
-export var lithoOrano = ["AltBas","Amph","ArgBas","BIF","Bxfault","CaBnd","CaSi","Cgl","CglSSt","ChlBas","ClayBst","ClaySst","Diab","EOH","FLT","GarnT","GnGra","GnGraGra","GnGran","GnGraPel","GnPel","GnPsa","GnPsaPel","GnQtzFd","GranT","H2O","LOST","MigmT","MudSt","Myl","NO LOG","OB","PegmT","Pitchb","Qtzite","Silt","Skrn","SSt","SStCgl","SStGrit","SStMed","Uc","Umin"];
+export var lithoOrano=["AltBas","Amph","ArgBas","BIF","Bxfault","CaBnd","CaSi","Cgl","CglSSt","ChlBas","ClayBst","ClaySst","Diab","EOH","FLT","GarnT","GnGra","GnGraGra","GnGran","GnGraPel","GnPel","GnPsa","GnPsaPel","GnQtzFd","GranT","H2O","LOST","MigmT","MudSt","Myl","NOLOG","OB","PegmT","Pitchb","Qtzite","Silt","Skrn","SSt","SStCgl","SStGrit","SStMed","Uc","Umin"];
 
-export var lithology = 
-{    'Select Lithology':
-    {'Select sub-lithology':[]},
-    'MAGMATIC_INTRUSIVE':
-        {'FELSIC':['GRANITE','TONALITE'],
-        'INTERMEDIATE':['DIORITE','SYENITE'],
-        'MAFIC':['GABBRO'],
-        'UNDERSATURATED':['FELDSPATHOÏDIC_SYENITE','FELDSPATHOÏDIC_DIORITE','FELDSPATHOÏDIC_GABBRO'],
-        'ULTRAMAFIC':[]},
-    'MAGMATIC_EXTRUSIVE_AND_VOLCANICLASTIC':
-        {'FELSIC_LAVAS':['RHYOLITE','DACITE'],
-        'INTERMEDIATE_LAVAS':['ANDESITE','TRACHYTE'],
-        'MAFIC_LAVAS':['BASALT'],
-        'UNDERSATURATED_LAVAS':['PHONOLITE','TEPHRITE','BASANITE'],
-        'ULTRAMAFIC_LAVAS':[]},
-    'METAMORPHIC':
-        {'BURIAL':['ZEOLITE_FACIES','PREHNITE-PUMPELLYITE_FACIES'],
-        'OROGENIC':['BLUESCHIST_FACIES','GREENSCHIST_FACIES','AMPHIBOLITE_FACIES','GRANULITE_FACIES','ECLOGITE_FACIES'],
-        'CONTACT':[],
-        'IMPACT_BRECCIA':[]},
-    'METASOMATIC_AND_OR_HYDROTHERMAL':
-        {'':[]},
-    'NON_SEDIMENTARY_SURFACE_PHENOMENA_DRIVEN_LITHOFACIES':
-        {'':[]},
-    'PEDOGENETIC':
-        {'AUTOCHTONOUS_ALTERITE':['TOPSOIL','DURICRUST','LIMONITE','MOTTLED_ZONE','SAPROLITE','SAPROCK','BEDROCK']},
-    'SEDIMENTARY':
-        {'ALLOCHTONOUS_ALTERITE':['SURFICIAL_DEPOSITS'],
-        'SILICICLASTIC':['CONGLOMERATE','SANDSTONE','SILTITE','ARGILITE'],
-        'OTHER_TERRIGENOUS_CLASTIC':[],
-        'CARBONATES':['LIMESTONE','DOLOSTONE'],
-        'OTHER_CHEMICAL_BIOCHEMICAL_ROCKS':[]}
+export var lithology=
+{'SelectLithology':
+{'Selectsub-lithology':[]},
+'MAGMATIC_INTRUSIVE':
+{'FELSIC':['GRANITE','TONALITE'],
+'INTERMEDIATE':['DIORITE','SYENITE'],
+'MAFIC':['GABBRO'],
+'UNDERSATURATED':['FELDSPATHOÏDIC_SYENITE','FELDSPATHOÏDIC_DIORITE','FELDSPATHOÏDIC_GABBRO'],
+'ULTRAMAFIC':[]},
+'MAGMATIC_EXTRUSIVE_AND_VOLCANICLASTIC':
+{'FELSIC_LAVAS':['RHYOLITE','DACITE'],
+'INTERMEDIATE_LAVAS':['ANDESITE','TRACHYTE'],
+'MAFIC_LAVAS':['BASALT'],
+'UNDERSATURATED_LAVAS':['PHONOLITE','TEPHRITE','BASANITE'],
+'ULTRAMAFIC_LAVAS':[]},
+'METAMORPHIC':
+{'BURIAL':['ZEOLITE_FACIES','PREHNITE-PUMPELLYITE_FACIES'],
+'OROGENIC':['BLUESCHIST_FACIES','GREENSCHIST_FACIES','AMPHIBOLITE_FACIES','GRANULITE_FACIES','ECLOGITE_FACIES'],
+'CONTACT':[],
+'IMPACT_BRECCIA':[]},
+'METASOMATIC_AND_OR_HYDROTHERMAL':
+{'':[]},
+'NON_SEDIMENTARY_SURFACE_PHENOMENA_DRIVEN_LITHOFACIES':
+{'':[]},
+'PEDOGENETIC':
+{'AUTOCHTONOUS_ALTERITE':['TOPSOIL','DURICRUST','LIMONITE','MOTTLED_ZONE','SAPROLITE','SAPROCK','BEDROCK']},
+'SEDIMENTARY':
+{'ALLOCHTONOUS_ALTERITE':['SURFICIAL_DEPOSITS'],
+'SILICICLASTIC':['CONGLOMERATE','SANDSTONE','SILTITE','ARGILITE'],
+'OTHER_TERRIGENOUS_CLASTIC':[],
+'CARBONATES':['LIMESTONE','DOLOSTONE'],
+'OTHER_CHEMICAL_BIOCHEMICAL_ROCKS':[]}
 }
 
-export var gitology = {
-    'Select Ore type':{'Select sub gitology':[]},
-    'MAGMATOGENIC':{
-        'FELSIC_HOST':[],
-        'ALKALINE_PERALKALINE_HOST':[],
-        'PEGMATITES':[],
-        'MAFIC_HOST':[],
-        'ULTRAMAFIC_HOST':['INTRUSIONS','KIMBERLITES','KOMATIITES_LAMPROITES']
-    },
-    'METAMORPHIC':{
-        'REGIONAL':[],
-        'CONTACT':[]
-    },
-    'HYDROTHERMAL':{
-        'MAGMATIC_HYDROTHERMAL':['PEGMATITES','GREISENS','PORPHYRIES','STRUCTURALLY_CONTROLLED_BRECCIA'],
-        'METASOMATIC':['SKARNS','ALCALINE','STRATABOUND_REPLACEMENT '],
-        'METAMORPHOGENIC_HYDROTHERMAL':['OROGENIC_GOLD','OTHERS'],
-        'EPITHERMAL_AU':['LOW_SULFIDATION','HIGH_SULFIDATION'],
-        'OTHER_INTRUSION_RELATED_LODES':[],
-        'VOLCANOGENIC_MASSIVE_SULFIDE_DEPOSITS':['OCEAN_RIDGE_RELATED','ARC_RELATED'],
-        'SEDIMENT_HOSTED_MASSIVE_SULFIDE_DEPOSITS':[],
-        'DIAGENETIC_HYDROTHERMAL':['UNCONFORMITY_RELATED_U','CARBONATE_ROCK_HOSTED','SANDSTONE_HOSTED','BLACK_SHALE_HOSTED']
-    },
-    'SUPERGENE ':{
-        'AUTOCHTONOUS_SEDIMENTARY_SYNGENETIC_DIAGENETIC':['BIFS','MN_HYDROXYDES','POLYMETALLIC_NODULES','OOLITHIC_IRON','EVAPORITES_BRINES'],
-        'ALLOCHTONOUS_RESIDUAL_BY_MECHANICAL_SORTING':['PLACERS','ORGANIC_MATTER'],
-        'PRECIPITATES_BY_EVAPOTRANSPIRATION':['CALCRETE_SILCRETE_GYPSCRETE'],
-        'REDOX_INFILTRATION':['ROLL_FRONTS','CEMENTATION'],
-        'SUPERGENE_ENRICHMENT':['GOSSAN','NI_LATERITES','IRON_ORE','BAUXITES','OTHERS']
-    }
+export var gitology={
+'SelectOretype':{'Selectsubgitology':[]},
+'MAGMATOGENIC':{
+'FELSIC_HOST':[],
+'ALKALINE_PERALKALINE_HOST':[],
+'PEGMATITES':[],
+'MAFIC_HOST':[],
+'ULTRAMAFIC_HOST':['INTRUSIONS','KIMBERLITES','KOMATIITES_LAMPROITES']
+},
+'METAMORPHIC':{
+'REGIONAL':[],
+'CONTACT':[]
+},
+'HYDROTHERMAL':{
+'MAGMATIC_HYDROTHERMAL':['PEGMATITES','GREISENS','PORPHYRIES','STRUCTURALLY_CONTROLLED_BRECCIA'],
+'METASOMATIC':['SKARNS','ALCALINE','STRATABOUND_REPLACEMENT'],
+'METAMORPHOGENIC_HYDROTHERMAL':['OROGENIC_GOLD','OTHERS'],
+'EPITHERMAL_AU':['LOW_SULFIDATION','HIGH_SULFIDATION'],
+'OTHER_INTRUSION_RELATED_LODES':[],
+'VOLCANOGENIC_MASSIVE_SULFIDE_DEPOSITS':['OCEAN_RIDGE_RELATED','ARC_RELATED'],
+'SEDIMENT_HOSTED_MASSIVE_SULFIDE_DEPOSITS':[],
+'DIAGENETIC_HYDROTHERMAL':['UNCONFORMITY_RELATED_U','CARBONATE_ROCK_HOSTED','SANDSTONE_HOSTED','BLACK_SHALE_HOSTED']
+},
+'SUPERGENE':{
+'AUTOCHTONOUS_SEDIMENTARY_SYNGENETIC_DIAGENETIC':['BIFS','MN_HYDROXYDES','POLYMETALLIC_NODULES','OOLITHIC_IRON','EVAPORITES_BRINES'],
+'ALLOCHTONOUS_RESIDUAL_BY_MECHANICAL_SORTING':['PLACERS','ORGANIC_MATTER'],
+'PRECIPITATES_BY_EVAPOTRANSPIRATION':['CALCRETE_SILCRETE_GYPSCRETE'],
+'REDOX_INFILTRATION':['ROLL_FRONTS','CEMENTATION'],
+'SUPERGENE_ENRICHMENT':['GOSSAN','NI_LATERITES','IRON_ORE','BAUXITES','OTHERS']
+}
 }
 
-export var texture  = {
-    'Select Texture type':['Select sub-texture'],
-    'MAGMATIC_TEXTURE':['PHANERITIC','APHANITIC','GLASSY','PORPHYRIC','PEGMATITIC','LAYERED','FLOW_ORIENTED_FOLDED','BRECCIA_INCLUDING_ATTRITION BRECCIA'],
-    'SEDIMENTARY_STRUCTURE':['DIRECTIONAL_CURRENT_STRUCTURES','OSCILLATORY_CURRENT_STRUCTURES','SOFT_SEDIMENT_DEFORMATION_STRUCTURES','GRAVITY_FLOW_STRUCTURES','BIOTURBATION_AND_TRACE_FOSSIL_TYPES','BIOLOGICAL_INDUCED_BEDDING '],
-    'METAMORPHIC_TEXTURE':['SLATY_CLEAVAGE','SCHISTOSITY','GNEISSIC','GRANULITIC','MIGMATITIC','MARBLES'],
-    'TECTONIC_TECTONOMETAMORPHIC_DAMAGE':['FOLDED','PRESENCE_OF_JOINTS','STOCKWORK','FAULT_DAMAGE_ZONE','COHESIVE_CATACLASITE','NON_COHESIVE_CATACLASITE','FAULT_BRECCIA','FAULT_GOUGE','MYLONITE_BLASTOMYLONITE','PSEUDOTACHYLYTE '],
-    'HYDROTHERMAL_ACTIVITY_IMPRINT':['ALTERED_ZONE','PRESENCE_OF_VEIN_FILLING'],
-    'SUPERGENE_WEATHERING_STRUCTURE':['KARST'],
-    'OREBODY_STRUCTURE':['1D_PIPE','2D_VEIN','2D_STRATIFORM','3D_STOCKWORK','3D_DISSEMINATION','3D_MASSIVE'],
-    'IMPACT_BRECCIA':[]
+export var texture={
+'SelectTexturetype':['Selectsub-texture'],
+'MAGMATIC_TEXTURE':['PHANERITIC','APHANITIC','GLASSY','PORPHYRIC','PEGMATITIC','LAYERED','FLOW_ORIENTED_FOLDED','BRECCIA_INCLUDING_ATTRITIONBRECCIA'],
+'SEDIMENTARY_STRUCTURE':['DIRECTIONAL_CURRENT_STRUCTURES','OSCILLATORY_CURRENT_STRUCTURES','SOFT_SEDIMENT_DEFORMATION_STRUCTURES','GRAVITY_FLOW_STRUCTURES','BIOTURBATION_AND_TRACE_FOSSIL_TYPES','BIOLOGICAL_INDUCED_BEDDING'],
+'METAMORPHIC_TEXTURE':['SLATY_CLEAVAGE','SCHISTOSITY','GNEISSIC','GRANULITIC','MIGMATITIC','MARBLES'],
+'TECTONIC_TECTONOMETAMORPHIC_DAMAGE':['FOLDED','PRESENCE_OF_JOINTS','STOCKWORK','FAULT_DAMAGE_ZONE','COHESIVE_CATACLASITE','NON_COHESIVE_CATACLASITE','FAULT_BRECCIA','FAULT_GOUGE','MYLONITE_BLASTOMYLONITE','PSEUDOTACHYLYTE'],
+'HYDROTHERMAL_ACTIVITY_IMPRINT':['ALTERED_ZONE','PRESENCE_OF_VEIN_FILLING'],
+'SUPERGENE_WEATHERING_STRUCTURE':['KARST'],
+'OREBODY_STRUCTURE':['1D_PIPE','2D_VEIN','2D_STRATIFORM','3D_STOCKWORK','3D_DISSEMINATION','3D_MASSIVE'],
+'IMPACT_BRECCIA':[]
 }
 
-export var countries = {
-'Select a Country':['Select a region'],
+export var countries={
+'SelectaCountry':['Selectaregion'],
 'AFGHANISTAN':['BADAKHSHAN','BADGHIS','BAGHLAN','BALKH','BAMYAN','DAYKUNDI','FARAH','FARYAB','GHAZNI','GHOR','HELMAND','HERAT','JOWZJAN','KABUL','KANDAHAR','KAPISA','KHOST','KUNAR','KUNDUZ','LAGHMAN','LOGAR','MAIDAN_WARDAK','NANGARHAR','NIMRUZ','NURISTAN','PAKTIA','PAKTIKA','PANJSHIR','PARWAN','SAMANGAN','SAR-E_POL','TAKHAR','UROZGAN','ZABUL'],
 'ALAND_ISLANDS':['BRANDO','ECKERO','FINSTROM','FOGLO','GETA','HAMMARLAND','JOMALA','KUMLINGE','KOKAR','LEMLAND','LUMPARLAND','MARIEHAMN','SALTVIK','SOTTUNGA','SUND','VARDO'],
 'ALBANIA':['BERAT','DIBER','DURRES','ELBASAN','FIER','GJIROKASTER','KORCE','KUKES','LEZHE','SHKODER','TIRANA','VLORE'],
@@ -853,353 +852,353 @@ export var countries = {
 'ZIMBABWE':['BULAWAYO','HARARE','MANICALAND','MASHONALAND_CENTRAL','MASHONALAND_EAST','MASHONALAND_WEST','MASVINGO','MATABELELAND_NORTH','MATABELELAND_SOUTH','MIDLANDS']
 }
 
-export var abbrev = {
-    'BULK-GEOCHEMISTRY':'BULK-GEOCHEM',
-    'PETROPHYSICS':'PETRO',
-    'GRAPHITE':'GRAPHITE',
-    'XRD-CLAY':'XRD-CLAY',
-    'FI-LA-ICP-MS':'FI-ICP-MS',
-    'FI-RAMAN':'FI-RAMAN',
-    'FI-MICROTHERMOMETRY':'FI-MICRO',
-    'UO2-GEOCHEMISTRY-SIMS':'UO2-GEOCHEM-SIMS',
-    'UO2-GEOCHEMISTRY-LA-ICP-MS':'UO2-GEOCHEM-LA-ICP-MS',
-    'UO2-GEOCHEMISTRY-EMPA':'UO2-GEOCHEM-EMPA',
-    'CLAY-CRISTALLOGRAPHY':'CLAY-CRISTALLO'
+export var abbrev={
+'BULK-GEOCHEMISTRY':'BULK-GEOCHEM',
+'PETROPHYSICS':'PETRO',
+'GRAPHITE':'GRAPHITE',
+'XRD-CLAY':'XRD-CLAY',
+'FI-LA-ICP-MS':'FI-ICP-MS',
+'FI-RAMAN':'FI-RAMAN',
+'FI-MICROTHERMOMETRY':'FI-MICRO',
+'UO2-GEOCHEMISTRY-SIMS':'UO2-GEOCHEM-SIMS',
+'UO2-GEOCHEMISTRY-LA-ICP-MS':'UO2-GEOCHEM-LA-ICP-MS',
+'UO2-GEOCHEMISTRY-EMPA':'UO2-GEOCHEM-EMPA',
+'CLAY-CRISTALLOGRAPHY':'CLAY-CRISTALLO'
 }
 
 
-var patternText1 = "[a-zA-Z0-9_|-]*";
-var patternText2 = "";
-var patternMail = "^[[a-zA-Z0-9_]-[a-zA-Z0-9_]]+@([[a-zA-Z0-9_]-]+[a-zA-Z0-9_])+[[a-zA-Z0-9_]-]{2,4}$";
-var patternFloat1 = "[+-]?([0-9]*[.])?[0-9]+";
-var patternDate = "";
-var patternDefault = "*";
+var patternText1="[a-zA-Z0-9_|-]*";
+var patternText2="";
+var patternMail="^[[a-zA-Z0-9_]-[a-zA-Z0-9_]]+@([[a-zA-Z0-9_]-]+[a-zA-Z0-9_])+[[a-zA-Z0-9_]-]{2,4}$";
+var patternFloat1="[+-]?([0-9]*[.])?[0-9]+";
+var patternDate="";
+var patternDefault="*";
 
 
-export var projectMetadata = {
-PROJECT_NAME:{
-    description:"Name of the project/study from which data are extracted",
-    value:"", 
+export var projectMetadata={
+    PROJECT_NAME:{
+    description:"Nameoftheproject/studyfromwhichdataareextracted",
+    value:"",
     placeholder:"Thesis_Firstname_LastName",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-DATA_DESCRIPTION:{
-    description:"Describe what kind of analysis are done on what with what fund etc",
-    value:"", 
+    DATA_DESCRIPTION:{
+    description:"Describewhatkindofanalysisaredoneonwhatwithwhatfundetc",
+    value:"",
     placeholder:"analysis_on_what_data_where_with_whom",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-KEYWORD:{
-    description:"single keyword describing project",
-    value:"", placeholder:"URANIUM",
-    htmlContent:0, 
+    KEYWORD:{
+    description:"singlekeyworddescribingproject",
+    value:"",placeholder:"URANIUM",
+    htmlContent:0,
     requiredPattern:patternText1},
-KEYWORD2:{
+    KEYWORD2:{
     description:"",
-    value:"", 
+    value:"",
     placeholder:"UNCONFORMITY",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-LANGUAGE:{
+    LANGUAGE:{
     description:"",
-    value:"", 
+    value:"",
     placeholder:"",
-    htmlContent:'<select id="LANGUAGE" name="language" "></select>', 
+    htmlContent:'<selectid="LANGUAGE"name="language""></select>',
     requiredPattern:patternText1},
-TITLE : {
-    description:"Name of this file",
-    value:"", 
+    TITLE:{
+    description:"Nameofthisfile",
+    value:"",
     placeholder:"Database_project_name_owner",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-INSTITUTION:{
-    description:"first institution, for example academic institution",
+    INSTITUTION:{
+    description:"firstinstitution,forexampleacademicinstitution",
     value:"",
     placeholder:"UNIVERSITY_NAME",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-INSTITUTION2:{
-    description:"other institution, for example industrial partner",
+    INSTITUTION2:{
+    description:"otherinstitution,forexampleindustrialpartner",
     value:"",
     placeholder:"COMPANY_NAME",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-SCIENTIFIC_FIELD:{
-    description:"single world describing main scientific topic",
+    SCIENTIFIC_FIELD:{
+    description:"singleworlddescribingmainscientifictopic",
     value:"",
     placeholder:"GEOLOGY",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-SCIENTIFIC_FIELD2:{
-    description:"other main scientific topic",
+    SCIENTIFIC_FIELD2:{
+    description:"othermainscientifictopic",
     value:"",
     placeholder:"GEOCHEMISTRY",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-PROJECT_COUNTRY:{
-    description:"country of origin of samples",
+    PROJECT_COUNTRY:{
+    description:"countryoforiginofsamples",
     value:"",
     placeholder:"",
-    htmlContent:'<select name="country" id="PROJECT_COUNTRY"></select>'},
-PROJECT_PROVINCE:{
-    description:"administrative subdivision of origin of samples",
+    htmlContent:'<selectname="country"id="PROJECT_COUNTRY"></select>'},
+    PROJECT_PROVINCE:{
+    description:"administrativesubdivisionoforiginofsamples",
     value:"",
     placeholder:"",
-    htmlContent:'<select name="province" id="PROJECT_PROVINCE"></select>'},
-PROJECT_AREA:{
-    description:"more specific area of interest",
+    htmlContent:'<selectname="province"id="PROJECT_PROVINCE"></select>'},
+    PROJECT_AREA:{
+    description:"morespecificareaofinterest",
     value:"",
     placeholder:"CIGAR",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-PROJECT_CODE:{
-    description:"even more specific area of interest",
+    PROJECT_CODE:{
+    description:"evenmorespecificareaofinterest",
     value:"",
     placeholder:"CIGAR_MAIN",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-FILE_CREATOR_NAME:{
+    FILE_CREATOR_NAME:{
     description:"",
     value:"",
     placeholder:"LastName",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-FILE_CREATOR_FIRST_NAME:{
+    FILE_CREATOR_FIRST_NAME:{
     description:"",
     value:"",
     placeholder:"Firstname",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-FILE_CREATOR_MAIL:{
+    FILE_CREATOR_MAIL:{
     description:"",
     value:"",
     placeholder:"example@mail.com",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-FILE_CREATOR_DISPLAY_NAME : {
+    FILE_CREATOR_DISPLAY_NAME:{
     description:"",
     value:"",
     placeholder:"",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-CREATION_DATE:{
+    CREATION_DATE:{
     description:"",
     value:"",
     placeholder:"1789-07-14",
-    htmlContent:'<input type="date" id="datePicker" value="" name="trip-start"></input>', 
+    htmlContent:'<inputtype="date"id="datePicker"value=""name="trip-start"></input>',
     requiredPattern:patternText1},
-REFERENT_NAME:{
+    REFERENT_NAME:{
     description:"",
     value:"",
     placeholder:"",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-REFERENT_FIRST_NAME:{
+    REFERENT_FIRST_NAME:{
     description:"",
     value:"",
     placeholder:"",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-REFERENT_MAIL:{
+    REFERENT_MAIL:{
     description:"",
     value:"",
     placeholder:"referent@mail.com",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternMail},
-REFERENT_NAME2:{
+    REFERENT_NAME2:{
     description:"",
     value:"",
     placeholder:"",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-REFERENT_FIRST_NAME2:{
+    REFERENT_FIRST_NAME2:{
     description:"",
     value:"",
     placeholder:"",
     htmlContent:0},
-REFERENT_MAIL2:{
+    REFERENT_MAIL2:{
     description:"",
     value:"",
     placeholder:"referent2@mail.com",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternMail},
-REFERENT_NAME3:{
+    REFERENT_NAME3:{
     description:"",
     value:"",
     placeholder:"",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-REFERENT_FIRST_NAME3:{
+    REFERENT_FIRST_NAME3:{
     description:"",
     value:"",
     placeholder:"",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternText1},
-REFERENT_MAIL3:{
+    REFERENT_MAIL3:{
     description:"",
     value:"",
     placeholder:"referent3@mail.com",
-    htmlContent:0, 
+    htmlContent:0,
     requiredPattern:patternMail},
-"SAMPLING_POINT-COORDINATE_SYSTEM" : {
-    description:"Geographic Coordinate System",
+    "SAMPLING_POINT-COORDINATE_SYSTEM":{
+    description:"GeographicCoordinateSystem",
     value:"",
     placeholder:"",
-    htmlContent:'<select name="SamplingPtCoordSys" id="SAMPLING_POINT-COORDINATE_SYSTEM"></select>', 
+    htmlContent:'<selectname="SamplingPtCoordSys"id="SAMPLING_POINT-COORDINATE_SYSTEM"></select>',
     requiredPattern:patternText1},
-COORDINATE_SYSTEM_NAD : {
-    description:"Projected Coordinate System",
+    COORDINATE_SYSTEM_NAD:{
+    description:"ProjectedCoordinateSystem",
     value:"",
     placeholder:"",
-    htmlContent:'<select name="projectedCoordSys" id="COORDINATE_SYSTEM_NAD"></select>'}};
+    htmlContent:'<selectname="projectedCoordSys"id="COORDINATE_SYSTEM_NAD"></select>'}};
 
-export var sampleMetadata = {
-    "SAMPLING_POINT-NAME" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLING_POINT-ABBREVIATION" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLING_POINT-LONGITUDE" : {unit:"deg",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
-    "SAMPLING_POINT-LATITUDE" : {unit:"deg",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
-    "SAMPLING_POINT-ELEVATION" : {unit:"m",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
-    "SAMPLING_POINT-DESCRIPTION" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'SAMPLING_POINT-COORDINATE_SYSTEM':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "HOLEID" : {unit:"text",description:"drillhole name",value:"",htmlContent:0, requiredPattern:patternText1},
-    "X_NAD" : {unit:"m",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
-    "Y_NAD" : {unit:"m",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
-    "Z_NAD" : {unit:"m",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
-    "SAMPLE_NAME" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLE_NAME_ORANO" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLE_NAME_GEORESSOURCES" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLE_TYPE" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLING_DATE" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLE_DEPTH_FROM" : {unit:"m",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
-    "SAMPLE_DEPTH_TO" : {unit:"m",description:"",value:"",htmlContent:0, requiredPattern:patternFloat1},
-    "LITHOLOGY" : {unit:"text",description:"",value:"", htmlContent : '<select style="width: 200px" id="LITHOLOGY" name="LITHOLOGY" "><option>SELECT A LITHOLOGY</option></select>'},
-    "LITHOLOGY_2" : {unit:"text",description:"",value:"", htmlContent : '<select style="width: 200px" id="LITHOLOGY_2" name="LITHOLOGY_2" "></select>'},
-    "LITHOLOGY_3" : {unit:"text",description:"",value:"", htmlContent : '<select style="width: 200px" id="LITHOLOGY_3" name="LITHOLOGY_3" "></select>'},
-    "TEXTURE_STRUCTURE" : {unit:"text",description:"",value:"",htmlContent :'<select style="width: 200px" id="TEXTURE_STRUCTURE" name="TEXTURE_STRUCTURE" "><option>SELECT A TEXTURE_STRUCTURE</option></select>'},
-    "TEXTURE_STRUCTURE_2" : {unit:"text",description:"",value:"",htmlContent :'<select style="width: 200px" id="TEXTURE_STRUCTURE_2" name="TEXTURE_STRUCTURE_2" "></select>'},
-    "ORE_TYPE" : {unit:"text",description:"",value:"",htmlContent :'<select style="width: 200px" id="ORE_TYPE" name="ORE_TYPE" "><option>SELECT A ORE_TYPE</option></select>'},
-    "ORE_TYPE_2" : {unit:"text",description:"",value:"",htmlContent :'<select style="width: 200px" id="ORE_TYPE_2" name="ORE_TYPE_2" "></select>'},
-    "ORE_TYPE_3" : {unit:"text",description:"",value:"", htmlContent :'<select style="width: 200px" id="ORE_TYPE_3" name="ORE_TYPE_3" "></select>'},
-    'STORAGE_ACCESS_REFERENT':{unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLE_LOCATION_BUILDING" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLE_LOCATION_ROOM" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLE_LOCATION_SHELF" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "SAMPLE_LOCATION_BOX" : {unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'SAMPLE_LOCATION_BOX_TYPE':{unit:"text",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'HOST_AGE':{unit:"",description:"text",value:"",htmlContent:0, requiredPattern:patternText1},
-    'MAIN_EVENT_AGE':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'ALTERATION_DEGREE':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'PICTURE':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'PICTURE2':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'PICTURE3':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'SAFETY_CONSTRAINTS':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'METHODOLOGY-SAMPLING':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'METHODOLOGY-SAMPLE_CONDITIONNING':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'METHODOLOGY-ANALYSIS':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    'METHODOLOGY-SAMPLE':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1},
-    "LITHOLOGY_ORANO" : {unit:"text",description:"",value:"", htmlContent : '<select style="width: 200px" id="LITHOLOGY_ORANO" name="LITHOLOGY_ORANO" "><option>SELECT AN ORANO LITHOLOGY</option></select>'},
-    'FORMATION_ORANO':{unit:"",description:"",value:"",htmlContent:0, requiredPattern:patternText1}
-    
+export var sampleMetadata={
+"SAMPLING_POINT-NAME":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLING_POINT-ABBREVIATION":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLING_POINT-LONGITUDE":{unit:"deg",description:"",value:"",htmlContent:0,requiredPattern:patternFloat1},
+"SAMPLING_POINT-LATITUDE":{unit:"deg",description:"",value:"",htmlContent:0,requiredPattern:patternFloat1},
+"SAMPLING_POINT-ELEVATION":{unit:"m",description:"",value:"",htmlContent:0,requiredPattern:patternFloat1},
+"SAMPLING_POINT-DESCRIPTION":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'SAMPLING_POINT-COORDINATE_SYSTEM':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"HOLEID":{unit:"text",description:"drillholename",value:"",htmlContent:0,requiredPattern:patternText1},
+"X_NAD":{unit:"m",description:"",value:"",htmlContent:0,requiredPattern:patternFloat1},
+"Y_NAD":{unit:"m",description:"",value:"",htmlContent:0,requiredPattern:patternFloat1},
+"Z_NAD":{unit:"m",description:"",value:"",htmlContent:0,requiredPattern:patternFloat1},
+"SAMPLE_NAME":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLE_NAME_ORANO":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLE_NAME_GEORESSOURCES":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLE_TYPE":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLING_DATE":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLE_DEPTH_FROM":{unit:"m",description:"",value:"",htmlContent:0,requiredPattern:patternFloat1},
+"SAMPLE_DEPTH_TO":{unit:"m",description:"",value:"",htmlContent:0,requiredPattern:patternFloat1},
+"LITHOLOGY":{unit:"text",description:"",value:"",htmlContent:'<selectstyle="width:200px"id="LITHOLOGY"name="LITHOLOGY""><option>SELECTALITHOLOGY</option></select>'},
+"LITHOLOGY_2":{unit:"text",description:"",value:"",htmlContent:'<selectstyle="width:200px"id="LITHOLOGY_2"name="LITHOLOGY_2""></select>'},
+"LITHOLOGY_3":{unit:"text",description:"",value:"",htmlContent:'<selectstyle="width:200px"id="LITHOLOGY_3"name="LITHOLOGY_3""></select>'},
+"TEXTURE_STRUCTURE":{unit:"text",description:"",value:"",htmlContent:'<selectstyle="width:200px"id="TEXTURE_STRUCTURE"name="TEXTURE_STRUCTURE""><option>SELECTATEXTURE_STRUCTURE</option></select>'},
+"TEXTURE_STRUCTURE_2":{unit:"text",description:"",value:"",htmlContent:'<selectstyle="width:200px"id="TEXTURE_STRUCTURE_2"name="TEXTURE_STRUCTURE_2""></select>'},
+"ORE_TYPE":{unit:"text",description:"",value:"",htmlContent:'<selectstyle="width:200px"id="ORE_TYPE"name="ORE_TYPE""><option>SELECTAORE_TYPE</option></select>'},
+"ORE_TYPE_2":{unit:"text",description:"",value:"",htmlContent:'<selectstyle="width:200px"id="ORE_TYPE_2"name="ORE_TYPE_2""></select>'},
+"ORE_TYPE_3":{unit:"text",description:"",value:"",htmlContent:'<selectstyle="width:200px"id="ORE_TYPE_3"name="ORE_TYPE_3""></select>'},
+'STORAGE_ACCESS_REFERENT':{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLE_LOCATION_BUILDING":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLE_LOCATION_ROOM":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLE_LOCATION_SHELF":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"SAMPLE_LOCATION_BOX":{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'SAMPLE_LOCATION_BOX_TYPE':{unit:"text",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'HOST_AGE':{unit:"",description:"text",value:"",htmlContent:0,requiredPattern:patternText1},
+'MAIN_EVENT_AGE':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'ALTERATION_DEGREE':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'PICTURE':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'PICTURE2':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'PICTURE3':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'SAFETY_CONSTRAINTS':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'METHODOLOGY-SAMPLING':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'METHODOLOGY-SAMPLE_CONDITIONNING':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'METHODOLOGY-ANALYSIS':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+'METHODOLOGY-SAMPLE':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1},
+"LITHOLOGY_ORANO":{unit:"text",description:"",value:"",htmlContent:'<selectstyle="width:200px"id="LITHOLOGY_ORANO"name="LITHOLOGY_ORANO""><option>SELECTANORANOLITHOLOGY</option></select>'},
+'FORMATION_ORANO':{unit:"",description:"",value:"",htmlContent:0,requiredPattern:patternText1}
+
 }
-export var holeMetadata = {
-    "HOLEID" : {unit:"text",description:"drillhole name",value:null,htmlContent:0, requiredPattern:patternText1},
-    "HOLEID_LATITUDE": {unit:"deg",description:"in degrees",value:null,htmlContent:0, requiredPattern:patternFloat1},
-    "HOLEID_LONGITUDE" : {unit:"deg",description:"in degrees",value:null,htmlContent:0, requiredPattern:patternFloat1},
-    "HOLEID_ELEVATION" : {unit:"m",description:"in m above sea level",value:null,htmlContent:0, requiredPattern:patternFloat1},
-    "HOLEID_X_NAD" : {unit:"m",description:"EASTWARD AXE",value:null,htmlContent:0, requiredPattern:patternFloat1},
-    "HOLEID_Y_NAD" : {unit:"m",description:"NORTH AXE",value:null,htmlContent:0, requiredPattern:patternFloat1},
-    "HOLEID_Z_NAD" : {unit:"m",description:"in m above sea level",value:null,htmlContent:0, requiredPattern:patternFloat1}
+export var holeMetadata={
+"HOLEID":{unit:"text",description:"drillholename",value:null,htmlContent:0,requiredPattern:patternText1},
+"HOLEID_LATITUDE":{unit:"deg",description:"indegrees",value:null,htmlContent:0,requiredPattern:patternFloat1},
+"HOLEID_LONGITUDE":{unit:"deg",description:"indegrees",value:null,htmlContent:0,requiredPattern:patternFloat1},
+"HOLEID_ELEVATION":{unit:"m",description:"inmabovesealevel",value:null,htmlContent:0,requiredPattern:patternFloat1},
+"HOLEID_X_NAD":{unit:"m",description:"EASTWARDAXE",value:null,htmlContent:0,requiredPattern:patternFloat1},
+"HOLEID_Y_NAD":{unit:"m",description:"NORTHAXE",value:null,htmlContent:0,requiredPattern:patternFloat1},
+"HOLEID_Z_NAD":{unit:"m",description:"inmabovesealevel",value:null,htmlContent:0,requiredPattern:patternFloat1}
 };
 
 
-export var holesTracesTemplate = {
-    "HOLEID":{value:null},
-    "DEPTH":{value:null},
-    "DIP":{value:null},
-    "DIP_DIRECTION":{value:null},
-    "TRACE_X":{value:null},
-    "TRACE_Y":{value:null},
-    "TRACE_Z":{value:null},
-    "TRACE_LATITUDE":{value:null},
-    "TRACE_LONGITUDE":{value:null}
+export var holesTracesTemplate={
+"HOLEID":{value:null},
+"DEPTH":{value:null},
+"DIP":{value:null},
+"DIP_DIRECTION":{value:null},
+"TRACE_X":{value:null},
+"TRACE_Y":{value:null},
+"TRACE_Z":{value:null},
+"TRACE_LATITUDE":{value:null},
+"TRACE_LONGITUDE":{value:null}
 };
 
 
-export var chronostratigraphic = 
+export var chronostratigraphic=
 {
-    "Phanerozoic":{
-        "Cenozoic":{
-            "Quartenary":{
-                "Holocene":["Meghalayan","Northgrippian","Greenlandian"],
-                "Pleistocene":["Late Pleistocene","Chibanian","Calabrian","Gelasian"]},
-            "Neogene":{
-                "Pliocene":["Piacenzian","Zanclean"],
-                "Miocene":["Messinian","Tortonian","Serravallian","Langhian","Burdigalian","Aquitanian"]},
-            "Paleogene":{
-                "Oligocene":["Chattian","Rupelian"],
-                "Eocene":["Priabonian","Bartonian","Lutetian","Ypresian"],
-                "Paleocene":["Thanetian","Selandian","Danian"]}},
-        "Mesozoic":{
-            "Cretaceous":{
-                "Late":["Maastrichtian","Campanian","Santonian","Turonian","Cenomanian"],
-                "Early":["Albian","Aptian","Barremian","Hauterivian","Valanginian","Berriasian"]},
-            "Jurassic":{
-                "Late":["Tithonian","Kimmeridgian","Oxfordian"],
-                "Middle":["Callovian","Bathonian","Bajocian","Aalenian"],
-                "Early":["Toarcian","Pliensbachian","Sinemurian","Hettangian"]},
-            "Triassic":{
-                "Late":["Rhaetian","Norian","Carnian"],
-                "Middle":["Ladinian","Anisian"],
-                "Early":["Olenekian","Induan"]}},
-        "Paleozoic":{
-            "Permian":{
-                "Lopingian":["Changhsingian","Wuchiapingian"],
-                "Guadalupian":["Capitanian","Wordian","Roadian"],
-                "Cisuralian":["Kungurian","Artinskian","Sakmarian","Asselian"]},
-            "Carboniferous":{
-                "Pennsylvanian":["Gzhelian","Kasimovian","Moscovian","Bashkirian"],
-                "Mississippian":["Serpukhovian","Viséan","Tournaisian"]},
-            "Devonian":{
-                "Late":["Famennian","Frasnian"],
-                "Middle":["Givetian","Eifelian"],
-                "Early":["Emsian","Pragian","Lochkovian"]},
-            "Silurian":{
-                "Pridoli":[],
-                "Ludlow":["Ludfordian","Gorstian"],
-                "Wenlock":["Homerian","Sheinwoodian"],
-                "Llandovery":["Telychian","Aeronian","Rhuddanian"]},
-            "Ordovician":{
-                "Late":["Hirnantian","Katian","Sandbian"],
-                "Middle":["Darriwilian","Dapingian"],
-                "Early":["Floian","Tremadocian"]},
-            "Cambrian":{
-                "Furongian":["Stage 10","Jiangshanian","Paibian"],
-                "Miaolingian":["Guzhangian","Drumian","Wuliuan"],
-                "Series 2":["Stage 4","Stage 3"],
-                "Terreneuvian":["Stage 2","Fortunian"]}
-            }
-    },
-    "Proterozoic":{
-        "Neoproterozoic":["Ediacaran","Cryogenian","Tonian"],
-        "Mesoproterozoic":["Stenian","Ectasian","Calymmian"],
-        "Paleoproterozoic":["Statherian","Orosirian","Rhyacian","Siderian"]
-    },
-    "Archean":{
-        "Neoarchean":[],
-        "Mesoarchean":[],
-        "Paleoarchean":[],
-        "Eoarchean":[]
-    },
-    "Hadean":{
-        "Early Imbrian":[],
-        "Mesohadean":[],
-        "Paleohadean":[],
-        "Eohadean":[]
-    }
+"Phanerozoic":{
+"Cenozoic":{
+"Quartenary":{
+"Holocene":["Meghalayan","Northgrippian","Greenlandian"],
+"Pleistocene":["LatePleistocene","Chibanian","Calabrian","Gelasian"]},
+"Neogene":{
+"Pliocene":["Piacenzian","Zanclean"],
+"Miocene":["Messinian","Tortonian","Serravallian","Langhian","Burdigalian","Aquitanian"]},
+"Paleogene":{
+"Oligocene":["Chattian","Rupelian"],
+"Eocene":["Priabonian","Bartonian","Lutetian","Ypresian"],
+"Paleocene":["Thanetian","Selandian","Danian"]}},
+"Mesozoic":{
+"Cretaceous":{
+"Late":["Maastrichtian","Campanian","Santonian","Turonian","Cenomanian"],
+"Early":["Albian","Aptian","Barremian","Hauterivian","Valanginian","Berriasian"]},
+"Jurassic":{
+"Late":["Tithonian","Kimmeridgian","Oxfordian"],
+"Middle":["Callovian","Bathonian","Bajocian","Aalenian"],
+"Early":["Toarcian","Pliensbachian","Sinemurian","Hettangian"]},
+"Triassic":{
+"Late":["Rhaetian","Norian","Carnian"],
+"Middle":["Ladinian","Anisian"],
+"Early":["Olenekian","Induan"]}},
+"Paleozoic":{
+"Permian":{
+"Lopingian":["Changhsingian","Wuchiapingian"],
+"Guadalupian":["Capitanian","Wordian","Roadian"],
+"Cisuralian":["Kungurian","Artinskian","Sakmarian","Asselian"]},
+"Carboniferous":{
+"Pennsylvanian":["Gzhelian","Kasimovian","Moscovian","Bashkirian"],
+"Mississippian":["Serpukhovian","Viséan","Tournaisian"]},
+"Devonian":{
+"Late":["Famennian","Frasnian"],
+"Middle":["Givetian","Eifelian"],
+"Early":["Emsian","Pragian","Lochkovian"]},
+"Silurian":{
+"Pridoli":[],
+"Ludlow":["Ludfordian","Gorstian"],
+"Wenlock":["Homerian","Sheinwoodian"],
+"Llandovery":["Telychian","Aeronian","Rhuddanian"]},
+"Ordovician":{
+"Late":["Hirnantian","Katian","Sandbian"],
+"Middle":["Darriwilian","Dapingian"],
+"Early":["Floian","Tremadocian"]},
+"Cambrian":{
+"Furongian":["Stage10","Jiangshanian","Paibian"],
+"Miaolingian":["Guzhangian","Drumian","Wuliuan"],
+"Series2":["Stage4","Stage3"],
+"Terreneuvian":["Stage2","Fortunian"]}
+}
+},
+"Proterozoic":{
+"Neoproterozoic":["Ediacaran","Cryogenian","Tonian"],
+"Mesoproterozoic":["Stenian","Ectasian","Calymmian"],
+"Paleoproterozoic":["Statherian","Orosirian","Rhyacian","Siderian"]
+},
+"Archean":{
+"Neoarchean":[],
+"Mesoarchean":[],
+"Paleoarchean":[],
+"Eoarchean":[]
+},
+"Hadean":{
+"EarlyImbrian":[],
+"Mesohadean":[],
+"Paleohadean":[],
+"Eohadean":[]
+}
 }
 
 
-export var holesTraces = {
+export var holesTraces={
 'CIG_____1___':{'X':[525076.0,525076.0],'Y':[6418748.0,6418748.0],'Z':[521.2,165.2]},
 'CIG_____2___':{'X':[525929.0,525929.0],'Y':[6419724.0,6419724.0],'Z':[466.9,27.7]},
 'CIG_____3___':{'X':[525981.0,525981.0],'Y':[6419725.0,6419725.0],'Z':[468.0,95.4]},
@@ -1993,125 +1992,125 @@ export var holesTraces = {
 'WC____582___':{'X':[526829.617,526822.7792,526805.0656,526798.5602,526789.6507,526780.4359,526772.2243,526764.0893,526756.812,526749.4424,526743.4218],'Y':[6423781.323,6423793.166,6423817.166,6423828.375,6423844.428,6423860.116,6423876.351,6423892.717,6423909.754,6423926.841,6423943.537],'Z':[465.954,433.7363301,355.2109733,321.6246461,274.0440158,226.3995876,178.7551594,131.1425576,83.62630504,36.14245843,-8.455905]},
 'WC____583___':{'X':[526469.145,526460.8041,526446.3666,526431.6441,526417.5609,526402.546,526376.0099,526366.7221,526351.4638,526336.9398,526324.1703],'Y':[6423648.458,6423660.37,6423673.866,6423687.296,6423701.966,6423716.913,6423746.353,6423757.893,6423775.551,6423794.804,6423810.84],'Z':[474.954,439.8465778,392.831557,345.8858095,299.1157457,249.4453849,158.7254746,124.8200536,70.63171714,15.69196154,-31.00683072]},
 'WC____584___':{'X':[520588.786,520588.786,520584.9344,520584.1073,520583.2663,520581.9606,520580.3383,520579.132,520578.6037,520578.0902,520577.224,520576.9921,520577.0062,520577.1338,520577.335,520577.6508,520578.0262,520578.3176,520579.1502,520581.6633,520584.0792,520586.7042,520589.4419,520592.3923,520595.8107,520599.9439,520605.8665],'Y':[6437998.09,6438003.098,6438016.996,6438021.336,6438025.679,6438032.536,6438040.993,6438048.102,6438051.984,6438055.817,6438064.017,6438066.183,6438070.425,6438073.81,6438077.035,6438080.132,6438081.92,6438083.113,6438086.028,6438092.921,6438098.604,6438103.956,6438109.296,6438114.617,6438120.139,6438126.141,6438134.417],'Z':[503.085,484.3943353,432.3557729,418.021189,403.6881483,380.7258403,351.988158,325.9688768,311.4895189,296.9965739,265.0433799,256.3110985,238.818019,224.2054182,209.5575863,194.8842846,186.071598,180.1986079,165.5081457,130.2637887,100.5486804,71.14677088,41.75321245,12.37652814,-19.97810043,-55.23266777,-105.2070523]},
-' MCS____01___ ' : {'X': [567920.904, 567918.2318549001, 567911.1097828421, 567904.3834475303, 567898.6536472876, 567892.3190022131, 567886.9725193299, 567880.8746642891, 567874.7221160488], 'Y': [6457665.088, 6457675.060581278, 6457703.206736004, 6457731.223938932, 6457759.386806881, 6457787.268851312, 6457813.784451724, 6457843.756366802, 6457874.26960592], 'Z': [438.832, 424.0872632027981, 382.1579171102305, 340.0771286980375, 297.9461156787536, 255.7150386130063, 216.0623204772096, 171.55950629162078, 127.43368178152384]},
-' MCS____02___ ' : {'X': [567714.495, 567711.8228549002, 567710.3247763333, 567704.8058930732, 567699.5056444634, 567693.9020246463, 567689.5476690977, 567685.0333067336, 567681.6711194332, 567680.4906889792], 'Y': [6457664.461, 6457674.433581278, 6457680.974535787, 6457709.104518844, 6457737.426146821, 6457765.988035719, 6457793.173185758, 6457822.001300935, 6457851.059836688, 6457865.117208049], 'Z': [437.476, 422.7312632027981, 412.7828123321376, 370.601703044135, 328.52091463194193, 286.64230496612305, 247.32300684025145, 205.49526117068908, 163.7185069119505, 144.30209904695175]},
-' MCS____03___ ' : {'X': [566920.35, 566919.0221800965, 566914.17907387, 566909.6979929241, 566905.854398312, 566903.9354004591, 566902.0889160143, 566902.2814316957], 'Y': [6457547.96, 6457552.915491344, 6457569.585572316, 6457586.788707022, 6457606.024019014, 6457623.980533911, 6457663.135142004, 6457666.6898422055], 'Z': [435.73, 421.6346106882114, 373.67991621068006, 325.8785347465936, 275.567208456974, 231.09383417512575, 136.92639202960174, 128.66037459751396]},
-' MCS____04___ ' : {'X': [567135.47, 567133.9170857293, 567126.5672520362, 567120.1218663559, 567114.3787578564, 567109.269216466, 567105.2508770475, 567104.6509912836], 'Y': [6457514.54, 6457520.335554957, 6457544.833826495, 6457571.888723739, 6457598.451652577, 6457625.754245539, 6457653.988569927, 6457660.845295585], 'Z': [437.23, 426.8376951545868, 382.7149727055318, 336.42793846761776, 293.272086995112, 250.49988802989532, 208.2189718295882, 198.38914729812032]},
-' MCS____05___ ' : {'X': [567326.98, 567325.4270857293, 567319.8760782679, 567314.323355936, 567310.6147509156, 567307.3663254579, 567304.9032319147, 567303.7518159944], 'Y': [6457564.19, 6457569.985554958, 6457593.839588375, 6457622.405868348, 6457648.793964222, 6457677.305028551, 6457704.369870207, 6457728.785585835], 'Z': [438.15, 427.7576951545867, 383.0232408056017, 334.0116613245799, 290.5270129425212, 244.78242918788575, 201.62657771538, 163.84368381133143]},
-' MCS____06___ ' : {'X': [567522.26, 567521.1977440772, 567517.3951195787, 567514.1995464958, 567511.3026207633, 567508.4674598473, 567506.3047196633, 567504.550774032, 567502.4924832546], 'Y': [6457614.29, 6457618.254393075, 6457636.779335151, 6457655.279730085, 6457674.663512772, 6457696.19869796, 6457715.180824936, 6457734.453442867, 6457757.5161388], 'Z': [438.31, 427.0336885505691, 376.4533903311556, 329.0347895508548, 281.95106847809274, 229.2519445621909, 181.96556797928477, 134.77987234160986, 79.42758697423508]},
-' MCS____07___ ' : {'X': [567201.6, 567200.0470857293, 567191.8539976849, 567185.8326512774, 567179.6163204693, 567175.8147021657, 567171.9873911365, 567169.6649148613, 567169.5756334853], 'Y': [6457738.0, 6457743.795554957, 6457772.749314272, 6457795.379197695, 6457822.305084617, 6457847.442114228, 6457874.334203192, 6457900.880228489, 6457907.27412049], 'Z': [436.34, 425.9476951545867, 374.0386099204045, 332.1383502114536, 282.2850269045081, 238.07329270879237, 191.40245340329227, 147.91780502123356, 137.7634870277028]},
-' MCS____08___ ' : {'X': [567236.95, 567236.275848167, 567234.6676468493, 567233.539122611, 567232.871719666, 567233.0557575973, 567233.4449555548, 567233.7605214663], 'Y': [6458008.27, 6458010.785968892, 6458019.635329139, 6458029.388879134, 6458039.709474205, 6458052.889363555, 6458060.572244473, 6458066.801607379], 'Z': [435.37, 420.59788370481687, 373.4480956698398, 323.4021698062353, 273.46180646452524, 209.81232377411047, 173.62086254695964, 144.27643452494547]},
-' MCS____09___ ' : {'X': [567446.74, 567445.1870857293, 567438.2439394298, 567431.7629891036, 567428.1437683044, 567425.1480691123, 567423.4388399574, 567422.628432897], 'Y': [6458103.36, 6458109.155554958, 6458133.6921137925, 6458158.752089286, 6458188.228277274, 6458214.935537258, 6458240.669217488, 6458265.098629446], 'Z': [437.4, 427.0076951545867, 382.84039956158034, 338.89731237906256, 290.2449169343689, 246.9003895920389, 206.41760019302035, 168.63470628897176]},
-' MCS____10___ ' : {'X': [567340.11, 567338.5570857293, 567331.6285017595, 567325.352402416, 567318.4256387341, 567313.9921289838, 567310.8750709872], 'Y': [6458059.13, 6458064.925554957, 6458087.447269132, 6458113.791576712, 6458146.948124317, 6458171.588535548, 6458196.9749357095], 'Z': [438.11, 427.7176951545868, 385.8994322208176, 339.1812555100536, 279.0675025427605, 234.63559817563083, 190.51287572657588]},
-' MCS____11___ ' : {'X': [567717.05, 567717.05, 567716.8595313304, 567716.8967855418, 567716.3761306681, 567716.909358931, 567717.4242788474, 567717.7755689388], 'Y': [6457662.17, 6457662.17, 6457661.576759555, 6457661.043999511, 6457661.765905297, 6457661.795717386, 6457662.409375045, 6457662.637505498], 'Z': [437.95, 425.95, 374.9538061473169, 323.9566025096758, 272.96437005669986, 221.96716641905877, 170.97345816249407, 140.97638244221494]},
-' MCS____12___ ' : {'X': [567778.48, 567777.805848167, 567775.2977232644, 567773.4465041272, 567773.1796724654, 567773.5631898155, 567774.2323024585], 'Y': [6457729.76, 6457732.2759688925, 6457741.768840635, 6457750.787277061, 6457760.339998189, 6457769.888746513, 6457776.149791111], 'Z': [437.43, 422.65788370481687, 372.6119578412124, 322.4498128297297, 272.35316304256656, 222.25651325540343, 189.8628162016305]},
-' MCS____13___ ' : {'X': [567635.38, 567634.7058481671, 567633.2572256834, 567632.623607452, 567632.4367921724, 567632.7369674281, 567632.8358519508], 'Y': [6457684.31, 6457686.825968892, 6457696.183500852, 6457705.981655392, 6457715.711120803, 6457725.262852317, 6457726.393107583], 'Z': [438.9, 424.1278837048168, 374.0146310810925, 323.968705217488, 273.90571886165714, 223.809069074494, 217.9173167983153]},
-' MCS____14___ ' : {'X': [567595.23, 567594.555848167, 567592.7157114801, 567591.6884796169, 567591.706073442, 567592.3799308641, 567593.1430244609], 'Y': [6457637.24, 6457639.755968893, 6457649.311663222, 6457659.251980487, 6457669.332489493, 6457679.477899996, 6457686.738250588], 'Z': [438.37, 423.59788370481687, 373.534897348986, 323.52354976310875, 273.5297198574009, 223.55355992173864, 188.30153873935507]},
-' MCS____15___ ' : {'X': [567882.367, 567881.6054527941, 567880.3641468752, 567878.8418436616, 567877.4548324178, 567877.4904647254, 567877.5363756676], 'Y': [6457810.697, 6457813.187908672, 6457822.133518337, 6457830.946713946, 6457839.235166309, 6457839.915071242, 6457848.683335161], 'Z': [439.202, 424.42988370481686, 374.2359076983855, 324.02624551968927, 277.78364873681284, 273.8420171428789, 223.60144150898543]},
-' MCS____16___ ' : {'X': [568234.987, 568234.0731433529, 568231.9940469721, 568230.176995777, 568227.1995062566], 'Y': [6457884.969, 6457887.958090407, 6457896.114710459, 6457904.2437302135, 6457919.561585883], 'Z': [438.664, 420.9374604457802, 370.6368947673814, 320.321714525426, 219.5224196178776]},
-' MCS____17___ ' : {'X': [567878.878, 567878.1164527942, 567875.4051719215, 567873.3688118081, 567871.9871474964, 567870.8989500382, 567869.6211801415], 'Y': [6457825.776, 6457828.266908672, 6457836.513316294, 6457844.680710611, 6457852.359678007, 6457859.81900044, 6457867.886522061], 'Z': [439.218, 424.4458837048169, 374.1900808821589, 323.8895152037601, 273.4898677499859, 223.0500587185281, 169.67138883085923]},
-' MCS____18___ ' : {'X': [568091.215, 568090.8327719037, 568090.0561909565, 568090.1489854436, 568090.9851993324, 568091.8409484767, 568092.8879321946], 'Y': [6457828.942, 6457830.1922117695, 6457833.845737876, 6457837.934830252, 6457842.11967196, 6457846.481461801, 6457851.165397701], 'Z': [439.018, 424.0750795286238, 373.2120411901764, 322.3763183889078, 271.55518256718307, 220.74925296450405, 169.97559276974698]},
-' MCS____19___ ' : {'X': [568139.201, 568138.79496381, 568138.9177217231], 'Y': [6457849.288, 6457850.803347691, 6457852.178823136], 'Z': [439.009, 421.0774954343486, 403.130545894264]},
-' MCS____19A__ ' : {'X': [568138.201, 568137.7423262845, 568136.6359266678, 568135.940166536, 568135.6192574468, 568135.9637757909, 568136.5960690749], 'Y': [6457849.288, 6457850.788254123, 6457854.075854061, 6457857.655229641, 6457861.643754483, 6457866.697331881, 6457872.079788076], 'Z': [439.009, 421.0774954343486, 370.1955972137327, 319.32611728425456, 268.48333326386506, 217.7354991958425, 167.02426404504908]},
-' MCS____20___ ' : {'X': [568223.473, 568221.6195756755, 568215.126839478, 568209.4812149169, 568205.2305836857, 568201.899684138, 568199.6350313246], 'Y': [6457803.87, 6457809.932277805, 6457830.399975618, 6457851.6177925365, 6457873.485394508, 6457896.317880957, 6457919.837199673], 'Z': [438.876, 425.2813831944502, 379.0221384655855, 332.9902889637426, 287.1128422370284, 241.6311682271625, 196.43478568637056]},
-' MCS____21___ ' : {'X': [568098.789, 568098.789, 568098.3555287715, 568097.7020221364, 568096.9899607, 568096.9025823447], 'Y': [6457863.786, 6457863.786, 6457863.685128085, 6457863.402330511, 6457863.398602132, 6457863.146268497], 'Z': [438.753, 411.753, 360.7549419237272, 309.7599131992527, 258.76488447477817, 207.7655835701594]},
-' MCS____22___ ' : {'X': [568067.995, 568067.995, 568067.9221903514, 568067.8972077174, 568067.9613452305, 568067.9994320273, 568067.9476746348], 'Y': [6457861.6, 6457861.6, 6457861.25147987, 6457861.336913815, 6457861.275192907, 6457861.539496967, 6457861.547416961], 'Z': [438.753, 420.753, 369.75424283402486, 318.7543205114472, 267.7543981888695, 216.75509728425075, 186.7551429768521]},
-' MCS____23___ ' : {'X': [566904.901, 566902.9535308081, 566900.1286623824, 566897.6412767143, 566895.6815206689, 566892.4961095037, 566891.8938625887], 'Y': [6457610.406, 6457617.674053971, 6457634.886820166, 6457652.320475652, 6457669.737209588, 6457700.456918068, 6457710.838718758], 'Z': [434.711, 414.0377623427101, 366.1134386826287, 318.25029452189136, 270.3564876650612, 185.50224400809367, 156.61720440119896]},
-' MCS____24___ ' : {'X': [566727.288, 566723.2797823501, 566718.84887143, 566715.4964255508, 566713.0238004756, 566711.4972020463, 566710.6849412329, 566710.4683293808], 'Y': [6457491.046, 6457506.004871917, 6457535.233895135, 6457564.11992211, 6457594.067031839, 6457625.058878378, 6457655.669535003, 6457666.749324361], 'Z': [434.073, 411.9558948041972, 369.4203657710714, 328.50095042549793, 287.2934663466984, 245.815581331554, 205.0316637487124, 190.84747018379136]},
-' MCS____25___ ' : {'X': [566726.765, 566723.091494921], 'Y': [6457491.678, 6457505.387707597], 'Z': [433.967, 416.1235340237649]},
-' MCS____25A__ ' : {'X': [566726.352, 566722.6478439544], 'Y': [6457492.528, 6457506.352098561], 'Z': [433.89, 416.52844687377626]},
-' MCS____25B__ ' : {'X': [566726.352], 'Y': [6457492.528], 'Z': [433.89]},
-' MCS____25C__ ' : {'X': [566726.123, 566722.4188439545, 566716.7654218285, 566711.9732996514, 566708.3030196662, 566705.4110526555], 'Y': [6457493.15, 6457506.974098561, 6457538.970932705, 6457571.22830805, 6457603.441942047, 6457636.765204286], 'Z': [433.854, 416.49244687377626, 376.7944441148065, 337.58351067906005, 299.25792093166166, 259.7049599734246]},
-' MCS____26___ ' : {'X': [567633.128, 567632.0948190986, 567629.1999203386, 567626.9959382513, 567624.7529748484, 567623.136142916, 567621.4035630797], 'Y': [6457694.872, 6457698.727883618, 6457708.783839352, 6457718.934765375, 6457729.0354326805, 6457738.666258832, 6457748.562895738], 'Z': [438.953, 420.1725660659109, 369.95118301600894, 320.5310336451996, 270.0811016812462, 220.53432537686217, 170.0238834360958]},
-' MCS____27___ ' : {'X': [567638.21, 567637.3470856538, 567635.6225116829, 567634.3843284465, 567633.8447557559, 567633.9754441648], 'Y': [6457673.23, 6457676.450440182, 6457685.297868982, 6457694.2439114, 6457703.9251927305, 6457713.524464123], 'Z': [439.174, 420.2656911421656, 369.7638213920193, 319.56984538558794, 269.50007753012267, 219.4117863905755]},
-' MCS____28___ ' : {'X': [567697.19, 567695.4638341253, 567693.9979418083, 567693.4332278343, 567692.9616439015, 567692.6654091977], 'Y': [6457731.673, 6457738.115138747, 6457755.571984766, 6457773.84624123, 6457789.735558683, 6457806.538766775], 'Z': [438.567, 420.2429938946748, 372.3461287908043, 321.5353755114505, 276.24401651809256, 228.0925425759105]},
-' MCS____29___ ' : {'X': [567912.232, 567909.1198560777, 567903.8847057783, 567898.9789059582, 567895.0189526805, 567891.5950166838], 'Y': [6457703.012, 6457714.626679239, 6457738.799354313, 6457762.826259314, 6457786.876631408, 6457810.637101164], 'Z': [439.981, 417.83480876091846, 373.2335197534701, 328.5161745262096, 283.7177552219435, 238.7209026737609]},
-' MCS____30___ ' : {'X': [568493.388, 568491.6666656533, 568489.4171810359, 568487.6592898897, 568485.6577343148], 'Y': [6457899.812, 6457906.236107239, 6457915.119464008, 6457923.736677599, 6457931.885552192], 'Z': [445.031, 407.3128630596324, 356.83796046978466, 306.6019828377369, 256.2970166996907]},
-' MCS____31___ ' : {'X': [568313.352, 568312.2284136118, 568310.1130554626, 568307.9742243289, 568306.3107152673, 568305.0799753296, 568303.7460085345], 'Y': [6457858.061, 6457862.254281487, 6457870.7259207, 6457878.867081171, 6457887.028905405, 6457895.244360546, 6457903.354901795], 'Z': [438.845, 414.2248061746948, 363.6733809824918, 313.37281530409297, 263.05763506213754, 209.39683394958973, 159.36754599510118]},
-' MCS____32___ ' : {'X': [568313.352, 568311.5684950693, 568308.5538417511, 568306.5794972876, 568305.4221260062, 568304.6054758863], 'Y': [6457858.061, 6457864.717131017, 6457879.287146856, 6457892.129576182, 6457905.148992728, 6457918.021715586], 'Z': [438.845, 414.8134576015421, 359.47887073382293, 310.1617948579388, 260.86518965507645, 211.52325932398813]},
-' MCS____33___ ' : {'X': [568313.352, 568311.3207213341, 568306.6969543776, 568302.9975194568, 568300.0426153975], 'Y': [6457858.061, 6457865.641835185, 6457885.495592393, 6457903.842745138, 6457921.7695351085], 'Z': [438.845, 418.3995886597113, 368.0712755164527, 320.6297729327152, 272.9758251072108]},
-' MCS____34___ ' : {'X': [567823.178, 567820.4604000264, 567815.3339094943, 567811.2114536047, 567807.8484436354, 567805.0397067608, 567803.1416023759], 'Y': [6457735.246, 6457745.388221176, 6457771.207929266, 6457796.520757694, 6457822.030948449, 6457848.400070607, 6457875.010238881], 'Z': [438.802, 420.6154665205268, 375.4230803365672, 331.34058863761885, 287.3074155566735, 243.74389419087703, 200.27785981764595]},
-' MCS____35___ ' : {'X': [567823.179], 'Y': [6457735.246], 'Z': [438.802]},
-' MCS____35A__ ' : {'X': [567823.426, 567820.7967946265, 567820.2690322709], 'Y': [6457734.352, 6457744.164328037, 6457746.746825264], 'Z': [438.55, 419.0357616700791, 413.6457547158429]},
-' MCS____35B__ ' : {'X': [567823.571, 567820.9417946265], 'Y': [6457734.773, 6457744.585328037], 'Z': [438.757, 419.2427616700791]},
-' MCS____35C__ ' : {'X': [567823.599, 567820.9697946266, 567820.4552610093, 567819.6610183966, 567817.9725006658, 567815.7511832322, 567813.4681637012, 567811.5605870803, 567809.7045562401, 567808.0517846703, 567806.5836706203], 'Y': [6457733.714, 6457743.526328037, 6457746.124912691, 6457750.125137072, 6457759.104308, 6457772.140645947, 6457785.235251476, 6457798.489302061, 6457811.986096143, 6457825.293208705, 6457838.612532158], 'Z': [438.685, 419.1707616700791, 413.7872114520332, 405.4291384936056, 386.52084937683793, 359.92743587312225, 333.03284296161905, 306.18714880875154, 279.1227497015947, 252.286410506454, 225.44539219720156]},
-' MCS____35D__ ' : {'X': [567823.491, 567820.8617946266, 567820.3361313585], 'Y': [6457733.995, 6457743.807328037, 6457746.767360933], 'Z': [438.546, 419.0317616700791, 413.83927831584384]},
-' MCS____36___ ' : {'X': [567830.349, 567829.0423941585, 567826.8287860055, 567825.0336915094, 567823.7641526503, 567822.769287099], 'Y': [6457767.432, 6457774.842129954, 6457792.026846699, 6457809.048870835, 6457826.419713833, 6457844.103432291], 'Z': [438.863, 418.18976234271, 369.9044079449209, 321.8624644990501, 274.0351492427329, 226.10283922087748]},
-' MCS____37___ ' : {'X': [567830.349, 567828.8563055348, 567826.8750558741, 567825.5697918828, 567824.7947702418, 567824.478158355], 'Y': [6457767.432, 6457775.897490983, 6457795.47048444, 6457815.174180772, 6457834.987949937, 6457854.920916419], 'Z': [438.863, 418.6118932240463, 371.23402310602927, 324.2121065481306, 277.2247264026216, 230.282457559342]},
-' MCS____38___ ' : {'X': [567798.177, 567797.2331874339, 567796.8625953676, 567796.7940556224, 567796.7301996418, 567796.6166686798, 567796.6395836303, 567796.7713218464, 567796.8739761448], 'Y': [6457799.93, 6457803.452356449, 6457810.22942828, 6457815.329170752, 6457820.789635557, 6457825.992685886, 6457831.24437236, 6457836.596514203, 6457842.597620803], 'Z': [436.708, 416.02703718674366, 374.9844500494653, 346.0302115165581, 315.92142132938017, 286.3762799692708, 257.449142812516, 227.93072106038068, 194.87113573837516]},
-' MCS____39___ ' : {'X': [567812.424, 567811.7498481671, 567809.9889152452, 567808.5540403483, 567807.5902214304, 567806.6506356098, 567805.5198549657, 567805.3376969668, 567804.9251007461, 567804.9666245107], 'Y': [6457813.749, 6457816.264968893, 6457821.779377864, 6457826.679916638, 6457832.129318818, 6457837.546390126, 6457842.605211924, 6457847.744382882, 6457852.65786023, 6457857.614278575], 'Z': [437.092, 422.3198837048169, 390.3395708711548, 360.7773339166501, 331.2921669852495, 301.800261029059, 272.2514935902184, 242.69551720080636, 213.10349961655072, 183.5157962083325]},
-' MCS____40___ ' : {'X': [567798.177, 567797.527232594, 567797.3159757869, 567797.2958410439, 567797.4338157495, 567797.4718927161, 567797.6516563316, 567797.8461206688, 567798.0480198038], 'Y': [6457799.93, 6457802.354964972, 6457806.145439579, 6457810.123460074, 6457814.239298092, 6457818.066627065, 6457822.040634804, 6457825.608253591, 6457829.185873166], 'Z': [436.708, 416.2615492761888, 386.50272415137687, 356.7676447411317, 327.05164163861554, 297.2968083660303, 267.5617289557851, 237.7752508186907, 207.99002167881105]},
-' MCS____41___ ' : {'X': [567877.785, 567876.9939951828, 567876.9791481129, 567875.8841767139, 567875.8667191707, 567874.8332326165, 567874.8283891005, 567874.4699085143, 567874.4659782744, 567874.2044396205, 567874.1945377911, 567873.4618024114, 567873.4521856339, 567872.7405441079, 567872.7335360922, 567872.2154437313, 567872.208260439], 'Y': [6457832.828, 6457835.780070167, 6457835.843620376, 6457840.530448233, 6457840.616025419, 6457845.682194846, 6457845.752518565, 6457850.930980524, 6457851.001498843, 6457856.236678264, 6457856.306955435, 6457861.50746612, 6457861.578406831, 6457866.828019492, 6457866.901472334, 6457872.321727814, 6457872.394336204], 'Z': [437.99, 420.6573835469852, 420.2627432860498, 391.1580240420663, 390.6657113575074, 361.5208004316206, 361.12706052410687, 331.98576639686354, 331.5920511191008, 302.4598611232112, 302.06620762970147, 272.93584910997924, 272.54230758354936, 243.4202346277401, 243.02709906865476, 213.93221273382792, 213.53892349923237]},
-' MCS____42___ ' : {'X': [567795.474, 567794.5751308895, 567793.2743049759, 567792.2267397703, 567791.7400514393, 567791.4093234384, 567791.3564426021, 567791.2611947176, 567791.2989924448, 567791.0520708181], 'Y': [6457811.157, 6457814.511625189, 6457820.307423359, 6457826.164733018, 6457831.997172031, 6457837.949957369, 6457841.556661719, 6457847.828940297, 6457853.242977947, 6457859.670529572], 'Z': [437.069, 417.3728449397559, 387.9667813555364, 358.56279300878884, 329.13923459669195, 299.3295890821459, 281.6947120667812, 250.7236053818264, 222.2334883647086, 187.82962797360744]},
-' MCS____43___ ' : {'X': [567771.079, 567770.1801308895, 567769.187090378, 567769.1737981137, 567768.1901705585, 567768.1829257281, 567767.6468082814, 567767.3199881259, 567767.1870064526, 567767.2640919889, 567767.0569136811, 567767.0043937475], 'Y': [6457799.867, 6457803.221625189, 6457809.031151461, 6457809.100307208, 6457814.217832431, 6457814.295050077, 6457820.009155848, 6457825.559249913, 6457831.374487257, 6457837.036542441, 6457842.479071778, 6457845.822319597], 'Z': [437.532, 417.8358449397558, 388.4204871306691, 388.0267349262706, 358.8890718007835, 358.49666264231803, 329.4583849158756, 299.9780585192828, 270.54737163437494, 241.0866318454038, 211.5851750752719, 193.49153155948895]},
-' MCS____44___ ' : {'X': [567885.837, 567885.0729612561, 567885.0622504246, 567883.9389591452, 567883.9237296403, 567882.9297930966, 567882.9166858152, 567881.954091909, 567881.9408650048, 567880.9620740898, 567880.9514011184, 567880.2363879924, 567880.2242097245, 567879.4171417714, 567879.4142672456, 567879.2011375196], 'Y': [6457802.369, 6457805.220431412, 6457805.288363853, 6457810.142276317, 6457810.207928808, 6457815.173074714, 6457815.243384289, 6457820.4269775, 6457820.496845224, 6457825.667056766, 6457825.738471285, 6457831.033782789, 6457831.106557248, 6457836.506775017, 6457836.579612528, 6457842.052826463], 'Z': [437.358, 420.61626819879245, 420.2222244683305, 391.0445317821426, 390.6502503945071, 361.4865843651606, 361.0930303499872, 331.96634543071343, 331.57271673484706, 302.44419324073795, 302.05076465241257, 272.9370491163364, 272.543913557251, 243.45188218493573, 243.05858022191012, 213.56284315801253]},
-' MCS____45___ ' : {'X': [567771.079, 567770.4481578583, 567769.5119353083, 567768.6590809571, 567768.4015336203, 567768.1580554199, 567768.1381807491, 567768.2766026803, 567768.4306577016, 567768.3238968257, 567768.313265847], 'Y': [6457799.867, 6457802.221334924, 6457806.109023769, 6457810.249130157, 6457813.068196283, 6457814.8857207205, 6457819.630421112, 6457824.406790523, 6457829.050720423, 6457833.514794729, 6457835.770741766], 'Z': [437.532, 417.6810769671736, 387.9487820207488, 358.24807228925204, 340.06713349207746, 328.2080726825532, 298.5856584800258, 269.3738948457429, 239.73590938577016, 210.0700933223227, 195.24071066679505]},
-' MCS____46___ ' : {'X': [567629.819, 567629.1448481671, 567628.5683317394, 567628.4933360853, 567628.569322185, 567628.5779381806, 567628.5991312072, 567628.5147007464, 567628.8256895345, 567629.3518498334], 'Y': [6457714.731, 6457717.246968892, 6457722.528136712, 6457728.257055421, 6457734.1400834415, 6457740.310831758, 6457746.701708207, 6457753.0664784, 6457759.357592357, 6457765.911458544], 'Z': [437.674, 422.9018837048168, 393.3760154657396, 363.9281994843992, 334.5107861476762, 305.15228157095777, 275.84091433789985, 246.52398114401947, 217.1926809487731, 187.92204731458995]},
-' MCS____47___ ' : {'X': [567771.079, 567770.6637510097, 567770.5353698992, 567770.3169856189, 567770.3607586115, 567770.6008116244, 567770.9816170459, 567771.3320481537, 567771.7626938145], 'Y': [6457799.867, 6457801.416730329, 6457802.887088792, 6457804.336218984, 6457804.62497266, 6457806.292887197, 6457807.864547529, 6457809.357446116, 6457810.639303658], 'Z': [437.532, 414.588026844024, 384.6243561028861, 354.6601719826431, 348.6672840945116, 318.71464755532827, 288.7582647457982, 258.7974828493493, 234.83560926740807]},
-' MCS____48___ ' : {'X': [567629.819, 567628.4911800965, 567626.6002531265, 567625.0458658144, 567623.5160856701, 567622.2026939496, 567620.7717706998, 567619.7986241581, 567618.9836927874, 567618.2035691049, 567617.5366628194], 'Y': [6457714.731, 6457719.686491343, 6457730.070983926, 6457740.911287776, 6457752.064477664, 6457763.736845868, 6457775.42450702, 6457787.086627301, 6457798.596340062, 6457810.098775133, 6457821.492017921], 'Z': [437.674, 423.57861068821137, 395.49682461604215, 367.5670610559556, 339.7593979389326, 312.1544921661516, 284.5619019391183, 256.9385796122345, 229.24629911732703, 201.5499926039376, 173.80563723610518]},
-' MCS____49___ ' : {'X': [567739.424, 567738.5071535072, 567735.8566683384, 567733.6043228428, 567731.2667934558, 567729.2874737259, 567727.3909374909, 567725.7164702527, 567724.0573403345, 567722.9272593512], 'Y': [6457785.67, 6457789.091717694, 6457794.822638553, 6457800.830821296, 6457807.139830185, 6457813.522147212, 6457819.920645152, 6457826.641563407, 6457833.256608483, 6457837.847096783], 'Z': [438.369, 418.278921838551, 388.9509237056073, 359.64514475525306, 330.4093385716557, 301.1629999500021, 272.3251363949703, 242.7247070520831, 213.5101821277692, 193.04923556760207]},
-' MCS____50___ ' : {'X': [567739.424, 567738.5071535072, 567736.9401386249, 567735.1299802136, 567733.8825757806, 567732.6853184812, 567731.6358203471, 567730.5218215781, 567729.544206724], 'Y': [6457785.67, 6457789.091717694, 6457793.984129758, 6457799.611987256, 6457804.366810144, 6457809.44740533, 6457814.7918044645, 6457819.854348251, 6457825.180952687], 'Z': [438.369, 418.278921838551, 388.7220483814992, 356.2559037613868, 329.7071628968296, 300.1647505458282, 270.6632937756964, 241.1145263368557, 211.60738221245413]},
-' MCS____51___ ' : {'X': [567739.424, 567738.7805410154, 567738.000447135], 'Y': [6457785.67, 6457788.071421623, 6457792.326000977], 'Z': [438.369, 418.121058506517, 388.4345294392911]},
-' MCS____51A__ ' : {'X': [567739.424, 567738.7805410154, 567738.2633593621, 567737.8887063231, 567737.9866166575, 567738.2640655054, 567738.5129108956, 567739.0654723936, 567739.7019021433, 567740.3256089459], 'Y': [6457785.67, 6457788.071421623, 6457791.25403804, 6457794.283484097, 6457797.901858517, 6457801.662022619, 6457805.408569816, 6457809.442367124, 6457813.474288674, 6457817.266436852], 'Z': [438.369, 418.121058506517, 388.2948372257946, 358.45053975228944, 328.66971068192225, 298.9075839423065, 269.14348711292223, 239.42105189877893, 209.70003970555217, 179.94721459553895]},
-' MCS____52___ ' : {'X': [567711.787, 567710.8701535072, 567710.8716514352], 'Y': [6457778.557, 6457781.978717694, 6457782.515122248], 'Z': [437.967, 417.87692183855097, 414.9252667247504]},
-' MCS____52A__ ' : {'X': [567711.787, 567710.8701535072, 567710.8174957044], 'Y': [6457778.557, 6457781.978717694, 6457782.510980355], 'Z': [437.967, 417.87692183855097, 414.9249862675069]},
-' MCS____52B__ ' : {'X': [567711.787, 567710.8701535072, 567710.0504118011, 567709.3151195238, 567708.6268369177, 567708.336856366, 567707.8083102378, 567707.6951321602, 567707.4951720636, 567707.2576172048], 'Y': [6457778.557, 6457781.978717694, 6457786.903699318, 6457792.102652032, 6457797.323635833, 6457802.695335062, 6457808.276372168, 6457813.865803335, 6457819.293144528, 6457824.961031753], 'Z': [437.967, 417.87692183855097, 388.2952961303489, 358.7583660944728, 329.22418936311084, 299.7104508896685, 270.23889402863, 240.76440590820815, 211.26010141655524, 181.80134003566195]},
-' MCS____53___ ' : {'X': [567711.787, 567710.5096745222, 567709.2960490958, 567709.2102800319, 567708.3671505337, 567707.4010305336, 567706.8148943428, 567706.2208380314, 567705.764693608, 567705.258520444, 567704.8939532718], 'Y': [6457778.557, 6457783.324043581, 6457790.900960289, 6457791.687919339, 6457798.574530402, 6457806.003091018, 6457813.816692059, 6457821.590351881, 6457829.290837467, 6457837.013547594, 6457843.923750468], 'Z': [437.967, 418.17296718396966, 389.1709423145708, 386.27727005919735, 360.1839046051929, 331.1342385256843, 302.59016588106755, 273.2068830476937, 244.2156006680538, 215.23106104740395, 189.13285829294747]},
-' MCS____54___ ' : {'X': [567682.678, 567681.7611535072, 567681.4977416148, 567681.1799934024, 567680.863382066, 567680.6161578934, 567680.4443967505, 567680.3614775421, 567680.0557425652, 567680.0624613907, 567680.0879657472, 567680.0899052864, 567680.2334311923, 567680.2300366604], 'Y': [6457771.397, 6457774.818717694, 6457776.528147843, 6457779.7687948, 6457785.06673158, 6457789.980957241, 6457794.779488361, 6457799.626893843, 6457804.242135803, 6457805.374358832, 6457809.549426862, 6457809.615555175, 6457814.509050307, 6457814.576291614], 'Z': [437.726, 417.635921838551, 407.7866344154679, 388.0534835426731, 358.52668853977315, 328.93295159488963, 299.3197012296853, 269.71402973748104, 240.4776471333947, 234.178597532776, 210.95085213049475, 210.55636095890773, 181.36401426146824, 180.96972111706032]},
-' MCS____55___ ' : {'X': [567614.369, 567612.5631649311, 567610.4630871064, 567608.3494814129, 567606.4277167408, 567604.7905495417, 567603.028543661, 567601.3019759224, 567599.0116970855, 567596.8685388326, 567595.5783249115], 'Y': [6457769.056, 6457775.795468227, 6457786.154693576, 6457797.058730929, 6457808.254449683, 6457819.573617288, 6457830.864225757, 6457842.121115053, 6457852.795221578, 6457863.58929603, 6457871.12152627], 'Z': [439.106, 419.9362705359675, 391.8600150286255, 363.9918496717245, 336.2256345511976, 308.49124924509204, 280.75287337935725, 252.99856907833143, 225.05544697755212, 197.14675963041324, 177.58657415986775]},
-' MCS____56___ ' : {'X': [567571.393, 567570.0264591186, 567568.0155823848, 567566.2157781221, 567564.9699331352, 567563.7156761914, 567562.801069596, 567561.7681127513, 567561.1084694163, 567560.2519336987], 'Y': [6457726.518, 6457731.618, 6457739.159536998, 6457746.992761312, 6457755.172583424, 6457762.968317185, 6457770.958517852, 6457778.648969879, 6457786.68955155, 6457794.472863278], 'Z': [437.936, 418.231113143703, 389.26420798514505, 360.36089846081865, 331.5244912557075, 302.582249209891, 273.6803429047673, 244.7012133841077, 215.806336380178, 186.84625341921412]},
-' MCS____57___ ' : {'X': [567887.742, 567886.8251535072, 567886.7434678618, 567886.1541266937, 567885.4738012125, 567884.3208097318, 567883.6157111804, 567883.2009037307, 567882.9141556692], 'Y': [6457792.64, 6457796.061717694, 6457796.569428292, 6457801.202028383, 6457806.418856633, 6457811.292554221, 6457816.271751729, 6457821.461312837, 6457826.72195747], 'Z': [438.002, 417.9119218385509, 414.95632419960975, 388.3632481572855, 358.82815275805234, 329.249145295576, 299.67364144166925, 270.5350692342979, 240.5950726813772]},
-' MCS____58___ ' : {'X': [567857.358, 567857.0816709388, 567856.9939061055, 567857.058794109, 567856.7897890556, 567856.8742019971, 567856.5148919125, 567856.5688631311, 567856.4097774122], 'Y': [6457803.258, 6457804.2892740965, 6457805.610637091, 6457806.760441877, 6457807.976859046, 6457809.377049949, 6457810.948400484, 6457812.334392159, 6457813.533067], 'Z': [438.083, 417.7109574910068, 387.74020012367527, 357.7623126313566, 327.7881910336807, 297.82100331290883, 267.86433871615867, 237.89642063393177, 207.92079936662967]},
-' MCS____59___ ' : {'X': [567857.358, 567856.7145410154], 'Y': [6457803.258, 6457805.659421624], 'Z': [438.083, 417.835058506517]},
-' MCS____59A__ ' : {'X': [567857.358, 567856.7145410154, 567856.6027499607, 567856.2191728837, 567856.3111967058, 567856.3475080065, 567856.3682484432, 567856.3152578947, 567856.2003248802, 567855.8772532893], 'Y': [6457803.258, 6457805.659421624, 6457806.489519283, 6457809.181304334, 6457811.632514394, 6457814.079963392, 6457816.663254608, 6457819.131277669, 6457821.524048285, 6457823.536553015], 'Z': [438.083, 417.835058506517, 408.8741187881951, 378.997586829716, 349.09803665153873, 319.19805881051786, 289.30949617659905, 259.41123445165505, 229.5070300786303, 208.103865605648]},
-' MCS____60___ ' : {'X': [567857.652, 567857.652, 567858.1476799836, 567858.7024803775, 567859.0246309927, 567859.1810227289, 567859.3895916033, 567860.1501172987], 'Y': [6457802.214, 6457802.214, 6457802.130695836, 6457802.144933107, 6457801.498233716, 6457801.059277144, 6457800.8173918445, 6457800.699520325], 'Z': [438.063, 417.663, 387.6672109326966, 357.67234480825704, 327.6810460888144, 297.6846653279136, 267.68636553398244, 237.6962387091179]},
-' WF_____46___ ' : {'X': [530921.0, 530923.3554608607, 530926.3606636837, 530929.7192420217, 530933.7939918818, 530938.1475345221, 530942.6526754405, 530946.1453755599, 530948.936985503], 'Y': [6471458.7, 6471454.930474653, 6471448.544093572, 6471441.895238563, 6471433.75815112, 6471425.570328258, 6471417.025568176, 6471408.158832368, 6471398.794563], 'Z': [452.19, 401.38407039732095, 326.71692305208995, 252.087755304998, 174.62044464099608, 103.22012094941356, 28.844783770681783, -45.54729942357044, -116.88114393751438]},
-' WF_____47___ ' : {'X': [528683.95, 528681.7897257925, 528677.7751171273, 528673.7837533886, 528669.491432955, 528665.7891785905, 528662.5693880972, 528659.7789506139, 528657.6898338231, 528656.8020518402], 'Y': [6473522.574, 6473526.031161406, 6473531.516428547, 6473537.805811416, 6473544.674960015, 6473551.437265963, 6473558.009676081, 6473564.916251211, 6473572.201867282, 6473574.681346202], 'Z': [432.586, 393.7996460806373, 319.1083161844396, 244.4791484373476, 169.91782613942394, 95.31511485563588, 20.67305985699853, -53.95610789009344, -128.57216105225257, -152.42722398317687]},
-' WF_____48___ ' : {'X': [528250.525, 528243.8982097089, 528231.0725534802, 528217.1424081573, 528202.0341549261, 528186.0293739823, 528169.4897340611, 528152.3991165813, 528133.7698840944], 'Y': [6471712.583, 6471708.442121845, 6471705.528204243, 6471703.669526023, 6471701.921441481, 6471700.12621766, 6471698.533631474, 6471697.428430818, 6471697.005674393], 'Z': [440.187, 395.87065111445065, 322.03291261636787, 248.3613688117162, 174.91965801508377, 101.66923714002118, 28.533035567103937, -44.48538214838308, -123.31287084332725]},
-' WF_____49___ ' : {'X': [531067.365, 531068.6426494084, 531075.2202043984, 531078.7558484239, 531078.6873772149, 531073.0824966937, 531063.2934444078, 531049.8502504557], 'Y': [6484671.112, 6484666.656306999, 6484638.831291292, 6484612.681104102, 6484573.450030964, 6484537.244705424, 6484502.419042787, 6484466.271383588], 'Z': [420.641, 406.3751522555728, 327.3909495866976, 257.18648440627453, 156.56383182703524, 71.08424527629845, -11.325388124262048, -95.95178631578057]},
-' WF_____50___ ' : {'X': [532048.635, 532052.0288470059, 532057.7911725445, 532062.9101339687, 532067.7934837743, 532071.8483142431, 532074.6302385747, 532076.4198465283, 532076.5081571012], 'Y': [6484870.057, 6484858.221248931, 6484838.76796393, 6484817.445955087, 6484794.272799541, 6484771.960508684, 6484748.279115526, 6484723.312797149, 6484672.714617415], 'Z': [444.715, 410.88606565170727, 344.9363476306225, 273.21349093339484, 195.75280570038896, 124.26350561591794, 49.99741298203112, -27.03816483787631, -180.93363718487]},
-' WF_____51___ ' : {'X': [531071.0, 531072.7192468611], 'Y': [6484659.0, 6484653.004273664], 'Z': [425.0, 395.6555719779858]},
-' WF_____51A__ ' : {'X': [531066.299, 531067.1586234305, 531069.5099526491, 531070.9041608258, 531071.8440677674, 531072.8265319841, 531073.2739239858, 531073.2484987816, 531072.7356171454, 531072.4359169881], 'Y': [6484672.275, 6484669.2771368325, 6484652.332020352, 6484638.606296595, 6484624.455318295, 6484609.663609462, 6484594.589403057, 6484580.021848903, 6484565.334840467, 6484551.027304381], 'Z': [421.22, 406.5477859889929, 315.1347985180844, 241.4146473318678, 167.7677438796345, 94.24740578300536, 20.77926206305456, -52.792374588134805, -126.33847397913078, -199.9605127377056]},
-' WF_____52___ ' : {'X': [530083.45, 530086.619636963, 530100.5180661498, 530113.650914024, 530124.5749683104, 530133.4553902247, 530138.1784516465, 530139.3861612938, 530136.8852523296, 530132.7632299776], 'Y': [6484463.703, 6484458.213027738, 6484429.462746087, 6484399.965886815, 6484369.456186416, 6484337.434419484, 6484293.957900252, 6484253.265924459, 6484218.376445282, 6484173.942393537], 'Z': [416.233, 402.6383831944502, 334.7763542594988, 267.0824579332592, 199.44501845287567, 132.20853617411765, 46.748106931449485, -30.13950288626685, -96.48307602739816, -181.48086409982207]},
-' WF_____53___ ' : {'X': [531615.0, 531616.7231012832], 'Y': [6484680.0, 6484673.990831696], 'Z': [426.0, 390.5469208915605]},
-' WF_____53A__ ' : {'X': [531618.137, 531619.1718603752, 531625.2177915305, 531631.0194310168, 531636.0408077447, 531641.8867681416, 531644.7608579372, 531648.7024755476, 531651.5593732682], 'Y': [6484677.761, 6484674.15201298, 6484663.24486445, 6484653.196130092, 6484642.668594855, 6484626.8649103865, 6484613.683144328, 6484599.470130389, 6484589.763224651], 'Z': [431.519, 407.8144798257167, 330.81785115002367, 256.7208612173195, 179.59786349565303, 66.85005507239451, -3.874626980071071, -80.46740657039368, -133.51091810974287]},
-' WF_____54___ ' : {'X': [529109.0, 529115.4843915651, 529135.1048726441, 529151.8364091205, 529169.2714699936, 529185.9422401427, 529201.8340840442, 529218.2795963893, 529233.8291502657, 529244.2669402029], 'Y': [6483149.0, 6483143.55894943, 6483126.442912871, 6483110.285455911, 6483091.976838352, 6483073.133960436, 6483053.155174504, 6483032.99098417, 6483011.822831679, 6482996.0530512985], 'Z': [411.0, 386.4165170344178, 312.8904807292279, 247.92901313719727, 177.3187222762944, 106.66441331724717, 36.14280379146574, -34.19886630442659, -104.4492804980564, -155.0295787174699]},
-' WF_____55___ ' : {'X': [528673.0, 528677.1505016255, 528697.5021243668, 528720.1160136285, 528747.2851052268, 528777.0452037472, 528807.7100092996, 528838.549977358, 528869.090576888, 528903.9386238444, 528911.8743703201], 'Y': [6482444.0, 6482440.984484057, 6482424.96933617, 6482408.296939101, 6482391.972101904, 6482374.720776192, 6482357.652964375, 6482339.049106245, 6482319.742140676, 6482296.938217735, 6482291.422730253], 'Z': [427.0, 412.9046106882114, 342.51763398124467, 272.9788448887356, 205.00576086098684, 138.3594684118657, 72.07704615521368, 6.2910838772945255, -59.43191712599524, -135.81643598822956, -154.460559076094]},
-' WF_____56___ ' : {'X': [527642.0, 527650.3840841673, 527669.3262921033, 527687.2471491251, 527707.6023765866], 'Y': [6480639.0, 6480631.964918068, 6480617.482506549, 6480602.013637722, 6480583.749936665], 'Z': [434.0, 403.9298361348509, 329.6637435009641, 258.49804262762683, 179.07448227728423]},
-' WF_____56A__ ' : {'X': [527641.0, 527644.8576444252, 527653.2662463151, 527661.929662375, 527670.3597439828, 527677.9117557497, 527686.0266423962, 527697.7692230446, 527704.2855687003], 'Y': [6480640.0, 6480636.763051986, 6480626.987150412, 6480617.09100997, 6480606.828060655, 6480596.696259591, 6480586.675209145, 6480571.092278304, 6480561.321430186], 'Z': [434.0, 405.440575162646, 331.5573757010379, 257.71963720295514, 183.904966605262, 109.977206423598, 36.09400696198996, -79.26752937525912, -147.26067437061994]},
-' WF_____57___ ' : {'X': [527678.0, 527683.453911084, 527684.4722513981, 527693.5293913004], 'Y': [6480587.0, 6480582.423625221, 6480581.668193483, 6480574.726188057], 'Z': [436.0, 395.62288212649946, 389.7583867607829, 336.97792846933373]},
-' WF_____57A__ ' : {'X': [527686.87, 527692.4444358393, 527695.038089452, 527703.6929040462, 527712.1795269635, 527719.7643857035, 527727.1251904349, 527733.8794315149, 527739.7130864442, 527744.9754338345, 527749.1523355414, 527752.6627255933, 527755.5251781038, 527758.4587820498, 527760.6339802678], 'Y': [6480578.05, 6480573.372492943, 6480571.0963977575, 6480562.920812174, 6480554.81959952, 6480546.134403239, 6480536.125236725, 6480525.697145432, 6480515.845143256, 6480504.877010089, 6480493.543450024, 6480481.245387975, 6480471.217266294, 6480460.215929753, 6480449.057740428], 'Z': [432.65, 398.4148339743168, 383.8171508826604, 334.2262849423789, 284.5941624307474, 237.99977131499423, 188.53629853547216, 139.07282575595008, 92.45838032028756, 42.9305320448961, -6.618473074983847, -59.08212555485674, -102.85704007427958, -152.5698609780319, -199.2042187379189]},
-' WF_____58___ ' : {'X': [524035.0, 524042.1663565771, 524043.3050791357, 524054.989025985, 524064.3392455647, 524072.9911805536, 524082.5834724681, 524091.6017418727, 524099.0011251765, 524106.795422952, 524113.9099161454, 524120.3994913567, 524126.668114024, 524132.9262466462, 524138.7469390477, 524144.6544305703], 'Y': [6474212.0, 6474210.736377982, 6474210.542366622, 6474208.509705026, 6474205.513257418, 6474202.266550279, 6474198.894403498, 6474195.238146658, 6474190.420252126, 6474185.687018986, 6474180.561733962, 6474175.331101646, 6474169.326215927, 6474163.310398548, 6474157.695504247, 6474151.455273703], 'Z': [421.3, 387.0648339743168, 381.1770779903633, 322.36080751306, 272.3148816494555, 225.2128337778277, 175.23667384216543, 125.17368748633456, 77.99279072715595, 27.81465379254532, -22.42592184134815, -69.69669398593413, -119.95249680859212, -170.20829963125013, -217.5220661475151, -267.79294307104664]},
-' WF_____59___ ' : {'X': [524035.0, 524050.8292025088, 524058.05355787626, 524082.62293103663, 524107.4680891408, 524130.8560012163, 524155.7207049074, 524180.9927253187, 524204.5888223512, 524229.24711946887, 524253.5657341687, 524276.32831028994, 524300.7569265468, 524324.9656157696, 524347.8566955769, 524372.0344380174, 524395.9158526132], 'Y': [6474212.0, 6474210.615124228, 6474210.782978599, 6474210.839153653, 6474209.507069547, 6474208.334975237, 6474206.173150974, 6474204.242328846, 6474201.274418151, 6474197.954069895, 6474193.941666369, 6474190.308323006, 6474186.014525651, 6474180.616993431, 6474175.680729502, 6474169.48688221, 6474161.971304307], 'Z': [421.3, 390.1147716534072, 376.9701714527492, 332.27853077051213, 287.75950482975185, 245.85924512080095, 201.38371222676284, 157.1276741049475, 115.43336141191432, 70.91433547115403, 26.265644594153123, -15.837371263715134, -60.39975463852386, -104.96213801333258, -146.86239772228345, -191.3379306163216, -235.7698349834513]},
-' WF_____60___ ' : {'X': [524426.82, 524429.4606591134, 524430.0465102384, 524432.4440151763, 524434.920635569, 524437.4324022132, 524439.9810931381, 524442.7068741387, 524445.2840251426, 524448.040068594, 524450.939937882, 524456.4661746583, 524459.3175755213, 524462.3819998496], 'Y': [6473222.36, 6473222.128972264, 6473222.108831248, 6473221.955094113, 6473222.22549706, 6473222.183013408, 6473221.780753869, 6473221.360290683, 6473221.049835844, 6473220.945452667, 6473220.487766694, 6473220.519692339, 6473219.820956728, 6473218.967141076], 'Z': [421.36, 383.4525660901267, 371.4668924420295, 320.52350881896905, 269.58439581455593, 221.6501781463364, 170.7154909299429, 119.79012074330608, 71.86036056764793, 20.934990381011133, -29.98044226630431, -128.82607792032042, -179.74151056763586, -227.63598104565423]},
-' WF_____61___ ' : {'X': [524632.98, 524646.194643582, 524665.4244115996, 524681.2080486843, 524696.2656081434, 524712.0143994765, 524727.5605760082, 524741.6875954324, 524756.3120666463, 524770.8461357898, 524784.1525130204, 524798.0417505578, 524811.3107181409, 524824.2293271214, 524838.4530245439], 'Y': [6475705.75, 6475702.209146924, 6475697.247089397, 6475692.370594059, 6475687.631919107, 6475682.371920393, 6475676.7844521245, 6475670.680217584, 6475663.557178673, 6475656.065541995, 6475648.820006427, 6475640.681337451, 6475632.496170407, 6475625.046924645, 6475616.812014175], 'Z': [436.03, 398.4422951685637, 340.76566205700533, 292.5153087568005, 247.18524298540143, 198.96379562983628, 150.71344232963148, 105.24734899782209, 56.911160087333215, 8.603435922285747, -36.94261263665009, -85.33528923051941, -133.8938882603685, -179.51864337850213, -227.79775564440263]},
-' WF_____62___ ' : {'X': [524285.51, 524301.3298372683, 524315.3971816294, 524330.0523879137, 524344.1375081649, 524359.1618149632, 524373.9144515955, 524403.137903518, 524417.221527208, 524443.9183649655, 524470.0206572313, 524483.505834814], 'Y': [6474976.47, 6474972.231087379, 6474969.376979164, 6474965.1555597, 6474961.336899355, 6474956.866808904, 6474951.824768379, 6474942.234103748, 6474934.974650751, 6474920.678523766, 6474905.748349051, 6474897.429809539], 'Z': [435.5, 385.0940046363569, 339.2904688675756, 290.6242121132455, 244.89646101307332, 196.365146415222, 147.80654738537294, 53.70548995422234, 5.229187641205371, -87.97435095571967, -183.3460460305424, -231.82234834355933]},
-' WF_____63___ ' : {'X': [524300.5, 524304.7630090606, 524307.7531846255, 524314.750173232, 524322.1835665018, 524329.1667554765, 524336.8431688176, 524344.4340135097, 524351.3478871577, 524359.0859974285, 524366.4045087593, 524372.932123846, 524380.1588786987, 524387.6427236557, 524395.7024562062, 524404.5536610363], 'Y': [6472841.9, 6472840.348391594, 6472839.84967081, 6472838.212535441, 6472836.959407607, 6472835.299769521, 6472833.475378402, 6472831.671323692, 6472830.079069846, 6472828.537196253, 6472826.730249444, 6472824.960527607, 6472823.149448438, 6472820.649890597, 6472818.525081883, 6472815.992221662], 'Z': [421.3, 392.657038122741, 371.8769965522927, 321.38579000874824, 270.9459809772905, 223.48567468703425, 173.09972153279537, 122.70007407902118, 75.22731263764916, 24.84135948341032, -25.598449548047437, -73.11958511844219, -123.5724740995546, -173.95842725379345, -221.22919939837945, -271.3913444098621]},
-' WF_____64___ ' : {'X': [535583.81, 535588.1179758244, 535600.0804173754, 535610.507130209, 535619.9573096394, 535628.5606512086, 535636.1641247158, 535643.1607837792, 535649.5979506471, 535654.7955276995, 535659.9589610758, 535664.7449064667], 'Y': [6486001.78, 6485991.117385672, 6485967.4152218895, 6485943.639961505, 6485919.624703397, 6485895.701804885, 6485871.848229368, 6485847.890480397, 6485822.599587329, 6485800.748611572, 6485777.6108034365, 6485754.661759194], 'Z': [427.23, 407.3114157129579, 363.299287564501, 319.4014441872999, 275.41324705772973, 231.201512862014, 186.76960849488435, 142.2940756008462, 95.01899114284524, 52.59824089858797, 7.443165985112763, -37.398735123986725]},
-' WF_____65___ ' : {'X': [535942.046, 535947.1480350365, 535955.7989517704, 535964.1154983585, 535972.1331018098, 535979.990227971, 535986.8742923269, 535993.0116380668, 535999.1313595249, 536004.3925244419, 536009.1099214844, 536013.5290400598], 'Y': [6486208.812, 6486196.184020155, 6486174.964425678, 6486153.611566315, 6486132.14467122, 6486110.533926059, 6486089.066833808, 6486066.906244348, 6486044.658405385, 6486022.19204224, 6485999.767597648, 6485977.201469735], 'Z': [432.678, 405.947804274349, 360.38586346962927, 314.8239226649096, 269.26198186018985, 223.74010511913144, 179.11081419652515, 133.58893745546675, 88.10726344560084, 42.62558943573492, -2.936351368984802, -48.4582281100432]},
-' WF_____66___ ' : {'X': [532338.43, 532342.5268779413, 532353.3493732264, 532364.8303633651, 532374.9790007939, 532384.1422958832, 532393.3809038197, 532401.9499640694, 532409.8567271492, 532416.7064156986, 532423.0576649457, 532429.0837004024, 532434.547518303, 532439.3712972543, 532443.2247564084], 'Y': [6484933.22, 6484925.51489323, 6484904.528721977, 6484882.455136072, 6484860.165368185, 6484837.911502551, 6484815.022144941, 6484792.078740648, 6484769.348065116, 6484746.044790709, 6484722.79665265, 6484699.46210344, 6484676.312435926, 6484653.181976314, 6484632.551373764], 'Z': [423.03, 407.2868452714909, 365.0374167316321, 320.51839079087176, 275.78393644188674, 231.273718654836, 186.18840584036872, 141.4539514913837, 96.94373370433289, 51.64473626819231, 6.698260212877713, -38.248215842436885, -83.36184557840616, -128.5582281191981, -168.3643720038769]},
-' WF_____67___ ' : {'X': [532049.074, 532054.3216116859, 532061.7980382798, 532068.3811454667, 532074.4464556924, 532079.8708342694, 532084.2999644148, 532087.9801571303, 532090.5893466116, 532092.0054416282, 532092.2737210356, 532091.8642005671, 532091.678048265], 'Y': [6484835.764, 6484825.004801602, 6484809.245288693, 6484793.492421181, 6484777.675247335, 6484761.538401479, 6484745.100503704, 6484728.050125899, 6484710.549846042, 6484688.532273221, 6484672.848825503, 6484655.076368636, 6484644.620864235], 'Z': [442.481, 409.5917582724932, 361.6674346124119, 313.18578999390525, 265.0814344385776, 217.0067183928765, 168.93200234717543, 121.0076786870941, 73.17534302188731, 14.164995099238268, -28.012694427896847, -75.81407589198331, -103.93253557674004]},
-' WF_____68-1_ ' : {'X': [532049.074, 532053.9424022138, 532060.8345277692, 532067.0157644734, 532072.7041672015, 532077.3539820121, 532078.9155974115, 532080.9872841502, 532082.9579003841, 532085.0422358597, 532087.3583818314, 532091.5480628726, 532095.39256906, 532098.9686891272], 'Y': [6484835.764, 6484825.782296239, 6484811.188709396, 6484796.324619619, 6484781.174814552, 6484768.31582013, 6484763.775411705, 6484757.682901635, 6484751.646659296, 6484744.862996249, 6484737.552726363, 6484723.658306588, 6484709.870252705, 6484695.921973334], 'Z': [442.481, 409.28967206778304, 360.4892025169892, 312.0965259231198, 263.73201950760364, 224.02023933243237, 210.23234432696512, 189.82280158095307, 169.8057975573012, 147.29807751964302, 121.4099446782018, 72.10120638684288, 23.151136496108343, -25.77387620543459]},
-' WF_____68___ ' : {'X': [532049.074, 532053.9424022138, 532060.8345277692, 532067.0157644734, 532072.7041672015, 532077.3539820121, 532082.808939914, 532087.9442800086, 532093.9658631415, 532099.4060890474, 532103.0862968144], 'Y': [6484835.764, 6484825.782296239, 6484811.188709396, 6484796.324619619, 6484781.174814552, 6484768.31582013, 6484752.455489331, 6484736.048531363, 6484715.823748859, 6484694.449722912, 6484676.164987534], 'Z': [442.481, 409.28967206778304, 360.4892025169892, 312.0965259231198, 263.73201950760364, 224.02023933243237, 175.85704445032084, 127.8420466649069, 68.90599055967331, 6.276006071952629, -47.58608192102663]},
-' WF_____69___ ' : {'X': [531949.619, 531954.4876740292, 531962.1683211987, 531969.4787776055, 531976.2354159558, 531982.9440385371, 531989.288949113, 531995.3466091545, 532001.221001553, 532006.8903480109, 532012.7188502263, 532017.9703398763, 532021.7498702286], 'Y': [6484849.003, 6484836.952608916, 6484821.581221028, 6484805.817784959, 6484789.73652133, 6484773.508438759, 6484757.107846628, 6484740.661326644, 6484723.980085283, 6484707.307414777, 6484689.9783665305, 6484673.66103846, 6484660.94232627], 'Z': [446.966, 411.2576804101355, 363.2396828107493, 315.2910508133968, 267.3667271533155, 219.4851678730021, 171.61280959023748, 123.71900273340732, 75.88357966034397, 28.02043549960662, -22.79031777974713, -70.82329250649066, -107.49684579145486]},
-' WF_____70___ ' : {'X': [531949.749, 531955.1965180043, 531961.7254668707, 531967.7095517383, 531973.3099392081, 531978.4978723929, 531983.4153869031, 531987.6801316862, 531991.037756738], 'Y': [6484848.266, 6484834.782919804, 6484816.477836252, 6484798.212696446, 6484779.122722007, 6484759.459393652, 6484739.852984418, 6484720.127758577, 6484701.085720663], 'Z': [447.437, 412.3295777645711, 365.1777300503432, 317.9381767483707, 270.9785287926682, 224.2084649990269, 177.38532149090634, 130.54807757721088, 83.35562959985234]},
-' WF_____71___ ' : {'X': [532166.334, 532168.273106416, 532172.7064671825, 532176.8468103061, 532179.7618076213, 532182.082315458, 532183.6985968031, 532184.5220079715, 532184.7946283369, 532184.6682467042, 532184.4882918397], 'Y': [6484829.255, 6484824.455543202, 6484812.82135398, 6484801.024797488, 6484788.929469095, 6484776.776465211, 6484764.466386177, 6484752.0693359375, 6484738.369392891, 6484717.072189461, 6484704.942897914], 'Z': [433.38, 414.0614834742186, 364.6045228573614, 315.16062724076363, 265.7014943963848, 216.22503797538937, 166.75939748837794, 117.29592470885584, 61.967475980692925, -22.385432408569173, -71.92176152982519]},
-' WF_____72___ ' : {'X': [532166.334, 532168.5244873664, 532174.794231431, 532180.5984681229, 532186.4410383897, 532191.5035296154, 532196.0295529979, 532200.5267419404, 532204.7927464688, 532208.0786494401, 532210.6822561239, 532212.6086429309], 'Y': [6484829.225, 6484823.803353516, 6484810.283991081, 6484796.576821031, 6484781.812644949, 6484767.696948163, 6484754.294585394, 6484739.935255903, 6484724.5941382125, 6484710.154514578, 6484696.0792920245, 6484687.302976269], 'Z': [433.38, 414.2539048807393, 365.4797606165384, 316.7004173894806, 265.0875945903708, 216.34215083565596, 170.47395069061454, 121.74423749444276, 70.14529067016326, 21.342625671614137, -27.6074442191204, -59.360638005586814]},
-' WF_____73-1_ ' : {'X': [532365.11, 532368.600421916, 532382.3280620822, 532387.7799216954, 532391.6462832888, 532391.9430043084, 532393.317315601, 532394.2937452606, 532398.7885659584, 532401.6807774332, 532403.1362787252, 532403.7632004574, 532403.8671296296], 'Y': [6484911.76, 6484903.120902603, 6484869.782124712, 6484852.459413668, 6484838.139977867, 6484837.016933883, 6484831.396338396, 6484826.826136452, 6484807.294729237, 6484787.661291013, 6484768.075155483, 6484748.5601444775, 6484711.343347892], 'Z': [425.17, 400.8969089110728, 305.4816177664263, 257.82449963232693, 218.5306705193077, 215.76467542766665, 201.92559399693764, 190.87299976216852, 143.97608388142925, 96.99562819757747, 49.9290284584306, 2.814579351786349, -85.67778896685698]},
-' WF_____73___ ' : {'X': [532365.11, 532368.600421916, 532382.3280620822, 532387.7799216954, 532392.4747893446, 532396.5899721935, 532400.3264651647, 532403.2257944158, 532405.3685610889, 532406.6899654979, 532408.0595398619], 'Y': [6484911.76, 6484903.120902603, 6484869.782124712, 6484852.459413668, 6484835.071527338, 6484817.717204377, 6484800.507961183, 6484783.528343219, 6484766.893584137, 6484750.3253879, 6484733.947000163], 'Z': [425.17, 400.8969089110728, 305.4816177664263, 257.82449963232693, 210.1105642808036, 162.33093740185177, 114.46779324111442, 66.46480933687963, 18.30161445476809, -29.9140340821366, -78.19314634803712]},
-' WF_____74___ ' : {'X': [532013.61, 532019.1141268675, 532023.1347429306, 532025.6358744821, 532027.2807539267, 532027.7229265005], 'Y': [6484855.9, 6484842.276807951, 6484825.294884949, 6484808.02365444, 6484790.557575815, 6484782.286160695], 'Z': [447.97, 409.6932025136148, 361.7719239660279, 313.850645418441, 265.9629594323846, 243.4376808475065]},
-' WF_____74A-1 ' : {'X': [532014.493, 532020.2482079163, 532028.3065287695, 532035.1844309748, 532041.5664711422, 532042.2687935225, 532045.8540663684, 532049.5925477339, 532052.5874614543, 532056.6787757723, 532058.2745395249, 532059.2579889932, 532060.8442049043, 532060.7367573186, 532060.3584436873, 532060.0002893236], 'Y': [6484855.987, 6484843.644916794, 6484827.733577431, 6484811.740221477, 6484795.767815443, 6484793.775682759, 6484783.345556634, 6484771.736367144, 6484761.045818774, 6484743.139122743, 6484730.254232916, 6484719.10302375, 6484695.95464922, 6484684.339333025, 6484673.054093309, 6484661.782757551], 'Z': [446.745, 411.2689437931064, 363.4893169141545, 315.5528274036063, 267.540830894785, 261.60550018435606, 233.7064269445736, 203.0429229625167, 175.17281949358397, 127.59539433825736, 94.0181229752104, 66.1849887416482, 10.852930441421094, -16.807020474989912, -44.60090907216454, -72.40070611608971]},
-' WF_____74A__ ' : {'X': [532014.493, 532020.2482079163, 532028.2926404399, 532035.156583192, 532041.5246823772, 532047.1960738241, 532052.5442152405, 532057.5167122931, 532061.9142107532, 532065.6666071217, 532069.3013231752, 532072.5438246484], 'Y': [6484855.987, 6484843.644916794, 6484827.726551279, 6484811.727199313, 6484795.749229981, 6484779.617486219, 6484763.225767945, 6484746.838790088, 6484730.253543465, 6484713.562102128, 6484694.828198179, 6484678.3467137], 'Z': [446.745, 411.2689437931064, 363.4893169141545, 315.5528274036063, 267.540830894785, 219.4929156198839, 171.49594743013176, 123.45699209398344, 75.430003829317, 27.385073737164863, -26.32553677929772, -74.47994315685207]},
-' WF_____75___ ' : {'X': [532536.0, 532540.1383729249, 532547.0431318075, 532553.0065356394, 532558.5335532213, 532564.2650821995, 532566.9938661605, 532568.8716181935, 532570.7564474865, 532571.6632380618, 532571.1871103918, 532570.5673724799], 'Y': [6484934.0, 6484923.757167579, 6484906.45902528, 6484888.656943525, 6484870.966122519, 6484846.88904256, 6484828.951683414, 6484811.056021492, 6484787.932730447, 6484769.844991114, 6484751.4165868405, 6484732.635906072], 'Z': [423.0, 392.6479283486152, 345.1705802996514, 297.7519795193506, 250.2389610004768, 185.83054698340695, 138.1670925873707, 90.44687327044552, 28.65884182600877, -19.01726767018796, -66.56899969305347, -113.98104409936924]},
-' WF_____76___ ' : {'X': [532528.91, 532532.8031629063, 532542.395684523, 532550.6351336845, 532558.319962205, 532565.3858094783, 532571.0205845927, 532574.202223146, 532576.2249770659, 532580.6508088092, 532584.7388729636, 532587.8945048272, 532590.8859138746], 'Y': [6484958.3, 6484948.664083673, 6484932.314026417, 6484915.795468556, 6484899.55276514, 6484883.779028861, 6484867.945997989, 6484857.958555051, 6484851.203516798, 6484834.947395353, 6484818.353797208, 6484803.795330899, 6484788.892486154], 'Z': [424.37, 397.2961676315812, 349.95000456871213, 302.4079313736035, 254.6782970111221, 206.69639369221835, 158.54491975003629, 127.25389612198931, 107.4731498071047, 59.33636004166256, 8.111949531885308, -37.51800824006477, -86.20020920127038]},
-' WF_____77___ ' : {'X': [533311.46, 533319.9633917275, 533333.509561852, 533346.491744932, 533358.910182079, 533372.500129565, 533381.0953081679, 533390.3296257209, 533398.1524622953, 533405.248650919, 533410.9898159594, 533415.198250187, 533419.0644257503], 'Y': [6485229.46, 6485208.413366926, 6485190.778780338, 6485172.685519007, 6485154.114051256, 6485132.280887585, 6485116.895321418, 6485097.886439179, 6485080.090842505, 6485060.989360443, 6485041.804409403, 6485022.502787183, 6485002.887349193], 'Z': [443.89, 399.3396737905816, 353.4428042802372, 307.56147020130953, 261.715172592597, 207.5060747266149, 169.38249595327437, 122.9670914483396, 79.07950815928609, 32.32720885667347, -14.576700122950008, -61.59516948353836, -108.5130475147817]},
-' WF_____78___ ' : {'X': [532964.94, 532968.3061316106, 532969.7864602737], 'Y': [6485018.4, 6485010.068531903, 6485007.822642807], 'Z': [432.15, 400.8128687124108, 392.2242361543938]},
-' WF_____78A__ ' : {'X': [532965.25, 532969.8965006897, 532976.0326275926, 532982.7711606094, 532985.2500452063, 532988.0413294976, 532990.7225771927, 532991.8011562469, 532994.3113674476, 532999.0407277211, 533004.6266842862, 533010.1130644953, 533015.1161424944, 533019.3783391073, 533023.5545356779], 'Y': [6485018.77, 6485007.269507228, 6484994.760696108, 6484981.251195004, 6484976.127940606, 6484970.69668878, 6484965.278740114, 6484962.978311107, 6484958.12318553, 6484948.776862485, 6484936.283450652, 6484924.18317941, 6484912.292947159, 6484900.512335178, 6484888.893418318], 'Z': [431.07, 387.8132236827756, 342.29797798422044, 294.2121635198126, 276.81971126225113, 256.4138239842394, 236.30271404350765, 227.9819752778152, 208.01659034871923, 170.4495915738654, 120.69748860314851, 71.0442604293996, 22.116235867388085, -27.321106915197007, -76.80403481144131]},
-' WF_____79___ ' : {'X': [532802.6, 532806.3521709149, 532813.6930625272, 532819.6755713193, 532824.8878658586, 532829.1741718173, 532832.5106371781, 532835.95809159, 532839.169488382, 532842.2960141219, 532845.1883010458, 532848.2060483699, 532849.677504073], 'Y': [6484958.84, 6484949.553051096, 6484934.190162788, 6484921.30783875, 6484907.506617167, 6484895.6980352495, 6484884.16125512, 6484872.982903375, 6484862.050382287, 6484851.68175025, 6484841.561824644, 6484831.188187465, 6484824.884920637], 'Z': [427.94, 390.55867052261306, 329.9031433782375, 277.8046278914816, 222.74685579300467, 173.3182712053911, 123.7524492799434, 74.11214800829518, 24.401315050988067, -25.435581988051062, -75.33770400776744, -125.1802646638928, -154.47367084027434]},
-' WF_____80___ ' : {'X': [533717.01, 533720.0208905181, 533729.0339302346, 533737.036154757, 533745.8875586324, 533753.1227161937, 533765.469028871, 533770.7093111776, 533775.3322194897, 533779.250818104, 533781.9477863192, 533783.369721153], 'Y': [6485290.83, 6485283.377784462, 6485266.832961552, 6485251.175032508, 6485232.364841788, 6485215.780556355, 6485182.296415531, 6485165.746892308, 6485149.144755457, 6485132.784885783, 6485116.188366436, 6485099.183813298], 'Z': [430.67, 408.5872234115312, 361.1948827860544, 316.531769809647, 263.4579591820935, 215.7755308492152, 120.22250433218552, 72.26780985465416, 24.267833076579254, -23.877771594614277, -72.02631163464628, -120.61718808209824]},
-' WF_____81___ ' : {'X': [532829.0, 532831.69956472, 532831.4882701724], 'Y': [6484885.0, 6484878.318342852, 6484877.549145753], 'Z': [422.0, 381.13047824999336, 375.1837404520304]},
-' WF_____81A__ ' : {'X': [532830.82, 532834.1050124905, 532835.7007171642, 532837.1924663576, 532838.1150330759, 532838.6592642392, 532838.7582061752, 532838.0742110085, 532836.7059189148, 532834.8760251428, 532832.6682798892], 'Y': [6484886.77, 6484878.639308771, 6484869.919285192, 6484861.127532085, 6484852.2755946815, 6484843.576835247, 6484835.11609354, 6484826.040435056, 6484816.62662979, 6484807.782634005, 6484799.070498708], 'Z': [429.5, 379.7672084728835, 329.54355950777114, 279.3292212999645, 229.1117733874195, 178.8620430723075, 128.56884213758008, 78.38752515895007, 28.28255487494908, -21.911421131482257, -72.11325933948788]},
-' WF_____82___ ' : {'X': [532247.46, 532250.0865215157, 532257.9012116265, 532264.8995073114, 532270.6204040252, 532277.0945033977, 532280.318773621, 532282.9182473805, 532284.3423706206, 532285.624968205, 532285.2354760871], 'Y': [6484867.89, 6484861.389131126, 6484845.803943256, 6484830.275540808, 6484814.625530793, 6484793.1144536855, 6484777.351171533, 6484762.159588885, 6484747.009273938, 6484720.111175932, 6484705.137200364], 'Z': [429.79, 410.5263012738889, 362.5989339611716, 314.5271899223425, 266.3260641333626, 201.08528241700972, 152.6897969115798, 104.07438214598952, 55.39748998949328, -30.4794409471631, -79.23011634327452]},
-' WF_____83___ ' : {'X': [531829.95, 531832.996039341, 531837.9104823087, 531842.4472009343, 531845.7391586916, 531848.6337841486, 531850.9329766346, 531853.131510342, 531855.3481526991, 531856.9427996865, 531858.6101165118, 531859.6013318055, 531860.0509759213], 'Y': [6484774.99, 6484767.450788072, 6484754.793703844, 6484739.309437125, 6484726.017201973, 6484713.597929729, 6484701.824472815, 6484689.581016129, 6484677.347212702, 6484665.23466629, 6484652.87042174, 6484640.303878489, 6484627.680435954], 'Z': [438.01, 409.6527799698196, 360.4933813856077, 302.7036273777482, 250.46877791112536, 201.0887939055007, 154.09571541306013, 105.1517247919918, 55.69042122670259, 6.175339479947311, -43.27509541533879, -92.69269838192288, -142.10369431119872]},
-' WF_____84___ ' : {'X': [531828.94, 531831.7377025186, 531835.7066750269, 531839.7717219442, 531843.6443757402, 531846.557231074, 531849.9602346979, 531852.3584409093, 531855.0300968522, 531858.5602904677, 531860.7539333387, 531863.12036296], 'Y': [6484776.74, 6484769.815443276, 6484759.171637358, 6484748.862469049, 6484738.302793865, 6484727.72773927, 6484715.5559550775, 6484705.093228583, 6484693.437514706, 6484676.942542553, 6484666.523949391, 6484656.474082108], 'Z': [434.31, 401.9609138491302, 352.242138192319, 302.66556668583064, 252.71623423201635, 202.9097738667613, 144.25598254935937, 94.39838572335503, 38.66682744141056, -40.557244826617975, -90.4335001741436, -140.37747056534434]}
+'MCS____01___':{'X':[567920.904,567918.2318549001,567911.1097828421,567904.3834475303,567898.6536472876,567892.3190022131,567886.9725193299,567880.8746642891,567874.7221160488],'Y':[6457665.088,6457675.060581278,6457703.206736004,6457731.223938932,6457759.386806881,6457787.268851312,6457813.784451724,6457843.756366802,6457874.26960592],'Z':[438.832,424.0872632027981,382.1579171102305,340.0771286980375,297.9461156787536,255.7150386130063,216.0623204772096,171.55950629162078,127.43368178152384]},
+'MCS____02___':{'X':[567714.495,567711.8228549002,567710.3247763333,567704.8058930732,567699.5056444634,567693.9020246463,567689.5476690977,567685.0333067336,567681.6711194332,567680.4906889792],'Y':[6457664.461,6457674.433581278,6457680.974535787,6457709.104518844,6457737.426146821,6457765.988035719,6457793.173185758,6457822.001300935,6457851.059836688,6457865.117208049],'Z':[437.476,422.7312632027981,412.7828123321376,370.601703044135,328.52091463194193,286.64230496612305,247.32300684025145,205.49526117068908,163.7185069119505,144.30209904695175]},
+'MCS____03___':{'X':[566920.35,566919.0221800965,566914.17907387,566909.6979929241,566905.854398312,566903.9354004591,566902.0889160143,566902.2814316957],'Y':[6457547.96,6457552.915491344,6457569.585572316,6457586.788707022,6457606.024019014,6457623.980533911,6457663.135142004,6457666.6898422055],'Z':[435.73,421.6346106882114,373.67991621068006,325.8785347465936,275.567208456974,231.09383417512575,136.92639202960174,128.66037459751396]},
+'MCS____04___':{'X':[567135.47,567133.9170857293,567126.5672520362,567120.1218663559,567114.3787578564,567109.269216466,567105.2508770475,567104.6509912836],'Y':[6457514.54,6457520.335554957,6457544.833826495,6457571.888723739,6457598.451652577,6457625.754245539,6457653.988569927,6457660.845295585],'Z':[437.23,426.8376951545868,382.7149727055318,336.42793846761776,293.272086995112,250.49988802989532,208.2189718295882,198.38914729812032]},
+'MCS____05___':{'X':[567326.98,567325.4270857293,567319.8760782679,567314.323355936,567310.6147509156,567307.3663254579,567304.9032319147,567303.7518159944],'Y':[6457564.19,6457569.985554958,6457593.839588375,6457622.405868348,6457648.793964222,6457677.305028551,6457704.369870207,6457728.785585835],'Z':[438.15,427.7576951545867,383.0232408056017,334.0116613245799,290.5270129425212,244.78242918788575,201.62657771538,163.84368381133143]},
+'MCS____06___':{'X':[567522.26,567521.1977440772,567517.3951195787,567514.1995464958,567511.3026207633,567508.4674598473,567506.3047196633,567504.550774032,567502.4924832546],'Y':[6457614.29,6457618.254393075,6457636.779335151,6457655.279730085,6457674.663512772,6457696.19869796,6457715.180824936,6457734.453442867,6457757.5161388],'Z':[438.31,427.0336885505691,376.4533903311556,329.0347895508548,281.95106847809274,229.2519445621909,181.96556797928477,134.77987234160986,79.42758697423508]},
+'MCS____07___':{'X':[567201.6,567200.0470857293,567191.8539976849,567185.8326512774,567179.6163204693,567175.8147021657,567171.9873911365,567169.6649148613,567169.5756334853],'Y':[6457738.0,6457743.795554957,6457772.749314272,6457795.379197695,6457822.305084617,6457847.442114228,6457874.334203192,6457900.880228489,6457907.27412049],'Z':[436.34,425.9476951545867,374.0386099204045,332.1383502114536,282.2850269045081,238.07329270879237,191.40245340329227,147.91780502123356,137.7634870277028]},
+'MCS____08___':{'X':[567236.95,567236.275848167,567234.6676468493,567233.539122611,567232.871719666,567233.0557575973,567233.4449555548,567233.7605214663],'Y':[6458008.27,6458010.785968892,6458019.635329139,6458029.388879134,6458039.709474205,6458052.889363555,6458060.572244473,6458066.801607379],'Z':[435.37,420.59788370481687,373.4480956698398,323.4021698062353,273.46180646452524,209.81232377411047,173.62086254695964,144.27643452494547]},
+'MCS____09___':{'X':[567446.74,567445.1870857293,567438.2439394298,567431.7629891036,567428.1437683044,567425.1480691123,567423.4388399574,567422.628432897],'Y':[6458103.36,6458109.155554958,6458133.6921137925,6458158.752089286,6458188.228277274,6458214.935537258,6458240.669217488,6458265.098629446],'Z':[437.4,427.0076951545867,382.84039956158034,338.89731237906256,290.2449169343689,246.9003895920389,206.41760019302035,168.63470628897176]},
+'MCS____10___':{'X':[567340.11,567338.5570857293,567331.6285017595,567325.352402416,567318.4256387341,567313.9921289838,567310.8750709872],'Y':[6458059.13,6458064.925554957,6458087.447269132,6458113.791576712,6458146.948124317,6458171.588535548,6458196.9749357095],'Z':[438.11,427.7176951545868,385.8994322208176,339.1812555100536,279.0675025427605,234.63559817563083,190.51287572657588]},
+'MCS____11___':{'X':[567717.05,567717.05,567716.8595313304,567716.8967855418,567716.3761306681,567716.909358931,567717.4242788474,567717.7755689388],'Y':[6457662.17,6457662.17,6457661.576759555,6457661.043999511,6457661.765905297,6457661.795717386,6457662.409375045,6457662.637505498],'Z':[437.95,425.95,374.9538061473169,323.9566025096758,272.96437005669986,221.96716641905877,170.97345816249407,140.97638244221494]},
+'MCS____12___':{'X':[567778.48,567777.805848167,567775.2977232644,567773.4465041272,567773.1796724654,567773.5631898155,567774.2323024585],'Y':[6457729.76,6457732.2759688925,6457741.768840635,6457750.787277061,6457760.339998189,6457769.888746513,6457776.149791111],'Z':[437.43,422.65788370481687,372.6119578412124,322.4498128297297,272.35316304256656,222.25651325540343,189.8628162016305]},
+'MCS____13___':{'X':[567635.38,567634.7058481671,567633.2572256834,567632.623607452,567632.4367921724,567632.7369674281,567632.8358519508],'Y':[6457684.31,6457686.825968892,6457696.183500852,6457705.981655392,6457715.711120803,6457725.262852317,6457726.393107583],'Z':[438.9,424.1278837048168,374.0146310810925,323.968705217488,273.90571886165714,223.809069074494,217.9173167983153]},
+'MCS____14___':{'X':[567595.23,567594.555848167,567592.7157114801,567591.6884796169,567591.706073442,567592.3799308641,567593.1430244609],'Y':[6457637.24,6457639.755968893,6457649.311663222,6457659.251980487,6457669.332489493,6457679.477899996,6457686.738250588],'Z':[438.37,423.59788370481687,373.534897348986,323.52354976310875,273.5297198574009,223.55355992173864,188.30153873935507]},
+'MCS____15___':{'X':[567882.367,567881.6054527941,567880.3641468752,567878.8418436616,567877.4548324178,567877.4904647254,567877.5363756676],'Y':[6457810.697,6457813.187908672,6457822.133518337,6457830.946713946,6457839.235166309,6457839.915071242,6457848.683335161],'Z':[439.202,424.42988370481686,374.2359076983855,324.02624551968927,277.78364873681284,273.8420171428789,223.60144150898543]},
+'MCS____16___':{'X':[568234.987,568234.0731433529,568231.9940469721,568230.176995777,568227.1995062566],'Y':[6457884.969,6457887.958090407,6457896.114710459,6457904.2437302135,6457919.561585883],'Z':[438.664,420.9374604457802,370.6368947673814,320.321714525426,219.5224196178776]},
+'MCS____17___':{'X':[567878.878,567878.1164527942,567875.4051719215,567873.3688118081,567871.9871474964,567870.8989500382,567869.6211801415],'Y':[6457825.776,6457828.266908672,6457836.513316294,6457844.680710611,6457852.359678007,6457859.81900044,6457867.886522061],'Z':[439.218,424.4458837048169,374.1900808821589,323.8895152037601,273.4898677499859,223.0500587185281,169.67138883085923]},
+'MCS____18___':{'X':[568091.215,568090.8327719037,568090.0561909565,568090.1489854436,568090.9851993324,568091.8409484767,568092.8879321946],'Y':[6457828.942,6457830.1922117695,6457833.845737876,6457837.934830252,6457842.11967196,6457846.481461801,6457851.165397701],'Z':[439.018,424.0750795286238,373.2120411901764,322.3763183889078,271.55518256718307,220.74925296450405,169.97559276974698]},
+'MCS____19___':{'X':[568139.201,568138.79496381,568138.9177217231],'Y':[6457849.288,6457850.803347691,6457852.178823136],'Z':[439.009,421.0774954343486,403.130545894264]},
+'MCS____19A__':{'X':[568138.201,568137.7423262845,568136.6359266678,568135.940166536,568135.6192574468,568135.9637757909,568136.5960690749],'Y':[6457849.288,6457850.788254123,6457854.075854061,6457857.655229641,6457861.643754483,6457866.697331881,6457872.079788076],'Z':[439.009,421.0774954343486,370.1955972137327,319.32611728425456,268.48333326386506,217.7354991958425,167.02426404504908]},
+'MCS____20___':{'X':[568223.473,568221.6195756755,568215.126839478,568209.4812149169,568205.2305836857,568201.899684138,568199.6350313246],'Y':[6457803.87,6457809.932277805,6457830.399975618,6457851.6177925365,6457873.485394508,6457896.317880957,6457919.837199673],'Z':[438.876,425.2813831944502,379.0221384655855,332.9902889637426,287.1128422370284,241.6311682271625,196.43478568637056]},
+'MCS____21___':{'X':[568098.789,568098.789,568098.3555287715,568097.7020221364,568096.9899607,568096.9025823447],'Y':[6457863.786,6457863.786,6457863.685128085,6457863.402330511,6457863.398602132,6457863.146268497],'Z':[438.753,411.753,360.7549419237272,309.7599131992527,258.76488447477817,207.7655835701594]},
+'MCS____22___':{'X':[568067.995,568067.995,568067.9221903514,568067.8972077174,568067.9613452305,568067.9994320273,568067.9476746348],'Y':[6457861.6,6457861.6,6457861.25147987,6457861.336913815,6457861.275192907,6457861.539496967,6457861.547416961],'Z':[438.753,420.753,369.75424283402486,318.7543205114472,267.7543981888695,216.75509728425075,186.7551429768521]},
+'MCS____23___':{'X':[566904.901,566902.9535308081,566900.1286623824,566897.6412767143,566895.6815206689,566892.4961095037,566891.8938625887],'Y':[6457610.406,6457617.674053971,6457634.886820166,6457652.320475652,6457669.737209588,6457700.456918068,6457710.838718758],'Z':[434.711,414.0377623427101,366.1134386826287,318.25029452189136,270.3564876650612,185.50224400809367,156.61720440119896]},
+'MCS____24___':{'X':[566727.288,566723.2797823501,566718.84887143,566715.4964255508,566713.0238004756,566711.4972020463,566710.6849412329,566710.4683293808],'Y':[6457491.046,6457506.004871917,6457535.233895135,6457564.11992211,6457594.067031839,6457625.058878378,6457655.669535003,6457666.749324361],'Z':[434.073,411.9558948041972,369.4203657710714,328.50095042549793,287.2934663466984,245.815581331554,205.0316637487124,190.84747018379136]},
+'MCS____25___':{'X':[566726.765,566723.091494921],'Y':[6457491.678,6457505.387707597],'Z':[433.967,416.1235340237649]},
+'MCS____25A__':{'X':[566726.352,566722.6478439544],'Y':[6457492.528,6457506.352098561],'Z':[433.89,416.52844687377626]},
+'MCS____25B__':{'X':[566726.352],'Y':[6457492.528],'Z':[433.89]},
+'MCS____25C__':{'X':[566726.123,566722.4188439545,566716.7654218285,566711.9732996514,566708.3030196662,566705.4110526555],'Y':[6457493.15,6457506.974098561,6457538.970932705,6457571.22830805,6457603.441942047,6457636.765204286],'Z':[433.854,416.49244687377626,376.7944441148065,337.58351067906005,299.25792093166166,259.7049599734246]},
+'MCS____26___':{'X':[567633.128,567632.0948190986,567629.1999203386,567626.9959382513,567624.7529748484,567623.136142916,567621.4035630797],'Y':[6457694.872,6457698.727883618,6457708.783839352,6457718.934765375,6457729.0354326805,6457738.666258832,6457748.562895738],'Z':[438.953,420.1725660659109,369.95118301600894,320.5310336451996,270.0811016812462,220.53432537686217,170.0238834360958]},
+'MCS____27___':{'X':[567638.21,567637.3470856538,567635.6225116829,567634.3843284465,567633.8447557559,567633.9754441648],'Y':[6457673.23,6457676.450440182,6457685.297868982,6457694.2439114,6457703.9251927305,6457713.524464123],'Z':[439.174,420.2656911421656,369.7638213920193,319.56984538558794,269.50007753012267,219.4117863905755]},
+'MCS____28___':{'X':[567697.19,567695.4638341253,567693.9979418083,567693.4332278343,567692.9616439015,567692.6654091977],'Y':[6457731.673,6457738.115138747,6457755.571984766,6457773.84624123,6457789.735558683,6457806.538766775],'Z':[438.567,420.2429938946748,372.3461287908043,321.5353755114505,276.24401651809256,228.0925425759105]},
+'MCS____29___':{'X':[567912.232,567909.1198560777,567903.8847057783,567898.9789059582,567895.0189526805,567891.5950166838],'Y':[6457703.012,6457714.626679239,6457738.799354313,6457762.826259314,6457786.876631408,6457810.637101164],'Z':[439.981,417.83480876091846,373.2335197534701,328.5161745262096,283.7177552219435,238.7209026737609]},
+'MCS____30___':{'X':[568493.388,568491.6666656533,568489.4171810359,568487.6592898897,568485.6577343148],'Y':[6457899.812,6457906.236107239,6457915.119464008,6457923.736677599,6457931.885552192],'Z':[445.031,407.3128630596324,356.83796046978466,306.6019828377369,256.2970166996907]},
+'MCS____31___':{'X':[568313.352,568312.2284136118,568310.1130554626,568307.9742243289,568306.3107152673,568305.0799753296,568303.7460085345],'Y':[6457858.061,6457862.254281487,6457870.7259207,6457878.867081171,6457887.028905405,6457895.244360546,6457903.354901795],'Z':[438.845,414.2248061746948,363.6733809824918,313.37281530409297,263.05763506213754,209.39683394958973,159.36754599510118]},
+'MCS____32___':{'X':[568313.352,568311.5684950693,568308.5538417511,568306.5794972876,568305.4221260062,568304.6054758863],'Y':[6457858.061,6457864.717131017,6457879.287146856,6457892.129576182,6457905.148992728,6457918.021715586],'Z':[438.845,414.8134576015421,359.47887073382293,310.1617948579388,260.86518965507645,211.52325932398813]},
+'MCS____33___':{'X':[568313.352,568311.3207213341,568306.6969543776,568302.9975194568,568300.0426153975],'Y':[6457858.061,6457865.641835185,6457885.495592393,6457903.842745138,6457921.7695351085],'Z':[438.845,418.3995886597113,368.0712755164527,320.6297729327152,272.9758251072108]},
+'MCS____34___':{'X':[567823.178,567820.4604000264,567815.3339094943,567811.2114536047,567807.8484436354,567805.0397067608,567803.1416023759],'Y':[6457735.246,6457745.388221176,6457771.207929266,6457796.520757694,6457822.030948449,6457848.400070607,6457875.010238881],'Z':[438.802,420.6154665205268,375.4230803365672,331.34058863761885,287.3074155566735,243.74389419087703,200.27785981764595]},
+'MCS____35___':{'X':[567823.179],'Y':[6457735.246],'Z':[438.802]},
+'MCS____35A__':{'X':[567823.426,567820.7967946265,567820.2690322709],'Y':[6457734.352,6457744.164328037,6457746.746825264],'Z':[438.55,419.0357616700791,413.6457547158429]},
+'MCS____35B__':{'X':[567823.571,567820.9417946265],'Y':[6457734.773,6457744.585328037],'Z':[438.757,419.2427616700791]},
+'MCS____35C__':{'X':[567823.599,567820.9697946266,567820.4552610093,567819.6610183966,567817.9725006658,567815.7511832322,567813.4681637012,567811.5605870803,567809.7045562401,567808.0517846703,567806.5836706203],'Y':[6457733.714,6457743.526328037,6457746.124912691,6457750.125137072,6457759.104308,6457772.140645947,6457785.235251476,6457798.489302061,6457811.986096143,6457825.293208705,6457838.612532158],'Z':[438.685,419.1707616700791,413.7872114520332,405.4291384936056,386.52084937683793,359.92743587312225,333.03284296161905,306.18714880875154,279.1227497015947,252.286410506454,225.44539219720156]},
+'MCS____35D__':{'X':[567823.491,567820.8617946266,567820.3361313585],'Y':[6457733.995,6457743.807328037,6457746.767360933],'Z':[438.546,419.0317616700791,413.83927831584384]},
+'MCS____36___':{'X':[567830.349,567829.0423941585,567826.8287860055,567825.0336915094,567823.7641526503,567822.769287099],'Y':[6457767.432,6457774.842129954,6457792.026846699,6457809.048870835,6457826.419713833,6457844.103432291],'Z':[438.863,418.18976234271,369.9044079449209,321.8624644990501,274.0351492427329,226.10283922087748]},
+'MCS____37___':{'X':[567830.349,567828.8563055348,567826.8750558741,567825.5697918828,567824.7947702418,567824.478158355],'Y':[6457767.432,6457775.897490983,6457795.47048444,6457815.174180772,6457834.987949937,6457854.920916419],'Z':[438.863,418.6118932240463,371.23402310602927,324.2121065481306,277.2247264026216,230.282457559342]},
+'MCS____38___':{'X':[567798.177,567797.2331874339,567796.8625953676,567796.7940556224,567796.7301996418,567796.6166686798,567796.6395836303,567796.7713218464,567796.8739761448],'Y':[6457799.93,6457803.452356449,6457810.22942828,6457815.329170752,6457820.789635557,6457825.992685886,6457831.24437236,6457836.596514203,6457842.597620803],'Z':[436.708,416.02703718674366,374.9844500494653,346.0302115165581,315.92142132938017,286.3762799692708,257.449142812516,227.93072106038068,194.87113573837516]},
+'MCS____39___':{'X':[567812.424,567811.7498481671,567809.9889152452,567808.5540403483,567807.5902214304,567806.6506356098,567805.5198549657,567805.3376969668,567804.9251007461,567804.9666245107],'Y':[6457813.749,6457816.264968893,6457821.779377864,6457826.679916638,6457832.129318818,6457837.546390126,6457842.605211924,6457847.744382882,6457852.65786023,6457857.614278575],'Z':[437.092,422.3198837048169,390.3395708711548,360.7773339166501,331.2921669852495,301.800261029059,272.2514935902184,242.69551720080636,213.10349961655072,183.5157962083325]},
+'MCS____40___':{'X':[567798.177,567797.527232594,567797.3159757869,567797.2958410439,567797.4338157495,567797.4718927161,567797.6516563316,567797.8461206688,567798.0480198038],'Y':[6457799.93,6457802.354964972,6457806.145439579,6457810.123460074,6457814.239298092,6457818.066627065,6457822.040634804,6457825.608253591,6457829.185873166],'Z':[436.708,416.2615492761888,386.50272415137687,356.7676447411317,327.05164163861554,297.2968083660303,267.5617289557851,237.7752508186907,207.99002167881105]},
+'MCS____41___':{'X':[567877.785,567876.9939951828,567876.9791481129,567875.8841767139,567875.8667191707,567874.8332326165,567874.8283891005,567874.4699085143,567874.4659782744,567874.2044396205,567874.1945377911,567873.4618024114,567873.4521856339,567872.7405441079,567872.7335360922,567872.2154437313,567872.208260439],'Y':[6457832.828,6457835.780070167,6457835.843620376,6457840.530448233,6457840.616025419,6457845.682194846,6457845.752518565,6457850.930980524,6457851.001498843,6457856.236678264,6457856.306955435,6457861.50746612,6457861.578406831,6457866.828019492,6457866.901472334,6457872.321727814,6457872.394336204],'Z':[437.99,420.6573835469852,420.2627432860498,391.1580240420663,390.6657113575074,361.5208004316206,361.12706052410687,331.98576639686354,331.5920511191008,302.4598611232112,302.06620762970147,272.93584910997924,272.54230758354936,243.4202346277401,243.02709906865476,213.93221273382792,213.53892349923237]},
+'MCS____42___':{'X':[567795.474,567794.5751308895,567793.2743049759,567792.2267397703,567791.7400514393,567791.4093234384,567791.3564426021,567791.2611947176,567791.2989924448,567791.0520708181],'Y':[6457811.157,6457814.511625189,6457820.307423359,6457826.164733018,6457831.997172031,6457837.949957369,6457841.556661719,6457847.828940297,6457853.242977947,6457859.670529572],'Z':[437.069,417.3728449397559,387.9667813555364,358.56279300878884,329.13923459669195,299.3295890821459,281.6947120667812,250.7236053818264,222.2334883647086,187.82962797360744]},
+'MCS____43___':{'X':[567771.079,567770.1801308895,567769.187090378,567769.1737981137,567768.1901705585,567768.1829257281,567767.6468082814,567767.3199881259,567767.1870064526,567767.2640919889,567767.0569136811,567767.0043937475],'Y':[6457799.867,6457803.221625189,6457809.031151461,6457809.100307208,6457814.217832431,6457814.295050077,6457820.009155848,6457825.559249913,6457831.374487257,6457837.036542441,6457842.479071778,6457845.822319597],'Z':[437.532,417.8358449397558,388.4204871306691,388.0267349262706,358.8890718007835,358.49666264231803,329.4583849158756,299.9780585192828,270.54737163437494,241.0866318454038,211.5851750752719,193.49153155948895]},
+'MCS____44___':{'X':[567885.837,567885.0729612561,567885.0622504246,567883.9389591452,567883.9237296403,567882.9297930966,567882.9166858152,567881.954091909,567881.9408650048,567880.9620740898,567880.9514011184,567880.2363879924,567880.2242097245,567879.4171417714,567879.4142672456,567879.2011375196],'Y':[6457802.369,6457805.220431412,6457805.288363853,6457810.142276317,6457810.207928808,6457815.173074714,6457815.243384289,6457820.4269775,6457820.496845224,6457825.667056766,6457825.738471285,6457831.033782789,6457831.106557248,6457836.506775017,6457836.579612528,6457842.052826463],'Z':[437.358,420.61626819879245,420.2222244683305,391.0445317821426,390.6502503945071,361.4865843651606,361.0930303499872,331.96634543071343,331.57271673484706,302.44419324073795,302.05076465241257,272.9370491163364,272.543913557251,243.45188218493573,243.05858022191012,213.56284315801253]},
+'MCS____45___':{'X':[567771.079,567770.4481578583,567769.5119353083,567768.6590809571,567768.4015336203,567768.1580554199,567768.1381807491,567768.2766026803,567768.4306577016,567768.3238968257,567768.313265847],'Y':[6457799.867,6457802.221334924,6457806.109023769,6457810.249130157,6457813.068196283,6457814.8857207205,6457819.630421112,6457824.406790523,6457829.050720423,6457833.514794729,6457835.770741766],'Z':[437.532,417.6810769671736,387.9487820207488,358.24807228925204,340.06713349207746,328.2080726825532,298.5856584800258,269.3738948457429,239.73590938577016,210.0700933223227,195.24071066679505]},
+'MCS____46___':{'X':[567629.819,567629.1448481671,567628.5683317394,567628.4933360853,567628.569322185,567628.5779381806,567628.5991312072,567628.5147007464,567628.8256895345,567629.3518498334],'Y':[6457714.731,6457717.246968892,6457722.528136712,6457728.257055421,6457734.1400834415,6457740.310831758,6457746.701708207,6457753.0664784,6457759.357592357,6457765.911458544],'Z':[437.674,422.9018837048168,393.3760154657396,363.9281994843992,334.5107861476762,305.15228157095777,275.84091433789985,246.52398114401947,217.1926809487731,187.92204731458995]},
+'MCS____47___':{'X':[567771.079,567770.6637510097,567770.5353698992,567770.3169856189,567770.3607586115,567770.6008116244,567770.9816170459,567771.3320481537,567771.7626938145],'Y':[6457799.867,6457801.416730329,6457802.887088792,6457804.336218984,6457804.62497266,6457806.292887197,6457807.864547529,6457809.357446116,6457810.639303658],'Z':[437.532,414.588026844024,384.6243561028861,354.6601719826431,348.6672840945116,318.71464755532827,288.7582647457982,258.7974828493493,234.83560926740807]},
+'MCS____48___':{'X':[567629.819,567628.4911800965,567626.6002531265,567625.0458658144,567623.5160856701,567622.2026939496,567620.7717706998,567619.7986241581,567618.9836927874,567618.2035691049,567617.5366628194],'Y':[6457714.731,6457719.686491343,6457730.070983926,6457740.911287776,6457752.064477664,6457763.736845868,6457775.42450702,6457787.086627301,6457798.596340062,6457810.098775133,6457821.492017921],'Z':[437.674,423.57861068821137,395.49682461604215,367.5670610559556,339.7593979389326,312.1544921661516,284.5619019391183,256.9385796122345,229.24629911732703,201.5499926039376,173.80563723610518]},
+'MCS____49___':{'X':[567739.424,567738.5071535072,567735.8566683384,567733.6043228428,567731.2667934558,567729.2874737259,567727.3909374909,567725.7164702527,567724.0573403345,567722.9272593512],'Y':[6457785.67,6457789.091717694,6457794.822638553,6457800.830821296,6457807.139830185,6457813.522147212,6457819.920645152,6457826.641563407,6457833.256608483,6457837.847096783],'Z':[438.369,418.278921838551,388.9509237056073,359.64514475525306,330.4093385716557,301.1629999500021,272.3251363949703,242.7247070520831,213.5101821277692,193.04923556760207]},
+'MCS____50___':{'X':[567739.424,567738.5071535072,567736.9401386249,567735.1299802136,567733.8825757806,567732.6853184812,567731.6358203471,567730.5218215781,567729.544206724],'Y':[6457785.67,6457789.091717694,6457793.984129758,6457799.611987256,6457804.366810144,6457809.44740533,6457814.7918044645,6457819.854348251,6457825.180952687],'Z':[438.369,418.278921838551,388.7220483814992,356.2559037613868,329.7071628968296,300.1647505458282,270.6632937756964,241.1145263368557,211.60738221245413]},
+'MCS____51___':{'X':[567739.424,567738.7805410154,567738.000447135],'Y':[6457785.67,6457788.071421623,6457792.326000977],'Z':[438.369,418.121058506517,388.4345294392911]},
+'MCS____51A__':{'X':[567739.424,567738.7805410154,567738.2633593621,567737.8887063231,567737.9866166575,567738.2640655054,567738.5129108956,567739.0654723936,567739.7019021433,567740.3256089459],'Y':[6457785.67,6457788.071421623,6457791.25403804,6457794.283484097,6457797.901858517,6457801.662022619,6457805.408569816,6457809.442367124,6457813.474288674,6457817.266436852],'Z':[438.369,418.121058506517,388.2948372257946,358.45053975228944,328.66971068192225,298.9075839423065,269.14348711292223,239.42105189877893,209.70003970555217,179.94721459553895]},
+'MCS____52___':{'X':[567711.787,567710.8701535072,567710.8716514352],'Y':[6457778.557,6457781.978717694,6457782.515122248],'Z':[437.967,417.87692183855097,414.9252667247504]},
+'MCS____52A__':{'X':[567711.787,567710.8701535072,567710.8174957044],'Y':[6457778.557,6457781.978717694,6457782.510980355],'Z':[437.967,417.87692183855097,414.9249862675069]},
+'MCS____52B__':{'X':[567711.787,567710.8701535072,567710.0504118011,567709.3151195238,567708.6268369177,567708.336856366,567707.8083102378,567707.6951321602,567707.4951720636,567707.2576172048],'Y':[6457778.557,6457781.978717694,6457786.903699318,6457792.102652032,6457797.323635833,6457802.695335062,6457808.276372168,6457813.865803335,6457819.293144528,6457824.961031753],'Z':[437.967,417.87692183855097,388.2952961303489,358.7583660944728,329.22418936311084,299.7104508896685,270.23889402863,240.76440590820815,211.26010141655524,181.80134003566195]},
+'MCS____53___':{'X':[567711.787,567710.5096745222,567709.2960490958,567709.2102800319,567708.3671505337,567707.4010305336,567706.8148943428,567706.2208380314,567705.764693608,567705.258520444,567704.8939532718],'Y':[6457778.557,6457783.324043581,6457790.900960289,6457791.687919339,6457798.574530402,6457806.003091018,6457813.816692059,6457821.590351881,6457829.290837467,6457837.013547594,6457843.923750468],'Z':[437.967,418.17296718396966,389.1709423145708,386.27727005919735,360.1839046051929,331.1342385256843,302.59016588106755,273.2068830476937,244.2156006680538,215.23106104740395,189.13285829294747]},
+'MCS____54___':{'X':[567682.678,567681.7611535072,567681.4977416148,567681.1799934024,567680.863382066,567680.6161578934,567680.4443967505,567680.3614775421,567680.0557425652,567680.0624613907,567680.0879657472,567680.0899052864,567680.2334311923,567680.2300366604],'Y':[6457771.397,6457774.818717694,6457776.528147843,6457779.7687948,6457785.06673158,6457789.980957241,6457794.779488361,6457799.626893843,6457804.242135803,6457805.374358832,6457809.549426862,6457809.615555175,6457814.509050307,6457814.576291614],'Z':[437.726,417.635921838551,407.7866344154679,388.0534835426731,358.52668853977315,328.93295159488963,299.3197012296853,269.71402973748104,240.4776471333947,234.178597532776,210.95085213049475,210.55636095890773,181.36401426146824,180.96972111706032]},
+'MCS____55___':{'X':[567614.369,567612.5631649311,567610.4630871064,567608.3494814129,567606.4277167408,567604.7905495417,567603.028543661,567601.3019759224,567599.0116970855,567596.8685388326,567595.5783249115],'Y':[6457769.056,6457775.795468227,6457786.154693576,6457797.058730929,6457808.254449683,6457819.573617288,6457830.864225757,6457842.121115053,6457852.795221578,6457863.58929603,6457871.12152627],'Z':[439.106,419.9362705359675,391.8600150286255,363.9918496717245,336.2256345511976,308.49124924509204,280.75287337935725,252.99856907833143,225.05544697755212,197.14675963041324,177.58657415986775]},
+'MCS____56___':{'X':[567571.393,567570.0264591186,567568.0155823848,567566.2157781221,567564.9699331352,567563.7156761914,567562.801069596,567561.7681127513,567561.1084694163,567560.2519336987],'Y':[6457726.518,6457731.618,6457739.159536998,6457746.992761312,6457755.172583424,6457762.968317185,6457770.958517852,6457778.648969879,6457786.68955155,6457794.472863278],'Z':[437.936,418.231113143703,389.26420798514505,360.36089846081865,331.5244912557075,302.582249209891,273.6803429047673,244.7012133841077,215.806336380178,186.84625341921412]},
+'MCS____57___':{'X':[567887.742,567886.8251535072,567886.7434678618,567886.1541266937,567885.4738012125,567884.3208097318,567883.6157111804,567883.2009037307,567882.9141556692],'Y':[6457792.64,6457796.061717694,6457796.569428292,6457801.202028383,6457806.418856633,6457811.292554221,6457816.271751729,6457821.461312837,6457826.72195747],'Z':[438.002,417.9119218385509,414.95632419960975,388.3632481572855,358.82815275805234,329.249145295576,299.67364144166925,270.5350692342979,240.5950726813772]},
+'MCS____58___':{'X':[567857.358,567857.0816709388,567856.9939061055,567857.058794109,567856.7897890556,567856.8742019971,567856.5148919125,567856.5688631311,567856.4097774122],'Y':[6457803.258,6457804.2892740965,6457805.610637091,6457806.760441877,6457807.976859046,6457809.377049949,6457810.948400484,6457812.334392159,6457813.533067],'Z':[438.083,417.7109574910068,387.74020012367527,357.7623126313566,327.7881910336807,297.82100331290883,267.86433871615867,237.89642063393177,207.92079936662967]},
+'MCS____59___':{'X':[567857.358,567856.7145410154],'Y':[6457803.258,6457805.659421624],'Z':[438.083,417.835058506517]},
+'MCS____59A__':{'X':[567857.358,567856.7145410154,567856.6027499607,567856.2191728837,567856.3111967058,567856.3475080065,567856.3682484432,567856.3152578947,567856.2003248802,567855.8772532893],'Y':[6457803.258,6457805.659421624,6457806.489519283,6457809.181304334,6457811.632514394,6457814.079963392,6457816.663254608,6457819.131277669,6457821.524048285,6457823.536553015],'Z':[438.083,417.835058506517,408.8741187881951,378.997586829716,349.09803665153873,319.19805881051786,289.30949617659905,259.41123445165505,229.5070300786303,208.103865605648]},
+'MCS____60___':{'X':[567857.652,567857.652,567858.1476799836,567858.7024803775,567859.0246309927,567859.1810227289,567859.3895916033,567860.1501172987],'Y':[6457802.214,6457802.214,6457802.130695836,6457802.144933107,6457801.498233716,6457801.059277144,6457800.8173918445,6457800.699520325],'Z':[438.063,417.663,387.6672109326966,357.67234480825704,327.6810460888144,297.6846653279136,267.68636553398244,237.6962387091179]},
+'WF_____46___':{'X':[530921.0,530923.3554608607,530926.3606636837,530929.7192420217,530933.7939918818,530938.1475345221,530942.6526754405,530946.1453755599,530948.936985503],'Y':[6471458.7,6471454.930474653,6471448.544093572,6471441.895238563,6471433.75815112,6471425.570328258,6471417.025568176,6471408.158832368,6471398.794563],'Z':[452.19,401.38407039732095,326.71692305208995,252.087755304998,174.62044464099608,103.22012094941356,28.844783770681783,-45.54729942357044,-116.88114393751438]},
+'WF_____47___':{'X':[528683.95,528681.7897257925,528677.7751171273,528673.7837533886,528669.491432955,528665.7891785905,528662.5693880972,528659.7789506139,528657.6898338231,528656.8020518402],'Y':[6473522.574,6473526.031161406,6473531.516428547,6473537.805811416,6473544.674960015,6473551.437265963,6473558.009676081,6473564.916251211,6473572.201867282,6473574.681346202],'Z':[432.586,393.7996460806373,319.1083161844396,244.4791484373476,169.91782613942394,95.31511485563588,20.67305985699853,-53.95610789009344,-128.57216105225257,-152.42722398317687]},
+'WF_____48___':{'X':[528250.525,528243.8982097089,528231.0725534802,528217.1424081573,528202.0341549261,528186.0293739823,528169.4897340611,528152.3991165813,528133.7698840944],'Y':[6471712.583,6471708.442121845,6471705.528204243,6471703.669526023,6471701.921441481,6471700.12621766,6471698.533631474,6471697.428430818,6471697.005674393],'Z':[440.187,395.87065111445065,322.03291261636787,248.3613688117162,174.91965801508377,101.66923714002118,28.533035567103937,-44.48538214838308,-123.31287084332725]},
+'WF_____49___':{'X':[531067.365,531068.6426494084,531075.2202043984,531078.7558484239,531078.6873772149,531073.0824966937,531063.2934444078,531049.8502504557],'Y':[6484671.112,6484666.656306999,6484638.831291292,6484612.681104102,6484573.450030964,6484537.244705424,6484502.419042787,6484466.271383588],'Z':[420.641,406.3751522555728,327.3909495866976,257.18648440627453,156.56383182703524,71.08424527629845,-11.325388124262048,-95.95178631578057]},
+'WF_____50___':{'X':[532048.635,532052.0288470059,532057.7911725445,532062.9101339687,532067.7934837743,532071.8483142431,532074.6302385747,532076.4198465283,532076.5081571012],'Y':[6484870.057,6484858.221248931,6484838.76796393,6484817.445955087,6484794.272799541,6484771.960508684,6484748.279115526,6484723.312797149,6484672.714617415],'Z':[444.715,410.88606565170727,344.9363476306225,273.21349093339484,195.75280570038896,124.26350561591794,49.99741298203112,-27.03816483787631,-180.93363718487]},
+'WF_____51___':{'X':[531071.0,531072.7192468611],'Y':[6484659.0,6484653.004273664],'Z':[425.0,395.6555719779858]},
+'WF_____51A__':{'X':[531066.299,531067.1586234305,531069.5099526491,531070.9041608258,531071.8440677674,531072.8265319841,531073.2739239858,531073.2484987816,531072.7356171454,531072.4359169881],'Y':[6484672.275,6484669.2771368325,6484652.332020352,6484638.606296595,6484624.455318295,6484609.663609462,6484594.589403057,6484580.021848903,6484565.334840467,6484551.027304381],'Z':[421.22,406.5477859889929,315.1347985180844,241.4146473318678,167.7677438796345,94.24740578300536,20.77926206305456,-52.792374588134805,-126.33847397913078,-199.9605127377056]},
+'WF_____52___':{'X':[530083.45,530086.619636963,530100.5180661498,530113.650914024,530124.5749683104,530133.4553902247,530138.1784516465,530139.3861612938,530136.8852523296,530132.7632299776],'Y':[6484463.703,6484458.213027738,6484429.462746087,6484399.965886815,6484369.456186416,6484337.434419484,6484293.957900252,6484253.265924459,6484218.376445282,6484173.942393537],'Z':[416.233,402.6383831944502,334.7763542594988,267.0824579332592,199.44501845287567,132.20853617411765,46.748106931449485,-30.13950288626685,-96.48307602739816,-181.48086409982207]},
+'WF_____53___':{'X':[531615.0,531616.7231012832],'Y':[6484680.0,6484673.990831696],'Z':[426.0,390.5469208915605]},
+'WF_____53A__':{'X':[531618.137,531619.1718603752,531625.2177915305,531631.0194310168,531636.0408077447,531641.8867681416,531644.7608579372,531648.7024755476,531651.5593732682],'Y':[6484677.761,6484674.15201298,6484663.24486445,6484653.196130092,6484642.668594855,6484626.8649103865,6484613.683144328,6484599.470130389,6484589.763224651],'Z':[431.519,407.8144798257167,330.81785115002367,256.7208612173195,179.59786349565303,66.85005507239451,-3.874626980071071,-80.46740657039368,-133.51091810974287]},
+'WF_____54___':{'X':[529109.0,529115.4843915651,529135.1048726441,529151.8364091205,529169.2714699936,529185.9422401427,529201.8340840442,529218.2795963893,529233.8291502657,529244.2669402029],'Y':[6483149.0,6483143.55894943,6483126.442912871,6483110.285455911,6483091.976838352,6483073.133960436,6483053.155174504,6483032.99098417,6483011.822831679,6482996.0530512985],'Z':[411.0,386.4165170344178,312.8904807292279,247.92901313719727,177.3187222762944,106.66441331724717,36.14280379146574,-34.19886630442659,-104.4492804980564,-155.0295787174699]},
+'WF_____55___':{'X':[528673.0,528677.1505016255,528697.5021243668,528720.1160136285,528747.2851052268,528777.0452037472,528807.7100092996,528838.549977358,528869.090576888,528903.9386238444,528911.8743703201],'Y':[6482444.0,6482440.984484057,6482424.96933617,6482408.296939101,6482391.972101904,6482374.720776192,6482357.652964375,6482339.049106245,6482319.742140676,6482296.938217735,6482291.422730253],'Z':[427.0,412.9046106882114,342.51763398124467,272.9788448887356,205.00576086098684,138.3594684118657,72.07704615521368,6.2910838772945255,-59.43191712599524,-135.81643598822956,-154.460559076094]},
+'WF_____56___':{'X':[527642.0,527650.3840841673,527669.3262921033,527687.2471491251,527707.6023765866],'Y':[6480639.0,6480631.964918068,6480617.482506549,6480602.013637722,6480583.749936665],'Z':[434.0,403.9298361348509,329.6637435009641,258.49804262762683,179.07448227728423]},
+'WF_____56A__':{'X':[527641.0,527644.8576444252,527653.2662463151,527661.929662375,527670.3597439828,527677.9117557497,527686.0266423962,527697.7692230446,527704.2855687003],'Y':[6480640.0,6480636.763051986,6480626.987150412,6480617.09100997,6480606.828060655,6480596.696259591,6480586.675209145,6480571.092278304,6480561.321430186],'Z':[434.0,405.440575162646,331.5573757010379,257.71963720295514,183.904966605262,109.977206423598,36.09400696198996,-79.26752937525912,-147.26067437061994]},
+'WF_____57___':{'X':[527678.0,527683.453911084,527684.4722513981,527693.5293913004],'Y':[6480587.0,6480582.423625221,6480581.668193483,6480574.726188057],'Z':[436.0,395.62288212649946,389.7583867607829,336.97792846933373]},
+'WF_____57A__':{'X':[527686.87,527692.4444358393,527695.038089452,527703.6929040462,527712.1795269635,527719.7643857035,527727.1251904349,527733.8794315149,527739.7130864442,527744.9754338345,527749.1523355414,527752.6627255933,527755.5251781038,527758.4587820498,527760.6339802678],'Y':[6480578.05,6480573.372492943,6480571.0963977575,6480562.920812174,6480554.81959952,6480546.134403239,6480536.125236725,6480525.697145432,6480515.845143256,6480504.877010089,6480493.543450024,6480481.245387975,6480471.217266294,6480460.215929753,6480449.057740428],'Z':[432.65,398.4148339743168,383.8171508826604,334.2262849423789,284.5941624307474,237.99977131499423,188.53629853547216,139.07282575595008,92.45838032028756,42.9305320448961,-6.618473074983847,-59.08212555485674,-102.85704007427958,-152.5698609780319,-199.2042187379189]},
+'WF_____58___':{'X':[524035.0,524042.1663565771,524043.3050791357,524054.989025985,524064.3392455647,524072.9911805536,524082.5834724681,524091.6017418727,524099.0011251765,524106.795422952,524113.9099161454,524120.3994913567,524126.668114024,524132.9262466462,524138.7469390477,524144.6544305703],'Y':[6474212.0,6474210.736377982,6474210.542366622,6474208.509705026,6474205.513257418,6474202.266550279,6474198.894403498,6474195.238146658,6474190.420252126,6474185.687018986,6474180.561733962,6474175.331101646,6474169.326215927,6474163.310398548,6474157.695504247,6474151.455273703],'Z':[421.3,387.0648339743168,381.1770779903633,322.36080751306,272.3148816494555,225.2128337778277,175.23667384216543,125.17368748633456,77.99279072715595,27.81465379254532,-22.42592184134815,-69.69669398593413,-119.95249680859212,-170.20829963125013,-217.5220661475151,-267.79294307104664]},
+'WF_____59___':{'X':[524035.0,524050.8292025088,524058.05355787626,524082.62293103663,524107.4680891408,524130.8560012163,524155.7207049074,524180.9927253187,524204.5888223512,524229.24711946887,524253.5657341687,524276.32831028994,524300.7569265468,524324.9656157696,524347.8566955769,524372.0344380174,524395.9158526132],'Y':[6474212.0,6474210.615124228,6474210.782978599,6474210.839153653,6474209.507069547,6474208.334975237,6474206.173150974,6474204.242328846,6474201.274418151,6474197.954069895,6474193.941666369,6474190.308323006,6474186.014525651,6474180.616993431,6474175.680729502,6474169.48688221,6474161.971304307],'Z':[421.3,390.1147716534072,376.9701714527492,332.27853077051213,287.75950482975185,245.85924512080095,201.38371222676284,157.1276741049475,115.43336141191432,70.91433547115403,26.265644594153123,-15.837371263715134,-60.39975463852386,-104.96213801333258,-146.86239772228345,-191.3379306163216,-235.7698349834513]},
+'WF_____60___':{'X':[524426.82,524429.4606591134,524430.0465102384,524432.4440151763,524434.920635569,524437.4324022132,524439.9810931381,524442.7068741387,524445.2840251426,524448.040068594,524450.939937882,524456.4661746583,524459.3175755213,524462.3819998496],'Y':[6473222.36,6473222.128972264,6473222.108831248,6473221.955094113,6473222.22549706,6473222.183013408,6473221.780753869,6473221.360290683,6473221.049835844,6473220.945452667,6473220.487766694,6473220.519692339,6473219.820956728,6473218.967141076],'Z':[421.36,383.4525660901267,371.4668924420295,320.52350881896905,269.58439581455593,221.6501781463364,170.7154909299429,119.79012074330608,71.86036056764793,20.934990381011133,-29.98044226630431,-128.82607792032042,-179.74151056763586,-227.63598104565423]},
+'WF_____61___':{'X':[524632.98,524646.194643582,524665.4244115996,524681.2080486843,524696.2656081434,524712.0143994765,524727.5605760082,524741.6875954324,524756.3120666463,524770.8461357898,524784.1525130204,524798.0417505578,524811.3107181409,524824.2293271214,524838.4530245439],'Y':[6475705.75,6475702.209146924,6475697.247089397,6475692.370594059,6475687.631919107,6475682.371920393,6475676.7844521245,6475670.680217584,6475663.557178673,6475656.065541995,6475648.820006427,6475640.681337451,6475632.496170407,6475625.046924645,6475616.812014175],'Z':[436.03,398.4422951685637,340.76566205700533,292.5153087568005,247.18524298540143,198.96379562983628,150.71344232963148,105.24734899782209,56.911160087333215,8.603435922285747,-36.94261263665009,-85.33528923051941,-133.8938882603685,-179.51864337850213,-227.79775564440263]},
+'WF_____62___':{'X':[524285.51,524301.3298372683,524315.3971816294,524330.0523879137,524344.1375081649,524359.1618149632,524373.9144515955,524403.137903518,524417.221527208,524443.9183649655,524470.0206572313,524483.505834814],'Y':[6474976.47,6474972.231087379,6474969.376979164,6474965.1555597,6474961.336899355,6474956.866808904,6474951.824768379,6474942.234103748,6474934.974650751,6474920.678523766,6474905.748349051,6474897.429809539],'Z':[435.5,385.0940046363569,339.2904688675756,290.6242121132455,244.89646101307332,196.365146415222,147.80654738537294,53.70548995422234,5.229187641205371,-87.97435095571967,-183.3460460305424,-231.82234834355933]},
+'WF_____63___':{'X':[524300.5,524304.7630090606,524307.7531846255,524314.750173232,524322.1835665018,524329.1667554765,524336.8431688176,524344.4340135097,524351.3478871577,524359.0859974285,524366.4045087593,524372.932123846,524380.1588786987,524387.6427236557,524395.7024562062,524404.5536610363],'Y':[6472841.9,6472840.348391594,6472839.84967081,6472838.212535441,6472836.959407607,6472835.299769521,6472833.475378402,6472831.671323692,6472830.079069846,6472828.537196253,6472826.730249444,6472824.960527607,6472823.149448438,6472820.649890597,6472818.525081883,6472815.992221662],'Z':[421.3,392.657038122741,371.8769965522927,321.38579000874824,270.9459809772905,223.48567468703425,173.09972153279537,122.70007407902118,75.22731263764916,24.84135948341032,-25.598449548047437,-73.11958511844219,-123.5724740995546,-173.95842725379345,-221.22919939837945,-271.3913444098621]},
+'WF_____64___':{'X':[535583.81,535588.1179758244,535600.0804173754,535610.507130209,535619.9573096394,535628.5606512086,535636.1641247158,535643.1607837792,535649.5979506471,535654.7955276995,535659.9589610758,535664.7449064667],'Y':[6486001.78,6485991.117385672,6485967.4152218895,6485943.639961505,6485919.624703397,6485895.701804885,6485871.848229368,6485847.890480397,6485822.599587329,6485800.748611572,6485777.6108034365,6485754.661759194],'Z':[427.23,407.3114157129579,363.299287564501,319.4014441872999,275.41324705772973,231.201512862014,186.76960849488435,142.2940756008462,95.01899114284524,52.59824089858797,7.443165985112763,-37.398735123986725]},
+'WF_____65___':{'X':[535942.046,535947.1480350365,535955.7989517704,535964.1154983585,535972.1331018098,535979.990227971,535986.8742923269,535993.0116380668,535999.1313595249,536004.3925244419,536009.1099214844,536013.5290400598],'Y':[6486208.812,6486196.184020155,6486174.964425678,6486153.611566315,6486132.14467122,6486110.533926059,6486089.066833808,6486066.906244348,6486044.658405385,6486022.19204224,6485999.767597648,6485977.201469735],'Z':[432.678,405.947804274349,360.38586346962927,314.8239226649096,269.26198186018985,223.74010511913144,179.11081419652515,133.58893745546675,88.10726344560084,42.62558943573492,-2.936351368984802,-48.4582281100432]},
+'WF_____66___':{'X':[532338.43,532342.5268779413,532353.3493732264,532364.8303633651,532374.9790007939,532384.1422958832,532393.3809038197,532401.9499640694,532409.8567271492,532416.7064156986,532423.0576649457,532429.0837004024,532434.547518303,532439.3712972543,532443.2247564084],'Y':[6484933.22,6484925.51489323,6484904.528721977,6484882.455136072,6484860.165368185,6484837.911502551,6484815.022144941,6484792.078740648,6484769.348065116,6484746.044790709,6484722.79665265,6484699.46210344,6484676.312435926,6484653.181976314,6484632.551373764],'Z':[423.03,407.2868452714909,365.0374167316321,320.51839079087176,275.78393644188674,231.273718654836,186.18840584036872,141.4539514913837,96.94373370433289,51.64473626819231,6.698260212877713,-38.248215842436885,-83.36184557840616,-128.5582281191981,-168.3643720038769]},
+'WF_____67___':{'X':[532049.074,532054.3216116859,532061.7980382798,532068.3811454667,532074.4464556924,532079.8708342694,532084.2999644148,532087.9801571303,532090.5893466116,532092.0054416282,532092.2737210356,532091.8642005671,532091.678048265],'Y':[6484835.764,6484825.004801602,6484809.245288693,6484793.492421181,6484777.675247335,6484761.538401479,6484745.100503704,6484728.050125899,6484710.549846042,6484688.532273221,6484672.848825503,6484655.076368636,6484644.620864235],'Z':[442.481,409.5917582724932,361.6674346124119,313.18578999390525,265.0814344385776,217.0067183928765,168.93200234717543,121.0076786870941,73.17534302188731,14.164995099238268,-28.012694427896847,-75.81407589198331,-103.93253557674004]},
+'WF_____68-1_':{'X':[532049.074,532053.9424022138,532060.8345277692,532067.0157644734,532072.7041672015,532077.3539820121,532078.9155974115,532080.9872841502,532082.9579003841,532085.0422358597,532087.3583818314,532091.5480628726,532095.39256906,532098.9686891272],'Y':[6484835.764,6484825.782296239,6484811.188709396,6484796.324619619,6484781.174814552,6484768.31582013,6484763.775411705,6484757.682901635,6484751.646659296,6484744.862996249,6484737.552726363,6484723.658306588,6484709.870252705,6484695.921973334],'Z':[442.481,409.28967206778304,360.4892025169892,312.0965259231198,263.73201950760364,224.02023933243237,210.23234432696512,189.82280158095307,169.8057975573012,147.29807751964302,121.4099446782018,72.10120638684288,23.151136496108343,-25.77387620543459]},
+'WF_____68___':{'X':[532049.074,532053.9424022138,532060.8345277692,532067.0157644734,532072.7041672015,532077.3539820121,532082.808939914,532087.9442800086,532093.9658631415,532099.4060890474,532103.0862968144],'Y':[6484835.764,6484825.782296239,6484811.188709396,6484796.324619619,6484781.174814552,6484768.31582013,6484752.455489331,6484736.048531363,6484715.823748859,6484694.449722912,6484676.164987534],'Z':[442.481,409.28967206778304,360.4892025169892,312.0965259231198,263.73201950760364,224.02023933243237,175.85704445032084,127.8420466649069,68.90599055967331,6.276006071952629,-47.58608192102663]},
+'WF_____69___':{'X':[531949.619,531954.4876740292,531962.1683211987,531969.4787776055,531976.2354159558,531982.9440385371,531989.288949113,531995.3466091545,532001.221001553,532006.8903480109,532012.7188502263,532017.9703398763,532021.7498702286],'Y':[6484849.003,6484836.952608916,6484821.581221028,6484805.817784959,6484789.73652133,6484773.508438759,6484757.107846628,6484740.661326644,6484723.980085283,6484707.307414777,6484689.9783665305,6484673.66103846,6484660.94232627],'Z':[446.966,411.2576804101355,363.2396828107493,315.2910508133968,267.3667271533155,219.4851678730021,171.61280959023748,123.71900273340732,75.88357966034397,28.02043549960662,-22.79031777974713,-70.82329250649066,-107.49684579145486]},
+'WF_____70___':{'X':[531949.749,531955.1965180043,531961.7254668707,531967.7095517383,531973.3099392081,531978.4978723929,531983.4153869031,531987.6801316862,531991.037756738],'Y':[6484848.266,6484834.782919804,6484816.477836252,6484798.212696446,6484779.122722007,6484759.459393652,6484739.852984418,6484720.127758577,6484701.085720663],'Z':[447.437,412.3295777645711,365.1777300503432,317.9381767483707,270.9785287926682,224.2084649990269,177.38532149090634,130.54807757721088,83.35562959985234]},
+'WF_____71___':{'X':[532166.334,532168.273106416,532172.7064671825,532176.8468103061,532179.7618076213,532182.082315458,532183.6985968031,532184.5220079715,532184.7946283369,532184.6682467042,532184.4882918397],'Y':[6484829.255,6484824.455543202,6484812.82135398,6484801.024797488,6484788.929469095,6484776.776465211,6484764.466386177,6484752.0693359375,6484738.369392891,6484717.072189461,6484704.942897914],'Z':[433.38,414.0614834742186,364.6045228573614,315.16062724076363,265.7014943963848,216.22503797538937,166.75939748837794,117.29592470885584,61.967475980692925,-22.385432408569173,-71.92176152982519]},
+'WF_____72___':{'X':[532166.334,532168.5244873664,532174.794231431,532180.5984681229,532186.4410383897,532191.5035296154,532196.0295529979,532200.5267419404,532204.7927464688,532208.0786494401,532210.6822561239,532212.6086429309],'Y':[6484829.225,6484823.803353516,6484810.283991081,6484796.576821031,6484781.812644949,6484767.696948163,6484754.294585394,6484739.935255903,6484724.5941382125,6484710.154514578,6484696.0792920245,6484687.302976269],'Z':[433.38,414.2539048807393,365.4797606165384,316.7004173894806,265.0875945903708,216.34215083565596,170.47395069061454,121.74423749444276,70.14529067016326,21.342625671614137,-27.6074442191204,-59.360638005586814]},
+'WF_____73-1_':{'X':[532365.11,532368.600421916,532382.3280620822,532387.7799216954,532391.6462832888,532391.9430043084,532393.317315601,532394.2937452606,532398.7885659584,532401.6807774332,532403.1362787252,532403.7632004574,532403.8671296296],'Y':[6484911.76,6484903.120902603,6484869.782124712,6484852.459413668,6484838.139977867,6484837.016933883,6484831.396338396,6484826.826136452,6484807.294729237,6484787.661291013,6484768.075155483,6484748.5601444775,6484711.343347892],'Z':[425.17,400.8969089110728,305.4816177664263,257.82449963232693,218.5306705193077,215.76467542766665,201.92559399693764,190.87299976216852,143.97608388142925,96.99562819757747,49.9290284584306,2.814579351786349,-85.67778896685698]},
+'WF_____73___':{'X':[532365.11,532368.600421916,532382.3280620822,532387.7799216954,532392.4747893446,532396.5899721935,532400.3264651647,532403.2257944158,532405.3685610889,532406.6899654979,532408.0595398619],'Y':[6484911.76,6484903.120902603,6484869.782124712,6484852.459413668,6484835.071527338,6484817.717204377,6484800.507961183,6484783.528343219,6484766.893584137,6484750.3253879,6484733.947000163],'Z':[425.17,400.8969089110728,305.4816177664263,257.82449963232693,210.1105642808036,162.33093740185177,114.46779324111442,66.46480933687963,18.30161445476809,-29.9140340821366,-78.19314634803712]},
+'WF_____74___':{'X':[532013.61,532019.1141268675,532023.1347429306,532025.6358744821,532027.2807539267,532027.7229265005],'Y':[6484855.9,6484842.276807951,6484825.294884949,6484808.02365444,6484790.557575815,6484782.286160695],'Z':[447.97,409.6932025136148,361.7719239660279,313.850645418441,265.9629594323846,243.4376808475065]},
+'WF_____74A-1':{'X':[532014.493,532020.2482079163,532028.3065287695,532035.1844309748,532041.5664711422,532042.2687935225,532045.8540663684,532049.5925477339,532052.5874614543,532056.6787757723,532058.2745395249,532059.2579889932,532060.8442049043,532060.7367573186,532060.3584436873,532060.0002893236],'Y':[6484855.987,6484843.644916794,6484827.733577431,6484811.740221477,6484795.767815443,6484793.775682759,6484783.345556634,6484771.736367144,6484761.045818774,6484743.139122743,6484730.254232916,6484719.10302375,6484695.95464922,6484684.339333025,6484673.054093309,6484661.782757551],'Z':[446.745,411.2689437931064,363.4893169141545,315.5528274036063,267.540830894785,261.60550018435606,233.7064269445736,203.0429229625167,175.17281949358397,127.59539433825736,94.0181229752104,66.1849887416482,10.852930441421094,-16.807020474989912,-44.60090907216454,-72.40070611608971]},
+'WF_____74A__':{'X':[532014.493,532020.2482079163,532028.2926404399,532035.156583192,532041.5246823772,532047.1960738241,532052.5442152405,532057.5167122931,532061.9142107532,532065.6666071217,532069.3013231752,532072.5438246484],'Y':[6484855.987,6484843.644916794,6484827.726551279,6484811.727199313,6484795.749229981,6484779.617486219,6484763.225767945,6484746.838790088,6484730.253543465,6484713.562102128,6484694.828198179,6484678.3467137],'Z':[446.745,411.2689437931064,363.4893169141545,315.5528274036063,267.540830894785,219.4929156198839,171.49594743013176,123.45699209398344,75.430003829317,27.385073737164863,-26.32553677929772,-74.47994315685207]},
+'WF_____75___':{'X':[532536.0,532540.1383729249,532547.0431318075,532553.0065356394,532558.5335532213,532564.2650821995,532566.9938661605,532568.8716181935,532570.7564474865,532571.6632380618,532571.1871103918,532570.5673724799],'Y':[6484934.0,6484923.757167579,6484906.45902528,6484888.656943525,6484870.966122519,6484846.88904256,6484828.951683414,6484811.056021492,6484787.932730447,6484769.844991114,6484751.4165868405,6484732.635906072],'Z':[423.0,392.6479283486152,345.1705802996514,297.7519795193506,250.2389610004768,185.83054698340695,138.1670925873707,90.44687327044552,28.65884182600877,-19.01726767018796,-66.56899969305347,-113.98104409936924]},
+'WF_____76___':{'X':[532528.91,532532.8031629063,532542.395684523,532550.6351336845,532558.319962205,532565.3858094783,532571.0205845927,532574.202223146,532576.2249770659,532580.6508088092,532584.7388729636,532587.8945048272,532590.8859138746],'Y':[6484958.3,6484948.664083673,6484932.314026417,6484915.795468556,6484899.55276514,6484883.779028861,6484867.945997989,6484857.958555051,6484851.203516798,6484834.947395353,6484818.353797208,6484803.795330899,6484788.892486154],'Z':[424.37,397.2961676315812,349.95000456871213,302.4079313736035,254.6782970111221,206.69639369221835,158.54491975003629,127.25389612198931,107.4731498071047,59.33636004166256,8.111949531885308,-37.51800824006477,-86.20020920127038]},
+'WF_____77___':{'X':[533311.46,533319.9633917275,533333.509561852,533346.491744932,533358.910182079,533372.500129565,533381.0953081679,533390.3296257209,533398.1524622953,533405.248650919,533410.9898159594,533415.198250187,533419.0644257503],'Y':[6485229.46,6485208.413366926,6485190.778780338,6485172.685519007,6485154.114051256,6485132.280887585,6485116.895321418,6485097.886439179,6485080.090842505,6485060.989360443,6485041.804409403,6485022.502787183,6485002.887349193],'Z':[443.89,399.3396737905816,353.4428042802372,307.56147020130953,261.715172592597,207.5060747266149,169.38249595327437,122.9670914483396,79.07950815928609,32.32720885667347,-14.576700122950008,-61.59516948353836,-108.5130475147817]},
+'WF_____78___':{'X':[532964.94,532968.3061316106,532969.7864602737],'Y':[6485018.4,6485010.068531903,6485007.822642807],'Z':[432.15,400.8128687124108,392.2242361543938]},
+'WF_____78A__':{'X':[532965.25,532969.8965006897,532976.0326275926,532982.7711606094,532985.2500452063,532988.0413294976,532990.7225771927,532991.8011562469,532994.3113674476,532999.0407277211,533004.6266842862,533010.1130644953,533015.1161424944,533019.3783391073,533023.5545356779],'Y':[6485018.77,6485007.269507228,6484994.760696108,6484981.251195004,6484976.127940606,6484970.69668878,6484965.278740114,6484962.978311107,6484958.12318553,6484948.776862485,6484936.283450652,6484924.18317941,6484912.292947159,6484900.512335178,6484888.893418318],'Z':[431.07,387.8132236827756,342.29797798422044,294.2121635198126,276.81971126225113,256.4138239842394,236.30271404350765,227.9819752778152,208.01659034871923,170.4495915738654,120.69748860314851,71.0442604293996,22.116235867388085,-27.321106915197007,-76.80403481144131]},
+'WF_____79___':{'X':[532802.6,532806.3521709149,532813.6930625272,532819.6755713193,532824.8878658586,532829.1741718173,532832.5106371781,532835.95809159,532839.169488382,532842.2960141219,532845.1883010458,532848.2060483699,532849.677504073],'Y':[6484958.84,6484949.553051096,6484934.190162788,6484921.30783875,6484907.506617167,6484895.6980352495,6484884.16125512,6484872.982903375,6484862.050382287,6484851.68175025,6484841.561824644,6484831.188187465,6484824.884920637],'Z':[427.94,390.55867052261306,329.9031433782375,277.8046278914816,222.74685579300467,173.3182712053911,123.7524492799434,74.11214800829518,24.401315050988067,-25.435581988051062,-75.33770400776744,-125.1802646638928,-154.47367084027434]},
+'WF_____80___':{'X':[533717.01,533720.0208905181,533729.0339302346,533737.036154757,533745.8875586324,533753.1227161937,533765.469028871,533770.7093111776,533775.3322194897,533779.250818104,533781.9477863192,533783.369721153],'Y':[6485290.83,6485283.377784462,6485266.832961552,6485251.175032508,6485232.364841788,6485215.780556355,6485182.296415531,6485165.746892308,6485149.144755457,6485132.784885783,6485116.188366436,6485099.183813298],'Z':[430.67,408.5872234115312,361.1948827860544,316.531769809647,263.4579591820935,215.7755308492152,120.22250433218552,72.26780985465416,24.267833076579254,-23.877771594614277,-72.02631163464628,-120.61718808209824]},
+'WF_____81___':{'X':[532829.0,532831.69956472,532831.4882701724],'Y':[6484885.0,6484878.318342852,6484877.549145753],'Z':[422.0,381.13047824999336,375.1837404520304]},
+'WF_____81A__':{'X':[532830.82,532834.1050124905,532835.7007171642,532837.1924663576,532838.1150330759,532838.6592642392,532838.7582061752,532838.0742110085,532836.7059189148,532834.8760251428,532832.6682798892],'Y':[6484886.77,6484878.639308771,6484869.919285192,6484861.127532085,6484852.2755946815,6484843.576835247,6484835.11609354,6484826.040435056,6484816.62662979,6484807.782634005,6484799.070498708],'Z':[429.5,379.7672084728835,329.54355950777114,279.3292212999645,229.1117733874195,178.8620430723075,128.56884213758008,78.38752515895007,28.28255487494908,-21.911421131482257,-72.11325933948788]},
+'WF_____82___':{'X':[532247.46,532250.0865215157,532257.9012116265,532264.8995073114,532270.6204040252,532277.0945033977,532280.318773621,532282.9182473805,532284.3423706206,532285.624968205,532285.2354760871],'Y':[6484867.89,6484861.389131126,6484845.803943256,6484830.275540808,6484814.625530793,6484793.1144536855,6484777.351171533,6484762.159588885,6484747.009273938,6484720.111175932,6484705.137200364],'Z':[429.79,410.5263012738889,362.5989339611716,314.5271899223425,266.3260641333626,201.08528241700972,152.6897969115798,104.07438214598952,55.39748998949328,-30.4794409471631,-79.23011634327452]},
+'WF_____83___':{'X':[531829.95,531832.996039341,531837.9104823087,531842.4472009343,531845.7391586916,531848.6337841486,531850.9329766346,531853.131510342,531855.3481526991,531856.9427996865,531858.6101165118,531859.6013318055,531860.0509759213],'Y':[6484774.99,6484767.450788072,6484754.793703844,6484739.309437125,6484726.017201973,6484713.597929729,6484701.824472815,6484689.581016129,6484677.347212702,6484665.23466629,6484652.87042174,6484640.303878489,6484627.680435954],'Z':[438.01,409.6527799698196,360.4933813856077,302.7036273777482,250.46877791112536,201.0887939055007,154.09571541306013,105.1517247919918,55.69042122670259,6.175339479947311,-43.27509541533879,-92.69269838192288,-142.10369431119872]},
+'WF_____84___':{'X':[531828.94,531831.7377025186,531835.7066750269,531839.7717219442,531843.6443757402,531846.557231074,531849.9602346979,531852.3584409093,531855.0300968522,531858.5602904677,531860.7539333387,531863.12036296],'Y':[6484776.74,6484769.815443276,6484759.171637358,6484748.862469049,6484738.302793865,6484727.72773927,6484715.5559550775,6484705.093228583,6484693.437514706,6484676.942542553,6484666.523949391,6484656.474082108],'Z':[434.31,401.9609138491302,352.242138192319,302.66556668583064,252.71623423201635,202.9097738667613,144.25598254935937,94.39838572335503,38.66682744141056,-40.557244826617975,-90.4335001741436,-140.37747056534434]}
 }

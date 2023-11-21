@@ -349,10 +349,12 @@ export function buildTrace3D(analysisLines, propertyName, surfaces) {
 	if ($("#dispTraces").is(":checked")) {
 
 		var wellraw = analysisLines.map(({A41})=>A41);
+		
 		var wellList = wellraw.filter((v, i, a) => a.indexOf(v) === i);
 
 		var wells = addWellTraces(wellList, minX, maxX, minY, maxY);
 		traces = traces.concat(wells);
+		console.log(wells);
 
 	}
 	return traces;	
